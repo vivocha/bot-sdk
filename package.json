@@ -60,7 +60,7 @@
   "dependencies": {
     "@types/debug": "0.0.30",
     "@types/express": "^4.0.39",
-    "@vivocha/public-entities": "^5.9.4",
-    "arrest": "^6.0.3"
+    "@vivocha/public-entities": "^5.9.5",
+    "arrest": "^7.0.0"
   }
 }
