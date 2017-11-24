@@ -50,8 +50,15 @@ export interface BotAgentRegistry {
 }
 
 export class BotAgentManager extends API {
-  constructor() {
-    super();
+  constructor(version: string = '1.0.0', title: string = 'BotAgentManager API') {
+    super({
+      swagger: '2.0',
+      info: {
+        title,
+        version: version
+      },
+      paths: {}
+    });
     delete this.parameters;
     if (this.responses) {
       delete this.responses.notFound;
