@@ -37,7 +37,7 @@ class SendMessage extends Operation {
     const agent = (this.api as BotAgentManager).agents[msg.engine.type];
 
     if (agent) {
-      agent(msg).then(response => res.json(response), err => next(API.newError(500, 'platform error', err, err)));
+      agent(msg).then(response => res.json(response), err => next(API.newError(500, 'platform error', err.message, err)));
     } else {
       API.fireError(400, 'unsupported bot type');
     }
