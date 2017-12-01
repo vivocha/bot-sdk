@@ -70,7 +70,7 @@ class FilterResponse extends Operation {
 }
 
 export class BotFilter extends API {
-  constructor(reqFilter: BotRequestFilter, resFilter: BotResponseFilter) {
+  constructor(reqFilter: BotRequestFilter = defaultRequestFilter, resFilter: BotResponseFilter = defaultResponseFilter) {
     super();
     delete this.parameters;
     if (this.responses) {
