@@ -6,9 +6,19 @@
 This SDK allows to write Vivocha Bot Agents integrating existing bots, built and trained using your preferred bot platform (E.g., Dialogflow, IBM Watson Conversation, etc...).
 Then, by creating a BotManager it is possible to register multi-platform bot implementations and let Vivocha communicate with them through a well-defined, clear and uniform message-based interface.
 
-## Overview / the big picture
+## Overview / The Big Picture
+
+The following picture shows an high-level overview of the Vivocha Bot SDk and its software components.
 
 ![Overview](https://cdn.rawgit.com/vivocha/bot-sdk/3f711793/docs/vivocha-bot-sdk.svg)
+
+### TL;DR (how to use it)
+
+1. Write a `BotAgent` for every Bot/NLP platform you need to support, handling / wrapping messages of type `BotRequest` and `BotResponse` ;
+2. create a `BotAgentManager` instance;
+3. register the `BotAgent`s defined at step 1) in the `BotAgentManager`, through the `registerAgent(key, botAgent)` method, where `key` is the choosen bot engine (e.g, `Dialogflow`, `Watson`, ...) and `agent` is a `BotAgent` instance;
+4. run the `BotAgentManager` service through its `listen()` method, it exposes a Web API;
+5. call the Web API endpoints to send messages to the bot agents in a uniform way. API is full described by its Swagger specification, available at `http://<BotAgentManager-Host>:<port>/swagger.json`.
 
 
 ## BotAgents
