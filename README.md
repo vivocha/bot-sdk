@@ -1,6 +1,5 @@
 # Vivocha Bot SDK
-*Javascript / Typescript SDK to create Bot Agents and Filters for the [Vivocha](https://www.vivocha.com) platform
-*
+*Javascript / Typescript SDK to create Bot Agents and Filters for the [Vivocha](https://www.vivocha.com) platform*
 
 ---
 
