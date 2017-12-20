@@ -1,5 +1,6 @@
 # Vivocha Bot SDK
-*Javascript / Typescript SDK to create Vivocha Bot Agents and Filters*
+*Javascript / Typescript SDK to create Bot Agents and Filters for the [Vivocha](https://www.vivocha.com) platform
+*
 
 ---
 
@@ -8,18 +9,37 @@ Then, by creating a BotManager it is possible to register multi-platform bot imp
 
 ## Overview / The Big Picture
 
-The following picture shows an high-level overview of the Vivocha Bot SDk and its software components.
+The following picture shows an high-level overview of the Vivocha Bot SDK and its software components.
 
 ![Overview](https://cdn.rawgit.com/vivocha/bot-sdk/3f711793/docs/vivocha-bot-sdk.svg)
 
-### TL;DR (how to use it)
+### BotAgents and Manager TL;DR (how to use it)
+A `BotAgent` represents and communicates with a particular Bot implementation platform.
+A `BotManager` exposes a Web API acting as a gateway to registered `BotAgent`s.
 
-1. Write a `BotAgent` for every Bot/NLP platform you need to support, handling / wrapping messages of type `BotRequest` and `BotResponse` ;
+Usually, the steps to use agents and managers are:
+
+1. Write a `BotAgent` for every Bot/NLP platform you need to support, handling / wrapping messages of type `BotRequest` and `BotResponse`;
 2. create a `BotAgentManager` instance;
-3. register the `BotAgent`s defined at step 1) in the `BotAgentManager`, through the `registerAgent(key, botAgent)` method, where `key` is the choosen bot engine (e.g, `Dialogflow`, `Watson`, ...) and `agent` is a `BotAgent` instance;
+3. register the `BotAgent`s defined at step 1) to the `BotAgentManager`, through the `registerAgent(key, botAgent)` method, where `key` is the choosen bot engine (e.g, `Dialogflow`, `Watson`, ...) and `agent` is a `BotAgent` instance;
 4. run the `BotAgentManager` service through its `listen()` method, it exposes a Web API;
-5. call the Web API endpoints to send messages to the bot agents in a uniform way. API is full described by its Swagger specification, available at `http://<BotAgentManager-Host>:<port>/swagger.json`.
+5. call the Web API endpoints to send messages to the bot agents in a uniform way. The manager forwards the message to the right registered `BotAgent` thanks to the `engine.type` message property, used as `key` in step 3). API is full described by its Swagger specification, available at `http://<BotAgentManager-Host>:<port>/swagger.json`.
 
+
+### BotFilters TL;DR (how to use it)
+
+A `BotFilter` is a Web service to filter/manipulate/enrich/transform `BotRequest`s and/or `BotResponse`s. 
+For example, a `BotFilter` can enrich a request calling an external API to get additional data before sending it to a BotAgent, or it can filter a response coming form a BotAgent to transform data it contains before forwarding it to a user.
+
+Basically, to write a filter you have to:
+
+1. Instantiate a `BotFilter` specifying a `BotRequestFilter` or a `BotResponseFilter`. These are the functions containing your logic to manipulate/filter/enrich requests to bots and responses from them. Inside themyou can call external web services, transform data and do whatever you need to do to achieve your application-specific goal.
+A `BotFilter` can provide a filter for only a request, only a response or both.
+2. run the `BotFilter` service through its `listen()` method, it exposes a Web API; API is full described by its Swagger specification, available at `http://<BotFilter-Host>:<port>/swagger.json`.
+
+
+
+---
 
 ## BotAgents
 
