@@ -11,7 +11,7 @@ Then, by creating a BotManager it is possible to register multi-platform bot imp
 
 The following picture shows an high-level overview of the Vivocha Bot SDK and its software components.
 
-![Overview](https://cdn.rawgit.com/vivocha/bot-sdk/3f711793/docs/vivocha-bot-sdk.svg)
+![Overview](https://cdn.rawgit.com/vivocha/bot-sdk/60ad7685/docs/vivocha-bot-sdk.svg)
 
 ### BotAgents and Manager TL;DR (how to use it)
 A `BotAgent` represents and communicates with a particular Bot implementation platform.
