@@ -4,3 +4,4 @@ export {
 } from '@vivocha/public-entities';
 export * from './agent';
 export * from './filter';
+export * from './witai';
