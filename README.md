@@ -3,7 +3,7 @@
 
 ---
 
-This SDK allows to write Vivocha Bot Agents integrating existing bots, built and trained using your preferred bot platform (E.g., Dialogflow, IBM Watson Conversation, etc...).
+This SDK allows to write Vivocha Bot Agents integrating existing bots, built and trained using your preferred bot / NLP platform (E.g., Dialogflow, IBM Watson Conversation, Wit.ai, etc...).
 Then, by creating a BotManager it is possible to register multi-platform bot implementations and let Vivocha communicate with them through a well-defined, clear and uniform message-based interface.
 
 ## Overview / The Big Picture
@@ -94,4 +94,8 @@ TBD
 ## Bot Filters
 TBD
 
+---
+
+# Writing Wit.ai Chat Bots
+TBD
 
