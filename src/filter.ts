@@ -1,8 +1,8 @@
 import { API, Resource, Operation, Swagger } from 'arrest';
 import { BotRequestFilter, BotResponseFilter, BotRequest, BotResponse } from '@vivocha/public-entities';
 
-const defaultRequestFilter: BotRequestFilter = async () => { API.fireError(400, 'request filtering not supported')};
-const defaultResponseFilter: BotResponseFilter = async () => { API.fireError(400, 'response filtering not supported')};
+const defaultRequestFilter: BotRequestFilter = async () => { API.fireError(400, 'request filtering not supported') };
+const defaultResponseFilter: BotResponseFilter = async () => { API.fireError(400, 'response filtering not supported') };
 
 class BotFilterResource extends Resource {
   constructor(reqFilter: BotRequestFilter, resFilter: BotResponseFilter) {
@@ -71,7 +71,14 @@ class FilterResponse extends Operation {
 
 export class BotFilter extends API {
   constructor(reqFilter: BotRequestFilter = defaultRequestFilter, resFilter: BotResponseFilter = defaultResponseFilter) {
-    super();
+    super({
+      swagger: '2.0',
+      info: {
+        title: 'BotFilter API',
+        version: '2.0.0'
+      },
+      paths: {}
+    });
     delete this.parameters;
     if (this.responses) {
       delete this.responses.notFound;
@@ -83,6 +90,9 @@ export class BotFilter extends API {
     this.registerSchema('bot_message', require('@vivocha/public-entities/schemas/bot_message.json') as Swagger.Schema);
     this.registerSchema('bot_request', require('@vivocha/public-entities/schemas/bot_request.json') as Swagger.Schema);
     this.registerSchema('bot_response', require('@vivocha/public-entities/schemas/bot_response.json') as Swagger.Schema);
+    this.registerSchema('text_message', require('@vivocha/public-entities/schemas/text_message.json') as Swagger.Schema);
+    this.registerSchema('template_message', require('@vivocha/public-entities/schemas/template_message.json') as Swagger.Schema);
+    this.registerSchema('postback_message', require('@vivocha/public-entities/schemas/postback_message.json') as Swagger.Schema);
     this.addResource(new BotFilterResource(reqFilter, resFilter));
   }
 }

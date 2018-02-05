@@ -34,8 +34,7 @@ class SendMessage extends Operation {
 
   handler(req, res, next) {
     const msg: BotRequest = req.body as BotRequest;
-    const agent = (this.api as BotAgentManager).agents[msg.engine.type];
-
+    const agent = (this.api as BotAgentManager).agents[msg.settings.engine.type];
     if (agent) {
       agent(msg).then(response => res.json(response), err => next(API.newError(500, 'platform error', err.message, err)));
     } else {
@@ -50,7 +49,7 @@ export interface BotAgentRegistry {
 }
 
 export class BotAgentManager extends API {
-  constructor(version: string = '1.0.0', title: string = 'BotAgentManager API') {
+  constructor(version: string = '2.0.0', title: string = 'BotAgentManager API') {
     super({
       swagger: '2.0',
       info: {
@@ -71,6 +70,9 @@ export class BotAgentManager extends API {
     this.registerSchema('bot_message', require('@vivocha/public-entities/schemas/bot_message.json') as Swagger.Schema);
     this.registerSchema('bot_request', require('@vivocha/public-entities/schemas/bot_request.json') as Swagger.Schema);
     this.registerSchema('bot_response', require('@vivocha/public-entities/schemas/bot_response.json') as Swagger.Schema);
+    this.registerSchema('text_message', require('@vivocha/public-entities/schemas/text_message.json') as Swagger.Schema);
+    this.registerSchema('template_message', require('@vivocha/public-entities/schemas/template_message.json') as Swagger.Schema);
+    this.registerSchema('postback_message', require('@vivocha/public-entities/schemas/postback_message.json') as Swagger.Schema);
     this.addResource(new BotAgentResource());
   }
   get agents(): BotAgentRegistry {
