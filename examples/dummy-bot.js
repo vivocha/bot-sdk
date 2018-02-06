@@ -24,10 +24,12 @@ manager.registerAgent('custom', async (msg) => {
         settings: {
             engine: msg.settings.engine
         },
+        messages: [],
         event: 'continue'
     };
     // handle the start event (e.g., replying with a welcome message)
     if (msg.event === 'start') {
+        console.log('Start event detected');
         response.messages = [{
                 code: 'message',
                 type: 'text',
@@ -98,9 +100,9 @@ manager.registerAgent('custom', async (msg) => {
                     }];
         }
         ;
-        console.log('Sending Response ', response);
-        return response;
     }
+    console.log('Sending Response ', response);
+    return response;
 });
 // Run the BotManager:
 const port = process.env.PORT || 8888;

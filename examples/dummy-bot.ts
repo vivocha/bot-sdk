@@ -27,11 +27,13 @@ manager.registerAgent('custom', async (msg: BotRequest): Promise<BotResponse> =>
         settings: {
             engine: msg.settings.engine
         },
+        messages: [],
         event: 'continue'
     };
 
     // handle the start event (e.g., replying with a welcome message)
     if (msg.event === 'start') {
+        console.log('Start event detected');
         response.messages = [{
             code: 'message',
             type: 'text',
@@ -99,10 +101,10 @@ manager.registerAgent('custom', async (msg: BotRequest): Promise<BotResponse> =>
                     type: 'text',
                     body: "Sorry, I didn't get that! Could you say that again, please?"
                 } as TextMessage];
-        };
-        console.log('Sending Response ', response);
-        return response;
+        };                
     }
+    console.log('Sending Response ', response);
+    return response;
 });
 
 // Run the BotManager:
