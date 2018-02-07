@@ -1,6 +1,6 @@
 {
   "name": "@vivocha/bot-sdk",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Typescript SDK to create Vivocha Bot Agents and Filters",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -40,8 +40,6 @@
     "@types/mocha": "^2.2.48",
     "@types/node": "^9.4.0",
     "@types/node-wit": "^4.2.2",
-    "@types/debug": "0.0.30",
-    "@types/express": "^4.11.1",
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
     "chai-spies": "^1.0.0",
@@ -62,6 +60,8 @@
     }
   },
   "dependencies": {
+    "@types/debug": "0.0.30",
+    "@types/express": "^4.11.1",
     "@vivocha/public-entities": "^5.9.44",
     "arrest": "^7.0.2",
     "node-wit": "^4.3.0"
