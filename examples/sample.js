@@ -29,4 +29,4 @@ const filter = new index_1.BotFilter(async (msg) => {
     return msg;
 }, undefined);
 filter.listen(8081);
-console.log('BotManager listening at port 8081');
+console.log('BotFilter listening at port 8081');

@@ -31,4 +31,4 @@ const filter = new BotFilter(async (msg: BotRequest): Promise<BotRequest> => {
 }, undefined);
 
 filter.listen(8081);
-console.log('BotManager listening at port 8081');
+console.log('BotFilter listening at port 8081');

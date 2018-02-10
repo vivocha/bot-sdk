@@ -1,6 +1,6 @@
 {
   "name": "@vivocha/bot-sdk",
-  "version": "2.1.4",
+  "version": "2.1.5",
   "description": "Typescript SDK to create Vivocha Bot Agents and Filters",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -62,7 +62,7 @@
   "dependencies": {
     "@types/debug": "0.0.30",
     "@types/express": "^4.11.1",
-    "@vivocha/public-entities": "^5.9.48",
+    "@vivocha/public-entities": "^5.9.49",
     "arrest": "^7.0.2",
     "node-wit": "^4.3.0"
   }
