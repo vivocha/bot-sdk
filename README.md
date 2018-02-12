@@ -64,7 +64,7 @@ In Typescript:
 ```
 
 
-In Javascript:
+In JavaScript:
 
 ```javascript
 let botAgent = async (request) => {
@@ -144,13 +144,22 @@ A Bot Manager is a registry microservice, which basically provides two main func
 TBD
 
 ### Web API
-TBD
+
+`/bot/message`
+
+
 
 
 ---
 
 ## Bot Filters
 TBD
+
+
+### Web API
+
+`/filter/request`
+`/filter/response`
 
 ---
 
