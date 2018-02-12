@@ -1,0 +1,127 @@
+// The following are HTTP request examples
+// to interact with the dummy-bot contained in the example folder.
+// In that folder:
+//      first, run the bot agent with: node dummy-bot.js
+//      using a HTTP / REST client make the calls in this file 
+//      (you can run them directly from here if you are using VS Code + REST Client plugin.
+
+
+// Send the start event, it should wake-up the dummy-bot 
+POST http://localhost:8888/bot/message
+Content-Type: application/json
+
+{
+  "language":"en",
+  "event": "start",
+  "settings": {
+    "engine": {
+      "type": "custom",
+      "settings": {
+          "myToken": "super_secret_token",
+          "anotherSetting": "123"
+      }
+    }
+  }
+}
+
+###
+// Send greetings to Bot
+// Sending the start event, it should wake-up the dummy-bot.
+// Please note the event set to 'continue' to tell the bot to continue the conversation
+POST http://localhost:8888/bot/message
+Content-Type: application/json
+
+{
+  "language":"en",
+  "event": "continue",
+  "message": {
+      "code": "message",
+      "type": "text",
+      "body": "hi"
+  },
+  "settings": {
+    "engine": {
+      "type": "custom",
+      "settings": {
+          "myToken": "super_secret_token",
+          "anotherSetting": "123"
+      }
+    }
+  }
+}
+
+###
+// Request a unique code to the Bot
+// Please note the event set to 'continue' to tell the bot to continue the conversation
+POST http://localhost:8888/bot/message
+Content-Type: application/json
+
+{
+  "language":"en",
+  "event": "continue",
+  "message": {
+      "code": "message",
+      "type": "text",
+      "body": "code"
+  },
+  "settings": {
+    "engine": {
+      "type": "custom",
+      "settings": {
+          "myToken": "super_secret_token",
+          "anotherSetting": "123"
+      }
+    }
+  }
+}
+
+###
+// Tell to the bot we need some quick replies in message
+// Please note the event set to 'continue' to tell the bot to continue the conversation
+POST http://localhost:8888/bot/message
+Content-Type: application/json
+
+{
+  "language":"en",
+  "event": "continue",
+  "message": {
+      "code": "message",
+      "type": "text",
+      "body": "quick"
+  },
+  "settings": {
+    "engine": {
+      "type": "custom",
+      "settings": {
+          "myToken": "super_secret_token",
+          "anotherSetting": "123"
+      }
+    }
+  }
+}
+
+###
+// Say bye bye to the Bot
+// It is expected that dummy-bot sends an end event
+// to tell that the conversation finished.
+POST http://localhost:8888/bot/message
+Content-Type: application/json
+
+{
+  "language":"en",
+  "event": "continue",
+  "message": {
+      "code": "message",
+      "type": "text",
+      "body": "bye"
+  },
+  "settings": {
+    "engine": {
+      "type": "custom",
+      "settings": {
+          "myToken": "super_secret_token",
+          "anotherSetting": "123"
+      }
+    }
+  }
+}

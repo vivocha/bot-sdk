@@ -1,7 +1,7 @@
 {
   "name": "@vivocha/bot-sdk",
   "version": "2.1.5",
-  "description": "Typescript SDK to create Vivocha Bot Agents and Filters",
+  "description": "Typescript / JavaScript SDK to create Vivocha Bot Agents and Filters",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "directories": {

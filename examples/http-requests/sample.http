@@ -1,0 +1,53 @@
+// The following are HTTP request examples
+// to interact with the sample Bot Agent and a Filter defined in sample.js/.ts files contained in the example folder.
+// In that folder:
+//      first, run the bot agent + filter with: node sample.js
+//      using a HTTP / REST client make the calls in this file 
+//      (you can run them directly from here if you are using VS Code + REST Client plugin.
+
+
+// Call the Bot Agent
+// Send the start event, it should wake-up the sample bot.
+// Sample bot isn't so clever, it always replies with the same message
+// ending the conversation.
+POST http://localhost:8080/bot/message
+Content-Type: application/json
+
+{
+  "language":"en",
+  "event": "start",
+  "settings": {
+    "engine": {
+      "type": "simple",
+      "settings": {
+          "myToken": "super_secret_token",
+          "anotherSetting": "123"
+      }
+    }
+  }
+}
+
+###
+// Call the Bot Filter
+// which augments the request with a number of availableAgents 
+// and sets if user is premium, then it returns the enriched request
+// (like in the domain of customer support services)
+POST http://localhost:8081/filter/request
+Content-Type: application/json
+
+{
+  "language":"en",
+  "event": "continue",
+  "settings": {
+    "engine": {
+      "type": "simple",
+      "settings": {
+          "myToken": "super_secret_token",
+          "anotherSetting": "123"
+      }
+    }
+  },
+  "tmpContext": {
+      "tempInfo": "testing"
+  }
+}

@@ -2,7 +2,7 @@ import { BotAgentManager, BotFilter, BotRequest, BotResponse } from "../dist/ind
 
 // A very simple BotManager and BotAgent implementation
 const manager = new BotAgentManager();
-manager.registerAgent('test', async (msg: BotRequest): Promise<BotResponse> => {
+manager.registerAgent('simple', async (msg: BotRequest): Promise<BotResponse> => {
   const response: BotResponse = {
     settings: {
       engine: msg.settings.engine
@@ -23,10 +23,14 @@ console.log('BotManager listening at port 8080');
 
 // A really simple BotFilter implementation
 // which augments the BotRequest in input with a number of availableAgents 
+// and sets if user is premium
 // (like in the domain of customer support services)
 const filter = new BotFilter(async (msg: BotRequest): Promise<BotRequest> => {
   msg.data = msg.data || {};
-  msg.data.availableAgents = true;
+  // maybe calling an API...
+  msg.data.availableAgents = 5;
+  // maybe calling an API or reading from a DB...
+  msg.data.isPremiumUser = true;
   return msg;
 }, undefined);
 
