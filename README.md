@@ -180,6 +180,7 @@ BotFilters are simple Web (micro)services to augment or adapt or transform BotRe
 Next picture shows an example of BotFilters chains:
 
 | ![BotFilters Chain](https://cdn.rawgit.com/vivocha/bot-sdk/dc4d07ff/docs/vivocha-BotFilters-Chain.svg) |
+|:---:|
 | FIG. 2  - An example of a BotFilter chain configured using Vivocha |
 
 The same BotFilter instance can act as a filter for requests, as a filter for responses or both. See `BotFilter` class constructor to configure it as you prefer.
