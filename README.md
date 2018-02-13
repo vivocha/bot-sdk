@@ -188,9 +188,10 @@ Next picture shows an example of BotFilters chains:
 The same BotFilter instance can act as a filter for requests, as a filter for responses or both. 
 See `BotFilter` class constructor to configure it as you prefer.
 
-Figure 2 shows an example of a BotFilter chain: BotFilters A, B and C are configured to act as request filters; in other words they receive a BotRequest and return the same BotRequest maybe augmented with more data or transformed as a particular application requires. For example, BotFilter A add data reading form a DB, BotFilter B may call an API to see if a given user as a premium account, and so on...
-When it's time to send a request to a BotAgent (through a Botmanager), the Vivocha platform will sequentially call all the filters in the request chain before forwarding the resulting request to the Bot.
-BotFilter D is a response filter and notice that BotFilter A is also configured to be a response filter; thus, when a response comes from the Bot, Vivocha sequentially calls all the response BotFilters before send back to a chat the resulting response. For example: a response BotFilter can hide or encrypt data coming from a Bot or convert currencies, or call external services and APIs to get additional data to send back to users.
+Figure 2 shows an example of a BotFilter chain: BotFilters A, B and C are configured to act as request filters; in other words they receive a BotRequest and return the same BotRequest maybe augmented with more data or transformed as a particular application requires. For example, BotFilter A may add data after reading from a DB, BotFilter B may call an API or external service to see if a given user has a premium account setting in the request a `isPremium` boolean property, and so on...
+When it's time to send a request to a BotAgent (through a Botmanager), the Vivocha platform will **sequentially call** all the filters in the request chain before forwarding the resulting request to the Bot.
+
+BotFilter D is a response filter and notice that BotFilter A is also configured to be a response filter; thus, when a response comes from the Bot, Vivocha **sequentially calls** all the response BotFilters in the response chain before sending back to a chat the resulting response. For example: a response BotFilter can hide or encrypt data coming from a Bot or on-the-fly convert currencies, or format dates or call external services and APIs to get useful additional data to send back to users.
 
 ### Web API
 TBD
