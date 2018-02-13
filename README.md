@@ -157,15 +157,15 @@ manager.registerAgent('custom', async (msg: BotRequest): Promise<BotResponse> =>
 ```
 
 The BotManager allows to register several BotAgents by specifying different `type` parameters (first param in `registerAgent()` method. E.g., `Watson`, `Dialogflow`, `WitAi`, `custom`,  ecc... ).
-In this way it is possible to have a multi-bot application instance, the BotManager will forward the requests to the correct registered bot matching the registered BotAgent `type` with the `settings.engine.type` property in BotRequests.
+In this way it is possible to have a multi-bot application instance, the BotManager will forward the requests to the correct registered bot, matching the registered BotAgent `type` with the `settings.engine.type` property in incoming BotRequests.
 
 ### Web API
 
-The BotManager `listen()` method launches a Web microservice exposing the following API endpoint:
+The BotManager `listen()` method launches a Web server microservice, exposing the following API endpoint:
 
 `POST /bot/message`
 
-Sends a `BotRequest` and reply with a `BotResponse`.
+Sends a `BotRequest` and replies with a `BotResponse`.
 
 Detailed info and Swagger based API description is always available at:
 
