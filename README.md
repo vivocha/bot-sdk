@@ -143,7 +143,7 @@ A Bot Manager is a bot registry microservice, which basically provides two main 
 ### Registering a Bot Agent
 
 In the code contained in the `examples` directory it is possible to read in detail how to create and register Bot Agents.
-Briefly, to register a BotAgent **Botmanager** use its `registerAgent()` method:
+Briefly, to register a BotAgent, **BotManager** provides a `registerAgent()` method:
 
 ```javascript
 const manager = new BotAgentManager();
@@ -156,7 +156,7 @@ manager.registerAgent('custom', async (msg: BotRequest): Promise<BotResponse> =>
 }
 ```
 
-The BotManager allows to register several BotAgents specifying different `type` parameters (e.g., `Watson`, `Dialogflow`, `WitAi`, `custom`,  ecc... ).
+The BotManager allows to register several BotAgents by specifying different `type` parameters (first param in `registerAgent()` method. E.g., `Watson`, `Dialogflow`, `WitAi`, `custom`,  ecc... ).
 In this way it is possible to have a multi-bot application instance, the BotManager will forward the requests to the correct registered bot matching the registered BotAgent `type` with the `settings.engine.type` property in BotRequests.
 
 ### Web API
