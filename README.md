@@ -134,10 +134,10 @@ property | value | description
 
 ## BotManager
 
-A Bot Manager is a registry microservice, which basically provides two main functionalities:
+A Bot Manager is a bot registry microservice, which basically provides two main functionalities:
 
-1. allows to register an undefined number of `BotAgent`s;
-2. exposes a Web API to send messages and receive responses to/from `BotAgent`s, acting as a gateway using a normalized interface.
+1. it allows to register an undefined number of `BotAgent`s;
+2. it exposes a Web API to send messages and receive responses to/from `BotAgent`s, acting as a gateway using a normalized interface.
 
 
 ### Registering a Bot Agent
