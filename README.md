@@ -176,9 +176,13 @@ Detailed info and a Swagger based API description is always available at:
 ## Bot Filters
 
 BotFilters are simple Web (micro)services to augment or adapt or transform BotRequests before reaching a Bot, and/or to augment or adapt or transform BotResponses coming from a Bot before returing back to the Vivocha platform. It is also possible to chain several BotFilters in order to have specialized filters related to the application domain.
+
 Next picture shows an example of BotFilters chains:
 
-![BotFilters Chain](https://cdn.rawgit.com/vivocha/bot-sdk/dc4d07ff/docs/vivocha-BotFilters-Chain.svg)
+| ![BotFilters Chain](https://cdn.rawgit.com/vivocha/bot-sdk/dc4d07ff/docs/vivocha-BotFilters-Chain.svg) |
+| FIG. 2  - An example of a BotFilter chain configured using Vivocha |
+
+The same BotFilter instance can act as a filter for requests, as a filter for responses or both. See `BotFilter` class constructor to configure it as you prefer.
 
 
 
