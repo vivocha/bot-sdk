@@ -10,7 +10,9 @@ By creating a BotManager it is possible to register multi-platform bot implement
 
 The following picture shows an high-level overview of the Vivocha Bot SDK and its software components.
 
-![Overview](https://cdn.rawgit.com/vivocha/bot-sdk/fd208ab2/docs/vivocha-bot-sdk.svg)
+| ![Overview](https://cdn.rawgit.com/vivocha/bot-sdk/fd208ab2/docs/vivocha-bot-sdk.svg) |
+|:---:|
+| **FIG. 1 - Overview of the main modules of the Bot SDK **|
 
 ## Quick Start by example
 
@@ -181,7 +183,7 @@ Next picture shows an example of BotFilters chains:
 
 | ![BotFilters Chain](https://cdn.rawgit.com/vivocha/bot-sdk/dc4d07ff/docs/vivocha-BotFilters-Chain.svg) |
 |:---:|
-| FIG. 2  - An example of a BotFilter chain configured using Vivocha |
+| **FIG. 2  - An example of a BotFilter chain configured using Vivocha** |
 
 The same BotFilter instance can act as a filter for requests, as a filter for responses or both. See `BotFilter` class constructor to configure it as you prefer.
 
