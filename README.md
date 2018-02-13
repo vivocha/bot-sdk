@@ -141,13 +141,35 @@ A Bot Manager is a registry microservice, which basically provides two main func
 
 
 ### Registering a Bot Agent
-TBD
+
+In the code contained in the `examples` directory it is possible to read in detail how to create and register Bot Agents.
+Briefly, to register a BotAgent **Botmanager** use its `registerAgent()` method:
+
+```javascript
+const manager = new BotAgentManager();
+manager.registerAgent('custom', async (msg: BotRequest): Promise<BotResponse> => {
+
+    // Bot Agent application logic goes here
+    // I.e., call the specific Bot implementation APIs (e.g., Watson, Dialogflow, etc...)
+    // adapting requests and responses.
+    ...
+}
+```
+
+The BotManager allows to register several BotAgents specifying different `type` parameters (e.g., `Watson`, `Dialogflow`, `WitAi`, `custom`,  ecc... ).
+In this way it is possible to have a multi-bot application instance, the BotManager will forward the requests to the correct registered bot matching the registered BotAgent `type` with the `settings.engine.type` property in BotRequests.
 
 ### Web API
 
-`/bot/message`
+The BotManager `listen()` method launches a Web microservice exposing the following API endpoint:
 
+`POST /bot/message`
 
+Sends a `BotRequest` and reply with a `BotResponse`.
+
+Detailed info and Swagger based API description is always available at:
+
+`http://<BotAgentManager-Host>:<port>/swagger.json`
 
 
 ---
