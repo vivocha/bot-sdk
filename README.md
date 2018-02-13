@@ -193,6 +193,8 @@ When it's time to send a request to a BotAgent (through a BotManager), the Vivoc
 
 **BotFilter D** is a response filter and notice that **BotFilter A** is also configured to be a response filter; thus, when a response comes from the Bot, Vivocha **sequentially calls** all the response BotFilters in the response chain before sending back to a chat the resulting response. For example: a response BotFilter can hide or encrypt data coming from a Bot or it can on-the-fly convert currencies, or format dates or call external services and APIs to get useful additional data to send back to users.
 
+As an example, refer to `examples/sample.ts(.js)` files where it is defined a runnable simple BotFilter.
+
 ### Web API
 TBD
 
