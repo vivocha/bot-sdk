@@ -196,11 +196,21 @@ When it's time to send a request to a BotAgent (through a BotManager), the Vivoc
 As an example, refer to `examples/sample.ts(.js)` files where it is defined a runnable simple BotFilter.
 
 ### Web API
-TBD
+The BotFilter `listen()` method launches a Web server microservice, exposing the following API endpoints:
 
 `POST /filter/request`
 
+Receives a `BotRequest` and returns a `BotRequest`.
+
 `POST /filter/response`
+
+Receives a `BotResponse` and returns a `BotResponse`.
+
+Detailed info and a Swagger based API description is always available at:
+
+`http(s)://<BotFilter-Host>:<port>/swagger.json`
+
+
 
 ---
 
