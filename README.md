@@ -198,13 +198,9 @@ As an example, refer to `examples/sample.ts(.js)` files where it is defined a ru
 ### Web API
 The BotFilter `listen()` method launches a Web server microservice, exposing the following API endpoints:
 
-`POST /filter/request`
+`POST /filter/request` - For a request BotFilter, it receives a `BotRequest` and returns a `BotRequest`.
 
-Receives a `BotRequest` and returns a `BotRequest`.
-
-`POST /filter/response`
-
-Receives a `BotResponse` and returns a `BotResponse`.
+`POST /filter/response` - For a response BotFilter, it receives a `BotResponse` and returns a `BotResponse`.
 
 Detailed info and a Swagger based API description is always available at:
 
