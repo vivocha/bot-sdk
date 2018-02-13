@@ -167,23 +167,25 @@ The BotManager `listen()` method launches a Web server microservice, exposing th
 
 Sends a `BotRequest` and replies with a `BotResponse`.
 
-Detailed info and Swagger based API description is always available at:
+Detailed info and a Swagger based API description is always available at:
 
-`http://<BotAgentManager-Host>:<port>/swagger.json`
-
+`http(s)://<BotAgentManager-Host>:<port>/swagger.json`
 
 ---
 
 ## Bot Filters
-TBD
+
+BotFilters are simple Web (micro)services to augment or adapt or transform BotRequests before reaching a Bot, and/or to augment or adapt or transform BotResponses coming from a Bot before returing back to the Vivocha platform. It is also possible to chain several BotFilters in order to have specialized filters related to the application domain. 
+
+
 
 
 ### Web API
 TBD
 
-`/filter/request`
+`POST /filter/request`
 
-`/filter/response`
+`POST /filter/response`
 
 ---
 
