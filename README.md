@@ -6,13 +6,12 @@
 This SDK allows to write Vivocha Bot Agents integrating existing bots, built and trained using your preferred bot / NLP platform (E.g., Dialogflow, IBM Watson Conversation, Wit.ai, etc...).
 By creating a BotManager it is possible to register multi-platform bot implementations and let Vivocha communicate with them through a well-defined, clear and uniform message-based interface.
 
-## Overview / The Big Picture
+## Overview
 
 The Vivocha platform provides out-of-the-box support for chat bots built using [IBM Watson Conversation](https://www.ibm.com/watson/services/conversation/dialogflow) and [Dialogflow](https://dialogflow.com/) platforms. This means that it is possible to integrate these particular bots implementation with Vivocha simply using the Vivocha configuration app and specificing few settings, like authentication tokens and following some, very simple, mandatory guidelines when building the bots, at design time.
 The first sections of this documentation focus on building custom Bot Agents using the Bot SDK, which allows to integrate them with the Vivocha system with ease and also provides a library to write bots using [Wit.ai](https://wit.ai) NLP platform.
 
-The last three sections of this guide are dedicated to 
-
+The last three sections of this guide are dedicated to the integration guidelines for bots built with the three supported platforms: IBM Watson Conversation, Dialogflow and Wit.ai.
 
 The following picture shows an high-level overview of the Vivocha Bot SDK and its software components.
 
@@ -212,6 +211,7 @@ Detailed info and a Swagger based API description is always available at:
 
 `http(s)://<Your-BotFilter-Host>:<port>/swagger.json`
 
+---
 ---
 
 # Writing Wit.ai Chat Bots
