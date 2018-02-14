@@ -51,11 +51,8 @@ For example, a `BotFilter` can enrich a request calling an external API to get a
 
 Basically, to write a filter you have to:
 
-1. Instantiate a `BotFilter` specifying a `BotRequestFilter` or a `BotResponseFilter`. These are the functions containing your logic to manipulate/filter/enrich requests to bots and responses from them. Inside themyou can call external web services, transform data and do whatever you need to do to achieve your application-specific goal.
-A `BotFilter` can provide a filter for only a request, only a response or both.
+1. Instantiate a `BotFilter` specifying a `BotRequestFilter` or a `BotResponseFilter`. These are the functions containing your logic to manipulate/filter/enrich requests to bots and responses from them. Inside themyou can call external web services, transform data and do whatever you need to do to achieve your application-specific goal. A `BotFilter` can provide a filter for only a request, only a response or both.
 2. run the `BotFilter` service through its `listen()` method, it exposes a Web API; API is full described by its Swagger specification, available at `http://<BotFilter-Host>:<port>/swagger.json`.
-
-
 
 ---
 
@@ -81,6 +78,7 @@ let botAgent = async (request) => {
     return response;
 }
 ```
+
 ### BotRequest
 
 Requests are sent to BotAgents, BotManagers and BotFilters.
@@ -166,7 +164,7 @@ manager.registerAgent('custom', async (msg: BotRequest): Promise<BotResponse> =>
 The BotManager allows to register several BotAgents by specifying different `type` parameters (first param in `registerAgent()` method. E.g., `Watson`, `Dialogflow`, `WitAi`, `custom`,  ecc... ).
 In this way it is possible to have a multi-bot application instance, the BotManager will forward the requests to the correct registered bot, matching the registered BotAgent `type` with the `settings.engine.type` property in incoming BotRequests.
 
-### Web API
+### BotManager Web API
 
 The BotManager `listen()` method launches a Web server microservice, exposing the following API endpoint:
 
@@ -200,7 +198,8 @@ When it's time to send a request to a BotAgent (through a BotManager), the Vivoc
 
 As an example, refer to `examples/sample.ts(.js)` files where it is defined a runnable simple BotFilter.
 
-### Web API
+### BotFilter Web API
+
 The BotFilter `listen()` method launches a Web server microservice, exposing the following API endpoints:
 
 `POST /filter/request` - For a request BotFilter, it receives a `BotRequest` and returns a `BotRequest`.
@@ -214,6 +213,24 @@ Detailed info and a Swagger based API description is always available at:
 ---
 ---
 
-# Writing Wit.ai Chat Bots
+## Dialogflow: integration guidelines
+
+Dialogflow Bot Platform allows the creation of conversation flows using its nice Intents feature.
+Feel free to build your conversation flow as you prefer, related to the specific Bot application domain, BUT, in order to properly work with Vivocha, taking advantage of the out-of-the-box support it provides, it is mandatory to follow the guidelines:
+
+1. The start event name configured in a Dialogflow intent must exactly match the start event configured in Vivocha; Default is always: `start`.
+
+2. At the end of each conversation branch designed in Dialogflow, the bot MUST set a special context named (exactly) `end`, to tell to Vivocha that Bot's task is finished and to terminate the chat conversation.
+
+3. Data passed to the Bot through Vivocha drivers are always contained inside a special context named SESSION_MESSAGE_DATA_PAYLOAD`. Thus, the Dialogflow bot can access to data "stored" in that particular context in each intent that needs to get information; i.e., to extract real-time data coming from BotFilters.
+
+---
+
+
+
+## IBM Watson Conversation: integration guidelines
+
+## Wit.ai,  writing chat bots
+
 TBD
 
