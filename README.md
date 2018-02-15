@@ -324,6 +324,9 @@ export class SimpleWitBot extends WitAiBot {
         unknown: (data, request) => this.unknown(data, request)
     };
     ...
+    
+    // write intent handlers here...
+}
 ```
 
 Note that the `unknown` mapping is needed to handle all the cases when Wit.ai wasn't able to extract an intent. For example, the associated handler function could reply with a message like the popular *"Sorry I didn’t get that!"* text ;) 
