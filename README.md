@@ -332,7 +332,7 @@ Note that the `unknown` mapping is needed to handle all the cases when Wit.ai wa
 
 More details can be found in the dedicated `examples/sample-wit.ts(.js)` sample files.
 
-#### Wit.ai Hint & Tips
+#### Wit.ai & Vivocha Hint & Tips
 
 - use BotRequest/BotResponse `context.contexts` array property to set contexts, in order to drive your bot in taking decisions about which conversation flow branch follow and about what reply to the user. To check contexts, the `WitAiBot`class provides the `inContext()` method. See the example to discover more;
 
