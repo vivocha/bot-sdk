@@ -305,6 +305,6 @@ The next picture shows how this integration works:
 
 | ![Wit.ai bots integration](https://cdn.rawgit.com/vivocha/bot-sdk/9d8cb4a0/docs/Wit.ai-Vivocha.png) |
 |:---:|
-| **FIGURE 3  - The Vivocha - Wit.ai integration model: thanks to provided WitAiBot class** |
+| **FIGURE 3  - The Vivocha - Wit.ai integration model: subclassing to provided WitAiBot class it is possible to quickly code bots using Wit.ai NLP tool without writing specific API calls.** |
 
 TBC
