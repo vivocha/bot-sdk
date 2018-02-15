@@ -291,7 +291,7 @@ configure the particular slot through *Edit Slot > ... > Open JSON Editor* as:
 
 ### Wit.ai, writing chat bots
 
-[Wit.ai](https://wit.ai) is a pure Natural Language Processing (NLP) platform. Using the Web console it is not possible to design Bot dialog flows or conversations, anymore. Therefore, all the bot application logic, conversation flows, contexts and so on... (in other words: the Bot itself) must be coded outside, calling Wit.ai APIs (mainly) to process natural language messages coming from users. Creating an App in Wit.ai and training the system for the specific application domain, it is possible to let it process messages and to extract information from them like (but not only): user intents end entities, along with their confidence value.
+[Wit.ai](https://wit.ai) is a pure Natural Language Processing (NLP) platform. Using the Web console it is not possible to design Bot's dialog flows or conversations, anymore. Therefore, all the bot application logic, conversation flows, contexts and so on... (in other words: the Bot itself) must be coded outside, calling Wit.ai APIs (mainly) to process natural language messages coming from users. Creating an App in Wit.ai and training the system for the specific application domain, it is possible to let it process messages and to extract information from them like (but not only): user intents end entities, along with their confidence value.
 
 Skipping the details: 
 
