@@ -307,4 +307,29 @@ The next picture shows how this integration works:
 |:---:|
 | **FIGURE 3  - The Vivocha - Wit.ai integration model: subclassing to provided WitAiBot class it is possible to quickly code bots using Wit.ai NLP tool without writing specific API calls.** |
 
-TBC
+Subclassing the `WitAiBot` allows writing Bots using Wit.ai NLP.
+Subclassing that class implies:
+
+1. defining a `IntentsMap`: it maps intents names as coming from Wit.ai to custom intent handler functions. E.g, in the following (TypeScript) snippet are defined the required intents mapping to handle a simple customer info collection;
+
+```javascript
+export class SimpleWitBot extends WitAiBot {
+
+    protected intents: IntentsMap = {
+        provide_name: (data, request) => this.askEmailorPhone(data.entities, request),
+        by_email: (data, request) => this.contactMeByEmail(data, request),
+        by_phone: (data, request) => this.contactMeByPhone(data, request),
+        provide_phone: (data, request) => this.providePhoneNumber(data.entities, request),
+        provide_email: (data, request) => this.provideEmailAddress(data.entities, request),
+        unknown: (data, request) => this.unknown(data, request)
+    };
+    ...
+```
+
+Note that the `unknown` mapping is needed to handle all the cases when Wit.ai wasn't able to extract an intent. For example, the associated handler function could reply with a message like the popular *"Sorry I didn’t get that!"* text ;) 
+
+2. implementing the `getStartMessage(request: BotRequest)` which is called by Vivocha to start a bot instance only at the very beggining of a conversation with a user;
+
+More details can be found in the `examples/sample-wit.ts(.js)` sample files.
+
+---
