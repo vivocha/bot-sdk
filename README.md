@@ -211,26 +211,86 @@ Detailed info and a Swagger based API description is always available at:
 `http(s)://<Your-BotFilter-Host>:<port>/swagger.json`
 
 ---
----
 
-## Dialogflow: integration guidelines
+## Supported Bot / NLP Platforms
+
+Next sections briefly provide some guidelines to integrate Bots built with the three supported platforms and using the default drivers / settings.
+
+**N.B.**: Vivocha can be integrated with any Bot Platform, if you're using a platform different than the supported you need to write a driver and a BotManager to use BotRequest / BotResponse messages and communicate with the particular chosen Bot Platform. 
+
+### Dialogflow: integration guidelines
 
 Dialogflow Bot Platform allows the creation of conversation flows using its nice Intents feature.
 Feel free to build your conversation flow as you prefer, related to the specific Bot application domain, BUT, in order to properly work with Vivocha, taking advantage of the out-of-the-box support it provides, it is mandatory to follow the guidelines:
 
-1. The start event name configured in a Dialogflow intent must exactly match the start event configured in Vivocha; Default is always: `start`.
+1. Must exists in Dialogflow an intent configured to be triggered by a start event. The start event name configured in a Dialogflow intent must exactly match the start event configured in Vivocha; Default is always: `start`.
 
 2. At the end of each conversation branch designed in Dialogflow, the bot MUST set a special context named (exactly) `end`, to tell to Vivocha that Bot's task is finished and to terminate the chat conversation.
 
-3. Data passed to the Bot through Vivocha drivers are always contained inside a special context named SESSION_MESSAGE_DATA_PAYLOAD`. Thus, the Dialogflow bot can access to data "stored" in that particular context in each intent that needs to get information; i.e., to extract real-time data coming from BotFilters.
+3. Data passed to the Bot through Vivocha drivers are always contained inside a special context named `SESSION_MESSAGE_DATA_PAYLOAD`. Thus, the Dialogflow bot can access to data "stored" in that particular context in each intent that needs to get information; i.e., to extract real-time data coming from BotFilters. If the bot implementation needs to extract passed data/parameters, it can access to that context through (for example) the expression: `#SESSION_MESSAGE_DATA_PAYLOAD.my_parameter_name` - see Dialogflow documentation).
+
+#### Hints & Tips
+
+In the Dialogflow console:
+
+- Use the embedded Firebase Cloud Functions editor to write complex and effective fulfillments (like calling external APIs from the bot, transforming data and so on...); return `followUp` events to jump to a particular intent node in your bot;
+- be careful using contexts, they are the only powerful and exclusive way to correlate intents and follow-up intents in a conversation;
+- use slot-filling / parameters to collect data from the user.
 
 ---
 
+### IBM Watson Conversation: integration guidelines
+
+Watson Conversation provides a tool to create conversation flows: Dialogs.
+
+1. Watson Conversation doesn't handle events, only messages, thus you must create an intent trained to understand the word "start“ (simulating an event, in this case).
+
+2. To communicate that a conversation flow/branch is complete, in each leaf node of the Dialog node, set a context parameter to `true` named as specified by `endEventKey` property in the module constructor; **Important**: in order to use the default Vivocha driver, just set the `dataCollectionComplete` context parameter to `true` in each Watson Conversation Dialog leaf node; it can be set using the Conversation *JSON Editor* in a particular dialog node; like in:
+
+```javascript
+...
+"context": {
+    "dataCollectionComplete": true
+}
+...
+```
+
+3. If you need to perfom data collection tasks, remember that you have to configure the bot *slot-filling* feature in the nodes of the Dialog section.
+
+#### Hints & Tips
+
+Using the IBM Watson Conversation workspace:
+
+- Slot-filling and parameters can be defined for every node in the Dialog tab;
+
+- a slot-filling can be specified for every Dialog node and the JSON output can be configured using the related JSON Editor;
+
+- An Entity can be of type `pattern`: this allows to define regex-based entities. To save in the context the entered value for a pattern entity it should be used the following syntax: `@NAME_OF_THE_ENTITY.literal`.
+
+E.g., for slot filling containing a pattern entity like:
+
+**Check for**: `@ContactInfo` - **Save it as**: `$email`
+
+configure the particular slot through *Edit Slot > ... > Open JSON Editor* as:
+
+```javascript
+...
+"context": {
+    "email": "@ContactInfo.literal"
+}
+...
+```
+
+- In a Dialog node, if you need to quickly check if an entered input is included within a predefined list of values, you can use the following condition expression:
+
+```javascript
+"milan,cagliari,london,rome,berlin".split(",").contains(input.text.toLowerCase())
+```
 
 
-## IBM Watson Conversation: integration guidelines
+---
 
-## Wit.ai,  writing chat bots
+### Wit.ai, writing chat bots
 
 TBD
 
