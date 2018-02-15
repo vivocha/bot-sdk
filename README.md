@@ -8,7 +8,7 @@ By creating a BotManager it is possible to register multi-platform bot implement
 
 ## Overview
 
-The Vivocha platform provides out-of-the-box support for chat bots built using [IBM Watson Conversation](https://www.ibm.com/watson/services/conversation/dialogflow) and [Dialogflow](https://dialogflow.com/) platforms. This means that it is possible to integrate these particular bots implementation with Vivocha simply using the Vivocha configuration app and specificing few settings, like authentication tokens and following some, very simple, mandatory guidelines when building the bots, at design time.
+The Vivocha platform provides out-of-the-box support for chat bots built using [IBM Watson Conversation](https://www.ibm.com/watson/services/conversation) and [Dialogflow](https://dialogflow.com/) platforms. This means that it is possible to integrate these particular bots implementation with Vivocha simply using the Vivocha configuration app and specificing few settings, like authentication tokens and following some, very simple, mandatory guidelines when building the bots, at design time.
 The first sections of this documentation focus on building custom Bot Agents using the Bot SDK, which allows to integrate them with the Vivocha system with ease and also provides a library to write bots using [Wit.ai](https://wit.ai) NLP platform.
 
 The last three sections of this guide are dedicated to the integration guidelines for bots built with the three supported platforms: IBM Watson Conversation, Dialogflow and Wit.ai.
@@ -216,11 +216,11 @@ Detailed info and a Swagger based API description is always available at:
 
 Next sections briefly provide some guidelines to integrate Bots built with the three supported platforms and using the default drivers / settings.
 
-**N.B.**: Vivocha can be integrated with any Bot Platform, if you're using a platform different than the supported you need to write a driver and a BotManager to use BotRequest / BotResponse messages and communicate with the particular chosen Bot Platform. 
+**N.B.: Vivocha can be integrated with any Bot Platform**, if you're using a platform different than the supported you need to write a driver and a BotManager to use BotRequest / BotResponse messages and communicate with the particular chosen Bot Platform. 
 
 ### Dialogflow: integration guidelines
 
-Dialogflow Bot Platform allows the creation of conversation flows using its nice Intents feature.
+[Dialogflow Bot Platform](https://dialogflow.com/) allows the creation of conversation flows using its nice Intents feature.
 Feel free to build your conversation flow as you prefer, related to the specific Bot application domain, BUT, in order to properly work with Vivocha, taking advantage of the out-of-the-box support it provides, it is mandatory to follow the guidelines:
 
 1. Must exists in Dialogflow an intent configured to be triggered by a start event. The start event name configured in a Dialogflow intent must exactly match the start event configured in Vivocha; Default is always: `start`.
@@ -229,7 +229,7 @@ Feel free to build your conversation flow as you prefer, related to the specific
 
 3. Data passed to the Bot through Vivocha drivers are always contained inside a special context named `SESSION_MESSAGE_DATA_PAYLOAD`. Thus, the Dialogflow bot can access to data "stored" in that particular context in each intent that needs to get information; i.e., to extract real-time data coming from BotFilters. If the bot implementation needs to extract passed data/parameters, it can access to that context through (for example) the expression: `#SESSION_MESSAGE_DATA_PAYLOAD.my_parameter_name` - see Dialogflow documentation).
 
-#### Hints & Tips
+#### Dialogflow Hints & Tips
 
 In the Dialogflow console:
 
@@ -241,7 +241,7 @@ In the Dialogflow console:
 
 ### IBM Watson Conversation: integration guidelines
 
-Watson Conversation provides a tool to create conversation flows: Dialogs.
+[Watson Conversation](https://www.ibm.com/watson/services/conversation) provides a tool to create conversation flows: Dialogs.
 
 1. Watson Conversation doesn't handle events, only messages, thus you must create an intent trained to understand the word "start“ (simulating an event, in this case).
 
@@ -257,7 +257,7 @@ Watson Conversation provides a tool to create conversation flows: Dialogs.
 
 3. If you need to perfom data collection tasks, remember that you have to configure the bot *slot-filling* feature in the nodes of the Dialog section.
 
-#### Hints & Tips
+#### Watson Conversation Hints & Tips
 
 Using the IBM Watson Conversation workspace:
 
@@ -287,10 +287,11 @@ configure the particular slot through *Edit Slot > ... > Open JSON Editor* as:
 "milan,cagliari,london,rome,berlin".split(",").contains(input.text.toLowerCase())
 ```
 
-
 ---
 
 ### Wit.ai, writing chat bots
 
-TBD
+[Wit.ai](https://wit.ai) is a pure Natural Language Processing (NLP) platform. Using the Web console it is not possible to design Bot dialog flows or conversations, anymore. Therefore, all the bot application logic, conversation flows, contexts and so on... (in other words: the Bot itself) must be coded outside, calling Wit.ai APIs (mainly) to process natural language messages coming from users. Creating an App in Wit.ai and training the system for the specific application domain, it is possible to let it process messages and to extract information from them like (but not only): user intents end entities, along with their confidence value.
+
+Skipping the details: 
 
