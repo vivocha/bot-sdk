@@ -301,5 +301,10 @@ Skipping platform-specific details, in order to create Wit.ai Chat Bots and inte
 
 3. Run the coded Bot (Agent) using a BotManager and configure it using the Vivocha web console.
 
+The next picture shows how this integration works:
 
+| ![Wit.ai bots integration](https://cdn.rawgit.com/vivocha/bot-sdk/9d8cb4a0/docs/Wit.ai-Vivocha.png) |
+|:---:|
+| **FIGURE 3  - The Vivocha - Wit.ai integration model: thanks to provided WitAiBot class** |
 
+TBC
