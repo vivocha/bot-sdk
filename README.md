@@ -330,6 +330,12 @@ Note that the `unknown` mapping is needed to handle all the cases when Wit.ai wa
 
 2. implementing the `getStartMessage(request: BotRequest)` which is called by Vivocha to start a bot instance only at the very beggining of a conversation with a user;
 
-More details can be found in the `examples/sample-wit.ts(.js)` sample files.
+More details can be found in the dedicated `examples/sample-wit.ts(.js)` sample files.
+
+#### Wit.ai Hint & Tips
+
+- use BotRequest/BotResponse `context.contexts` array property to set contexts, in order to drive your bot in taking decisions about which conversation flow branch follow and about what reply to the user. To check contexts, the `WitAiBot`class provides the `inContext()` method. See the example to discover more;
+
+- in each intent mapping handler which decides to terminate the conversation, remember to send back a response with the `event` property set to `end`.
 
 ---
