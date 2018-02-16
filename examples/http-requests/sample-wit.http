@@ -1,0 +1,117 @@
+// Examples of HTTP calls to Vivocha Bot API
+// related to the Simple Wit.ai Bot 
+// implemented in file: examples/sample-wit
+
+// N.B. Replace the token property in the following 
+// requests body with the real token of your Wit.ai App.
+
+
+// Send start event
+POST http://localhost:8888/bot/message
+Content-Type: application/json
+
+{
+    "language": "en",
+    "event": "start",
+    "settings": {
+       "engine": {
+          "type": "WitAi",
+          "settings": {
+            "token": "<YOUR_WIT_APP_YOKEN>"
+          }
+        }
+    },
+    "context": {
+    }   
+}
+
+###
+// Send name
+POST http://localhost:8888/bot/message
+Content-Type: application/json
+
+{
+    "language": "en",
+    "event": "continue",
+    "message": {
+        "code": "message",
+        "type": "text",
+        "body": "Antonio Watson"
+    },
+    "settings": {
+       "engine": {
+          "type": "WitAi",
+          "settings": {
+            "token": "<YOUR_WIT_APP_YOKEN>"
+          }
+        }
+    },
+    "context": {
+    "contexts": [
+      "ask_for_name"
+    ]
+  }  
+}
+
+###
+// Send "I prefer by phone"
+POST http://localhost:8888/bot/message
+Content-Type: application/json
+
+{
+    "language": "en",
+    "event": "continue",
+    "message": {
+        "code": "message",
+        "type": "text",
+        "body": "meglio per telefono, grazie"
+    },
+    "settings": {
+       "engine": {
+          "type": "WitAi",
+          "settings": {
+            "token": "<YOUR_WIT_APP_YOKEN>"
+          }
+        }
+    },
+    "data": {
+        "name": "Antonio Watson"
+    },
+    "context": {
+        "contexts": [
+        "recontact_by_email_or_phone"
+        ]
+    }
+}
+
+###
+// Send phone number
+POST http://localhost:8888/bot/message
+Content-Type: application/json
+
+{
+    "language": "en",
+    "event": "continue",
+    "message": {
+        "code": "message",
+        "type": "text",
+        "body": "3391111111"
+    },
+    "settings": {
+       "engine": {
+          "type": "WitAi",
+          "settings": {
+            "token": "<YOUR_WIT_APP_YOKEN>"
+          }
+        }
+    },
+    "data": {
+        "name": "Antonio Watson"
+    },
+    "context": {
+        "contexts": [
+            "recontact_by_email_or_phone",
+            "ask_for_phone"
+        ]
+    }
+}
