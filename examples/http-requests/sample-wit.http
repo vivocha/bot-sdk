@@ -17,7 +17,7 @@ Content-Type: application/json
        "engine": {
           "type": "WitAi",
           "settings": {
-            "token": "<YOUR_WIT_APP_YOKEN>"
+            "token": "<YOUR_WIT_APP_TOKEN>"
           }
         }
     },
@@ -42,7 +42,7 @@ Content-Type: application/json
        "engine": {
           "type": "WitAi",
           "settings": {
-            "token": "<YOUR_WIT_APP_YOKEN>"
+            "token": "<YOUR_WIT_APP_TOKEN>"
           }
         }
     },
@@ -70,7 +70,7 @@ Content-Type: application/json
        "engine": {
           "type": "WitAi",
           "settings": {
-            "token": "<YOUR_WIT_APP_YOKEN>"
+            "token": "<YOUR_WIT_APP_TOKEN>"
           }
         }
     },
@@ -101,7 +101,7 @@ Content-Type: application/json
        "engine": {
           "type": "WitAi",
           "settings": {
-            "token": "<YOUR_WIT_APP_YOKEN>"
+            "token": "<YOUR_WIT_APP_TOKEN>"
           }
         }
     },
