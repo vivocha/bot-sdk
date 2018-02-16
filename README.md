@@ -1,4 +1,5 @@
 # Vivocha Bot SDK
+
 *JavaScript / TypeScript SDK to create Bot Agents and Filters for the [Vivocha](https://www.vivocha.com) platform*
 
 ---
@@ -21,7 +22,7 @@ The following picture shows an high-level overview of the Vivocha Bot SDK and it
 
 ## [Quick Start, by Example](#quick-start)
 
-The `example` folder contains two executable Bot Managers and a Filter along with some related HTTP requests to show how to call their APIs.
+The `examples` folder some samples of Bot Managers, a Wit.ai Bot implementation and a Filter, along with some related HTTP requests to show how to call their APIs.
 
 See:
 
@@ -31,6 +32,7 @@ See:
 ---
 
 ### [BotAgents and Manager TL;DR (how to use it)](#bot-agents-managers-tldr)
+
 A `BotAgent` represents and communicates with a particular Bot implementation platform.
 A `BotManager` exposes a Web API acting as a gateway to registered `BotAgent`s.
 
