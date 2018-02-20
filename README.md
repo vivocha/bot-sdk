@@ -104,7 +104,7 @@ property | value | description
 | **`code`** | string, value is always `message` | Vivocha code type for Bot messages.
 | **`type`** | string: `text` or `postback` | Vivocha Bot message type.
 | **`body`** | string | the message text body.
-| `quick_replies` | (optional) only in case of `type` == `text` messages, an array of **[MessageQuickReply](https://github.com/vivocha/bot-sdk#quickreply)** objects (see below) | an array of quick replies
+| `quick_replies` | (optional) only in case of `type` == `text` messages, an array of **[MessageQuickReply](https://github.com/vivocha/bot-sdk#messagequickreply)** objects (see below) | an array of quick replies
 | `template` | (optional) only in case of `type` == `text` messages, an object with a required `type` string property and an optional `elements` object array property| a template object
 
 #### [BotSettings](#botsettings)
@@ -120,7 +120,7 @@ property | value | description
 | **`type`** | string | Unique bot engine identifier, i.e., the platform name, like: `Watson`, `Dialogflow`, ...
 | `settings` | (optional) object | Specific settings to send to the BOT/NLP platform. E.g. for Watson Conversation is an object like `{"workspaceId": "<id>" "username": "<usrname>", "password": "<passwd>"}`; for a Dialogflow bot is something like: `{"token": "<token>", "startEvent": "MyCustomStartEvent"}`.
 
-#### [MessageQuickReply](#quickreply)
+#### [MessageQuickReply](#messagequickreply)
 
 property | value | description
 | ------ | ------ | ----------- |
