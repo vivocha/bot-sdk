@@ -142,7 +142,7 @@ Example of a request sent to provide the name in a conversation with a Wit.ai ba
     "message": {
         "code": "message",
         "type": "text",
-        "body": "I'm Antonio Watson"
+        "body": "my name is Antonio Watson"
     },
     "settings": {
        "engine": {
@@ -180,30 +180,57 @@ property | value | description
 
 #### BotResponse Example
 
+An example of response sent back by a Wit.ai based Bot and related to the request in the BotRequest sample above in this document.
+
 ```javascript
 {
-    "language": "en",
-    "event": "continue",
-    "message": {
-        "code": "message",
-        "type": "text",
-        "body": "I'm Antonio Watson"
-    },
-    "settings": {
-       "engine": {
-          "type": "WitAi",
-          "settings": {
-            "token": "abcd-123"
-          }
-        }
-    },
-    "context": {
-        "contexts": [
-            "ask_for_name"
-        ]
+  "event": "continue",
+  "messages": [
+    {
+      "code": "message",
+      "type": "text",
+      "body": "Thank you Antonio Watson, do you prefer to be contacted by email or by phone?"
     }
+  ],
+  "data": {
+    "name": "Antonio Watson"
+  },
+  "settings": {
+    "engine": {
+      "type": "WitAi",
+      "settings": {
+        "token": "abcd-123"
+      }
+    }
+  },
+  "context": {
+    "contexts": [
+      "recontact_by_email_or_phone"
+    ]
+  },
+  "raw": {
+    "_text": "my name is Antonio Watson",
+    "entities": {
+      "contact": [
+        {
+          "suggested": true,
+          "confidence": 0.9381,
+          "value": "Antonio Watson",
+          "type": "value"
+        }
+      ],
+      "intent": [
+        {
+          "confidence": 0.9950627479,
+          "value": "provide_name"
+        }
+      ]
+    },
+    "msg_id": "0ZUymTwNbUPLh6xp6"
+  }
 }
 ```
+
 ---
 
 ## [BotManager](#botmanager)
