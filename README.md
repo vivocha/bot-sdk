@@ -180,7 +180,8 @@ property | value | description
 
 #### BotResponse Example
 
-An example of response sent back by a Wit.ai based Bot and related to the request in the BotRequest sample above in this document.
+An example of response sent back by a Wit.ai based Bot.
+It is related to the request in the BotRequest sample above in this document.
 
 ```javascript
 {
