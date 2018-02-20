@@ -109,7 +109,7 @@ property | value | description
 
 #### [BotSettings](#botsettings)
 
-Bot platform settings object. Along with the `engine` property (see the table below), it is possible to set an arbitrarily number of properties. In case, it is responsability of the specific Bot platform to handle them.
+Bot platform settings object. Along with the `engine` property (see the table below), it is possible to set an arbitrarily number of properties. In case, it is responsability of the specific Bot implementation / platform to handle them.
 
 property | value | description
 | ------ | ------ | -----------
