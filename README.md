@@ -327,7 +327,7 @@ Next sections briefly provide some guidelines to integrate Bots built with the t
 [Dialogflow Bot Platform](https://dialogflow.com/) allows the creation of conversation flows using its nice Intents feature.
 Feel free to build your conversation flow as you prefer, related to the specific Bot application domain, BUT, in order to properly work with Vivocha, taking advantage of the out-of-the-box support it provides, it is mandatory to follow the guidelines:
 
-1. Must exists in Dialogflow an intent configured to be triggered by a start event. The start event name configured in a Dialogflow intent must exactly match the start event configured in Vivocha; Default is always: `start`.
+1. Must exists in Dialogflow an intent configured to be triggered by a start event. The start event name configured in a Dialogflow intent must exactly match the start event configured in Vivocha; Default is: `start`.
 
 2. At the end of each conversation branch designed in Dialogflow, the bot MUST set a special context named (exactly) `end`, to tell to Vivocha that Bot's task is finished and to terminate the chat conversation.
 
