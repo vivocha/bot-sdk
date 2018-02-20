@@ -127,7 +127,7 @@ property | value | description
 
 property | value | description
 | ------ | ------ | ----------- |
-| **`content_type`** | string, admited values: `text` or `location` | Type of the content of the Quick Reply
+| **`content_type`** | string, accepted values: `text` or `location` | Type of the content of the Quick Reply
 | `title`| (optional) string | title of the message
 | `payload` | (optional) a string or a number | string or number related to the `content-type` property value
 | `image_url` | (optional) string | a URL of an image
@@ -136,7 +136,7 @@ property | value | description
 
 property | value | description
 | ------ | ------ | ----------- |
-| **`type`** | string, admited values: `basic` or `bearer` | authentication scheme
+| **`type`** | string, accepted values: `basic` or `bearer` | authentication scheme
 | `user`| (optional) string | username in case of `basic`authentication scheme type
 | **`secret`** | string | a password in case of `basic` authentication scheme or a token in case of `bearer` authentication.
 
