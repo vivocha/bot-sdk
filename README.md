@@ -131,6 +131,33 @@ property | value | description
 | `payload` | (optional) a string or a number | string or number related to the `content-type` property value
 | `image_url` | (optional) string | a URL of an image
 
+#### [BotRequest Example]
+
+```javascript
+{
+    "language": "en",
+    "event": "continue",
+    "message": {
+        "code": "message",
+        "type": "text",
+        "body": "I'm Antonio Watson"
+    },
+    "settings": {
+       "engine": {
+          "type": "WitAi",
+          "settings": {
+            "token": "abcd-123"
+          }
+        }
+    },
+    "context": {
+        "contexts": [
+            "ask_for_name"
+        ]
+    }
+}
+```
+
 ---
 
 ### [BotResponse](#botresponse)
