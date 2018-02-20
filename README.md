@@ -87,23 +87,23 @@ Requests are sent to BotAgents, BotManagers and BotFilters.
 A BotRequest is a JSON with the following properties (in **bold** the required properties):
 
 property | value | description
-| ------ | ------ | -----------
+| ------ | ------ | ----------- |
 | **`event`** | string: `start` or `continue` or `end` or a custom string | `start` event is sent to wake-up the Bot; `continue` tells the Bot to continue the conversation; `end` to set the conversation as finished; a custom string can be set for specific custom internal Bot functionalities.
-`message` | (optional) object, see **BotMessage** below | the message to send to the BotAgent
+`message` | (optional) object, see **[BotMessage](https://github.com/vivocha/bot-sdk#botmessage)** below | the message to send to the BotAgent
 `language` | (optional) string. E.g., `en`, `it`, ... | language string, mandatory for some Bot platforms.
 `data` | (optional) object | an object containing data to send to the Bot. Its properties must be of simple type. E.g., `{"firstname":"Antonio", "lastname": "Smith", "code": 12345}`
 `context` | (optional) object | Opaque, Bot specific context data
 `tempContext` | (optional) object | Temporary context, useful to store volatile data, i.e., in bot filters chains.
-`settings` | (optional) **BotSettings** object (see below)| Bot platform settings.
+`settings` | (optional) **[BotSettings](https://github.com/vivocha/bot-sdk#botsettings)** object (see below)| Bot platform settings.
 
 #### [BotMessage](#botmessage)
 
 property | value | description
-| ------ | ------ | -----------
+| ------ | ------ | ----------- |
 | **`code`** | string, value is always `message` | Vivocha code type for Bot messages.
 | **`type`** | string: `text` or `postback` | Vivocha Bot message type.
 | **`body`** | string | the message text body.
-| `quick_replies` | only in case of `type` == `text` messages, an array of **MessageQuickReply** objects (see below) | an array of quick replies
+| `quick_replies` | only in case of `type` == `text` messages, an array of **[MessageQuickReply](https://github.com/vivocha/bot-sdk#quickreply)** objects (see below) | an array of quick replies
 | `template` | only in case of `type` == `text` messages, an object with a required `type` string property and an optional `elements` object array property| a template object
 
 #### [BotSettings](#botsettings)
@@ -115,9 +115,18 @@ property | value | description
 #### [BotEngineSettings](#botsettings)
 
 property | value | description
-| ------ | ------ | -----------
+| ------ | ------ | ----------- |
 | **`type`** | string | Unique bot engine identifier, i.e., the platform name, like: `Watson`, `Dialogflow`, ...
 | `settings` | (optional) object | Specific settings to send to the BOT/NLP platform. E.g. for Watson Conversation is an object like `{"workspaceId": "<id>" "username": "<usrname>", "password": "<passwd>"}`; for a Dialogflow bot is something like: `{"token": "<token>", "startEvent": "MyCustomStartEvent"}`.
+
+#### [MessageQuickReply](#quickreply)
+
+property | value | description
+| ------ | ------ | ----------- |
+| **`content_type`** | (required) string, admited values: `text` or `location` | Type of the content of the Quick Reply
+| `title`| string | title of the message
+| `payload` | a string or a number | string or number related to the `content-type` property value
+| `image_url` | string | a URL of an image
 
 ---
 
@@ -127,7 +136,7 @@ Responses are sent back by BotAgents, BotManagers and BotFilters to convay a Bot
 A BotResponse is a JSON with the following properties and it is similar to a `BotRequest`, except for some fields (in **bold** the required properties):
 
 property | value | description
-| ------ | ------ | -----------
+| ------ | ------ | ----------- |
 | **`event`** | string: `continue` or `end` | `continue` event is sent back to Vivocha to continue the conversation, in other words it means that the bot is awaiting for the next user message; `end` is sent back with the meaning that Bot finished is task.
 `messages` | (optional) an array of **BotMessage** objects, see **BotMessage**, above | the messages sent back by the BotAgent
 `language` | (optional) string. E.g., `en`, `it`, ... | language string
