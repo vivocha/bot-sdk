@@ -119,8 +119,9 @@ property | value | description
 
 property | value | description
 | ------ | ------ | ----------- |
-| **`type`** | string | Unique bot engine identifier, i.e., the platform name, like: `Watson`, `Dialogflow`, ...
-| `settings` | (optional) object | Specific settings to send to the BOT/NLP platform. E.g. for Watson Conversation is an object like `{"workspaceId": "<id>" "username": "<usrname>", "password": "<passwd>"}`; for a Dialogflow bot is something like: `{"token": "<token>", "startEvent": "MyCustomStartEvent"}`.
+| **`type`** | string | Unique bot engine identifier, i.e., the platform name, like: `Watson`, `Dialogflow`, `WitAi`, ...
+| `auth` | (optional) object, see **[AuthSettings](https://github.com/vivocha/bot-sdk#authsettings)** | Additional authentication data, if required by specific Bot platform endpoints
+| `settings` | (optional) object | Specific settings to send to the BOT/NLP platform. E.g. for Watson Conversation is an object like `{"workspaceId": "<id>" "username": "<usrname>", "password": "<passwd>"}`; for a Dialogflow bot is something like: `{"token": "<token>", "startEvent": "MyCustomStartEvent"}`, and so on... You need to refer to the documentation of the specific Bot Platform used.
 
 #### [MessageQuickReply](#messagequickreply)
 
@@ -130,6 +131,14 @@ property | value | description
 | `title`| (optional) string | title of the message
 | `payload` | (optional) a string or a number | string or number related to the `content-type` property value
 | `image_url` | (optional) string | a URL of an image
+
+#### [AuthSettings](#authsettings)
+
+property | value | description
+| ------ | ------ | ----------- |
+| **`type`** | string, admited values: `basic` or `bearer` | authentication scheme
+| `user`| (optional) string | username in case of `basic`authentication scheme type
+| **`secret`** | string | a password in case of `basic` authentication scheme or a token in case of `bearer` authentication.
 
 #### BotRequest Example
 
