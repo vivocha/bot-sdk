@@ -70,7 +70,6 @@ In Typescript:
 (request: BotRequest): Promise<BotResponse>
 ```
 
-
 In JavaScript:
 
 ```javascript
@@ -87,7 +86,7 @@ let botAgent = async (request) => {
 Requests are sent to BotAgents, BotManagers and BotFilters.
 A BotRequest is a JSON with the following properties (in **bold** the required properties):
 
-property | value | description
+PROPERTY | VALUE | DESCRIPTION
 | ------ | ------ | ----------- |
 | **`event`** | string: `start` or `continue` or `end` or a custom string | `start` event is sent to wake-up the Bot; `continue` tells the Bot to continue the conversation; `end` to set the conversation as finished; a custom string can be set for specific custom internal Bot functionalities.
 `message` | (optional) object, see **[BotMessage](https://github.com/vivocha/bot-sdk#botmessage)** below | the message to send to the BotAgent
@@ -99,7 +98,7 @@ property | value | description
 
 #### [BotMessage](#botmessage)
 
-property | value | description
+PROPERTY | VALUE | DESCRIPTION
 | ------ | ------ | ----------- |
 | **`code`** | string, value is always `message` | Vivocha code type for Bot messages.
 | **`type`** | string: `text` or `postback` | Vivocha Bot message type.
@@ -111,34 +110,25 @@ property | value | description
 
 Bot platform settings object. Along with the `engine` property (see the table below), it is possible to set an arbitrarily number of properties. In case, it is responsability of the specific Bot implementation / platform to handle them.
 
-property | value | description
+PROPERTY | VALUE | DESCRIPTION
 | ------ | ------ | -----------
 | `engine` | (optional) **[BotEngineSettings](https://github.com/vivocha/bot-sdk#botenginesettings)** object (see below)| Specific Bot/NLP Platform settings.
 
 #### [BotEngineSettings](#botenginesettings)
 
-property | value | description
+PROPERTY | VALUE | DESCRIPTION
 | ------ | ------ | ----------- |
 | **`type`** | string | Unique bot engine identifier, i.e., the platform name, like: `Watson`, `Dialogflow`, `WitAi`, ...
-| `auth` | (optional) object, see **[AuthSettings](https://github.com/vivocha/bot-sdk#authsettings)** | Additional authentication data, if required by specific Bot platform endpoints
 | `settings` | (optional) object | Specific settings to send to the BOT/NLP platform. E.g. for Watson Conversation is an object like `{"workspaceId": "<id>" "username": "<usrname>", "password": "<passwd>"}`; for a Dialogflow bot is something like: `{"token": "<token>", "startEvent": "MyCustomStartEvent"}`, and so on... You need to refer to the documentation of the specific Bot Platform used.
 
 #### [MessageQuickReply](#messagequickreply)
 
-property | value | description
+PROPERTY | VALUE | DESCRIPTION
 | ------ | ------ | ----------- |
 | **`content_type`** | string, accepted values: `text` or `location` | Type of the content of the Quick Reply
 | `title`| (optional) string | title of the message
 | `payload` | (optional) a string or a number | string or number related to the `content-type` property value
 | `image_url` | (optional) string | a URL of an image
-
-#### [AuthSettings](#authsettings)
-
-property | value | description
-| ------ | ------ | ----------- |
-| **`type`** | string, accepted values: `basic` or `bearer` | authentication scheme
-| `user`| (optional) string | username in case of `basic`authentication scheme type
-| **`secret`** | string | a password in case of `basic` authentication scheme or a token in case of `bearer` authentication.
 
 #### BotRequest Example
 
@@ -176,7 +166,7 @@ Example of a request sent to provide the name in a conversation with a Wit.ai ba
 Responses are sent back by BotAgents, BotManagers and BotFilters to convay a Bot platform reply back to the Vivocha platform.
 A BotResponse is a JSON with the following properties and it is similar to a `BotRequest`, except for some fields (in **bold** the required properties):
 
-property | value | description
+PROPERTY | VALUE | DESCRIPTION
 | ------ | ------ | ----------- |
 | **`event`** | string: `continue` or `end` | `continue` event is sent back to Vivocha to continue the conversation, in other words it means that the bot is awaiting for the next user message; `end` is sent back with the meaning that Bot finished is task.
 `messages` | (optional) an array of **[BotMessage](https://github.com/vivocha/bot-sdk#botmessage)** objects (same as BotRequest) | the messages sent back by the BotAgent
