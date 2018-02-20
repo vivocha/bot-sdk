@@ -133,6 +133,8 @@ property | value | description
 
 #### BotRequest Example
 
+Example of a request sent to provide the name in a conversation with a Wit.ai based Bot.
+
 ```javascript
 {
     "language": "en",
