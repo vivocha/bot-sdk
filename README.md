@@ -139,12 +139,12 @@ A BotResponse is a JSON with the following properties and it is similar to a `Bo
 property | value | description
 | ------ | ------ | ----------- |
 | **`event`** | string: `continue` or `end` | `continue` event is sent back to Vivocha to continue the conversation, in other words it means that the bot is awaiting for the next user message; `end` is sent back with the meaning that Bot finished is task.
-`messages` | (optional) an array of **BotMessage** objects, see **BotMessage**, above | the messages sent back by the BotAgent
+`messages` | (optional) an array of **[BotMessage](https://github.com/vivocha/bot-sdk#botmessage)** objects (same as BotRequest) | the messages sent back by the BotAgent
 `language` | (optional) string. E.g., `en`, `it`, ... | language string
 `data` | (optional) object | an object containing data collected or computed by the Bot. Its properties must be of simple type. E.g., `{"firstname":"Antonio", "lastname": "Smith", "code": 12345}`
 `context` | (optional) object | Opaque, Bot specific context data. The Vivocha platform will send it immutated to the Bot in the next iteration.
 `tempContext` | (optional) object | Temporary context, useful to store volatile data, i.e., in bot filters chains.
-`settings` | (optional) **BotSettings** object (see above)| Bot platform settings.
+`settings` | (optional) **[BotSettings](https://github.com/vivocha/bot-sdk#botsettings)** object | Bot platform settings.
 `raw` | (optional) object | raw, platform specific, unparsed bot response.
 
 ---
@@ -160,7 +160,7 @@ A Bot Manager is a bot registry microservice, which basically provides two main 
 ### [Registering a Bot Agent](#register-botagent)
 
 In the code contained in the `examples` directory it is possible to read in detail how to create and register Bot Agents.
-Briefly, to register a BotAgent, **BotManager** provides a `registerAgent()` method:
+Briefly, to register a BotAgent, **[BotManager](https://github.com/vivocha/bot-sdk#botmanager)** provides a `registerAgent()` method:
 
 ```javascript
 const manager = new BotAgentManager();
