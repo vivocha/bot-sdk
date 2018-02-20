@@ -104,8 +104,8 @@ property | value | description
 | **`code`** | string, value is always `message` | Vivocha code type for Bot messages.
 | **`type`** | string: `text` or `postback` | Vivocha Bot message type.
 | **`body`** | string | the message text body.
-| `quick_replies` | only in case of `type` == `text` messages, an array of **[MessageQuickReply](https://github.com/vivocha/bot-sdk#quickreply)** objects (see below) | an array of quick replies
-| `template` | only in case of `type` == `text` messages, an object with a required `type` string property and an optional `elements` object array property| a template object
+| `quick_replies` | (optional) only in case of `type` == `text` messages, an array of **[MessageQuickReply](https://github.com/vivocha/bot-sdk#quickreply)** objects (see below) | an array of quick replies
+| `template` | (optional) only in case of `type` == `text` messages, an object with a required `type` string property and an optional `elements` object array property| a template object
 
 #### [BotSettings](#botsettings)
 
