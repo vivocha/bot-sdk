@@ -109,6 +109,8 @@ property | value | description
 
 #### [BotSettings](#botsettings)
 
+Bot platform settings object. Along with the `engine` property (see the table below), it is possible to set an arbitrarily number of properties. In case, it is responsability of the specific Bot platform to handle them.
+
 property | value | description
 | ------ | ------ | -----------
 | `engine` | (optional) **[BotEngineSettings](https://github.com/vivocha/bot-sdk#botenginesettings)** object (see below)| Specific Bot/NLP Platform settings.
@@ -140,11 +142,11 @@ property | value | description
 | ------ | ------ | ----------- |
 | **`event`** | string: `continue` or `end` | `continue` event is sent back to Vivocha to continue the conversation, in other words it means that the bot is awaiting for the next user message; `end` is sent back with the meaning that Bot finished is task.
 `messages` | (optional) an array of **[BotMessage](https://github.com/vivocha/bot-sdk#botmessage)** objects (same as BotRequest) | the messages sent back by the BotAgent
-`language` | (optional) string. E.g., `en`, `it`, ... | language string
-`data` | (optional) object | an object containing data collected or computed by the Bot. Its properties must be of simple type. E.g., `{"firstname":"Antonio", "lastname": "Smith", "code": 12345}`
+`language` | (optional) string. E.g., `en`, `it`, ... | language string code
+`data` | (optional) object | an object containing data collected or computed by the Bot. Its properties must be of simple type. E.g., `{"firstname":"Antonio", "lastname": "Smith", "code": 12345, "availableAgents": 5}`
 `context` | (optional) object | Opaque, Bot specific context data. The Vivocha platform will send it immutated to the Bot in the next iteration.
-`tempContext` | (optional) object | Temporary context, useful to store volatile data, i.e., in bot filters chains.
-`settings` | (optional) **[BotSettings](https://github.com/vivocha/bot-sdk#botsettings)** object | Bot platform settings.
+`tempContext` | (optional) object | Temporary context, useful to store volatile data, i.e., in bot filters chains
+`settings` | (optional) **[BotSettings](https://github.com/vivocha/bot-sdk#botsettings)** object | Bot platform settings
 `raw` | (optional) object | raw, platform specific, unparsed bot response.
 
 ---
