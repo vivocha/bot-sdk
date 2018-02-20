@@ -110,9 +110,9 @@ property | value | description
 
 property | value | description
 | ------ | ------ | -----------
-| `engine` | (optional) **BotEngineSettings** object (see below)| Specific Bot/NLP Platform settings.
+| `engine` | (optional) **[BotEngineSettings](https://github.com/vivocha/bot-sdk#botenginesettings)** object (see below)| Specific Bot/NLP Platform settings.
 
-#### [BotEngineSettings](#botsettings)
+#### [BotEngineSettings](#botenginesettings)
 
 property | value | description
 | ------ | ------ | ----------- |
@@ -123,10 +123,10 @@ property | value | description
 
 property | value | description
 | ------ | ------ | ----------- |
-| **`content_type`** | (required) string, admited values: `text` or `location` | Type of the content of the Quick Reply
-| `title`| string | title of the message
-| `payload` | a string or a number | string or number related to the `content-type` property value
-| `image_url` | string | a URL of an image
+| **`content_type`** | string, admited values: `text` or `location` | Type of the content of the Quick Reply
+| `title`| (optional) string | title of the message
+| `payload` | (optional) a string or a number | string or number related to the `content-type` property value
+| `image_url` | (optional) string | a URL of an image
 
 ---
 
