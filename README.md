@@ -28,6 +28,7 @@ See:
 
 - `sample`: dead simple bot Agent and Manager plus a Bot Filter, read and use the `examples/http-requests/sample.http` file to learn more and to run them;
 - `dummy-bot`: a simple bot (Agent and Manager) able to understand some simple "commands". Read and use the `examples/http-requests/dummy-bot.http` file to learn more and to run and interact with them.
+- `sample-wit`: a simple bot using Wit.ai platform.
 
 ---
 
