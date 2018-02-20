@@ -180,11 +180,9 @@ In this way it is possible to have a multi-bot application instance, the BotMana
 
 The BotManager `listen()` method launches a Web server microservice, exposing the following API endpoint:
 
-`POST /bot/message`
+**`POST /bot/message`** - Sends a `BotRequest` and replies with a `BotResponse`.
 
-Sends a `BotRequest` and replies with a `BotResponse`.
-
-Detailed info and a Swagger based API description is always available at:
+After launching a BotManager service, the detailed info, and a Swagger based API description, are always available at URL:
 
 `http(s)://<Your-BotAgentManager-Host>:<port>/swagger.json`
 
@@ -214,11 +212,11 @@ As an example, refer to `examples/sample.ts(.js)` files where it is defined a ru
 
 The BotFilter `listen()` method launches a Web server microservice, exposing the following API endpoints:
 
-`POST /filter/request` - For a request BotFilter, it receives a `BotRequest` and returns a `BotRequest`.
+**`POST /filter/request`** - For a request BotFilter, it receives a `BotRequest` and returns a `BotRequest`.
 
-`POST /filter/response` - For a response BotFilter, it receives a `BotResponse` and returns a `BotResponse`.
+**`POST /filter/response`** - For a response BotFilter, it receives a `BotResponse` and returns a `BotResponse`.
 
-Detailed info and a Swagger based API description is always available at:
+After launching a BotFilter service, the detailed info, and a Swagger based API description, are always available at URL:
 
 `http(s)://<Your-BotFilter-Host>:<port>/swagger.json`
 
