@@ -95,13 +95,50 @@ manager.registerAgent('custom', async (msg: BotRequest): Promise<BotResponse> =>
                 }];
                 response.event = 'continue';
                 break;
+            case 'template':
+                response.messages = [{
+                    code: 'message',
+                    type: 'text',
+                    body: 'Just an example of generic template:',
+                    template: {
+                        type: 'generic',
+                        elements: [
+                            [{
+                                 title: "Meow!",
+                                 image_url: "https://commons.wikimedia.org/wiki/Felis_silvestris_catus#/media/File:Tabby_Pfaffengrund.JPG",
+                                 subtitle: "We have the right cat for everyone.",
+                                 default_action: {
+                                   type: "web_url",
+                                   url: "https://en.wikipedia.org/wiki/Cat",
+                                   messenger_extensions: false,
+                                   webview_height_ratio: 'tall',
+                                   fallback_url: "https://www.vivocha.com"
+                                 },
+                                 buttons:[
+                                   {
+                                     type: "web_url",
+                                     url: "https://en.wikipedia.org/wiki/Cat",
+                                     title: "View Website"
+                                   },{
+                                     type: "postback",
+                                     title: "ok",
+                                     payload: "DEVELOPER_DEFINED_PAYLOAD"
+                                   }
+                                 ]
+                               }
+                             ]
+                        ]
+                    }
+                }];
+                response.event = 'continue';
+                break;
             default:
                 response.messages = [{
                     code: 'message',
                     type: 'text',
                     body: "Sorry, I didn't get that! Could you say that again, please?"
                 } as TextMessage];
-        };                
+        };
     }
     console.log('Sending Response ', response);
     return response;
