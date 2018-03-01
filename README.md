@@ -333,7 +333,7 @@ In the Dialogflow console:
 
 ---
 
-### [IBM Watson Conversation: integration guidelines](#watson-guidelines)
+### [IBM Watson Conversation: integration guidelines](#watsonguidelines)
 
 [Watson Conversation](https://www.ibm.com/watson/services/conversation) provides a tool to create conversation flows: Dialogs.
 
