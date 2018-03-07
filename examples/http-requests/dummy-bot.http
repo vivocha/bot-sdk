@@ -25,6 +25,30 @@ Content-Type: application/json
 }
 
 ###
+// Send the help request 
+POST http://localhost:8888/bot/message
+Content-Type: application/json
+
+{
+  "language":"en",
+  "event": "continue",
+  "message": {
+      "code": "message",
+      "type": "text",
+      "body": "help"
+  },
+  "settings": {
+    "engine": {
+      "type": "custom",
+      "settings": {
+          "myToken": "super_secret_token",
+          "anotherSetting": "123"
+      }
+    }
+  }
+}
+
+###
 // Send greetings to Bot
 // Sending the start event, it should wake-up the dummy-bot.
 // Please note the event set to 'continue' to tell the bot to continue the conversation
@@ -98,6 +122,83 @@ Content-Type: application/json
       }
     }
   }
+}
+
+###
+// get a "cats" template from bot
+###
+POST http://localhost:8888/bot/message
+Content-Type: application/json
+
+{
+    "language": "en",
+    "event": "continue",
+    "message": {
+      "code": "message",
+      "type": "text",
+      "body": "cats"
+    },
+    "settings": {
+       "engine": {
+          "type": "custom"
+        }
+    },
+    "context": {
+    }   
+}
+
+###
+// just to send a data collection with a property cntaining a stringifyied JSON
+// data properties can be obly of simple types in Vivocha (strings, numbers)
+// thus we have to stringify the JSON in order to send to bot nore complex data.
+POST http://localhost:8888/bot/message
+Content-Type: application/json
+
+{
+    "language": "en",
+    "event": "continue",
+    "message": {
+      "code": "message",
+      "type": "text",
+      "body": "stringify"
+    },
+    "settings": {
+       "engine": {
+          "type": "custom"
+        }
+    },
+    "context": {
+    },
+    "data": {
+    	"json":"{\"a\":\"ok\",\"b\":\"bye\"}"
+    }
+}
+
+###
+// Send a message with a data collection
+POST http://localhost:8888/bot/message
+Content-Type: application/json
+
+{
+    "language": "en",
+    "event": "continue",
+    "message": {
+      "code": "message",
+      "type": "text",
+      "body": "datacoll"
+    },
+    "settings": {
+       "engine": {
+          "type": "custom"
+        }
+    },
+    "context": {
+    },
+    "data": {
+    	"a":"Andrea",
+        "b":"Federico",
+        "c":"Antonio"
+    }
 }
 
 ###

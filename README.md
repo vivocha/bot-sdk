@@ -27,8 +27,10 @@ The `examples` folder contains some samples of Bot Managers, a Wit.ai Bot implem
 See:
 
 - `sample`: dead simple bot Agent and Manager plus a Bot Filter, read and use the `examples/http-requests/sample.http` file to learn more and to run them;
-- `dummy-bot`: a simple bot (Agent and Manager) able to understand some simple "commands". Read and use the `examples/http-requests/dummy-bot.http` file to learn more and to run and interact with them.
+- `dummy-bot`: a simple bot (Agent and Manager) able to understand some simple "commands" to return several types of messages, including quick replies and templates. Read and use the `examples/http-requests/dummy-bot.http` file to learn more and to run and interact with them.
 - `sample-wit`: a simple bot using Wit.ai platform.
+
+**TIP:** For a quick start learning about formats of requests, responses and messages bodies, including quick replies and templates, just see the [Dummy Bot](https://github.com/vivocha/bot-sdk/blob/master/examples/dummy-bot.ts) code.
 
 ---
 
@@ -76,7 +78,7 @@ In JavaScript:
 let botAgent = async (request) => {
     // the logic to interact with the particular bot implementation
     // goes here, then produce a BotResponse message...
-    ...    
+    ...
     return response;
 }
 ```
