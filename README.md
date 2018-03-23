@@ -4,15 +4,15 @@
 
 ---
 
-This SDK allows to write Vivocha Bot Agents integrating existing bots, built and trained using your preferred bot / NLP platform (E.g., Dialogflow, IBM Watson Conversation, Wit.ai, etc...).
-By creating a BotManager it is possible to register multi-platform bot implementations and let Vivocha communicate with them through a well-defined, clear and uniform message-based interface.
+This SDK allows to write Vivocha Bot Agents integrating existing bots, built and trained using your preferred bot / NLP platform. E.g., Dialogflow, IBM Watson Assistant (formerly Conversation), Wit.ai, etc...
+By creating a BotManager it is possible to register multi-platform bot implementations and let Vivocha communicate with them through a well-defined and uniform message-based API.
 
 ## [Overview](#overview)
 
-The Vivocha platform provides out-of-the-box support for chat bots built using [IBM Watson Conversation](https://www.ibm.com/watson/services/conversation) and [Dialogflow](https://dialogflow.com/) platforms. This means that it is possible to integrate these particular bots implementation with Vivocha simply using the Vivocha configuration app and specificing few settings, like authentication tokens and following some, very simple, mandatory guidelines when building the bots, at design time.
-The first sections of this documentation focus on building custom Bot Agents using the Bot SDK, which allows to integrate them with the Vivocha system with ease and also provides a library to write bots using [Wit.ai](https://wit.ai) NLP platform.
+The Vivocha platform provides out-of-the-box support for chat bots built using [IBM Watson Assistant (formerly Conversation)](https://www.ibm.com/watson/services/conversation) and [Dialogflow](https://dialogflow.com/) platforms. This means that it is possible to integrate these particular bot implementations with Vivocha simply using the Vivocha configuration app and specificing few settings, like authentication tokens, and following some, very simple, mandatory guidelines when building the bot, at design time.
+The first sections of this documentation focus on building custom Bot Agents using the Bot SDK, which allows to integrate them with the Vivocha system with ease and also provides a library to write bots using the [Wit.ai](https://wit.ai) NLP platform.
 
-The last three sections of this guide are dedicated to the integration guidelines for bots built with the three supported platforms: IBM Watson Conversation, Dialogflow and Wit.ai.
+The last three sections of this guide are dedicated to the integration guidelines for bots built with the three supported platforms: IBM Watson Assistant (formerly Conversation), Dialogflow and Wit.ai.
 
 The following picture shows an high-level overview of the Vivocha Bot SDK and its software components.
 
@@ -28,9 +28,9 @@ See:
 
 - `sample`: dead simple bot Agent and Manager plus a Bot Filter, read and use the `examples/http-requests/sample.http` file to learn more and to run them;
 - `dummy-bot`: a simple bot (Agent and Manager) able to understand some simple "commands" to return several types of messages, including quick replies and templates. Read and use the `examples/http-requests/dummy-bot.http` file to learn more and to run and interact with them.
-- `sample-wit`: a simple bot using Wit.ai platform.
+- `sample-wit`: a simple bot using the Wit.ai platform.
 
-**TIP:** For a quick start learning about formats of requests, responses and messages bodies, including quick replies and templates, just see the [Dummy Bot](https://github.com/vivocha/bot-sdk/blob/master/examples/dummy-bot.ts) code.
+**TIP:** For a quick start learning about the format of requests, responses and messages body, including quick replies and templates, just read the [Dummy Bot](https://github.com/vivocha/bot-sdk/blob/master/examples/dummy-bot.ts) code.
 
 ---
 
@@ -41,29 +41,29 @@ A `BotManager` exposes a Web API acting as a gateway to registered `BotAgent`s.
 
 Usually, the steps to use agents and managers are:
 
-1. Write a `BotAgent` for every Bot/NLP platform you need to support, handling / wrapping messages of type `BotRequest` and `BotResponse`;
+1. Write a `BotAgent` for every Bot/NLP platform you need to support, handling / wrapping / transforming messages of type `BotRequest` and `BotResponse`;
 2. create a `BotAgentManager` instance;
-3. register the `BotAgent`s defined at step 1) to the `BotAgentManager`, through the `registerAgent(key, botAgent)` method, where `key` (string) is the choosen bot engine (e.g, `Dialogflow`, `Watson`, ...) and `agent` is a `BotAgent` instance;
+3. register the `BotAgent`s defined in step 1) to the `BotAgentManager`, through the `registerAgent(key, botAgent)` method, where `key` (string) is the choosen bot engine (e.g, `Dialogflow`, `Watson`, ...) and `agent` is a `BotAgent` instance;
 4. run the `BotAgentManager` service through its `listen()` method, it exposes a Web API;
-5. call the Web API endpoints to send messages to the bot agents in a uniform way. The manager forwards the message to the right registered `BotAgent` thanks to the `engine.type` message property, used as `key` in step 3). API is full described by its Swagger specification, available at `http://<BotAgentManager-Host>:<port>/swagger.json`.
+5. call the Web API endpoints to send messages to the bot agents in a uniform way. The manager forwards the message to the right registered `BotAgent` thanks to the `engine.type` message property, used as `key` in step 3). The API is fully described by its Swagger specification, available at `http://<BotAgentManager-Host>:<port>/swagger.json`.
 
 ---
 
 ### [BotFilters TL;DR](#botfilters-tl-dr)
 
-A `BotFilter` is a Web service to filter/manipulate/enrich/transform `BotRequest`s and/or `BotResponse`s. 
-For example, a `BotFilter` can enrich a request calling an external API to get additional data before sending it to a BotAgent, or it can filter a response coming form a BotAgent to transform data it contains before forwarding it to a user.
+A `BotFilter` is a Web service to filter/manipulate/enrich/transform `BotRequest`s and/or `BotResponse`s.
+For example, a `BotFilter` can enrich a request calling an external API to get additional data before sending it to a BotAgent, or it can filter a response coming from a BotAgent to transform data before forwarding it to the user chat.
 
 Basically, to write a filter you have to:
 
-1. Instantiate a `BotFilter` specifying a `BotRequestFilter` or a `BotResponseFilter`. These are the functions containing your logic to manipulate/filter/enrich requests to bots and responses from them. Inside themyou can call external web services, transform data and do whatever you need to do to achieve your application-specific goal. A `BotFilter` can provide a filter for only a request, only a response or both.
-2. run the `BotFilter` service through its `listen()` method, it exposes a Web API; API is full described by its Swagger specification, available at `http://<BotFilter-Host>:<port>/swagger.json`.
+1. Instantiate a `BotFilter` specifying a `BotRequestFilter` or a `BotResponseFilter`. These are the functions containing your logic to manipulate/filter/enrich requests to bots and responses from them. Inside them you can call, for example, external web services, access to DBs, transform data and do whatever you need to do to achieve your application-specific goal. A `BotFilter` can provide a filter only for requests, only for responses or both.
+2. run the `BotFilter` service through its `listen()` method, it exposes a Web API; the API is fully described by its Swagger specification, available at `http://<BotFilter-Host>:<port>/swagger.json`.
 
 ---
 
 ## [BotAgent](#botagent)
 
-A `BotAgent` represents an abstract Bot implementation and it directly communicates with a particular Bot / NLP platform (like Dialogflow, IBM Watson Conversation and so on...).
+A `BotAgent` represents an abstract Bot implementation and it directly communicates with a particular Bot / NLP platform (like Dialogflow, IBM Watson Assistant, formerly Conversation, and so on...).
 In the Vivocha model, a Bot is represented by a function with the following signature:
 
 In Typescript:
@@ -93,9 +93,9 @@ PROPERTY | VALUE | DESCRIPTION
 | **`event`** | string: `start` or `continue` or `end` or a custom string | `start` event is sent to wake-up the Bot; `continue` tells the Bot to continue the conversation; `end` to set the conversation as finished; a custom string can be set for specific custom internal Bot functionalities.
 `message` | (optional) object, see **[BotMessage](https://github.com/vivocha/bot-sdk#botmessage)** below | the message to send to the BotAgent
 `language` | (optional) string. E.g., `en`, `it`, ... | language string, mandatory for some Bot platforms.
-`data` | (optional) object | an object containing data to send to the Bot. Its properties must be of simple type. E.g., `{"firstname":"Antonio", "lastname": "Smith", "code": 12345}`
+`data` | (optional) object | an object containing data to send to the Bot. Its properties must be of basic type. E.g., `{"firstname":"Antonio", "lastname": "Smith", "code": 12345}`
 `context` | (optional) object | Opaque, Bot specific context data
-`tempContext` | (optional) object | Temporary context, useful to store volatile data, i.e., in bot filters chains.
+`tempContext` | (optional) object | Temporary context, useful to store volatile data; i.e., in bot filters chains.
 `settings` | (optional) **[BotSettings](https://github.com/vivocha/bot-sdk#botsettings)** object (see below)| Bot platform settings.
 
 #### [BotMessage](#botmessage)
@@ -105,8 +105,8 @@ PROPERTY | VALUE | DESCRIPTION
 | **`code`** | string, value is always `message` | Vivocha code type for Bot messages.
 | **`type`** | string: `text` or `postback` | Vivocha Bot message type.
 | **`body`** | string | the message text body.
-| `quick_replies` | (optional) only in case of `type` == `text` messages, an array of **[MessageQuickReply](https://github.com/vivocha/bot-sdk#messagequickreply)** objects (see below) | an array of quick replies
-| `template` | (optional) only in case of `type` == `text` messages, an object with a required `type` string property and an optional `elements` object array property| a template object
+| `quick_replies` | (optional) only in case of `type` === `text` messages, an array of **[MessageQuickReply](https://github.com/vivocha/bot-sdk#messagequickreply)** objects (see below) | an array of quick replies
+| `template` | (optional) only in case of `type` === `text` messages, an object with a required `type` string property and an optional `elements` object array property| a template object
 
 #### [BotSettings](#botsettings)
 
@@ -121,7 +121,7 @@ PROPERTY | VALUE | DESCRIPTION
 PROPERTY | VALUE | DESCRIPTION
 | ------ | ------ | ----------- |
 | **`type`** | string | Unique bot engine identifier, i.e., the platform name, like: `Watson`, `Dialogflow`, `WitAi`, ...
-| `settings` | (optional) object | Specific settings to send to the BOT/NLP platform. E.g. for Watson Conversation is an object like `{"workspaceId": "<id>" "username": "<usrname>", "password": "<passwd>"}`; for a Dialogflow bot is something like: `{"token": "<token>", "startEvent": "MyCustomStartEvent"}`, and so on... You need to refer to the documentation of the specific Bot Platform used.
+| `settings` | (optional) object | Specific settings to send to the BOT/NLP platform. E.g. for Watson Assistant (formerly Conversation) is an object like `{"workspaceId": "<id>" "username": "<usrname>", "password": "<passwd>"}`; for a Dialogflow bot is something like: `{"token": "<token>", "startEvent": "MyCustomStartEvent"}`, and so on... You need to refer to the documentation of the specific Bot Platform used.
 
 #### [MessageQuickReply](#messagequickreply)
 
@@ -237,7 +237,7 @@ It is related to the request in the BotRequest sample above in this document.
 
 ## [BotManager](#botmanager)
 
-A Bot Manager is a bot registry microservice, which basically provides two main functionalities:
+A `BotManager` is a bot registry microservice, which basically provides two main functionalities:
 
 1. it allows to register an undefined number of `BotAgent`s;
 2. it exposes a Web API to send messages and receive responses to/from `BotAgent`s, acting as a gateway using a normalized interface.
@@ -264,7 +264,7 @@ In this way it is possible to have a multi-bot application instance, the BotMana
 
 ### [BotManager Web API](#botmanager-web-api)
 
-The BotManager `listen()` method launches a Web server microservice, exposing the following API endpoint:
+The BotManager `listen()` method starts a Web server microservice, exposing the following API endpoint:
 
 **`POST /bot/message`** - Sends a `BotRequest` and replies with a `BotResponse`.
 
@@ -276,7 +276,7 @@ After launching a BotManager service, the detailed info, and a Swagger based API
 
 ## [Bot Filters](#bot-filters)
 
-BotFilters are Web (micro)services to augment or adapt or transform BotRequests before reaching a Bot, and/or to augment or adapt or transform BotResponses coming from a Bot before returing back to the Vivocha platform. It is also possible to chain several BotFilters in order to have specialized filters related to the application domain.
+BotFilters are Web (micro)services to augment or adapt or transform BotRequests before reaching a Bot, and/or to augment or adapt or transform BotResponses coming from a Bot before returning back them to the Vivocha platform. It is also possible to chain several BotFilters in order to have specialized filters related to the application domain.
 
 Next picture shows an example of a BotFilters chain:
 
@@ -296,7 +296,7 @@ As an example, refer to `examples/sample.ts(.js)` files where it is defined a ru
 
 ### [BotFilter Web API](#botfilter-web-api)
 
-The BotFilter `listen()` method launches a Web server microservice, exposing the following API endpoints:
+The BotFilter `listen()` method runs a Web server microservice, exposing the following API endpoints:
 
 **`POST /filter/request`** - For a request BotFilter, it receives a `BotRequest` and returns a `BotRequest`.
 
@@ -312,16 +312,16 @@ After launching a BotFilter service, the detailed info, and a Swagger based API 
 
 Next sections briefly provide some guidelines to integrate Bots built with the three supported platforms and using the default drivers / settings.
 
-**N.B.: Vivocha can be integrated with any Bot Platform**, if you're using a platform different than the supported you need to write a driver and a BotManager to use BotRequest / BotResponse messages and communicate with the particular chosen Bot Platform.
+**N.B.: Vivocha can be integrated with any Bot Platform**, if you're using a platform different than the supported you need to write a driver and a BotManager to use BotRequest / BotResponse messages and communicate with the particular, chosen, Bot Platform.
 
 ### [Dialogflow: integration guidelines](#dialogflow-integration-guidelines)
 
-[Dialogflow Bot Platform](https://dialogflow.com/) allows the creation of conversation flows using its nice Intents feature.
-Feel free to build your conversation flow as you prefer, related to the specific Bot application domain, BUT, in order to properly work with Vivocha, taking advantage of the out-of-the-box support it provides, it is mandatory to follow the guidelines:
+[Dialogflow Bot Platform](https://dialogflow.com) allows the creation of conversation flows using its nice Intents feature.
+Feel free to build your conversation flow as you prefer, related to the specific Bot application domain, BUT, in order to properly work with Vivocha taking advantage of the out-of-the-box support it provides, it is mandatory to follow some guidelines:
 
 1. Must exists in Dialogflow an intent configured to be triggered by a start event. The start event name configured in a Dialogflow intent must exactly match the start event configured in Vivocha; Default is: `start`.
 
-2. At the end of each conversation branch designed in Dialogflow, the bot MUST set a special context named (exactly) `end`, to tell to Vivocha that Bot's task is finished and to terminate the chat conversation.
+2. At the end of each conversation branch designed in Dialogflow, the bot MUST set a special context named (exactly) `end`, to tell to Vivocha that Bot's task is complete and to terminate the chat conversation.
 
 3. Data passed to the Bot through Vivocha drivers are always contained inside a special context named `SESSION_MESSAGE_DATA_PAYLOAD`. Thus, the Dialogflow bot can access to data "stored" in that particular context in each intent that needs to get information; i.e., to extract real-time data coming from BotFilters. If the bot implementation needs to extract passed data/parameters, it can access to that context through (for example) the expression: `#SESSION_MESSAGE_DATA_PAYLOAD.my_parameter_name` - see Dialogflow documentation).
 
@@ -335,13 +335,13 @@ In the Dialogflow console:
 
 ---
 
-### [IBM Watson Conversation: integration guidelines](#ibm-watson-conversation-integration-guidelines)
+### [IBM Watson Assistant: integration guidelines](#ibm-watson-assistant-integration-guidelines)
 
-[Watson Conversation](https://www.ibm.com/watson/services/conversation) provides a tool to create conversation flows: Dialogs.
+[Watson Assistant (formerly Conversation)](https://www.ibm.com/watson/services/conversation) provides a tool to create conversation flows: Dialogs.
 
-1. Watson Conversation doesn't handle events, only messages, thus you must create an intent trained to understand the word "start“ (simulating an event, in this case).
+1. Watson Assistant doesn't handle events, only messages, thus you must create an intent trained to understand the word *start* (simulating an event, in this case).
 
-2. To communicate that a conversation flow/branch is complete, in each leaf node of the Dialog node, set a context parameter to `true` named as specified by `endEventKey` property in the module constructor; **Important**: in order to use the default Vivocha driver, just set the `dataCollectionComplete` context parameter to `true` in each Watson Conversation Dialog leaf node; it can be set using the Conversation *JSON Editor* in a particular dialog node; like in:
+2. To communicate that a conversation flow/branch is complete, in each leaf node of the Dialog node, set a specific context parameter to `true` named as specified by `endEventKey` property in the module constructor; **Important**: in order to use the default Vivocha driver, just set the `dataCollectionComplete` context parameter to `true` in each Watson Assistant Dialog leaf node; it can be set using the Watson Assistant *JSON Editor* for a particular dialog node; like in:
 
 ```javascript
 ...
@@ -351,11 +351,11 @@ In the Dialogflow console:
 ...
 ```
 
-3. If you need to perfom data collection tasks, remember that you have to configure the bot *slot-filling* feature in the nodes of the Dialog section.
+3. If you need to perfom data collection tasks, remember that you have to configure the bot *slot-filling* feature in the dedicated nodes of the Dialog section.
 
-#### [Watson Conversation Hints and Tips](#watson-conversation-hints-and-tips)
+#### [Watson Assistant Hints and Tips](#watson-assistant-hints-and-tips)
 
-Using the IBM Watson Conversation workspace:
+Using the IBM Watson Assistant workspace:
 
 - Slot-filling and parameters can be defined for every node in the Dialog tab;
 
@@ -387,11 +387,11 @@ configure the particular slot through *Edit Slot > ... > Open JSON Editor* as:
 
 ### [Wit.ai, writing chat bots](#wit-ai-writing-chat-bots)
 
-[Wit.ai](https://wit.ai) is a pure Natural Language Processing (NLP) platform. Using the Web console it is not possible to design Bot's dialog flows or conversations, anymore. Therefore, all the bot application logic, conversation flows, contexts and so on... (in other words: the Bot itself) must be coded outside, calling Wit.ai APIs (mainly) to process natural language messages coming from users. Creating an App in Wit.ai and training the system for the specific application domain, it is possible to let it processing messages and extract information from them, like (but not only): user intents end entities, along with their confidence value.
+[Wit.ai](https://wit.ai) is a pure Natural Language Processing (NLP) platform. Using the Web console it is not possible to design Bot's dialog flows or conversations, anymore. Therefore, all the bot application logic, conversation flows, contexts and so on... (in other words: the Bot itself) must be coded outside, calling Wit.ai APIs (mainly) to process natural language messages coming from the users. Through creating an App in Wit.ai and training the system for the specific application domain, it is possible to let it processing messages and extract information from them, like (but not only): user intents end entities, along with their confidence value.
 
 Skipping platform-specific details, in order to create Wit.ai Chat Bots and integrate them with the Vivocha Platform you have to:
 
-1. Create and train a Wit.ai App, *naming intents* whcih will be used by the coded Bot;
+1. Create and train a Wit.ai App, *naming intents* that will be used by the coded Bot;
 
 2. Write the code of your Bot subclassing the `WitAiBot` class provided by this SDK, mapping intents defined in 1) to handler functions;
 
