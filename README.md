@@ -438,3 +438,46 @@ More details can be found in the dedicated `examples/sample-wit.ts(.js)` sample 
 - in each intent mapping handler which decides to terminate the conversation, remember to send back a response with the `event` property set to `end`.
 
 ---
+
+## [About Vivocha Bots and Transfers to Human Agents](#about-vivocha-bots-and-transfers-to-human-agents)
+
+In the Vivocha model a Bot is just like a "normal" agent, able to handle contacts, chat with users and also able to transfer a particular current contact to another agent (a human agent or, maybe, to another Bot). Configuring a Bot to fire a transfer to other agents in Vivocha is quite straightforward process.
+
+1. using the Vivocha console, configure the bot to manage transfers. A transfer can be of two types: *transfer to tag* and *transfer to agent*. The former will fire a transfer to other agents having a specified tag where the latter only to a specific agent by (nick)name. Therefore, creating a transfer rule involves specifying a *data key* (a property name) to be found in a `BotResponse` and its corresponding *value* to check, plus the agents tag or nick name to transfer to. For example, the next picture shows a *transfer to tag* Bot configuration which will be fired anytime the BotResponse `data` object contains a sub-property named `transferToAgent` set to `sales` in order to transfer the contact to an agent tagged with `sales`.
+
+| ![A contact transfer configuration example](https://cdn.rawgit.com/vivocha/bot-sdk/e0746125/docs/transfer.png) |
+|:---:|
+| **FIGURE 4  - Vivocha Bots can transfer contacts to other agents (a human agent or, maybe, to another Bot) when necessary. This picture shows a transfer to tag  Bot configuration fired anytime the BotResponse `data` object contains a sub-property named `transferToAgent` set to `sales`, in order to transfer the contact to an agent tagged with `sales` ** |
+
+2. when a transfer is required, the particular Bot implementation must return a BotResponse with: the `event` property set to `end` AND  the `data` property containing the configured transfer sub-propery (as `transferToAgent` in the previous example) set to the specified value. The following JSON snippet shows a BotResponse for the transfer configuration described in step 1)
+
+```javascript
+{ 
+  "event": "end",
+  "messages": [ {
+    "code": "message",
+    "type": "text",
+    "body": "OK I'm transferring you to a sales agent. Bye!"
+  } ],
+  "settings": {
+    "engine": {
+        "type": "custom",
+        "settings": {...}
+     }
+  },
+  "data": { 
+    "firstname": "John",
+    "lastname": "Snow",
+    ...
+    "transferToAgent": "sales"
+    }
+}
+```
+
+**NOTES**:
+
+- if your bot is built through the IBM Watson Assistant platform and you're using the built-in Vivocha Watson integration, then set the transfer property directly as a context variable in the dialog node which ends the conversation and a transfer is required;
+
+- if the bot is developed through the Dialogflow platform and your're using the built-in Vivocha Dialogflow integration, then set the transfer property in the `parameters` property of a returned context (i.e., using a Firebase Cloud Functions-based fulfillment);
+
+- if the bot is written using Wit.ai module provided by this SDK, just return the transfer property in the BotResponse `data` field (see `examples/dummy-bot(.ts | .js)` code for transfer case).
