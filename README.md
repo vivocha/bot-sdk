@@ -447,7 +447,7 @@ In the Vivocha model, a Bot is just like a "normal" agent, able to handle contac
 
 | ![A contact transfer configuration example](https://cdn.rawgit.com/vivocha/bot-sdk/e0746125/docs/transfer.png) |
 |:---:|
-| **FIGURE 4  - Vivocha Bots can transfer contacts to other agents (human agnets or, why not?, to another Bot) when necessary. This picture shows a transfer to tag Bot configuration fired anytime the `BotResponse` `data` object contains a sub-property named `transferToAgent` set to `sales`, in order to transfer the contact to another agent tagged with `sales`** |
+| **FIGURE 4  - Vivocha Bots can transfer contacts to other agents (human agents or, why not?, to another Bot) when necessary. This picture shows a transfer to tag Bot configuration fired anytime the `BotResponse` `data` object contains a sub-property named `transferToAgent` set to `sales`, in order to transfer the contact to another agent tagged with `sales`** |
 
 2. when a transfer is required, the particular Bot implementation must return a BotResponse with: the `event` property set to `end` AND  the `data` property containing the configured transfer sub-property (as `transferToAgent` in the previous example) set to the specified value. The following JSON snippet shows a BotResponse for the transfer configuration described in step 1)
 
