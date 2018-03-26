@@ -100,13 +100,15 @@ PROPERTY | VALUE | DESCRIPTION
 
 #### [BotMessage](#botmessage)
 
+Some contents and definitions of the Vivocha Bot Messages are inspired by the [Facebook Messenger](https://developers.facebook.com/docs/messenger-platform/reference/) messages specification, but adapted and extended as needed by the Vivocha Platform.
+
 PROPERTY | VALUE | DESCRIPTION
 | ------ | ------ | ----------- |
 | **`code`** | string, value is always `message` | Vivocha code type for Bot messages.
 | **`type`** | string: `text` or `postback` | Vivocha Bot message type.
 | **`body`** | string | the message text body.
 | `quick_replies` | (optional) only in case of `type` === `text` messages, an array of **[MessageQuickReply](https://github.com/vivocha/bot-sdk#messagequickreply)** objects (see below) | an array of quick replies
-| `template` | (optional) only in case of `type` === `text` messages, an object with a required `type` string property and an optional `elements` object array property| a template object
+| `template` | (optional) only in case of `type` === `text` messages, a **[MessageTemplate](https://github.com/vivocha/bot-sdk#messagetemplate)** objects (see below) | a generic template object.
 
 #### [BotSettings](#botsettings)
 
@@ -131,6 +133,67 @@ PROPERTY | VALUE | DESCRIPTION
 | `title`| (optional) string | title of the message
 | `payload` | (optional) a string or a number | string or number related to the `content-type` property value
 | `image_url` | (optional) string | a URL of an image
+
+#### [MessageTemplate](#messagetemplate)
+
+PROPERTY | VALUE | DESCRIPTION
+| ------ | ------ | ----------- |
+| **`type`** | string, accepted value is `generic` | Template type, currently only `generic` type is supported
+| `elements`| (optional) an array of **[generic template Elements](https://github.com/vivocha/bot-sdk#templateelement)** | elements defined by **[TemplateElement](https://github.com/vivocha/bot-sdk#templateelement)** object spec.
+
+#### [TemplateElement](#templateelement)
+
+In a Template Element only the property `title` is mandatory, but at least one optional property among the following must be set in addition to it.
+
+PROPERTY | VALUE | DESCRIPTION
+| ------ | ------ | ----------- |
+| **`title`** | string | the text to display as title in the template rendering
+| `subtitle`| (optional) string | an optional subtitle to display in the template
+| `image_url` | (optional) string | a valid URL for an image to display in the template
+| `default_action` | (optional) **[DefaultAction](https://github.com/vivocha/bot-sdk#defaultaction)** object | an object representing the default action to execute when the template is clicked / tapped
+| `buttons` | (optional) an array of **[Button](https://github.com/vivocha/bot-sdk#button)** objects | the buttons to display in the template.
+
+#### [DefaultAction](#defaultaction)
+
+PROPERTY | VALUE | DESCRIPTION
+| ------ | ------ | ----------- |
+| **`type`** | string, admitted value is only `web_url` | default action type, it always refers to a web URL
+| **`url`** | string | a valid URL to open when executing the default action
+
+#### [Button](#button)
+
+A Button object can be one of the following types: **[PostbackButton](https://github.com/vivocha/bot-sdk#postbackbutton)**, **[WebURLButton](https://github.com/vivocha/bot-sdk#weburlbutton)** or a **[CustomEventButton](https://github.com/vivocha/bot-sdk#customeventbutton)**
+
+#### [PostbackButton](#postbackbutton)
+
+A postback button is used to send back to the bot a response made of a title and a payload.
+
+PROPERTY | VALUE | DESCRIPTION
+| ------ | ------ | ----------- |
+| **`type`** | string, always set to `postback` | the postback button type
+| **`title`**| string | the button text to display and to send back in the message body
+| **`payload`**| string | a custom payload to send back to the bot
+
+#### [WebURLButton](#weburlbutton)
+
+A WebURL button is used to open a web page at the specified URL.
+
+PROPERTY | VALUE | DESCRIPTION
+| ------ | ------ | ----------- |
+| **`type`** | string, always set to `web_url` | the WebURL button type
+| **`title`**| string | the button text to display
+| **`url`** | string | the URL of the page to open when the button is pressed
+
+#### [CustomEventButton](#customeventbutton)
+
+This button allows to fire a custom event in the website page where the Vivocha interaction app / chat is running.
+In order to work, a *contact-custom-event* must be configured in the particular Vivocha Campaign.
+
+PROPERTY | VALUE | DESCRIPTION
+| ------ | ------ | ----------- |
+| **`type`** | string, a custom type string **excluding** `web_url` and `page_event` | the custom type
+| **`title`**| string | the button text to display
+
 
 #### BotRequest Example
 
