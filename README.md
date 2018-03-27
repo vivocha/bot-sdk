@@ -101,6 +101,7 @@ PROPERTY | VALUE | DESCRIPTION
 #### [BotMessage](#botmessage)
 
 Some contents and definitions of the Vivocha Bot Messages are inspired by the [Facebook Messenger](https://developers.facebook.com/docs/messenger-platform/reference/) messages specification, but adapted and extended as needed by the Vivocha Platform.
+Currently, messages' `quick_replies` and `template` property are used in BotResponses.
 
 PROPERTY | VALUE | DESCRIPTION
 | ------ | ------ | ----------- |
@@ -194,6 +195,7 @@ PROPERTY | VALUE | DESCRIPTION
 | **`type`** | string, a custom type string **excluding** `web_url` and `page_event` | the custom type
 | **`title`**| string | the button text to display
 
+---
 
 #### BotRequest Example
 
@@ -234,7 +236,7 @@ A BotResponse is a JSON with the following properties and it is similar to a `Bo
 PROPERTY | VALUE | DESCRIPTION
 | ------ | ------ | ----------- |
 | **`event`** | string: `continue` or `end` | `continue` event is sent back to Vivocha to continue the conversation, in other words it means that the bot is awaiting for the next user message; `end` is sent back with the meaning that Bot finished is task.
-`messages` | (optional) an array of **[BotMessage](https://github.com/vivocha/bot-sdk#botmessage)** objects (same as BotRequest) | the messages sent back by the BotAgent
+`messages` | (optional) an array of **[BotMessage](https://github.com/vivocha/bot-sdk#botmessage)** objects (same as BotRequest) | the messages sent back by the BotAgent including quick replies and templates with images, buttons, etc...
 `language` | (optional) string. E.g., `en`, `it`, ... | language string code
 `data` | (optional) object | an object containing data collected or computed by the Bot. Its properties must be of simple type. E.g., `{"firstname":"Antonio", "lastname": "Smith", "code": 12345, "availableAgents": 5}`
 `context` | (optional) object | Opaque, Bot specific context data. The Vivocha platform will send it immutated to the Bot in the next iteration.
@@ -242,7 +244,7 @@ PROPERTY | VALUE | DESCRIPTION
 `settings` | (optional) **[BotSettings](https://github.com/vivocha/bot-sdk#botsettings)** object | Bot platform settings
 `raw` | (optional) object | raw, platform specific, unparsed bot response.
 
-#### BotResponse Example
+#### BotResponse Examples
 
 An example of response sent back by a Wit.ai based Bot.
 It is related to the request in the BotRequest sample above in this document.
@@ -293,6 +295,49 @@ It is related to the request in the BotRequest sample above in this document.
     },
     "msg_id": "0ZUymTwNbUPLh6xp6"
   }
+}
+```
+
+Another BotResponse example, including quick replies:
+
+```javascript
+{
+    "event": "continue",
+    "messages": [
+        {
+            "code": "message",
+            "type": "text",
+            "body": "Hello Alice, please choose a color...",
+            "quick_replies": [
+                {
+                    "content_type": "text",
+                    "title": "Red",
+                    "payload": "red"
+                },
+                {
+                    "content_type": "text",
+                    "title": "Blue",
+                    "payload": "blue"
+                },
+                {
+                    "content_type": "text",
+                    "title": "White",
+                    "payload": "white"
+                }
+            ]
+        }
+    ],
+    "data": {
+      "name": "Alice"
+    },
+    "settings": {
+        "engine": {
+            "type": "custom",
+            "settings": {
+                "token": "super-secret-123-token"
+            }
+        }
+    }
 }
 ```
 
