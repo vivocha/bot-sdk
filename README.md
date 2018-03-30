@@ -433,6 +433,76 @@ Feel free to build your conversation flow as you prefer, related to the specific
 
 3. Data passed to the Bot through Vivocha drivers are always contained inside a special context named `SESSION_MESSAGE_DATA_PAYLOAD`. Thus, the Dialogflow bot can access to data "stored" in that particular context in each intent that needs to get information; i.e., to extract real-time data coming from BotFilters. If the bot implementation needs to extract passed data/parameters, it can access to that context through (for example) the expression: `#SESSION_MESSAGE_DATA_PAYLOAD.my_parameter_name` - see Dialogflow documentation).
 
+#### [Vivocha Rich Messages and Dialogflow](#vivocha-rich-messages-and-dialogflow)
+
+Thanks to the Vivocha built-in support for Dialogflow, it is possible to send from this bot platform responses containing rich Vivocha-compliant bot messages (bot messages format is described **[in this section](https://github.com/vivocha/bot-sdk#botmessage)**).
+
+To send rich Vivocha messages as response from a Dialogflow *Intent*, just add a response with a *Custom payload* by its console and enter a valid JSON for the `messages` property.
+
+For example, the following valid snippet is related to a response from Dialogflow with a custom payload for a Vivocha Bot message containing a template:
+
+```javascript
+{
+  "messages": [
+    {
+      "code": "message",
+      "type": "text",
+      "body": "Just an example of generic template",
+      "template": {
+        "type": "generic",
+        "elements": [
+          {
+            "title": "Meow!",
+            "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Tajeschidolls_Beren_of_LoveLorien_Ragdoll_Seal_Mink_Lynx_Bicolor.jpg/1024px-Tajeschidolls_Beren_of_LoveLorien_Ragdoll_Seal_Mink_Lynx_Bicolor.jpg",
+            "subtitle": "We have the right cat for everyone.",
+            "default_action": {
+              "type": "web_url",
+              "url": "https://en.wikipedia.org/wiki/Cat"
+            },
+            "buttons": [
+              {
+                "type": "web_url",
+                "url": "https://en.wikipedia.org/wiki/Cat",
+                "title": "View Website"
+              },
+              {
+                "type": "postback",
+                "title": "OK",
+                "payload": "OK"
+              }
+            ]
+          },
+          {
+            "title": "Meow!",
+            "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Adult_Scottish_Fold.jpg/1920px-Adult_Scottish_Fold.jpg",
+            "subtitle": "We have the right cat for everyone.",
+            "default_action": {
+              "type": "web_url",
+              "url": "https://en.wikipedia.org/wiki/Cat"
+            },
+            "buttons": [
+              {
+                "type": "web_url",
+                "url": "https://en.wikipedia.org/wiki/Cat",
+                "title": "View Website"
+              },
+              {
+                "type": "postback",
+                "title": "OK",
+                "payload": "OK"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+
+Sending a well-formed message enables the Vivocha interaction apps and widgets to correctly show these rich messages to the customer.
+
+
 #### [Dialogflow Hints and Tips](#dialogflow-hints-and-tips)
 
 In the Dialogflow console:
@@ -460,6 +530,47 @@ In the Dialogflow console:
 ```
 
 3. If you need to perfom data collection tasks, remember that you have to configure the bot *slot-filling* feature in the dedicated nodes of the Dialog section.
+
+#### [Vivocha Rich Messages and Watson Assistant](#vivocha-rich-messages-and-watson-assistant)
+
+Thanks to the Vivocha built-in support for IBM Watson Assistant, it is possible to send from this bot platform responses containing rich Vivocha-compliant bot messages (bot messages format is described **[in this section](https://github.com/vivocha/bot-sdk#botmessage)**).
+
+To send rich Vivocha messages as responses from the Watson platform, in its workspace console, *Dialog* tab, select the particular dialog node, and in the *Then respond with* section, open the embedded *JSON Editor* and just add a response with a valid JSON object for the `messages` property, just inside the predefined `output` object (as defined by the Watson Assistant responses format).
+
+For example, the following valid snippet is related to a response from a Watson Assistant bot, with a custom payload for a Vivocha Bot message containing a body along with three quick replies:
+
+```javascript
+{
+  "output": {
+    "messages": [
+      {
+        "body": "Hello from Watson, please choose an action",
+        "code": "message",
+        "type": "text",
+        "quick_replies": [
+          {
+            "title": "help",
+            "payload": "help",
+            "content_type": "text"
+          },
+          {
+            "title": "documents",
+            "payload": "documents",
+            "content_type": "text"
+          },
+          {
+            "title": "exit",
+            "payload": "exit",
+            "content_type": "text"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+Sending a well-formed custom message enables the Vivocha interaction apps and widgets to correctly show these rich messages to the customer.
 
 #### [Watson Assistant Hints and Tips](#watson-assistant-hints-and-tips)
 
