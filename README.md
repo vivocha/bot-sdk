@@ -355,42 +355,42 @@ A BotResponse including a **List Template**:
 {
     "event": "continue",
     "messages": [{
-                    code: 'message',
-                    type: 'text',
-                    body: 'list template',
-                    template: {
-                        type: 'list',
-                        elements: [
+                    "code": "message",
+                    "type": "text",
+                    "body": "A list template",
+                    "template": {
+                        "type": "list",
+                        "elements": [
                             {
-                                title: "Item 1",
-                                subtitle: "This is the subtitle for the item number one linked to the Vivocha website",
-                                default_action: {
+                                "title": "Item 1",
+                                "subtitle": "This is the subtitle for the item number one linked to the Vivocha website",
+                                "default_action": {
                                     "type": "web_url",
                                     "url": "https://www.vivocha.com"
                                 }
                             },
                             {
-                                title: "Item 2",
-                                subtitle: "This is the subtitle for the item number two linked to the Vivocha Tech blog",
-                                default_action: {
+                                "title": "Item 2",
+                                "subtitle": "This is the subtitle for the item number two linked to the Vivocha Tech blog",
+                                "default_action": {
                                     "type": "web_url",
                                     "url": "http://tech.vivocha.com",
                                 }
                             },
                             {
-                                title: "Item 3",
-                                subtitle: "This is the subtitle for the item number three linked to the Vivocha Team webpage,
-                                default_action: {
+                                "title": "Item 3",
+                                "subtitle": "This is the subtitle for the item number three linked to the Vivocha Team webpage",
+                                "default_action": {
                                     "type": "web_url",
                                     "url": "https://www.vivocha.com/team"
                                 }
                             }
                         ],
-                        buttons: [
+                        "buttons": [
                             {
-                                type: "postback",
-                                title: "More",
-                                payload: "view_more"
+                                "type": "postback",
+                                "title": "More",
+                                "payload": "view_more"
                             }
                         ]
                     }
