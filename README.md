@@ -101,7 +101,12 @@ PROPERTY | VALUE | DESCRIPTION
 #### [BotMessage](#botmessage)
 
 Some contents and definitions of the Vivocha Bot Messages are inspired by the [Facebook Messenger](https://developers.facebook.com/docs/messenger-platform/reference/) messages specification, but adapted and extended as needed by the Vivocha Platform.
-Currently, messages' `quick_replies` and `template` property are used in BotResponses.
+Currently, messages' `quick_replies` and `template` properties are supported in BotResponses.
+
+**Notes**: Generally speaking, while messages containing *quick replies* or *templates* have no particular constraints about the number of elements (and buttons, etc...), please take into consideration that Facebook Messenger have some contraints about them, e.g., in the number of quick replies or buttons per message; therefore, if you're supporting chats also through the Facebook Messenger channel, then you need to be compliant to its specification (more details about Messenger messages constraints can be found [here](https://developers.facebook.com/docs/messenger-platform/reference/)).
+Anyway, in case of an exceeding number of elements, the Vivocha platform will trim them before sending to Messenger clients.
+
+A BotMessage has the following properties:
 
 PROPERTY | VALUE | DESCRIPTION
 | ------ | ------ | ----------- |
@@ -109,6 +114,7 @@ PROPERTY | VALUE | DESCRIPTION
 | **`type`** | string: `text` or `postback` | Vivocha Bot message type.
 | **`body`** | string | the message text body.
 | `payload` | (optional) string | a custom payload, usually used to send back the payload of a quick reply or of a postback button in a BotRequest, after the user clicks / taps the corresponding UI button.
+| `quick_replies_orientation` | (optional) string: `vertical` or `horizontal` | in case of a message with `quick_replies` it indicates the quick replies buttons group orientation to show in the client; default is `horizontal`.
 | `quick_replies` | (optional) only in case of `type` === `text` messages, an array of **[MessageQuickReply](https://github.com/vivocha/bot-sdk#messagequickreply)** objects (see below) | an array of quick replies
 | `template` | (optional) only in case of `type` === `text` messages, a **[MessageTemplate](https://github.com/vivocha/bot-sdk#messagetemplate)** objects (see below) | a generic template object.
 
@@ -131,7 +137,7 @@ PROPERTY | VALUE | DESCRIPTION
 
 PROPERTY | VALUE | DESCRIPTION
 | ------ | ------ | ----------- |
-| **`content_type`** | string, accepted values: `text` or `location` | Type of the content of the Quick Reply
+| **`content_type`** | string, accepted value: `location` | Type of the content of the Quick Reply
 | `title`| (optional) string | title of the message
 | `payload` | (optional) a string or a number | string or number related to the `content-type` property value
 | `image_url` | (optional) string | a URL of an image
@@ -140,8 +146,9 @@ PROPERTY | VALUE | DESCRIPTION
 
 PROPERTY | VALUE | DESCRIPTION
 | ------ | ------ | ----------- |
-| **`type`** | string, accepted value is `generic` | Template type, currently only `generic` type is supported
+| **`type`** | string, accepted values are: `generic` or `list` | Template type, currently only `generic` and `list` types are supported
 | `elements`| (optional) an array of **[generic template Elements](https://github.com/vivocha/bot-sdk#templateelement)** | elements defined by **[TemplateElement](https://github.com/vivocha/bot-sdk#templateelement)** object spec.
+| `buttons` | (optional) only in case of a template where `type` == `list`, an array of **[Button](https://github.com/vivocha/bot-sdk#button)** objects | the buttons to display in the bottom part of the template.
 
 #### [TemplateElement](#templateelement)
 
@@ -153,7 +160,7 @@ PROPERTY | VALUE | DESCRIPTION
 | `subtitle`| (optional) string | an optional subtitle to display in the template
 | `image_url` | (optional) string | a valid URL for an image to display in the template
 | `default_action` | (optional) **[DefaultAction](https://github.com/vivocha/bot-sdk#defaultaction)** object | an object representing the default action to execute when the template is clicked / tapped
-| `buttons` | (optional) an array of **[Button](https://github.com/vivocha/bot-sdk#button)** objects | the buttons to display in the template.
+| `buttons` | (optional) an array of **[Button](https://github.com/vivocha/bot-sdk#button)** objects | the buttons to display in the template element.
 
 #### [DefaultAction](#defaultaction)
 
@@ -247,7 +254,7 @@ PROPERTY | VALUE | DESCRIPTION
 
 #### BotResponse Examples
 
-An example of response sent back by a Wit.ai based Bot.
+An example of text response sent back by a Wit.ai based Bot.
 It is related to the request in the BotRequest sample above in this document.
 
 ```javascript
@@ -299,7 +306,7 @@ It is related to the request in the BotRequest sample above in this document.
 }
 ```
 
-Another BotResponse example, including quick replies:
+Another BotResponse example, including three **quick replies**:
 
 ```javascript
 {
@@ -327,6 +334,67 @@ Another BotResponse example, including quick replies:
                 }
             ]
         }
+    ],
+    "data": {
+      "name": "Alice"
+    },
+    "settings": {
+        "engine": {
+            "type": "custom",
+            "settings": {
+                "token": "super-secret-123-token"
+            }
+        }
+    }
+}
+```
+
+A BotResponse including a **List Template**:
+
+```javascript
+{
+    "event": "continue",
+    "messages": [{
+                    code: 'message',
+                    type: 'text',
+                    body: 'list template',
+                    template: {
+                        type: 'list',
+                        elements: [
+                            {
+                                title: "Item 1",
+                                subtitle: "This is the subtitle for the item number one linked to the Vivocha website",
+                                default_action: {
+                                    "type": "web_url",
+                                    "url": "https://www.vivocha.com"
+                                }
+                            },
+                            {
+                                title: "Item 2",
+                                subtitle: "This is the subtitle for the item number two linked to the Vivocha Tech blog",
+                                default_action: {
+                                    "type": "web_url",
+                                    "url": "http://tech.vivocha.com",
+                                }
+                            },
+                            {
+                                title: "Item 3",
+                                subtitle: "This is the subtitle for the item number three linked to the Vivocha Team webpage,
+                                default_action: {
+                                    "type": "web_url",
+                                    "url": "https://www.vivocha.com/team"
+                                }
+                            }
+                        ],
+                        buttons: [
+                            {
+                                type: "postback",
+                                title: "More",
+                                payload: "view_more"
+                            }
+                        ]
+                    }
+                }
     ],
     "data": {
       "name": "Alice"
@@ -502,7 +570,6 @@ For example, the following valid snippet is related to a response from Dialogflo
 ```
 
 Sending a well-formed message enables the Vivocha interaction apps and widgets to correctly show these rich messages to the customer.
-
 
 #### [Dialogflow Hints and Tips](#dialogflow-hints-and-tips)
 
