@@ -502,6 +502,8 @@ Feel free to build your conversation flow as you prefer, related to the specific
 
 3. Data passed to the Bot through Vivocha drivers are always contained inside a special context named `SESSION_MESSAGE_DATA_PAYLOAD_CONTEXT`. Thus, the Dialogflow bot can access to data "stored" in that particular context in each intent that needs to get information; i.e., to extract real-time data coming from BotFilters. If the bot implementation needs to extract passed data/parameters, it can access to that context through (for example) the expression: `#SESSION_MESSAGE_DATA_PAYLOAD_CONTEXT.my_parameter_name` - see Dialogflow documentation).
 
+4. When a message request forwarded to the bot contains the `payload` property (like in the case when it is sent as a reaction to a postback button, for example) and it is sent through the default Vivocha drivers, then the message `payload` value will be passed to Dialogflow through the `SESSION_MESSAGE_DATA_PAYLOAD_CONTEXT` context, as the value of a property named `VVC_MessagePayload`. Therefore, it can be retrieved in the Dialogflow bot logic, inside an intent, through the expression: `#SESSION_MESSAGE_DATA_PAYLOAD_CONTEXT.VVC_MessagePayload`.
+
 #### [Vivocha Rich Messages and Dialogflow](#vivocha-rich-messages-and-dialogflow)
 
 Thanks to the Vivocha built-in support for Dialogflow, it is possible to send from this bot platform responses containing rich Vivocha-compliant bot messages (bot messages format is described **[in this section](https://github.com/vivocha/bot-sdk#botmessage)**).
@@ -598,6 +600,8 @@ In the Dialogflow console:
 ```
 
 3. If you need to perfom data collection tasks, remember that you have to configure the bot *slot-filling* feature in the dedicated nodes of the Dialog section.
+
+4. When a message sent to the bot contains the `payload` property (like in the case when it is sent as a reaction to a postback button, for example) and it is sent through the default Vivocha drivers, then the message `payload` value will be passed to Watson Assistant as a context parameter named `VVC_MessagePayload`. Therefore, it can be retrieved and used as a variable or slot in the Watson Assistant bot logic.
 
 #### [Vivocha Rich Messages and Watson Assistant](#vivocha-rich-messages-and-watson-assistant)
 
