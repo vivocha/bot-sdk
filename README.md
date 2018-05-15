@@ -775,7 +775,7 @@ In the Vivocha model, a Bot is just like a "normal" agent, able to handle contac
 
 ---
 
-## [Running Bot Managers and Bot Filters as AWS Lambdas](#running-bot-managers-and-Bot-Filters-as-aws-lambdas)
+## [Running BotManagers and BotFilters as AWS Lambdas](#running-botmanagers-and-botfilters-as-aws-lambdas)
 
 Starting from version 2.6.0, the Vivocha Bot SDK supports running **Bot Managers & Agents and Bot Filters as Lambda Functions** in **[AWS Lambda](https://aws.amazon.com/lambda)**, resulting in a great flexibility and scalability added by this serverless-applications platform.
 
@@ -792,7 +792,7 @@ As a reference,  the `examples` directory contains two Lambda functions:
 - `lambda-bot-manager` is a Lambda-deployable Bot Manager for a dummy bot accepting some commands
 - `lambda-bot-filter` is a BotFilter (same as in `sample.(ts|js)` file) deployable as AWS Lambda.
 
-### [Writing a BotManager or a BotFilter as a Lambda Function](#writing-a-botmanager-or-a-BotFilter-as-a-lambda-function)
+### [Writing a BotManager or a BotFilter as a Lambda Function](#writing-a-botmanager-or-a-botfilter-as-a-lambda-function)
 
 As a recap for the previous sections, to run a Vivocha `BotManager` or a `BotFilter`, once having written the code you can call their `listen()` method, which runs a web server, and you're done.
 
