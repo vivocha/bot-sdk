@@ -792,7 +792,7 @@ As a reference,  the `examples` directory contains two Lambda functions:
 - `lambda-bot-manager` is a Lambda-deployable Bot Manager for a dummy bot accepting some commands
 - `lambda-bot-filter` is a BotFilter (same as in `sample.(ts|js)` file) deployable as AWS Lambda.
 
-### [Writing a BotManager or BotFilter as a Lambda Function](#writing-a-botmanager-or-a-BotFilter-as-a-Lambda-Function)
+### [Writing a BotManager or a BotFilter as a Lambda Function](#writing-a-botmanager-or-a-BotFilter-as-a-lambda-function)
 
 As a recap for the previous sections, to run a Vivocha `BotManager` or a `BotFilter`, once having written the code you can call their `listen()` method, which runs a web server, and you're done.
 
