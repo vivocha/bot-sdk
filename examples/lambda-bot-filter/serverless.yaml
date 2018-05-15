@@ -1,0 +1,17 @@
+# serverless.yml
+
+service: lambda-bot-filter
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  stage: dev
+  region: us-west-2
+
+functions:  
+  lambda-bot-filter:
+    description: Lambda-based Vivocha Bot Filter sample
+    handler: dist/lambda-bot-filter.handler
+    events:
+      - http: 'ANY /'
+      - http: 'ANY {proxy+}'

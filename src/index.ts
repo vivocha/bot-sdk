@@ -5,3 +5,6 @@ export {
 export * from './agent';
 export * from './filter';
 export * from './witai';
+export * from './lambda';
+import * as serverless from 'serverless-http';
+export { serverless };

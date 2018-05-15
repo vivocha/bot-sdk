@@ -1,0 +1,26 @@
+{
+  "name": "lambda-bot-filter",
+  "version": "2.5.0",
+  "description": "VVC 6 dummy factotum chatbot",
+  "main": "dist/index.js",
+  "scripts": {
+    "clean": "[ ! -d ./dist ] || rm -rf dist/*",
+    "clean:all": "npm run clean && rm -rf node_modules",
+    "start": "DEBUG=* node dist/index",
+    "build": "tsc",
+    "build:all": "npm run clean:all && npm i && npm run build",
+    "build:beanstalk": "npm run build:all && tar xfz `npm pack` && cd package && zip -r ../$npm_package_name-$npm_package_version.zip . && cd .. && rm -fr package $npm_package_name-$npm_package_version.tgz"
+  },
+  "author": "Vivocha Dev Team <dev@vivocha.com> (http://www.vivocha.com/)",
+  "license": "SEE LICENSE IN LICENSE",
+  "files": [
+    "dist/**/*.js",
+    "dist/**/*.ts",
+    "README.md",
+    "LICENSE",
+    ".npmrc"
+  ],
+  "dependencies": {
+    "@vivocha/bot-sdk": "^2.6.0"
+  }
+}

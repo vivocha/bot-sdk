@@ -772,3 +772,100 @@ In the Vivocha model, a Bot is just like a "normal" agent, able to handle contac
 - if the bot is developed through the **Dialogflow platform**, and your're using the built-in Vivocha Dialogflow integration, then set the transfer property in the `parameters` property of a returned context (i.e., using a Firebase Cloud Functions-based fulfillment);
 
 - if the bot is written using **Wit.ai** and the module provided by this SDK, just return the transfer property in the BotResponse `data` field (see `examples/dummy-bot(.ts | .js)` code for the `transfer` case).
+
+---
+
+## [Running Bot Managers and Bot Filters as AWS Lambda](#running-bot-managers-and-Bot-Filters-as-aws-lambda)
+
+Starting from version 2.6.0, teh Vivocha Bot SDK supports running **Bot Managers & Agents and Bot Filters as Lambda Functions** in **[AWS Lambda](https://aws.amazon.com/lambda)**, resulting in a great flexibility and scalability added by this serverless-applications platform.
+
+In order to simplify the overall deployment process we use the **[Serverless Framework & Tools](https://serverless.com)**.
+
+### [Prerequisites](#prerequisites)
+
+1. an **Amazon Web Services (AWS)** valid account
+2. your environment configured with *AWS credentials* (please see [this page](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html) or [this guide](https://serverless.com/framework/docs/providers/aws/guide/credentials/))
+3. Serverless framework, thus install Serverless as global: `npm i -g serverless`
+
+As a reference,  the `examples` directory contains two Lambda functions:
+
+- `lambda-bot-manager` is a Lambda-deployable Bot Manager for a dummy bot accepting some commands
+- `lambda-bot-filter` is a BotFilter (same as in `sample.(ts|js) file`) deployable as AWS Lambda.
+
+### [Writing a BotManager or BotFilter as a Lambda Function](#writing-a-botmanager-or-a-BotFilter-as-a-Lambda-Function)
+
+As a recap for the previous, to run a Vivocha `BotManager` or a `BotFilter`, once having written the code you can call their `listen()` method, which runs a web server, and you're done.
+
+To run them as a Lambda Function, basically you have to:
+
+1. in your code, import `serverless` and `toLambda` from the Vivocha Bot SDK, like in the following snippet:
+
+```javascript
+import {BotFilter, BotRequest, ..., toLambda, serverless } from '@vivocha/bot-sdk';
+```
+
+2. Keep your existing BotManager and BotAgent or BotFilter code **BUT DON'T** invoke the `listen()` method, just add the following line at the end of the file:
+
+```javascript
+module.exports.handler = serverless(toLambda(manager));
+```
+
+where, in this case, `manager` is your `BotManager` instance.
+
+3. In the project root directory, create a `serverless.yaml` file (or copy one those contained in the examples directory, mentioned before in this document). This file should have a configuration like the following (related to a BotFilter):
+
+```yaml
+# serverless.yml
+# the name of your service (manager or filter) as in package.json
+service: lambda-bot-filter
+provider:
+  name: aws
+  # we need Node.js AWS environment set to v8.10
+  runtime: nodejs8.10
+  # stage name, change as you prefer, i.e.: prod
+  stage: dev
+  # AWS region, change it as needed
+  region: us-west-2
+functions:
+  # name of your Lambda function
+  lambda-bot-filter:
+    description: Lambda-based Vivocha Bot Filter sample
+    # name of the file/handler where you put the module.exports.handler=... statement
+    handler: dist/lambda-bot-filter.handler
+    events:
+      # Configuration related to the API HTTP Gateway, leave it as follows, if possible.
+      - http: 'ANY /'
+      - http: 'ANY {proxy+}'
+```
+
+4. (optional) if you've written TypeScript then compile your code
+
+5. run the command:
+
+```sh
+sls deploy
+```
+
+If the deploy process is successful you should have an output like the following:
+
+```text
+service: lambda-bot-filter
+stage: dev
+region: us-west-2
+stack: lambda-bot-filter-dev
+api keys:
+  None
+endpoints:
+  ANY - https://abcdef123kwc82.execute-api.us-west-2.amazonaws.com/dev
+  ANY - https://abcdef123kwc82.execute-api.us-west-2.amazonaws.com/dev/{proxy+}
+functions:
+  lambda-bot-filter: lambda-bot-filter-dev-lambda-bot-filter
+```
+
+Therefore, **in this example** your filter endpoint to use in the Vivocha Bot configuration console will be:
+
+`https://abcdef123kwc82.execute-api.us-west-2.amazonaws.com/dev/filter/request`
+
+Done.
+
+The process, in case of a BotManager, is the same.

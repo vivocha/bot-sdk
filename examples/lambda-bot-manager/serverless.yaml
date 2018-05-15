@@ -1,0 +1,17 @@
+# serverless.yml
+
+service: lambda-bot-manager
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  stage: dev
+  region: us-west-2
+
+functions:  
+  lambda-bot-manager:
+    description: Lambda-based Vivocha Bot Manager and Agent sample
+    handler: dist/lambda-bot.handler
+    events:
+      - http: 'ANY /'
+      - http: 'ANY {proxy+}'
