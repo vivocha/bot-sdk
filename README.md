@@ -7,6 +7,50 @@
 This SDK allows to write Vivocha Bot Agents integrating existing bots, built and trained using your preferred bot / NLP platform. E.g., Dialogflow, IBM Watson Assistant (formerly Conversation), Wit.ai, etc...
 By creating a BotManager it is possible to register multi-platform bot implementations and let Vivocha communicate with them through a well-defined and uniform message-based API.
 
+---
+## Table of Contents
+
+  * [Overview](https://github.com/vivocha/bot-sdk#overview)
+  * [Quick Start, by Example](https://github.com/vivocha/bot-sdk#quick-start-by-example)
+    + [BotAgents and Manager TL;DR](https://github.com/vivocha/bot-sdk#botagents-and-manager-tl-dr)
+    + [BotFilters TL;DR](https://github.com/vivocha/bot-sdk#botfilters-tl-dr)
+  * [BotAgent](https://github.com/vivocha/bot-sdk#botagent)
+    + [BotRequest](https://github.com/vivocha/bot-sdk#botrequest)
+      - [BotMessage](https://github.com/vivocha/bot-sdk#botmessage)
+      - [BotSettings](https://github.com/vivocha/bot-sdk#botsettings)
+      - [BotEngineSettings](https://github.com/vivocha/bot-sdk#botenginesettings)
+      - [MessageQuickReply](https://github.com/vivocha/bot-sdk#messagequickreply)
+      - [MessageTemplate](https://github.com/vivocha/bot-sdk#messagetemplate)
+      - [TemplateElement](https://github.com/vivocha/bot-sdk#templateelement)
+      - [DefaultAction](https://github.com/vivocha/bot-sdk#defaultaction)
+      - [Button](https://github.com/vivocha/bot-sdk#button)
+      - [PostbackButton](https://github.com/vivocha/bot-sdk#postbackbutton)
+      - [WebURLButton](https://github.com/vivocha/bot-sdk#weburlbutton)
+      - [CustomEventButton](https://github.com/vivocha/bot-sdk#customeventbutton)
+      - [BotRequest Example](https://github.com/vivocha/bot-sdk#botrequest-example)
+    + [BotResponse](https://github.com/vivocha/bot-sdk#botresponse)
+      - [BotResponse Examples](https://github.com/vivocha/bot-sdk#botresponse-examples)
+  * [BotManager](https://github.com/vivocha/bot-sdk#botmanager)
+    + [Registering a Bot Agent](https://github.com/vivocha/bot-sdk#registering-a-bot-agent)
+    + [BotManager Web API](https://github.com/vivocha/bot-sdk#botmanager-web-api)
+  * [Bot Filters](https://github.com/vivocha/bot-sdk#bot-filters)
+    + [BotFilter Web API](https://github.com/vivocha/bot-sdk#botfilter-web-api)
+  * [Supported Bot and NLP Platforms](https://github.com/vivocha/bot-sdk#supported-bot-and-nlp-platforms)
+    + [Dialogflow: integration guidelines](https://github.com/vivocha/bot-sdk#dialogflow-integration-guidelines)
+      - [Vivocha Rich Messages and Dialogflow](https://github.com/vivocha/bot-sdk#vivocha-rich-messages-and-dialogflow)
+      - [Dialogflow Hints and Tips](https://github.com/vivocha/bot-sdk#dialogflow-hints-and-tips)
+    + [IBM Watson Assistant: integration guidelines](https://github.com/vivocha/bot-sdk#ibm-watson-assistant-integration-guidelines)
+      - [Vivocha Rich Messages and Watson Assistant](https://github.com/vivocha/bot-sdk#vivocha-rich-messages-and-watson-assistant)
+      - [Watson Assistant Hints and Tips](https://github.com/vivocha/bot-sdk#watson-assistant-hints-and-tips)
+    + [Wit.ai, writing chat bots](https://github.com/vivocha/bot-sdk#wit-ai-writing-chat-bots)
+      - [Wit.ai with Vivocha Hint and Tips](https://github.com/vivocha/bot-sdk#wit-ai-with-vivocha-hint-and-tips)
+  * [About Vivocha Bots and Transfers to Human Agents](https://github.com/vivocha/bot-sdk#about-vivocha-bots-and-transfers-to-human-agents)
+  * [Running BotManagers and BotFilters as AWS Lambdas](https://github.com/vivocha/bot-sdk#running-botmanagers-and-botfilters-as-aws-lambdas)
+    + [Prerequisites](https://github.com/vivocha/bot-sdk#prerequisites)
+    + [Writing a BotManager or a BotFilter as a Lambda Function](https://github.com/vivocha/bot-sdk#writing-a-botmanager-or-a-botfilter-as-a-lambda-function)
+
+---
+
 ## [Overview](#overview)
 
 The Vivocha platform provides out-of-the-box support for chat bots built using [IBM Watson Assistant (formerly Conversation)](https://www.ibm.com/watson/services/conversation) and [Dialogflow](https://dialogflow.com/) platforms. This means that it is possible to integrate these particular bot implementations with Vivocha simply using the Vivocha configuration app and specificing few settings, like authentication tokens, and following some, very simple, mandatory guidelines when building the bot, at design time.
