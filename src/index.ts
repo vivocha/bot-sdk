@@ -1,6 +1,21 @@
 export {
-  BotAgent, BotRequest, BotResponse,
-  BotRequestFilter, BotResponseFilter, BotMessageBody, TextMessage, TemplateMessage, PostbackMessage
+  BotAgent, 
+  BotRequest, 
+  BotResponse,
+  BotRequestFilter, 
+  BotResponseFilter, 
+  BotMessageBody, 
+  TextMessage, 
+  TemplateMessage, 
+  PostbackMessage,
+  BotDataCollection,
+  DialogDataCollection,
+  BooleanField,
+  RatingField,
+  NumberField,
+  SelectField,
+  StringField,
+  DataField
 } from '@vivocha/public-entities';
 export * from './agent';
 export * from './filter';
