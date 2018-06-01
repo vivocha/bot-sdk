@@ -55,20 +55,24 @@ export abstract class WitAiBot {
         }
     }
     protected async sendTextMessage(request: BotRequest): Promise<BotResponse> {
-        const witResponse = await this.witApp.message(request.message.body, {});
-        logger.debug('Wit.ai RESPONSE', JSON.stringify(witResponse));
-        const nextMessage: NextMessage = await this.getNextMessage(this.getFirstIntent(witResponse.entities) || 'unknown', witResponse, request);
-        logger.debug('Message to send:', JSON.stringify(nextMessage));
-        const res: BotResponse = {
-            event: nextMessage.event,
-            messages: nextMessage.messages,
-            data: Object.assign({}, request.data, nextMessage.data || witResponse.entities),
-            settings: request.settings,
-            context: _.merge(request.context, { contexts: nextMessage.contexts } ),
-            raw: witResponse
-        };
-        logger.debug('Bot Response to send:', JSON.stringify(res));
-        return res;
+        if (!request.message) {
+            throw new Error('Missing request.message property in received text message');
+        } else {
+            const witResponse = await this.witApp.message(request.message.body, {});
+            logger.debug('Wit.ai RESPONSE', JSON.stringify(witResponse));
+            const nextMessage: NextMessage = await this.getNextMessage(this.getFirstIntent(witResponse.entities) || 'unknown', witResponse, request);
+            logger.debug('Message to send:', JSON.stringify(nextMessage));
+            const res: BotResponse = {
+                event: nextMessage.event,
+                messages: nextMessage.messages,
+                data: Object.assign({}, request.data, nextMessage.data || witResponse.entities),
+                settings: request.settings,
+                context: _.merge(request.context, { contexts: nextMessage.contexts }),
+                raw: witResponse
+            };
+            logger.debug('Bot Response to send:', JSON.stringify(res));
+            return res;
+        }
     }
     protected async getNextMessage(intent: string, witResponse: MessageResponse, request: BotRequest): Promise<NextMessage> {
         return this.intents[intent](witResponse, request);

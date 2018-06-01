@@ -1,8 +1,8 @@
 import { API, Resource, Operation, Swagger } from 'arrest';
 import { BotRequestFilter, BotResponseFilter, BotRequest, BotResponse } from '@vivocha/public-entities';
 
-const defaultRequestFilter: BotRequestFilter = async () => { API.fireError(400, 'request filtering not supported') };
-const defaultResponseFilter: BotResponseFilter = async () => { API.fireError(400, 'response filtering not supported') };
+const defaultRequestFilter: BotRequestFilter = async (): Promise<BotRequest> => { throw API.newError(400, 'request filtering not supported') };
+const defaultResponseFilter: BotResponseFilter = async (): Promise<BotResponse> => { throw API.newError(400, 'response filtering not supported') };
 
 class BotFilterResource extends Resource {
   constructor(reqFilter: BotRequestFilter, resFilter: BotResponseFilter) {
