@@ -1,5 +1,6 @@
+import { BotRequestFilter, BotResponseFilter, BotRequest, BotResponse, EnvironmentInfo } from '@vivocha/public-entities/dist/bot';
 import { API, Resource, Operation, Swagger } from 'arrest';
-import { BotRequestFilter, BotResponseFilter, BotRequest, BotResponse } from '@vivocha/public-entities';
+import { getVvcEnvironment } from './util';
 
 const defaultRequestFilter: BotRequestFilter = async (): Promise<BotRequest> => { throw API.newError(400, 'request filtering not supported') };
 const defaultResponseFilter: BotResponseFilter = async (): Promise<BotResponse> => { throw API.newError(400, 'response filtering not supported') };
@@ -38,6 +39,13 @@ class FilterRequest extends Operation {
 
   handler(req, res, next) {
     const msg: BotRequest = req.body as BotRequest;
+    const headers = req.headers;
+    if (headers) {
+      const environment: EnvironmentInfo = getVvcEnvironment(headers);
+      if (Object.keys(environment).length){
+        msg['environment'] = environment;
+      }
+    }
     this.filter(msg).then(response => res.json(response), next);
   }
 }
@@ -65,6 +73,13 @@ class FilterResponse extends Operation {
 
   handler(req, res, next) {
     const msg: BotResponse = req.body as BotResponse;
+    const headers = req.headers;
+    if (headers) {
+      const environment: EnvironmentInfo = getVvcEnvironment(headers);
+      if (Object.keys(environment).length){
+        msg['environment'] = environment;
+      }
+    }
     this.filter(msg).then(response => res.json(response), next);
   }
 }

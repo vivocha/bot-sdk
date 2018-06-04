@@ -177,4 +177,4 @@ console.log(`SimpleWitBot listening at port: ${port}`);
 process.on('SIGTERM', () => process.exit(0));
 process.on('SIGINT', () => process.exit(0));
 // RUN this with: node sample-wit
-// If you need to change the default 8888 port, run: PORT=<port-number> node sample-wit 
+// If you need to change the default 8888 port, run: PORT=<port-number> node sample-wit

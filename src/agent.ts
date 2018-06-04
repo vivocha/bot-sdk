@@ -1,5 +1,7 @@
 import { API, Resource, Operation, Swagger } from 'arrest';
 import { BotAgent, BotRequest, BotResponse } from '@vivocha/public-entities';
+import { getVvcEnvironment } from './util';
+import { EnvironmentInfo } from '@vivocha/public-entities/dist/bot';
 
 class BotAgentResource extends Resource {
   constructor() {
@@ -34,6 +36,13 @@ class SendMessage extends Operation {
 
   handler(req, res, next) {
     const msg: BotRequest = req.body as BotRequest;
+    const headers = req.headers;
+    if (headers) {
+      const environment: EnvironmentInfo = getVvcEnvironment(headers);
+      if (Object.keys(environment).length){
+        msg['environment'] = environment;
+      }
+    }
     const agent = (this.api as BotAgentManager).agents[msg.settings.engine.type];
     if (agent) {
       agent(msg).then(response => res.json(response), err => next(API.newError(500, 'platform error', err.message, err)));

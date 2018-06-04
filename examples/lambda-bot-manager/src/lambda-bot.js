@@ -1,12 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const index_1 = require("../dist/index"); // install and use @vivocha/bot-sdk to run this bot!
+const bot_sdk_1 = require("@vivocha/bot-sdk"); // install and use @vivocha/bot-sdk to run this bot!
+const serverless = require('serverless-http');
 // got is just a simple library to perform http requests (see below in the BotAgent code)
 const got = require("got");
 // A BotManager is a web server which exposes an API to send messages
 // to registered BotAgents, it exposes a Swagger description of the API with related JSON Schemas.
 // A BotManager holds a BotAgents registry.
-const manager = new index_1.BotAgentManager();
+const manager = new bot_sdk_1.BotAgentManager();
 // A BotAgent actually represents the Bot implementation and basically it is
 // a function which takes a BotRequest message in input and returns a Promise,
 // resolved with a BotResponse message.
@@ -34,7 +35,7 @@ manager.registerAgent('custom', async (msg) => {
         response.messages = [{
                 code: 'message',
                 type: 'text',
-                body: 'Hello! I am a DummyBot :) Write help to see what I can do for you.'
+                body: 'Hello! I am a Lambda DummyBot :) Write help to see what I can do for you.'
             }];
         response.data = {};
     }
@@ -1052,10 +1053,4 @@ manager.registerAgent('custom', async (msg) => {
     console.log('Sending Response ', response);
     return response;
 });
-// Run the BotManager:
-const port = process.env.PORT || 8888;
-manager.listen(port);
-console.log(`Dummy Bot Manager listening at port ${port}`);
-// the swagger description will be available at http(s)://<server-address>/swagger.json
-// and schemas at  http(s)://<server-address>/schemas/<schema-name>.
-// E.g., http(s)://<server-address>/schemas/bot_request
+module.exports.handler = serverless(bot_sdk_1.toLambda(manager));
