@@ -8,6 +8,17 @@ This SDK allows to write Vivocha Bot Agents integrating existing bots, built and
 By creating a BotManager it is possible to register multi-platform bot implementations and let Vivocha communicate with them through a well-defined and uniform message-based API.
 
 ---
+
+To start with the Bot SDK it is recommended to:
+
+- install it from NPM: `npm i @vivocha/bot-sdk`
+
+or
+
+- download the latest release from [here (current is v2.6.0)](https://github.com/vivocha/bot-sdk/releases)
+
+---
+
 ## Table of Contents
 
   * [Overview](https://github.com/vivocha/bot-sdk#overview)
