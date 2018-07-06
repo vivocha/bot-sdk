@@ -36,13 +36,15 @@ class SendMessage extends Operation {
 
   handler(req, res, next) {
     const msg: BotRequest = req.body as BotRequest;
+    let vivochaEnvironment = msg.environment || {};
     const headers = req.headers;
     if (headers) {
-      const environment: EnvironmentInfo = getVvcEnvironment(headers);
-      if (Object.keys(environment).length){
-        msg['environment'] = environment;
+      const headersEnvironment: EnvironmentInfo = getVvcEnvironment(headers);
+      if (Object.keys(headersEnvironment).length){
+        vivochaEnvironment = {...vivochaEnvironment, ...headersEnvironment};
       }
     }
+    msg['environment'] = vivochaEnvironment;
     const agent = (this.api as BotAgentManager).agents[msg.settings.engine.type];
     if (agent) {
       agent(msg).then(response => res.json(response), err => next(API.newError(500, 'platform error', err.message, err)));

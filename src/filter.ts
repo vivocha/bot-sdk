@@ -39,13 +39,15 @@ class FilterRequest extends Operation {
 
   handler(req, res, next) {
     const msg: BotRequest = req.body as BotRequest;
+    let vivochaEnvironment = msg.environment || {};
     const headers = req.headers;
     if (headers) {
-      const environment: EnvironmentInfo = getVvcEnvironment(headers);
-      if (Object.keys(environment).length){
-        msg['environment'] = environment;
+      const headersEnvironment: EnvironmentInfo = getVvcEnvironment(headers);
+      if (Object.keys(headersEnvironment).length){
+        vivochaEnvironment = {...vivochaEnvironment, ...headersEnvironment};
       }
     }
+    msg['environment'] = vivochaEnvironment;
     this.filter(msg).then(response => res.json(response), next);
   }
 }
@@ -73,13 +75,15 @@ class FilterResponse extends Operation {
 
   handler(req, res, next) {
     const msg: BotResponse = req.body as BotResponse;
+    let vivochaEnvironment = msg.environment || {};
     const headers = req.headers;
     if (headers) {
-      const environment: EnvironmentInfo = getVvcEnvironment(headers);
-      if (Object.keys(environment).length){
-        msg['environment'] = environment;
+      const headersEnvironment: EnvironmentInfo = getVvcEnvironment(headers);
+      if (Object.keys(headersEnvironment).length){
+        vivochaEnvironment = {...vivochaEnvironment, ...headersEnvironment};
       }
     }
+    msg['environment'] = vivochaEnvironment;
     this.filter(msg).then(response => res.json(response), next);
   }
 }
