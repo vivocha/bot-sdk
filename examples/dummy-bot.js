@@ -1,6 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const index_1 = require("../dist/index"); // install and use @vivocha/bot-sdk to run this bot!
+// install and use @vivocha/bot-sdk to run this bot!
+// NB: Change the following line to:
+// import { BotAgentManager, BotFilter, BotRequest, BotResponse, TextMessage } from "@vivocha/bot-sdk";
+const index_1 = require("../dist/index");
 // got is just a simple library to perform http requests (see below in the BotAgent code)
 const got = require("got");
 // A BotManager is a web server which exposes an API to send messages
@@ -40,7 +43,7 @@ manager.registerAgent('custom', async (msg) => {
     }
     else {
         // This bot understands few sentences ;)
-        switch (msg.message.body.toLowerCase()) {
+        switch ((msg.message.body.toLowerCase())) {
             case 'hi':
                 response.messages = [{
                         code: 'message',

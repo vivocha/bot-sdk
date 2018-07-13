@@ -1,4 +1,5 @@
-import { BotFilter, BotRequest, toLambda, serverless } from '@vivocha/bot-sdk'; // install and use @vivocha/bot-sdk to run this bot!
+// install and use @vivocha/bot-sdk to run this bot!
+import { BotFilter, BotRequest, toLambda, serverless } from '@vivocha/bot-sdk'; 
 
 // A really simple BotFilter implementation
 // which augments the BotRequest in input with a number of availableAgents 

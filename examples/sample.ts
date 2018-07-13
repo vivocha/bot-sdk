@@ -1,3 +1,6 @@
+// install and use @vivocha/bot-sdk to run this bot!
+ // NB: Change the following line to:
+ // import { BotAgentManager, BotFilter, BotRequest, BotResponse } from "@vivocha/bot-sdk";
 import { BotAgentManager, BotFilter, BotRequest, BotResponse } from "../dist/index";
 
 // A very simple BotManager and BotAgent implementation
@@ -11,7 +14,7 @@ manager.registerAgent('simple', async (msg: BotRequest): Promise<BotResponse> =>
       code: 'message',
       type: 'text',
       body: 'This is a test. Bye.'
-    }],
+    } as any],
     event: 'end'
   };
   return response;

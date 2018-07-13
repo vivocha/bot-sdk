@@ -1,4 +1,8 @@
-import { BotAgentManager, BotFilter, BotRequest, BotResponse, TextMessage } from "../dist/index"; // install and use @vivocha/bot-sdk to run this bot!
+ // install and use @vivocha/bot-sdk to run this bot!
+ // NB: Change the following line to:
+ // import { BotAgentManager, BotFilter, BotRequest, BotResponse, TextMessage } from "@vivocha/bot-sdk";
+import { BotAgentManager, BotFilter, BotRequest, BotResponse, TextMessage } from "../dist/index";
+
 // got is just a simple library to perform http requests (see below in the BotAgent code)
 import * as got from 'got';
 
@@ -43,7 +47,7 @@ manager.registerAgent('custom', async (msg: BotRequest): Promise<BotResponse> =>
         response.data = {};
     } else {
         // This bot understands few sentences ;)
-        switch (msg.message.body.toLowerCase()) {
+        switch (((msg.message as any).body.toLowerCase())) {
             case 'hi':
                 response.messages = [{
                     code: 'message',
@@ -112,7 +116,7 @@ manager.registerAgent('custom', async (msg: BotRequest): Promise<BotResponse> =>
                         payload: 'white'
                     }
                     ]
-                }
+                } as any
                 ];
                 response.event = 'continue';
                 break;
@@ -174,7 +178,7 @@ manager.registerAgent('custom', async (msg: BotRequest): Promise<BotResponse> =>
 
                         ] // end elements
                     }
-                }];
+                } as any];
                 response.event = 'continue';
                 break;
             case 'pagevent':
@@ -200,7 +204,7 @@ manager.registerAgent('custom', async (msg: BotRequest): Promise<BotResponse> =>
 
                         ] // end elements
                     }
-                }];
+                } as any];
                 response.event = 'continue';
                 break;
             case 'team':
@@ -229,7 +233,7 @@ manager.registerAgent('custom', async (msg: BotRequest): Promise<BotResponse> =>
                         image_url: 'https://www.vivocha.com/wp-content/uploads/2017/05/team-antonio.png'
                     }
                     ]
-                }
+                } as any
                 ];
                 response.event = 'continue';
                 break;
@@ -265,7 +269,7 @@ manager.registerAgent('custom', async (msg: BotRequest): Promise<BotResponse> =>
                             }
                         ] // end elements
                     }
-                }];
+                } as any];
                 response.event = 'continue';
                 break;
             case 'cats':
@@ -325,7 +329,7 @@ manager.registerAgent('custom', async (msg: BotRequest): Promise<BotResponse> =>
 
                         ] // end elements
                     }
-                }];
+                } as any];
                 response.event = 'continue';
                 break;
             case 'andrea':
@@ -360,7 +364,7 @@ manager.registerAgent('custom', async (msg: BotRequest): Promise<BotResponse> =>
                             }
                         ] // end elements
                     }
-                }];
+                } as any];
                 response.event = 'continue';
                 break;
             case 'federico':
@@ -395,7 +399,7 @@ manager.registerAgent('custom', async (msg: BotRequest): Promise<BotResponse> =>
                             }
                         ] // end elements
                     }
-                }];
+                } as any];
                 response.event = 'continue';
                 break;
             case 'antonio':
@@ -430,7 +434,7 @@ manager.registerAgent('custom', async (msg: BotRequest): Promise<BotResponse> =>
                             }
                         ] // end elements
                     }
-                }];
+                } as any];
                 response.event = 'continue';
                 break;
             case 'red':
@@ -465,7 +469,7 @@ manager.registerAgent('custom', async (msg: BotRequest): Promise<BotResponse> =>
                             }
                         ] // end elements
                     }
-                }];
+                } as any];
                 response.event = 'continue';
                 break;
             case 'blue':
@@ -500,7 +504,7 @@ manager.registerAgent('custom', async (msg: BotRequest): Promise<BotResponse> =>
                             }
                         ] // end elements
                     }
-                }];
+                } as any];
                 response.event = 'continue';
                 break;
             case 'white':
@@ -535,7 +539,7 @@ manager.registerAgent('custom', async (msg: BotRequest): Promise<BotResponse> =>
                             }
                         ] // end elements
                     }
-                }];
+                } as any];
                 response.event = 'continue';
                 break;
 
@@ -598,7 +602,7 @@ manager.registerAgent('custom', async (msg: BotRequest): Promise<BotResponse> =>
 
                         ] // end elements
                     }
-                }];
+                } as any];
                 response.event = 'continue';
                 break;
             case 'tm-elements':
@@ -1056,7 +1060,7 @@ manager.registerAgent('custom', async (msg: BotRequest): Promise<BotResponse> =>
 
                         ] // end elements
                     }
-                }];
+                } as any];
                 response.event = 'continue';
                 break;
 
@@ -1081,7 +1085,7 @@ manager.registerAgent('custom', async (msg: BotRequest): Promise<BotResponse> =>
                         payload: msg.data.c
                     }
                     ]
-                }];
+                } as any];
                 response.event = 'continue';
                 break;
             case 'stringify':
@@ -1099,7 +1103,7 @@ manager.registerAgent('custom', async (msg: BotRequest): Promise<BotResponse> =>
                         title: JSON.parse(msg.data.json).b,
                         payload: JSON.parse(msg.data.json).b
                     }]
-                }];
+                } as any];
                 response.event = 'continue';
                 break;
             default:

@@ -1,5 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+// install and use @vivocha/bot-sdk to run this bot!
+// NB: Change the following line to:
+// import { BotAgentManager, BotFilter, BotRequest, BotResponse } from "@vivocha/bot-sdk";
 const index_1 = require("../dist/index");
 // A very simple BotManager and BotAgent implementation
 const manager = new index_1.BotAgentManager();

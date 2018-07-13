@@ -15,7 +15,7 @@ To start with the Bot SDK it is recommended to:
 
 or
 
-- download the latest release from [here (current is v2.6.0)](https://github.com/vivocha/bot-sdk/releases)
+- download the latest release from [here (current is v2.7.0)](https://github.com/vivocha/bot-sdk/releases)
 
 ---
 
@@ -23,8 +23,8 @@ or
 
   * [Overview](https://github.com/vivocha/bot-sdk#overview)
   * [Quick Start, by Example](https://github.com/vivocha/bot-sdk#quick-start-by-example)
-    + [BotAgents and Manager TL;DR](https://github.com/vivocha/bot-sdk#botagents-and-manager-tl-dr)
-    + [BotFilters TL;DR](https://github.com/vivocha/bot-sdk#botfilters-tl-dr)
+    + [BotAgents and Manager TL;DR](https://github.com/vivocha/bot-sdk#botagents-and-manager-tldr)
+    + [BotFilters TL;DR](https://github.com/vivocha/bot-sdk#botfilters-tldr)
   * [BotAgent](https://github.com/vivocha/bot-sdk#botagent)
     + [BotRequest](https://github.com/vivocha/bot-sdk#botrequest)
       - [BotMessage](https://github.com/vivocha/bot-sdk#botmessage)
@@ -53,8 +53,8 @@ or
     + [IBM Watson Assistant: integration guidelines](https://github.com/vivocha/bot-sdk#ibm-watson-assistant-integration-guidelines)
       - [Vivocha Rich Messages and Watson Assistant](https://github.com/vivocha/bot-sdk#vivocha-rich-messages-and-watson-assistant)
       - [Watson Assistant Hints and Tips](https://github.com/vivocha/bot-sdk#watson-assistant-hints-and-tips)
-    + [Wit.ai, writing chat bots](https://github.com/vivocha/bot-sdk#wit-ai-writing-chat-bots)
-      - [Wit.ai with Vivocha Hint and Tips](https://github.com/vivocha/bot-sdk#wit-ai-with-vivocha-hint-and-tips)
+    + [Wit.ai, writing chat bots](https://github.com/vivocha/bot-sdk#witai-writing-chat-bots)
+      - [Wit.ai with Vivocha Hint and Tips](https://github.com/vivocha/bot-sdk#witai-with-vivocha-hint-and-tips)
   * [About Vivocha Bots and Transfers to Human Agents](https://github.com/vivocha/bot-sdk#about-vivocha-bots-and-transfers-to-human-agents)
   * [Running BotManagers and BotFilters as AWS Lambdas](https://github.com/vivocha/bot-sdk#running-botmanagers-and-botfilters-as-aws-lambdas)
     + [Prerequisites](https://github.com/vivocha/bot-sdk#prerequisites)
@@ -89,7 +89,7 @@ See:
 
 ---
 
-### [BotAgents and Manager TL;DR](#botagents-and-manager-tl-dr)
+### [BotAgents and Manager TL;DR](#botagents-and-manager-tldr)
 
 A `BotAgent` represents and communicates with a particular Bot implementation platform.
 A `BotManager` exposes a Web API acting as a gateway to registered `BotAgent`s.
@@ -104,7 +104,7 @@ Usually, the steps to use agents and managers are:
 
 ---
 
-### [BotFilters TL;DR](#botfilters-tl-dr)
+### [BotFilters TL;DR](#botfilters-tldr)
 
 A `BotFilter` is a Web service to filter/manipulate/enrich/transform `BotRequest`s and/or `BotResponse`s.
 For example, a `BotFilter` can enrich a request calling an external API to get additional data before sending it to a BotAgent, or it can filter a response coming from a BotAgent to transform data before forwarding it to the user chat.
@@ -151,6 +151,7 @@ PROPERTY | VALUE | DESCRIPTION
 `data` | (optional) object | an object containing data to send to the Bot. Its properties must be of basic type. E.g., `{"firstname":"Antonio", "lastname": "Smith", "code": 12345}`
 `context` | (optional) object | Opaque, Bot specific context data
 `tempContext` | (optional) object | Temporary context, useful to store volatile data; i.e., in bot filters chains.
+`environment` | (optional) object | Vivocha specific environment data sent by the platform. Currently, the `environment` object can have the following (optional) properties: `host`, `acct`, `hmac`, `campaignId`, `channelId`, `entrypointId`, `engagementId`, `contactId`.
 `settings` | (optional) **[BotSettings](https://github.com/vivocha/bot-sdk#botsettings)** object (see below)| Bot platform settings.
 
 #### [BotMessage](#botmessage)
@@ -303,7 +304,8 @@ PROPERTY | VALUE | DESCRIPTION
 `language` | (optional) string. E.g., `en`, `it`, ... | language string code
 `data` | (optional) object | an object containing data collected or computed by the Bot. Its properties must be of simple type. E.g., `{"firstname":"Antonio", "lastname": "Smith", "code": 12345, "availableAgents": 5}`
 `context` | (optional) object | Opaque, Bot specific context data. The Vivocha platform will send it immutated to the Bot in the next iteration.
-`tempContext` | (optional) object | Temporary context, useful to store volatile data, i.e., in bot filters chains
+`tempContext` | (optional) object | Temporary context, useful to store volatile data, i.e., in bot filters chains.
+`environment` | (optional) object | Vivocha specific environment data originally sent by the platform. Currently, the `environment` object can have the following (optional) properties: `host`, `acct`, `hmac`, `campaignId`, `channelId`, `entrypointId`, `engagementId`, `contactId`.
 `settings` | (optional) **[BotSettings](https://github.com/vivocha/bot-sdk#botsettings)** object | Bot platform settings
 `raw` | (optional) object | raw, platform specific, unparsed bot response.
 
@@ -731,7 +733,7 @@ configure the particular slot through *Edit Slot > ... > Open JSON Editor* as:
 
 ---
 
-### [Wit.ai, writing chat bots](#wit-ai-writing-chat-bots)
+### [Wit.ai, writing chat bots](#witai-writing-chat-bots)
 
 [Wit.ai](https://wit.ai) is a pure Natural Language Processing (NLP) platform. Using the Web console it is not possible to design Bot's dialog flows or conversations, anymore. Therefore, all the bot application logic, conversation flows, contexts and so on... (in other words: the Bot itself) must be coded outside, calling Wit.ai APIs (mainly) to process natural language messages coming from the users. Through creating an App in Wit.ai and training the system for the specific application domain, it is possible to let it processing messages and extract information from them, like (but not only): user intents end entities, along with their confidence value.
 
@@ -777,7 +779,7 @@ Note that the `unknown` mapping is needed to handle all the cases when Wit.ai is
 
 More details can be found in the dedicated `examples/sample-wit.ts(.js)` sample files.
 
-#### [Wit.ai with Vivocha Hint and Tips](#wit-ai-with-vivocha-hint-and-tips)
+#### [Wit.ai with Vivocha Hint and Tips](#witai-with-vivocha-hint-and-tips)
 
 - use BotRequest/BotResponse `context.contexts` array property to set contexts, in order to drive your bot in taking decisions about which conversation flow branch follow and about what reply to the user. To check contexts, the `WitAiBot`class provides the `inContext()` method. See the example to discover more;
 
@@ -917,10 +919,16 @@ functions:
   lambda-bot-filter: lambda-bot-filter-dev-lambda-bot-filter
 ```
 
-Therefore, **in this example**, the filter endpoint to use in the Vivocha Bot configuration console will be:
+In the response above, AWS returned the endpoint base URL of our Lambda, thus **this is not the complete URL**.
+
+Therefore, **for our BotFilter example**, the resulting complete filter endpoint URL to use in the Vivocha Bot configuration console will be:
 
 `https://abcdef123kwc82.execute-api.us-west-2.amazonaws.com/dev/filter/request`
 
-Done.
+The process in case of a BotManager is the same.
 
-The process, in case of a BotManager, is the same.
+Likewise, if you have deployed as Lambda a **BotManager** the complete endpoint URL to use will be something like the following:
+
+`https://abcdef567kwc82.execute-api.us-west-2.amazonaws.com/dev/bot/message`
+
+Done.

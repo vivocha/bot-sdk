@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * This is a sample bot built using Wit.ai NLP.
  * In order to use this bot you need to create and train
@@ -8,7 +9,8 @@
  * intents property in SimpleWitBot class.
  * See comments in the code below.
  */
-Object.defineProperty(exports, "__esModule", { value: true });
+// NB: Change the following line to:
+// import { BotRequest, BotResponse, TextMessage, BotAgentManager, WitAiBot, IntentsMap, NextMessage } from "@vivocha/bot-sdk";
 const index_1 = require("../dist/index");
 const _ = require("lodash");
 // WitAiBot is an abstract class, so we need to:

@@ -7,8 +7,10 @@
  * intents property in SimpleWitBot class.
  * See comments in the code below.
  */
-
+// NB: Change the following line to:
+// import { BotRequest, BotResponse, TextMessage, BotAgentManager, WitAiBot, IntentsMap, NextMessage } from "@vivocha/bot-sdk";
 import { BotRequest, BotResponse, TextMessage, BotAgentManager, WitAiBot, IntentsMap, NextMessage } from '../dist/index';
+
 import { Wit, log, MessageResponse } from 'node-wit';
 import * as _ from 'lodash';
 
@@ -162,7 +164,7 @@ function prepareBotMessage(body: string): TextMessage {
         code: 'message',
         type: 'text',
         body
-    };
+    } as any;
 }
 
 // Create a BotManager and register the Wit.ai Bot Agent

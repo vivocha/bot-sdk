@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const bot_sdk_1 = require("@vivocha/bot-sdk"); // install and use @vivocha/bot-sdk to run this bot!
+// install and use @vivocha/bot-sdk to run this bot!
+const bot_sdk_1 = require("@vivocha/bot-sdk");
 // A really simple BotFilter implementation
 // which augments the BotRequest in input with a number of availableAgents 
 // and sets if user is premium

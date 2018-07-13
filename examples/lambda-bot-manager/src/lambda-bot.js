@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const bot_sdk_1 = require("@vivocha/bot-sdk"); // install and use @vivocha/bot-sdk to run this bot!
+// install and use @vivocha/bot-sdk to run this bot!
+const bot_sdk_1 = require("@vivocha/bot-sdk");
 const serverless = require('serverless-http');
 // got is just a simple library to perform http requests (see below in the BotAgent code)
 const got = require("got");
