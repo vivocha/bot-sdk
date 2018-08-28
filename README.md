@@ -399,7 +399,7 @@ which is rendered by the Vivocha interaction app like in the following screensho
 | :------------------------------------------------------------------------------------: |
 |             **A BotResponse message containing only one generic template**             |
 
-**Example 4**: A BotResponse message containing a _carousel of generic templates_
+**Example 4**: A BotResponse message containing a **carousel of generic templates**
 
 ```javascript
 {
