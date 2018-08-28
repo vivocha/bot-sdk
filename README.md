@@ -234,9 +234,9 @@ Bot platform settings object. Along with the `engine` property (see the table be
 
 Which is rendered by the Vivocha interaction app like in the following screenshot:
 
-| ![Overview](https://cdn.rawgit.com/vivocha/bot-sdk/79a72947/docs/quick-replies-h.png) |
-| :-----------------------------------------------------------------------------------: |
-|               **A BotResponse containing a message with quick replies**               |
+| <img src="https://cdn.rawgit.com/vivocha/bot-sdk/79a72947/docs/quick-replies-h.png" width=300 /> |
+| :----------------------------------------------------------------------------------------------: |
+|                    **A BotResponse containing a message with quick replies**                     |
 
 **Example 2**: A BotResponse message containing three **quick replies** with vertical orientation
 
@@ -275,9 +275,9 @@ Which is rendered by the Vivocha interaction app like in the following screensho
 
 Which is rendered by the Vivocha interaction app like in the following screenshot:
 
-| ![Overview](https://cdn.rawgit.com/vivocha/bot-sdk/79a72947/docs/quick-replies-v.png) |
-| :-----------------------------------------------------------------------------------: |
-|  **A BotResponse containing a message with quick replies with vertical orientation**  |
+| <img src="https://cdn.rawgit.com/vivocha/bot-sdk/79a72947/docs/quick-replies-v.png" width=300 /> |
+| :----------------------------------------------------------------------------------------------: |
+|       **A BotResponse containing a message with quick replies with vertical orientation**        |
 
 **Example 3**: A BotResponse message containing some **quick replies** with images
 
@@ -324,9 +324,9 @@ Which is rendered by the Vivocha interaction app like in the following screensho
 
 Which is rendered by the Vivocha interaction app like in the following screenshot:
 
-| ![Overview](https://cdn.rawgit.com/vivocha/bot-sdk/79a72947/docs/quick-replies-icons.gif) |
-| :---------------------------------------------------------------------------------------: |
-|    **A BotResponse containing a message with some quick replies containing an image**     |
+| <img src="https://cdn.rawgit.com/vivocha/bot-sdk/79a72947/docs/quick-replies-icons.gif" width=300 /> |
+| :--------------------------------------------------------------------------------------------------: |
+|          **A BotResponse containing a message with some quick replies containing an image**          |
 
 ---
 
@@ -395,9 +395,9 @@ In a Template Element only the property `title` is mandatory, but at least one o
 
 which is rendered by the Vivocha interaction app like in the following screenshot:
 
-| ![Overview](https://cdn.rawgit.com/vivocha/bot-sdk/79a72947/docs/generic-template.png) |
-| :------------------------------------------------------------------------------------: |
-|             **A BotResponse message containing only one generic template**             |
+| <img src="https://cdn.rawgit.com/vivocha/bot-sdk/79a72947/docs/generic-template.png" width=300 /> |
+| :-----------------------------------------------------------------------------------------------: |
+|                  **A BotResponse message containing only one generic template**                   |
 
 **Example 4**: A BotResponse message containing a **carousel of generic templates**
 
@@ -444,9 +444,9 @@ which is rendered by the Vivocha interaction app like in the following screensho
 
 Which is rendered by the Vivocha interaction app like in the following screenshot:
 
-| ![Overview](https://cdn.rawgit.com/vivocha/bot-sdk/79a72947/docs/generic-template-carousel.gif) |
-| :---------------------------------------------------------------------------------------------: |
-|              **A BotResponse message containing a carousel of generic templates**               |
+| <img src="https://cdn.rawgit.com/vivocha/bot-sdk/79a72947/docs/generic-template-carousel.gif" width=300 />) |
+| :---------------------------------------------------------------------------------------------------------: |
+|                    **A BotResponse message containing a carousel of generic templates**                     |
 
 **Example 5**: A BotResponse message containing a **list template**
 
@@ -503,9 +503,9 @@ Which is rendered by the Vivocha interaction app like in the following screensho
 
 Which is rendered by the Vivocha interaction app like in the following screenshot:
 
-| ![Overview](https://cdn.rawgit.com/vivocha/bot-sdk/79a72947/docs/list-template.png) |
-| :---------------------------------------------------------------------------------: |
-|                **A BotResponse message containing a list template**                 |
+| <img src="https://cdn.rawgit.com/vivocha/bot-sdk/79a72947/docs/list-template.png" width=300 /> |
+| :--------------------------------------------------------------------------------------------: |
+|                      **A BotResponse message containing a list template**                      |
 
 **Example 6**: A BotResponse message containing a **list template with links (buttons)**
 
@@ -568,9 +568,9 @@ Which is rendered by the Vivocha interaction app like in the following screensho
 
 Which is rendered by the Vivocha interaction app like in the following screenshot:
 
-| ![Overview](https://cdn.rawgit.com/vivocha/bot-sdk/79a72947/docs/list-template-btn.png) |
-| :-------------------------------------------------------------------------------------: |
-|        **A BotResponse message containing a list template with links (buttons)**        |
+| <img src="https://cdn.rawgit.com/vivocha/bot-sdk/79a72947/docs/list-template-btn.png" width=300 /> |
+| :------------------------------------------------------------------------------------------------: |
+|             **A BotResponse message containing a list template with links (buttons)**              |
 
 ---
 
