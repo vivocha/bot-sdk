@@ -1,6 +1,6 @@
 # Vivocha Bot SDK
 
-*JavaScript / TypeScript SDK to create Bot Agents and Filters for the [Vivocha](https://www.vivocha.com) platform*
+_JavaScript / TypeScript SDK to create Bot Agents and Filters for the [Vivocha](https://www.vivocha.com) platform_
 
 ---
 
@@ -21,44 +21,44 @@ or
 
 ## Table of Contents
 
-  * [Overview](https://github.com/vivocha/bot-sdk#overview)
-  * [Quick Start, by Example](https://github.com/vivocha/bot-sdk#quick-start-by-example)
-    + [BotAgents and Manager TL;DR](https://github.com/vivocha/bot-sdk#botagents-and-manager-tldr)
-    + [BotFilters TL;DR](https://github.com/vivocha/bot-sdk#botfilters-tldr)
-  * [BotAgent](https://github.com/vivocha/bot-sdk#botagent)
-    + [BotRequest](https://github.com/vivocha/bot-sdk#botrequest)
-      - [BotMessage](https://github.com/vivocha/bot-sdk#botmessage)
-      - [BotSettings](https://github.com/vivocha/bot-sdk#botsettings)
-      - [BotEngineSettings](https://github.com/vivocha/bot-sdk#botenginesettings)
-      - [MessageQuickReply](https://github.com/vivocha/bot-sdk#messagequickreply)
-      - [MessageTemplate](https://github.com/vivocha/bot-sdk#messagetemplate)
-      - [TemplateElement](https://github.com/vivocha/bot-sdk#templateelement)
-      - [DefaultAction](https://github.com/vivocha/bot-sdk#defaultaction)
-      - [Button](https://github.com/vivocha/bot-sdk#button)
-      - [PostbackButton](https://github.com/vivocha/bot-sdk#postbackbutton)
-      - [WebURLButton](https://github.com/vivocha/bot-sdk#weburlbutton)
-      - [CustomEventButton](https://github.com/vivocha/bot-sdk#customeventbutton)
-      - [BotRequest Example](https://github.com/vivocha/bot-sdk#botrequest-example)
-    + [BotResponse](https://github.com/vivocha/bot-sdk#botresponse)
-      - [BotResponse Examples](https://github.com/vivocha/bot-sdk#botresponse-examples)
-  * [BotManager](https://github.com/vivocha/bot-sdk#botmanager)
-    + [Registering a Bot Agent](https://github.com/vivocha/bot-sdk#registering-a-bot-agent)
-    + [BotManager Web API](https://github.com/vivocha/bot-sdk#botmanager-web-api)
-  * [Bot Filters](https://github.com/vivocha/bot-sdk#bot-filters)
-    + [BotFilter Web API](https://github.com/vivocha/bot-sdk#botfilter-web-api)
-  * [Supported Bot and NLP Platforms](https://github.com/vivocha/bot-sdk#supported-bot-and-nlp-platforms)
-    + [Dialogflow: integration guidelines](https://github.com/vivocha/bot-sdk#dialogflow-integration-guidelines)
-      - [Vivocha Rich Messages and Dialogflow](https://github.com/vivocha/bot-sdk#vivocha-rich-messages-and-dialogflow)
-      - [Dialogflow Hints and Tips](https://github.com/vivocha/bot-sdk#dialogflow-hints-and-tips)
-    + [IBM Watson Assistant: integration guidelines](https://github.com/vivocha/bot-sdk#ibm-watson-assistant-integration-guidelines)
-      - [Vivocha Rich Messages and Watson Assistant](https://github.com/vivocha/bot-sdk#vivocha-rich-messages-and-watson-assistant)
-      - [Watson Assistant Hints and Tips](https://github.com/vivocha/bot-sdk#watson-assistant-hints-and-tips)
-    + [Wit.ai, writing chat bots](https://github.com/vivocha/bot-sdk#witai-writing-chat-bots)
-      - [Wit.ai with Vivocha Hint and Tips](https://github.com/vivocha/bot-sdk#witai-with-vivocha-hint-and-tips)
-  * [About Vivocha Bots and Transfers to Human Agents](https://github.com/vivocha/bot-sdk#about-vivocha-bots-and-transfers-to-human-agents)
-  * [Running BotManagers and BotFilters as AWS Lambdas](https://github.com/vivocha/bot-sdk#running-botmanagers-and-botfilters-as-aws-lambdas)
-    + [Prerequisites](https://github.com/vivocha/bot-sdk#prerequisites)
-    + [Writing a BotManager or a BotFilter as a Lambda Function](https://github.com/vivocha/bot-sdk#writing-a-botmanager-or-a-botfilter-as-a-lambda-function)
+- [Overview](https://github.com/vivocha/bot-sdk#overview)
+- [Quick Start, by Example](https://github.com/vivocha/bot-sdk#quick-start-by-example)
+  - [BotAgents and Manager TL;DR](https://github.com/vivocha/bot-sdk#botagents-and-manager-tldr)
+  - [BotFilters TL;DR](https://github.com/vivocha/bot-sdk#botfilters-tldr)
+- [BotAgent](https://github.com/vivocha/bot-sdk#botagent)
+  - [BotRequest](https://github.com/vivocha/bot-sdk#botrequest)
+    - [BotMessage](https://github.com/vivocha/bot-sdk#botmessage)
+    - [BotSettings](https://github.com/vivocha/bot-sdk#botsettings)
+    - [BotEngineSettings](https://github.com/vivocha/bot-sdk#botenginesettings)
+    - [MessageQuickReply](https://github.com/vivocha/bot-sdk#messagequickreply)
+    - [MessageTemplate](https://github.com/vivocha/bot-sdk#messagetemplate)
+    - [TemplateElement](https://github.com/vivocha/bot-sdk#templateelement)
+    - [DefaultAction](https://github.com/vivocha/bot-sdk#defaultaction)
+    - [Button](https://github.com/vivocha/bot-sdk#button)
+    - [PostbackButton](https://github.com/vivocha/bot-sdk#postbackbutton)
+    - [WebURLButton](https://github.com/vivocha/bot-sdk#weburlbutton)
+    - [CustomEventButton](https://github.com/vivocha/bot-sdk#customeventbutton)
+    - [BotRequest Example](https://github.com/vivocha/bot-sdk#botrequest-example)
+  - [BotResponse](https://github.com/vivocha/bot-sdk#botresponse)
+    - [BotResponse Examples](https://github.com/vivocha/bot-sdk#botresponse-examples)
+- [BotManager](https://github.com/vivocha/bot-sdk#botmanager)
+  - [Registering a Bot Agent](https://github.com/vivocha/bot-sdk#registering-a-bot-agent)
+  - [BotManager Web API](https://github.com/vivocha/bot-sdk#botmanager-web-api)
+- [Bot Filters](https://github.com/vivocha/bot-sdk#bot-filters)
+  - [BotFilter Web API](https://github.com/vivocha/bot-sdk#botfilter-web-api)
+- [Supported Bot and NLP Platforms](https://github.com/vivocha/bot-sdk#supported-bot-and-nlp-platforms)
+  - [Dialogflow: integration guidelines](https://github.com/vivocha/bot-sdk#dialogflow-integration-guidelines)
+    - [Vivocha Rich Messages and Dialogflow](https://github.com/vivocha/bot-sdk#vivocha-rich-messages-and-dialogflow)
+    - [Dialogflow Hints and Tips](https://github.com/vivocha/bot-sdk#dialogflow-hints-and-tips)
+  - [IBM Watson Assistant: integration guidelines](https://github.com/vivocha/bot-sdk#ibm-watson-assistant-integration-guidelines)
+    - [Vivocha Rich Messages and Watson Assistant](https://github.com/vivocha/bot-sdk#vivocha-rich-messages-and-watson-assistant)
+    - [Watson Assistant Hints and Tips](https://github.com/vivocha/bot-sdk#watson-assistant-hints-and-tips)
+  - [Wit.ai, writing chat bots](https://github.com/vivocha/bot-sdk#witai-writing-chat-bots)
+    - [Wit.ai with Vivocha Hint and Tips](https://github.com/vivocha/bot-sdk#witai-with-vivocha-hint-and-tips)
+- [About Vivocha Bots and Transfers to Human Agents](https://github.com/vivocha/bot-sdk#about-vivocha-bots-and-transfers-to-human-agents)
+- [Running BotManagers and BotFilters as AWS Lambdas](https://github.com/vivocha/bot-sdk#running-botmanagers-and-botfilters-as-aws-lambdas)
+  - [Prerequisites](https://github.com/vivocha/bot-sdk#prerequisites)
+  - [Writing a BotManager or a BotFilter as a Lambda Function](https://github.com/vivocha/bot-sdk#writing-a-botmanager-or-a-botfilter-as-a-lambda-function)
 
 ---
 
@@ -72,8 +72,8 @@ The last sections of this guide are dedicated to the integration guidelines for 
 The following picture shows an high-level overview of the Vivocha Bot SDK and its software components.
 
 | ![Overview](https://cdn.rawgit.com/vivocha/bot-sdk/fd208ab2/docs/vivocha-bot-sdk.svg) |
-|:---:|
-| **FIGURE 1 - Overview of the main modules of the Bot SDK**|
+| :-----------------------------------------------------------------------------------: |
+|              **FIGURE 1 - Overview of the main modules of the Bot SDK**               |
 
 ## [Quick Start, by Example](#quick-start-by-example)
 
@@ -143,87 +143,443 @@ let botAgent = async (request) => {
 Requests are sent to BotAgents, BotManagers and BotFilters.
 A BotRequest is a JSON with the following properties (in **bold** the required properties):
 
-PROPERTY | VALUE | DESCRIPTION
-| ------ | ------ | ----------- |
-| **`event`** | string: `start` or `continue` or `end` or a custom string | `start` event is sent to wake-up the Bot; `continue` tells the Bot to continue the conversation; `end` to set the conversation as finished; a custom string can be set for specific custom internal Bot functionalities.
-`message` | (optional) object, see **[BotMessage](https://github.com/vivocha/bot-sdk#botmessage)** below | the message to send to the BotAgent
-`language` | (optional) string. E.g., `en`, `it`, ... | language string, mandatory for some Bot platforms.
-`data` | (optional) object | an object containing data to send to the Bot. Its properties must be of basic type. E.g., `{"firstname":"Antonio", "lastname": "Smith", "code": 12345}`
-`context` | (optional) object | Opaque, Bot specific context data
-`tempContext` | (optional) object | Temporary context, useful to store volatile data; i.e., in bot filters chains.
-`environment` | (optional) object | Vivocha specific environment data sent by the platform. Currently, the `environment` object can have the following (optional) properties: `host`, `acct`, `hmac`, `campaignId`, `channelId`, `entrypointId`, `engagementId`, `contactId`.
-`settings` | (optional) **[BotSettings](https://github.com/vivocha/bot-sdk#botsettings)** object (see below)| Bot platform settings.
+| PROPERTY      | VALUE                                                                                           | DESCRIPTION                                                                                                                                                                                                                               |
+| ------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`event`**   | string: `start` or `continue` or `end` or a custom string                                       | `start` event is sent to wake-up the Bot; `continue` tells the Bot to continue the conversation; `end` to set the conversation as finished; a custom string can be set for specific custom internal Bot functionalities.                  |
+| `message`     | (optional) object, see **[BotMessage](https://github.com/vivocha/bot-sdk#botmessage)** below    | the message to send to the BotAgent                                                                                                                                                                                                       |
+| `language`    | (optional) string. E.g., `en`, `it`, ...                                                        | language string, mandatory for some Bot platforms.                                                                                                                                                                                        |
+| `data`        | (optional) object                                                                               | an object containing data to send to the Bot. Its properties must be of basic type. E.g., `{"firstname":"Antonio", "lastname": "Smith", "code": 12345}`                                                                                   |
+| `context`     | (optional) object                                                                               | Opaque, Bot specific context data                                                                                                                                                                                                         |
+| `tempContext` | (optional) object                                                                               | Temporary context, useful to store volatile data; i.e., in bot filters chains.                                                                                                                                                            |
+| `environment` | (optional) object                                                                               | Vivocha specific environment data sent by the platform. Currently, the `environment` object can have the following (optional) properties: `host`, `acct`, `hmac`, `campaignId`, `channelId`, `entrypointId`, `engagementId`, `contactId`. |
+| `settings`    | (optional) **[BotSettings](https://github.com/vivocha/bot-sdk#botsettings)** object (see below) | Bot platform settings.                                                                                                                                                                                                                    |
 
 #### [BotMessage](#botmessage)
 
 Some contents and definitions of the Vivocha Bot Messages are inspired by the [Facebook Messenger](https://developers.facebook.com/docs/messenger-platform/reference/) messages specification, but adapted and extended as needed by the Vivocha Platform.
 Currently, messages' `quick_replies` and `template` properties are supported in BotResponses.
 
-**Notes**: Generally speaking, while messages containing *quick replies* or *templates* have no particular constraints about the number of elements (and buttons, etc...), please take into consideration that Facebook Messenger have some contraints about them, e.g., in the number of quick replies or buttons per message; therefore, if you're supporting chats also through the Facebook Messenger channel, then you need to be compliant to its specification (more details about Messenger messages constraints can be found [here](https://developers.facebook.com/docs/messenger-platform/reference/)).
+**Notes**: Generally speaking, while messages containing _quick replies_ or _templates_ have no particular constraints about the number of elements (and buttons, etc...), please take into consideration that Facebook Messenger have some contraints about them, e.g., in the number of quick replies or buttons per message; therefore, if you're supporting chats also through the Facebook Messenger channel, then you need to be compliant to its specification (more details about Messenger messages constraints can be found [here](https://developers.facebook.com/docs/messenger-platform/reference/)).
 Anyway, in case of an exceeding number of elements, the Vivocha platform will trim them before sending to Messenger clients.
 
 A BotMessage has the following properties:
 
-PROPERTY | VALUE | DESCRIPTION
-| ------ | ------ | ----------- |
-| **`code`** | string, value is always `message` | Vivocha code type for Bot messages.
-| **`type`** | string: `text` or `postback` | Vivocha Bot message type.
-| **`body`** | string | the message text body.
-| `payload` | (optional) string | a custom payload, usually used to send back the payload of a quick reply or of a postback button in a BotRequest, after the user clicks / taps the corresponding UI button.
-| `quick_replies_orientation` | (optional) string: `vertical` or `horizontal` | in case of a message with `quick_replies` it indicates the quick replies buttons group orientation to show in the client; default is `horizontal`.
-| `quick_replies` | (optional) only in case of `type` === `text` messages, an array of **[MessageQuickReply](https://github.com/vivocha/bot-sdk#messagequickreply)** objects (see below) | an array of quick replies
-| `template` | (optional) only in case of `type` === `text` messages, a **[MessageTemplate](https://github.com/vivocha/bot-sdk#messagetemplate)** objects (see below) | a generic template object.
+| PROPERTY                    | VALUE                                                                                                                                                                | DESCRIPTION                                                                                                                                                                 |
+| --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`code`**                  | string, value is always `message`                                                                                                                                    | Vivocha code type for Bot messages.                                                                                                                                         |
+| **`type`**                  | string: `text` or `postback`                                                                                                                                         | Vivocha Bot message type.                                                                                                                                                   |
+| **`body`**                  | string                                                                                                                                                               | the message text body.                                                                                                                                                      |
+| `payload`                   | (optional) string                                                                                                                                                    | a custom payload, usually used to send back the payload of a quick reply or of a postback button in a BotRequest, after the user clicks / taps the corresponding UI button. |
+| `quick_replies_orientation` | (optional) string: `vertical` or `horizontal`                                                                                                                        | in case of a message with `quick_replies` it indicates the quick replies buttons group orientation to show in the client; default is `horizontal`.                          |
+| `quick_replies`             | (optional) only in case of `type` === `text` messages, an array of **[MessageQuickReply](https://github.com/vivocha/bot-sdk#messagequickreply)** objects (see below) | an array of quick replies                                                                                                                                                   |
+| `template`                  | (optional) only in case of `type` === `text` messages, a **[MessageTemplate](https://github.com/vivocha/bot-sdk#messagetemplate)** objects (see below)               | a generic template object.                                                                                                                                                  |
 
 #### [BotSettings](#botsettings)
 
 Bot platform settings object. Along with the `engine` property (see the table below), it is possible to set an arbitrarily number of properties. In case, it is responsability of the specific Bot implementation / platform to handle them.
 
-PROPERTY | VALUE | DESCRIPTION
-| ------ | ------ | -----------
-| `engine` | (optional) **[BotEngineSettings](https://github.com/vivocha/bot-sdk#botenginesettings)** object (see below)| Specific Bot/NLP Platform settings.
+| PROPERTY | VALUE                                                                                                       | DESCRIPTION                         |
+| -------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------- |
+| `engine` | (optional) **[BotEngineSettings](https://github.com/vivocha/bot-sdk#botenginesettings)** object (see below) | Specific Bot/NLP Platform settings. |
 
 #### [BotEngineSettings](#botenginesettings)
 
-PROPERTY | VALUE | DESCRIPTION
-| ------ | ------ | ----------- |
-| **`type`** | string | Unique bot engine identifier, i.e., the platform name, like: `Watson`, `Dialogflow`, `WitAi`, ...
-| `settings` | (optional) object | Specific settings to send to the BOT/NLP platform. E.g. for Watson Assistant (formerly Conversation) is an object like `{"workspaceId": "<id>" "username": "<usrname>", "password": "<passwd>"}`; for a Dialogflow bot is something like: `{"token": "<token>", "startEvent": "MyCustomStartEvent"}`, and so on... You need to refer to the documentation of the specific Bot Platform used.
+| PROPERTY   | VALUE             | DESCRIPTION                                                                                                                                                                                                                                                                                                                                                                                  |
+| ---------- | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`type`** | string            | Unique bot engine identifier, i.e., the platform name, like: `Watson`, `Dialogflow`, `WitAi`, ...                                                                                                                                                                                                                                                                                            |
+| `settings` | (optional) object | Specific settings to send to the BOT/NLP platform. E.g. for Watson Assistant (formerly Conversation) is an object like `{"workspaceId": "<id>" "username": "<usrname>", "password": "<passwd>"}`; for a Dialogflow bot is something like: `{"token": "<token>", "startEvent": "MyCustomStartEvent"}`, and so on... You need to refer to the documentation of the specific Bot Platform used. |
 
 #### [MessageQuickReply](#messagequickreply)
 
-PROPERTY | VALUE | DESCRIPTION
-| ------ | ------ | ----------- |
-| **`content_type`** | string, accepted value: `location` | Type of the content of the Quick Reply
-| `title`| (optional) string | title of the message
-| `payload` | (optional) a string or a number | string or number related to the `content-type` property value
-| `image_url` | (optional) string | a URL of an image
+| PROPERTY           | VALUE                              | DESCRIPTION                                                   |
+| ------------------ | ---------------------------------- | ------------------------------------------------------------- |
+| **`content_type`** | string, accepted value: `location` | Type of the content of the Quick Reply                        |
+| `title`            | (optional) string                  | title of the message                                          |
+| `payload`          | (optional) a string or a number    | string or number related to the `content-type` property value |
+| `image_url`        | (optional) string                  | a URL of an image                                             |
+
+**Example 1**: A BotResponse message containing three simple **quick replies**
+
+```javascript
+{
+    ...
+    "messages": [
+        {
+            "code": "message",
+            "type": "text",
+            "body": "Just an example of quick replies... which color?",
+            "quick_replies": [
+                {
+                    "content_type": "text",
+                    "title": "Red",
+                    "payload": "red 1"
+                },
+                {
+                    "content_type": "text",
+                    "title": "Blue",
+                    "payload": "blue 2"
+                },
+                {
+                    "content_type": "text",
+                    "title": "White",
+                    "payload": "white 3"
+                }
+            ]
+        }
+    ],
+    "event": "continue",
+    "data": {}
+}
+```
+
+Which is rendered by the Vivocha interaction app like in the following screenshot:
+
+| ![Overview](https://cdn.rawgit.com/vivocha/bot-sdk/79a72947/docs/quick-replies-h.png) |
+| :-----------------------------------------------------------------------------------: |
+|               **A BotResponse containing a message with quick replies**               |
+
+**Example 2**: A BotResponse message containing three _quick replies_ with vertical orientation
+
+```javascript
+{
+    ...
+    "messages": [
+        {
+            "code": "message",
+            "type": "text",
+            "body": "Just an example of quick replies... which color?",
+            "quick_replies": [
+                {
+                    "content_type": "text",
+                    "title": "Red",
+                    "payload": "red 1"
+                },
+                {
+                    "content_type": "text",
+                    "title": "Blue",
+                    "payload": "blue 2"
+                },
+                {
+                    "content_type": "text",
+                    "title": "White",
+                    "payload": "white 3"
+                }
+            ],
+            "quick_replies_orientation": "vertical"
+        }
+    ],
+    "event": "continue",
+    "data": {}
+}
+```
+
+Which is rendered by the Vivocha interaction app like in the following screenshot:
+
+| ![Overview](https://cdn.rawgit.com/vivocha/bot-sdk/79a72947/docs/quick-replies-v.png) |
+| :-----------------------------------------------------------------------------------: |
+|  **A BotResponse containing a message with Quick Replies with vertical orientation**  |
+
+**Example 3**: A BotResponse message containing some _quick replies_ with images
+
+```javascript
+{
+    ...
+    "messages": [
+        {
+            "code": "message",
+            "type": "text",
+            "body": "Choose a team member",
+            "quick_replies": [
+                {
+                    "content_type": "text",
+                    "title": "Federico",
+                    "payload": "federico 1",
+                    "image_url": "https://www.vivocha.com/wp-content/uploads/2017/03/team_federico.png"
+                },
+                {
+                    "content_type": "text",
+                    "title": "Andrea",
+                    "payload": "andrea 2",
+                    "image_url": "https://www.vivocha.com/wp-content/uploads/2017/03/team_andrea.png"
+                },
+                {
+                    "content_type": "text",
+                    "title": "Antonio",
+                    "payload": "antonio 3",
+                    "image_url": "https://www.vivocha.com/wp-content/uploads/2017/05/team-antonio.png"
+                },
+                {
+                    "content_type": "text",
+                    "title": "Marco",
+                    "payload": "marco 4",
+                    "image_url": "https://www.vivocha.com/wp-content/uploads/2017/03/Marco_Amadori.png"
+                }
+            ]
+        }
+    ],
+    "event": "continue",
+    "data": {}
+}
+```
+
+Which is rendered by the Vivocha interaction app like in the following screenshot:
+
+| ![Overview](https://cdn.rawgit.com/vivocha/bot-sdk/79a72947/docs/quick-replies-icons.gif) |
+| :---------------------------------------------------------------------------------------: |
+|    **A BotResponse containing a message with some quick replies containing an image**     |
+
+---
 
 #### [MessageTemplate](#messagetemplate)
 
-PROPERTY | VALUE | DESCRIPTION
-| ------ | ------ | ----------- |
-| **`type`** | string, accepted values are: `generic` or `list` | Template type, currently only `generic` and `list` types are supported
-| `elements`| (optional) an array of **[generic template Elements](https://github.com/vivocha/bot-sdk#templateelement)** | elements defined by **[TemplateElement](https://github.com/vivocha/bot-sdk#templateelement)** object spec.
-| `buttons` | (optional) only in case of a template where `type` == `list`, an array of **[Button](https://github.com/vivocha/bot-sdk#button)** objects | the buttons to display in the bottom part of the template.
+| PROPERTY   | VALUE                                                                                                                                     | DESCRIPTION                                                                                                |
+| ---------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| **`type`** | string, accepted values are: `generic` or `list`                                                                                          | Template type, currently only `generic` and `list` types are supported                                     |
+| `elements` | (optional) an array of **[generic template Elements](https://github.com/vivocha/bot-sdk#templateelement)**                                | elements defined by **[TemplateElement](https://github.com/vivocha/bot-sdk#templateelement)** object spec. |
+| `buttons`  | (optional) only in case of a template where `type` == `list`, an array of **[Button](https://github.com/vivocha/bot-sdk#button)** objects | the buttons to display in the bottom part of the template.                                                 |
 
 #### [TemplateElement](#templateelement)
 
 In a Template Element only the property `title` is mandatory, but at least one optional property among the following must be set in addition to it.
 
-PROPERTY | VALUE | DESCRIPTION
-| ------ | ------ | ----------- |
-| **`title`** | string | the text to display as title in the template rendering
-| `subtitle`| (optional) string | an optional subtitle to display in the template
-| `image_url` | (optional) string | a valid URL for an image to display in the template
-| `default_action` | (optional) **[DefaultAction](https://github.com/vivocha/bot-sdk#defaultaction)** object | an object representing the default action to execute when the template is clicked / tapped
-| `buttons` | (optional) an array of **[Button](https://github.com/vivocha/bot-sdk#button)** objects | the buttons to display in the template element.
+| PROPERTY         | VALUE                                                                                   | DESCRIPTION                                                                                |
+| ---------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| **`title`**      | string                                                                                  | the text to display as title in the template rendering                                     |
+| `subtitle`       | (optional) string                                                                       | an optional subtitle to display in the template                                            |
+| `image_url`      | (optional) string                                                                       | a valid URL for an image to display in the template                                        |
+| `default_action` | (optional) **[DefaultAction](https://github.com/vivocha/bot-sdk#defaultaction)** object | an object representing the default action to execute when the template is clicked / tapped |
+| `buttons`        | (optional) an array of **[Button](https://github.com/vivocha/bot-sdk#button)** objects  | the buttons to display in the template element.                                            |
+
+**Example**: A BotResponse message containing a _generic template_
+
+```javascript
+{
+    ...
+    "messages": [
+        {
+            "code": "message",
+            "type": "text",
+            "body": "Just an example of generic template:",
+            "template": {
+                "type": "generic",
+                "elements": [
+                    {
+                        "title": "Meow!",
+                        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Adult_Scottish_Fold.jpg/1920px-Adult_Scottish_Fold.jpg",
+                        "subtitle": "We have the right cat for everyone.",
+                        "default_action": {
+                            "type": "web_url",
+                            "url": "https://en.wikipedia.org/wiki/Cat"
+                        },
+                        "buttons": [
+                            {
+                                "type": "web_url",
+                                "url": "https://en.wikipedia.org/wiki/Cat",
+                                "title": "View Website"
+                            },
+                            {
+                                "type": "postback",
+                                "title": "OK",
+                                "payload": "ok abcd 123"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    ],
+    "event": "continue",
+    "data": {}
+}
+```
+
+which is rendered by the Vivocha interaction app like in the following screenshot:
+
+| ![Overview](https://cdn.rawgit.com/vivocha/bot-sdk/79a72947/docs/generic-template.png) |
+| :------------------------------------------------------------------------------------: |
+|             **A BotResponse message containing only one generic template**             |
+
+**Example 4**: A BotResponse message containing a _carousel of generic templates_
+
+```javascript
+{
+    ...
+    "messages": [
+        {
+            "code": "message",
+            "type": "text",
+            "body": "Just an example of generic template:",
+            "template": {
+                "type": "generic",
+                "elements": [
+                    {
+                        "title": "Meow!",
+                        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Adult_Scottish_Fold.jpg/1920px-Adult_Scottish_Fold.jpg",
+                        "subtitle": "We have the right cat for everyone.",
+                        "default_action": {
+                            "type": "web_url",
+                            "url": "https://en.wikipedia.org/wiki/Cat"
+                        },
+                        "buttons": [
+                            {
+                                "type": "web_url",
+                                "url": "https://en.wikipedia.org/wiki/Cat",
+                                "title": "View Website"
+                            },
+                            {
+                                "type": "postback",
+                                "title": "OK",
+                                "payload": "ok abcd 123"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    ],
+    "event": "continue",
+    "data": {}
+}
+```
+
+Which is rendered by the Vivocha interaction app like in the following screenshot:
+
+| ![Overview](https://cdn.rawgit.com/vivocha/bot-sdk/79a72947/docs/generic-template-carousel.gif) |
+| :---------------------------------------------------------------------------------------------: |
+|              **A BotResponse message containing a carousel of generic templates**               |
+
+**Example 5**: A BotResponse message containing a **list template**
+
+```javascript
+{
+    ...
+    "messages": [
+        {
+            "code": "message",
+            "type": "text",
+            "body": "List template",
+            "template": {
+                "type": "list",
+                "elements": [
+                    {
+                        "title": "Documentation part 1 - 2018",
+                        "subtitle": "All documents about our products available in 2018. Advertisement, User's guides, technical info...",
+                        "default_action": {
+                            "type": "web_url",
+                            "url": "https://www.vivocha.com"
+                        }
+                    },
+                    {
+                        "title": "Documentation part 2 - 2017",
+                        "subtitle": "All documents about our products available in 2017. Advertisement, User's guides, technical info...",
+                        "default_action": {
+                            "type": "web_url",
+                            "url": "https://www.vivocha.com"
+                        }
+                    },
+                    {
+                        "title": "Documentation part 3 - 2011-2016",
+                        "subtitle": "All deprecated documents about old products no more available...",
+                        "default_action": {
+                            "type": "web_url",
+                            "url": "https://www.vivocha.com"
+                        }
+                    }
+                ],
+                "buttons": [
+                    {
+                        "type": "postback",
+                        "title": "More",
+                        "payload": "view_more"
+                    }
+                ]
+            }
+        }
+    ],
+    "event": "continue",
+    "data": {}
+}
+```
+
+Which is rendered by the Vivocha interaction app like in the following screenshot:
+
+| ![Overview](https://cdn.rawgit.com/vivocha/bot-sdk/79a72947/docs/list-template.png) |
+| :---------------------------------------------------------------------------------: |
+|                **A BotResponse message containing a list template**                 |
+
+**Example 6**: A BotResponse message containing a **list template with links (buttons)**
+
+```javascript
+{
+    ...
+   "messages": [
+        {
+            "code": "message",
+            "type": "text",
+            "body": "list template",
+            "template": {
+                "type": "list",
+                "elements": [
+                    {
+                        "title": "Visit our website",
+                        "subtitle": "All our products in one place. News, plans, tips, prices.",
+                        "default_action": {
+                            "type": "web_url",
+                            "url": "https://www.pintux.it"
+                        },
+                        "buttons": [
+                            {
+                                "title": "View",
+                                "type": "web_url",
+                                "url": "https://www.pintux.it"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Technical documentation",
+                        "subtitle": "Technical info, API documentation, tutorials and more...",
+                        "default_action": {
+                            "type": "web_url",
+                            "url": "https://www.lensculture.com"
+                        },
+                        "buttons": [
+                            {
+                                "title": "OK",
+                                "type": "postback",
+                                "payload": "OK-123"
+                            }
+                        ]
+                    }
+                ],
+                "buttons": [
+                    {
+                        "type": "postback",
+                        "title": "More",
+                        "payload": "view_more"
+                    }
+                ]
+            }
+        }
+    ],
+    "event": "continue",
+    "data": {}
+}
+```
+
+Which is rendered by the Vivocha interaction app like in the following screenshot:
+
+| ![Overview](https://cdn.rawgit.com/vivocha/bot-sdk/79a72947/docs/list-template-btn.png) |
+| :-------------------------------------------------------------------------------------: |
+|        **A BotResponse message containing a list template with links (buttons)**        |
+
+---
 
 #### [DefaultAction](#defaultaction)
 
-PROPERTY | VALUE | DESCRIPTION
-| ------ | ------ | ----------- |
-| **`type`** | string, admitted value is only `web_url` | default action type, it always refers to a web URL
-| **`url`** | string | a valid URL to open when executing the default action
+| PROPERTY   | VALUE                                    | DESCRIPTION                                           |
+| ---------- | ---------------------------------------- | ----------------------------------------------------- |
+| **`type`** | string, admitted value is only `web_url` | default action type, it always refers to a web URL    |
+| **`url`**  | string                                   | a valid URL to open when executing the default action |
 
 #### [Button](#button)
 
@@ -233,31 +589,31 @@ A Button object can be one of the following types: **[PostbackButton](https://gi
 
 A postback button is used to send back to the bot a response made of a title and a payload.
 
-PROPERTY | VALUE | DESCRIPTION
-| ------ | ------ | ----------- |
-| **`type`** | string, always set to `postback` | the postback button type
-| **`title`**| string | the button text to display and to send back in the message body
-| **`payload`**| string | a custom payload to send back to the bot
+| PROPERTY      | VALUE                            | DESCRIPTION                                                     |
+| ------------- | -------------------------------- | --------------------------------------------------------------- |
+| **`type`**    | string, always set to `postback` | the postback button type                                        |
+| **`title`**   | string                           | the button text to display and to send back in the message body |
+| **`payload`** | string                           | a custom payload to send back to the bot                        |
 
 #### [WebURLButton](#weburlbutton)
 
 A WebURL button is used to open a web page at the specified URL.
 
-PROPERTY | VALUE | DESCRIPTION
-| ------ | ------ | ----------- |
-| **`type`** | string, always set to `web_url` | the WebURL button type
-| **`title`**| string | the button text to display
-| **`url`** | string | the URL of the page to open when the button is pressed
+| PROPERTY    | VALUE                           | DESCRIPTION                                            |
+| ----------- | ------------------------------- | ------------------------------------------------------ |
+| **`type`**  | string, always set to `web_url` | the WebURL button type                                 |
+| **`title`** | string                          | the button text to display                             |
+| **`url`**   | string                          | the URL of the page to open when the button is pressed |
 
 #### [CustomEventButton](#customeventbutton)
 
 This button allows to fire a custom event in the website page where the Vivocha interaction app / chat is running.
-In order to work, a *contact-custom-event* must be configured in the particular Vivocha Campaign.
+In order to work, a _contact-custom-event_ must be configured in the particular Vivocha Campaign.
 
-PROPERTY | VALUE | DESCRIPTION
-| ------ | ------ | ----------- |
-| **`type`** | string, a custom type string **excluding** `web_url` and `page_event` | the custom type
-| **`title`**| string | the button text to display
+| PROPERTY    | VALUE                                                                 | DESCRIPTION                |
+| ----------- | --------------------------------------------------------------------- | -------------------------- |
+| **`type`**  | string, a custom type string **excluding** `web_url` and `page_event` | the custom type            |
+| **`title`** | string                                                                | the button text to display |
 
 ---
 
@@ -297,17 +653,17 @@ Example of a request sent to provide the name in a conversation with a Wit.ai ba
 Responses are sent back by BotAgents, BotManagers and BotFilters to convay a Bot platform reply back to the Vivocha platform.
 A BotResponse is a JSON with the following properties and it is similar to a `BotRequest`, except for some fields (in **bold** the required properties):
 
-PROPERTY | VALUE | DESCRIPTION
-| ------ | ------ | ----------- |
-| **`event`** | string: `continue` or `end` | `continue` event is sent back to Vivocha to continue the conversation, in other words it means that the bot is awaiting for the next user message; `end` is sent back with the meaning that Bot finished is task.
-`messages` | (optional) an array of **[BotMessage](https://github.com/vivocha/bot-sdk#botmessage)** objects (same as BotRequest) | the messages sent back by the BotAgent including quick replies and templates with images, buttons, etc...
-`language` | (optional) string. E.g., `en`, `it`, ... | language string code
-`data` | (optional) object | an object containing data collected or computed by the Bot. Its properties must be of simple type. E.g., `{"firstname":"Antonio", "lastname": "Smith", "code": 12345, "availableAgents": 5}`
-`context` | (optional) object | Opaque, Bot specific context data. The Vivocha platform will send it immutated to the Bot in the next iteration.
-`tempContext` | (optional) object | Temporary context, useful to store volatile data, i.e., in bot filters chains.
-`environment` | (optional) object | Vivocha specific environment data originally sent by the platform. Currently, the `environment` object can have the following (optional) properties: `host`, `acct`, `hmac`, `campaignId`, `channelId`, `entrypointId`, `engagementId`, `contactId`.
-`settings` | (optional) **[BotSettings](https://github.com/vivocha/bot-sdk#botsettings)** object | Bot platform settings
-`raw` | (optional) object | raw, platform specific, unparsed bot response.
+| PROPERTY      | VALUE                                                                                                               | DESCRIPTION                                                                                                                                                                                                                                          |
+| ------------- | ------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`event`**   | string: `continue` or `end`                                                                                         | `continue` event is sent back to Vivocha to continue the conversation, in other words it means that the bot is awaiting for the next user message; `end` is sent back with the meaning that Bot finished is task.                                    |
+| `messages`    | (optional) an array of **[BotMessage](https://github.com/vivocha/bot-sdk#botmessage)** objects (same as BotRequest) | the messages sent back by the BotAgent including quick replies and templates with images, buttons, etc...                                                                                                                                            |
+| `language`    | (optional) string. E.g., `en`, `it`, ...                                                                            | language string code                                                                                                                                                                                                                                 |
+| `data`        | (optional) object                                                                                                   | an object containing data collected or computed by the Bot. Its properties must be of simple type. E.g., `{"firstname":"Antonio", "lastname": "Smith", "code": 12345, "availableAgents": 5}`                                                         |
+| `context`     | (optional) object                                                                                                   | Opaque, Bot specific context data. The Vivocha platform will send it immutated to the Bot in the next iteration.                                                                                                                                     |
+| `tempContext` | (optional) object                                                                                                   | Temporary context, useful to store volatile data, i.e., in bot filters chains.                                                                                                                                                                       |
+| `environment` | (optional) object                                                                                                   | Vivocha specific environment data originally sent by the platform. Currently, the `environment` object can have the following (optional) properties: `host`, `acct`, `hmac`, `campaignId`, `channelId`, `entrypointId`, `engagementId`, `contactId`. |
+| `settings`    | (optional) **[BotSettings](https://github.com/vivocha/bot-sdk#botsettings)** object                                 | Bot platform settings                                                                                                                                                                                                                                |
+| `raw`         | (optional) object                                                                                                   | raw, platform specific, unparsed bot response.                                                                                                                                                                                                       |
 
 #### BotResponse Examples
 
@@ -476,7 +832,6 @@ A `BotManager` is a bot registry microservice, which basically provides two main
 1. it allows to register an undefined number of `BotAgent`s;
 2. it exposes a Web API to send messages and receive responses to/from `BotAgent`s, acting as a gateway using a normalized interface.
 
-
 ### [Registering a Bot Agent](#registering-a-bot-agent)
 
 In the code contained in the `examples` directory it is possible to read in detail how to create and register Bot Agents.
@@ -493,7 +848,7 @@ manager.registerAgent('custom', async (msg: BotRequest): Promise<BotResponse> =>
 }
 ```
 
-The BotManager allows to register several BotAgents by specifying different `type` parameters (first param in `registerAgent()` method. E.g., `Watson`, `Dialogflow`, `WitAi`, `custom`,  ecc... ).
+The BotManager allows to register several BotAgents by specifying different `type` parameters (first param in `registerAgent()` method. E.g., `Watson`, `Dialogflow`, `WitAi`, `custom`, ecc... ).
 In this way it is possible to have a multi-bot application instance, the BotManager will forward the requests to the correct registered bot, matching the registered BotAgent `type` with the `settings.engine.type` property in incoming BotRequests.
 
 ### [BotManager Web API](#botmanager-web-api)
@@ -515,8 +870,8 @@ BotFilters are Web (micro)services to augment or adapt or transform BotRequests 
 Next picture shows an example of a BotFilters chain:
 
 | ![BotFilters Chain](https://cdn.rawgit.com/vivocha/bot-sdk/dc4d07ff/docs/vivocha-BotFilters-Chain.svg) |
-|:---:|
-| **FIGURE 2  - An example of a BotFilters chain configured using Vivocha** |
+| :----------------------------------------------------------------------------------------------------: |
+|                **FIGURE 2 - An example of a BotFilters chain configured using Vivocha**                |
 
 The same BotFilter instance can act as a filter for requests, as a filter for responses or both.
 See `BotFilter` class constructor to configure it as you prefer.
@@ -565,7 +920,7 @@ Feel free to build your conversation flow as you prefer, related to the specific
 
 Thanks to the Vivocha built-in support for Dialogflow, it is possible to send from this bot platform responses containing rich Vivocha-compliant bot messages (bot messages format is described **[in this section](https://github.com/vivocha/bot-sdk#botmessage)**).
 
-To send rich Vivocha messages as response from a Dialogflow *Intent*, just add a response with a *Custom payload* by its console and enter a valid JSON for the `messages` property.
+To send rich Vivocha messages as response from a Dialogflow _Intent_, just add a response with a _Custom payload_ by its console and enter a valid JSON for the `messages` property.
 
 For example, the following valid snippet is related to a response from Dialogflow with a custom payload for a Vivocha Bot message containing a template:
 
@@ -644,9 +999,9 @@ In the Dialogflow console:
 
 [Watson Assistant (formerly Conversation)](https://www.ibm.com/watson/services/conversation) provides a tool to create conversation flows: Dialogs.
 
-1. Watson Assistant doesn't handle events, only messages, thus you must create an intent trained to understand the word *start* (simulating an event, in this case).
+1. Watson Assistant doesn't handle events, only messages, thus you must create an intent trained to understand the word _start_ (simulating an event, in this case).
 
-2. To communicate that a conversation flow/branch is complete, in each leaf node of the Dialog node, set a specific context parameter to `true` named as specified by `endEventKey` property in the module constructor; **Important**: in order to use the default Vivocha driver, just set the `dataCollectionComplete` context parameter to `true` in each Watson Assistant Dialog leaf node; it can be set using the Watson Assistant *JSON Editor* for a particular dialog node; like in:
+2. To communicate that a conversation flow/branch is complete, in each leaf node of the Dialog node, set a specific context parameter to `true` named as specified by `endEventKey` property in the module constructor; **Important**: in order to use the default Vivocha driver, just set the `dataCollectionComplete` context parameter to `true` in each Watson Assistant Dialog leaf node; it can be set using the Watson Assistant _JSON Editor_ for a particular dialog node; like in:
 
 ```javascript
 ...
@@ -656,7 +1011,7 @@ In the Dialogflow console:
 ...
 ```
 
-3. If you need to perfom data collection tasks, remember that you have to configure the bot *slot-filling* feature in the dedicated nodes of the Dialog section.
+3. If you need to perfom data collection tasks, remember that you have to configure the bot _slot-filling_ feature in the dedicated nodes of the Dialog section.
 
 4. When a message sent to the bot contains the `payload` property (like in the case when it is sent as a reaction to a postback button, for example) and it is sent through the default Vivocha drivers, then the message `payload` value will be passed to Watson Assistant as a context parameter named `VVC_MessagePayload`. Therefore, it can be retrieved and used as a variable or slot in the Watson Assistant bot logic.
 
@@ -664,7 +1019,7 @@ In the Dialogflow console:
 
 Thanks to the Vivocha built-in support for IBM Watson Assistant, it is possible to send from this bot platform responses containing rich Vivocha-compliant bot messages (bot messages format is described **[in this section](https://github.com/vivocha/bot-sdk#botmessage)**).
 
-To send rich Vivocha messages as responses from the Watson platform, in its workspace console, *Dialog* tab, select the particular dialog node, and in the *Then respond with* section, open the embedded *JSON Editor* and just add a response with a valid JSON object for the `messages` property, just inside the predefined `output` object (as defined by the Watson Assistant responses format).
+To send rich Vivocha messages as responses from the Watson platform, in its workspace console, _Dialog_ tab, select the particular dialog node, and in the _Then respond with_ section, open the embedded _JSON Editor_ and just add a response with a valid JSON object for the `messages` property, just inside the predefined `output` object (as defined by the Watson Assistant responses format).
 
 For example, the following valid snippet is related to a response from a Watson Assistant bot, with a custom payload for a Vivocha Bot message containing a body along with three quick replies:
 
@@ -715,7 +1070,7 @@ E.g., for slot filling containing a pattern entity like:
 
 **Check for**: `@ContactInfo` - **Save it as**: `$email`
 
-configure the particular slot through *Edit Slot > ... > Open JSON Editor* as:
+configure the particular slot through _Edit Slot > ... > Open JSON Editor_ as:
 
 ```javascript
 ...
@@ -728,7 +1083,7 @@ configure the particular slot through *Edit Slot > ... > Open JSON Editor* as:
 - In a Dialog node, if you need to quickly check if an entered input is included within a predefined list of values, you can use the following condition expression:
 
 ```javascript
-"milan,cagliari,london,rome,berlin".split(",").contains(input.text.toLowerCase())
+"milan,cagliari,london,rome,berlin".split(",").contains(input.text.toLowerCase());
 ```
 
 ---
@@ -739,7 +1094,7 @@ configure the particular slot through *Edit Slot > ... > Open JSON Editor* as:
 
 Skipping platform-specific details, in order to create Wit.ai Chat Bots and integrate them with the Vivocha Platform you have to:
 
-1. Create and train a Wit.ai App, *naming intents* that will be used by the coded Bot;
+1. Create and train a Wit.ai App, _naming intents_ that will be used by the coded Bot;
 
 2. Write the code of your Bot subclassing the `WitAiBot` class provided by this SDK, mapping intents defined in 1) to handler functions;
 
@@ -747,9 +1102,9 @@ Skipping platform-specific details, in order to create Wit.ai Chat Bots and inte
 
 The next picture shows how this integration works:
 
-| ![Wit.ai bots integration](https://cdn.rawgit.com/vivocha/bot-sdk/9d8cb4a0/docs/Wit.ai-Vivocha.png) |
-|:---:|
-| **FIGURE 3  - The Vivocha - Wit.ai integration model: subclassing to provided WitAiBot class it is possible to quickly code bots using Wit.ai NLP tool without writing specific API calls.** |
+|                                             ![Wit.ai bots integration](https://cdn.rawgit.com/vivocha/bot-sdk/9d8cb4a0/docs/Wit.ai-Vivocha.png)                                             |
+| :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| **FIGURE 3 - The Vivocha - Wit.ai integration model: subclassing to provided WitAiBot class it is possible to quickly code bots using Wit.ai NLP tool without writing specific API calls.** |
 
 Subclassing the `WitAiBot` allows writing Bots using Wit.ai NLP.
 Subclassing that class implies:
@@ -773,7 +1128,7 @@ export class SimpleWitBot extends WitAiBot {
 }
 ```
 
-Note that the `unknown` mapping is needed to handle all the cases when Wit.ai isn't able to extract an intent. For example, the associated handler function could reply with a message like the popular *"Sorry I didn’t get that!"* text ;)
+Note that the `unknown` mapping is needed to handle all the cases when Wit.ai isn't able to extract an intent. For example, the associated handler function could reply with a message like the popular _"Sorry I didn’t get that!"_ text ;)
 
 2. implementing the `getStartMessage(request: BotRequest)` which is called by Vivocha to start a bot instance only at the very beggining of a conversation with a user;
 
@@ -791,16 +1146,16 @@ More details can be found in the dedicated `examples/sample-wit.ts(.js)` sample 
 
 In the Vivocha model, a Bot is just like a "normal" agent, able to handle contacts, chat with users and also able to transfer a particular current contact to another agent (a human agent or, maybe, to another Bot). Configuring a Bot to fire a transfer to other agents in Vivocha is a quite straightforward process.
 
-1. using the Vivocha console, configure the bot to manage transfers. A transfer can be of two types: *transfer to tag* and *transfer to agent*. The former will fire a transfer to other agents having a specified tag where the latter only to a specific agent by (nick)name. Therefore, creating a transfer rule involves specifying a *data key* (a property name) to be found in a `BotResponse` and its corresponding *value* to check, plus the agents tag or nick name to transfer to. For example, the next picture shows a *transfer to tag* Bot configuration which will be fired anytime the BotResponse `data` object contains a sub-property named `transferToAgent` set to `sales` in order to transfer the contact to an agent tagged with `sales`.
+1. using the Vivocha console, configure the bot to manage transfers. A transfer can be of two types: _transfer to tag_ and _transfer to agent_. The former will fire a transfer to other agents having a specified tag where the latter only to a specific agent by (nick)name. Therefore, creating a transfer rule involves specifying a _data key_ (a property name) to be found in a `BotResponse` and its corresponding _value_ to check, plus the agents tag or nick name to transfer to. For example, the next picture shows a _transfer to tag_ Bot configuration which will be fired anytime the BotResponse `data` object contains a sub-property named `transferToAgent` set to `sales` in order to transfer the contact to an agent tagged with `sales`.
 
-| ![A contact transfer configuration example](https://cdn.rawgit.com/vivocha/bot-sdk/e0746125/docs/transfer.png) |
-|:---:|
-| **FIGURE 4  - Vivocha Bots can transfer contacts to other agents (human agents or, why not?, to another Bot) when necessary. This picture shows a transfer to tag Bot configuration fired anytime the `BotResponse` `data` object contains a sub-property named `transferToAgent` set to `sales`, in order to transfer the contact to another agent tagged with `sales`** |
+|                                                                                                                              ![A contact transfer configuration example](https://cdn.rawgit.com/vivocha/bot-sdk/e0746125/docs/transfer.png)                                                                                                                              |
+| :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| **FIGURE 4 - Vivocha Bots can transfer contacts to other agents (human agents or, why not?, to another Bot) when necessary. This picture shows a transfer to tag Bot configuration fired anytime the `BotResponse` `data` object contains a sub-property named `transferToAgent` set to `sales`, in order to transfer the contact to another agent tagged with `sales`** |
 
-2. when a transfer is required, the particular Bot implementation must return a BotResponse with: the `event` property set to `end` AND  the `data` property containing the configured transfer sub-property (as `transferToAgent` in the previous example) set to the specified value. The following JSON snippet shows a BotResponse for the transfer configuration described in step 1)
+2. when a transfer is required, the particular Bot implementation must return a BotResponse with: the `event` property set to `end` AND the `data` property containing the configured transfer sub-property (as `transferToAgent` in the previous example) set to the specified value. The following JSON snippet shows a BotResponse for the transfer configuration described in step 1)
 
 ```javascript
-{ 
+{
   "event": "end",
   "messages": [ {
     "code": "message",
@@ -813,7 +1168,7 @@ In the Vivocha model, a Bot is just like a "normal" agent, able to handle contac
         "settings": {...}
      }
   },
-  "data": { 
+  "data": {
     "firstname": "Daenerys",
     "lastname": "Targaryen",
     ...
@@ -841,10 +1196,10 @@ In order to simplify the overall deployment process we use the **[Serverless Fra
 ### [Prerequisites](#prerequisites)
 
 1. an **Amazon Web Services (AWS)** valid account
-2. your environment configured with *AWS credentials* (please see [this page](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html) or [this guide](https://serverless.com/framework/docs/providers/aws/guide/credentials/))
+2. your environment configured with _AWS credentials_ (please see [this page](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html) or [this guide](https://serverless.com/framework/docs/providers/aws/guide/credentials/))
 3. the Serverless framework, thus install Serverless as global: `npm i -g serverless`
 
-As a reference,  the `examples` directory contains two Lambda functions:
+As a reference, the `examples` directory contains two Lambda functions:
 
 - `lambda-bot-manager` is a Lambda-deployable Bot Manager for a dummy bot accepting some commands
 - `lambda-bot-filter` is a BotFilter (same as in `sample.(ts|js)` file) deployable as AWS Lambda.
@@ -891,8 +1246,8 @@ functions:
     handler: dist/lambda-bot-filter.handler
     events:
       # Configuration related to the API HTTP Gateway, leave it as follows, if possible.
-      - http: 'ANY /'
-      - http: 'ANY {proxy+}'
+      - http: "ANY /"
+      - http: "ANY {proxy+}"
 ```
 
 4. (optional) if you've written the code in TypeScript, then compile your code
