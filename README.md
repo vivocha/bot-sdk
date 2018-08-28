@@ -238,7 +238,7 @@ Which is rendered by the Vivocha interaction app like in the following screensho
 | :-----------------------------------------------------------------------------------: |
 |               **A BotResponse containing a message with quick replies**               |
 
-**Example 2**: A BotResponse message containing three _quick replies_ with vertical orientation
+**Example 2**: A BotResponse message containing three **quick replies** with vertical orientation
 
 ```javascript
 {
@@ -277,9 +277,9 @@ Which is rendered by the Vivocha interaction app like in the following screensho
 
 | ![Overview](https://cdn.rawgit.com/vivocha/bot-sdk/79a72947/docs/quick-replies-v.png) |
 | :-----------------------------------------------------------------------------------: |
-|  **A BotResponse containing a message with Quick Replies with vertical orientation**  |
+|  **A BotResponse containing a message with quick replies with vertical orientation**  |
 
-**Example 3**: A BotResponse message containing some _quick replies_ with images
+**Example 3**: A BotResponse message containing some **quick replies** with images
 
 ```javascript
 {
