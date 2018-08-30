@@ -442,11 +442,11 @@ which is rendered by the Vivocha interaction app like in the following screensho
 }
 ```
 
-Which is rendered by the Vivocha interaction app like in the following screenshot:
+Which is shown in the Vivocha web interaction app as in the following screenshot:
 
-| <img src="https://cdn.rawgit.com/vivocha/bot-sdk/79a72947/docs/generic-template-carousel.gif" width=300 />) |
-| :---------------------------------------------------------------------------------------------------------: |
-|                    **A BotResponse message containing a carousel of generic templates**                     |
+| <img src="https://cdn.rawgit.com/vivocha/bot-sdk/79a72947/docs/generic-template-carousel.gif" width=300 /> |
+| :--------------------------------------------------------------------------------------------------------: |
+|                    **A BotResponse message containing a carousel of generic templates**                    |
 
 **Example 5**: A BotResponse message containing a **list template**
 
