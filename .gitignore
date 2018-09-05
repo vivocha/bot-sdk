@@ -10,3 +10,4 @@ typings
 
 dist
 test/ts/*.js
+test-results
