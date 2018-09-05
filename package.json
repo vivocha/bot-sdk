@@ -1,23 +1,20 @@
 {
   "name": "@vivocha/bot-sdk",
-  "version": "2.7.0",
+  "version": "2.7.1",
   "description": "TypeScript / JavaScript SDK to create Vivocha Bot Agents and Filters",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
-  "directories": {
-    "test": "test"
-  },
   "scripts": {
     "clean": "rimraf dist coverage .nyc_output",
     "clean:all": "npm run clean && rimraf node_modules",
     "prebuild": "rimraf dist",
     "build": "tsc",
-    "precommit": "npm run build && npm run cover && npm run check-coverage",
+    "precommit": "npm run build && npm run cover",
     "commit": "git-cz",
     "check-coverage": "./node_modules/.bin/nyc check-coverage --statements 80 --branches 20 --functions 70 --lines 85",
     "report-coverage": "cat ./coverage/lcov.info | coveralls",
     "watch:test": "npm t -- -w",
-    "test": "npm run build && tsc -p test && mocha --recursive test/**/*.test.js",
+    "test": "npm run build && tsc -p test && mocha --no-timeouts --exit --recursive test/**/*.test.js",
     "test:debug": "npm run build && tsc -p test && mocha --inspect-brk --recursive test/**/*.test.js",
     "cover": "./node_modules/.bin/nyc --reporter=lcov --reporter=text npm t",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
@@ -37,6 +34,7 @@
     "@types/chai": "^4.1.3",
     "@types/chai-as-promised": "7.1.0",
     "@types/chai-spies": "0.0.0",
+    "@types/lodash": "^4.14.116",
     "@types/mocha": "^5.2.4",
     "@types/node": "^9.4.2",
     "@types/node-wit": "^4.2.2",
@@ -46,10 +44,10 @@
     "commitizen": "^2.9.6",
     "coveralls": "^3.0.0",
     "cz-conventional-changelog": "^2.1.0",
-    "got": "^8.3.2",
+    "got": "^9.1.0",
     "husky": "^0.14.3",
     "mocha": "^5.0.0",
-    "nyc": "^12.0.2",
+    "nyc": "^13.0.1",
     "request-promise-native": "^1.0.5",
     "rimraf": "^2.6.2",
     "semantic-release": "^12.4.1",
@@ -65,7 +63,8 @@
     "@types/express": "^4.11.1",
     "@vivocha/public-entities": "^6.4.14",
     "arrest": "^7.1.0",
-    "node-wit": "^4.3.0",
+    "lodash": "^4.17.10",
+    "node-wit": "^5.0.0",
     "serverless-http": "^1.5.5"
   }
 }

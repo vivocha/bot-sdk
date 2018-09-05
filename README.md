@@ -59,6 +59,7 @@ or
 - [Running BotManagers and BotFilters as AWS Lambdas](https://github.com/vivocha/bot-sdk#running-botmanagers-and-botfilters-as-aws-lambdas)
   - [Prerequisites](https://github.com/vivocha/bot-sdk#prerequisites)
   - [Writing a BotManager or a BotFilter as a Lambda Function](https://github.com/vivocha/bot-sdk#writing-a-botmanager-or-a-botfilter-as-a-lambda-function)
+- [Running Tests](https://github.com/vivocha/bot-sdk#running-tests)
 
 ---
 
@@ -1287,3 +1288,22 @@ Likewise, if you have deployed as Lambda a **BotManager** the complete endpoint 
 `https://abcdef567kwc82.execute-api.us-west-2.amazonaws.com/dev/bot/message`
 
 Done.
+
+---
+
+---
+
+## [Running Tests](#running-tests)
+
+In order to run the tests you need a [Wit.ai](https://wit.ai) account.
+
+Then, in your Wit.ai console:
+
+1. create a new app by **importing** the `/test/data/witai-test-app.zip` file, name it as you prefer;
+2. in app _settings_ section, generate a _Client Access Token_, copy it;
+
+Finally, run all tests with:
+
+```sh
+WIT_TOKEN=<YOUR_CLIENT_ACCESS_TOKEN> npm run test
+```
