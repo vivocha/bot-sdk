@@ -192,12 +192,12 @@ Bot platform settings object. Along with the `engine` property (see the table be
 
 #### [MessageQuickReply](#messagequickreply)
 
-| PROPERTY           | VALUE                              | DESCRIPTION                                                   |
-| ------------------ | ---------------------------------- | ------------------------------------------------------------- |
-| **`content_type`** | string, accepted value: `location` | Type of the content of the Quick Reply                        |
-| `title`            | (optional) string                  | title of the message                                          |
-| `payload`          | (optional) a string or a number    | string or number related to the `content-type` property value |
-| `image_url`        | (optional) string                  | a URL of an image                                             |
+| PROPERTY           | VALUE                           | DESCRIPTION                                                   |
+| ------------------ | ------------------------------- | ------------------------------------------------------------- |
+| **`content_type`** | string, accepted value: `text`  | Type of the content of the Quick Reply                        |
+| `title`            | (optional) string               | title of the message                                          |
+| `payload`          | (optional) a string or a number | string or number related to the `content-type` property value |
+| `image_url`        | (optional) string               | a URL of an image                                             |
 
 **Example 1**: A BotResponse message containing three simple **quick replies**
 
