@@ -173,7 +173,7 @@ A BotMessage has the following properties:
 | `payload`                   | (optional) string                                                                                                                                                    | a custom payload, usually used to send back the payload of a quick reply or of a postback button in a BotRequest, after the user clicks / taps the corresponding UI button. |
 | `quick_replies_orientation` | (optional) string: `vertical` or `horizontal`                                                                                                                        | in case of a message with `quick_replies` it indicates the quick replies buttons group orientation to show in the client; default is `horizontal`.                          |
 | `quick_replies`             | (optional) only in case of `type` === `text` messages, an array of **[MessageQuickReply](https://github.com/vivocha/bot-sdk#messagequickreply)** objects (see below) | an array of quick replies                                                                                                                                                   |
-| `template`                  | (optional) only in case of `type` === `text` messages, a **[MessageTemplate](https://github.com/vivocha/bot-sdk#messagetemplate)** objects (see below)               | a generic template object.                                                                                                                                                  |
+| `template`                  | (optional) only in case of `type` === `text` messages, a **[MessageTemplate](https://github.com/vivocha/bot-sdk#messagetemplate)** object (see below)                | a generic template object.                                                                                                                                                  |
 
 #### [BotSettings](#botsettings)
 
@@ -1084,7 +1084,7 @@ configure the particular slot through _Edit Slot > ... > Open JSON Editor_ as:
 - In a Dialog node, if you need to quickly check if an entered input is included within a predefined list of values, you can use the following condition expression:
 
 ```javascript
-"milan,cagliari,london,rome,berlin".split(",").contains(input.text.toLowerCase());
+'milan,cagliari,london,rome,berlin'.split(',').contains(input.text.toLowerCase());
 ```
 
 ---
@@ -1247,8 +1247,8 @@ functions:
     handler: dist/lambda-bot-filter.handler
     events:
       # Configuration related to the API HTTP Gateway, leave it as follows, if possible.
-      - http: "ANY /"
-      - http: "ANY {proxy+}"
+      - http: 'ANY /'
+      - http: 'ANY {proxy+}'
 ```
 
 4. (optional) if you've written the code in TypeScript, then compile your code
