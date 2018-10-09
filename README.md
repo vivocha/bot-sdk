@@ -351,7 +351,7 @@ In a Template Element only the property `title` is mandatory, but at least one o
 | `default_action` | (optional) **[DefaultAction](https://github.com/vivocha/bot-sdk#defaultaction)** object | an object representing the default action to execute when the template is clicked / tapped |
 | `buttons`        | (optional) an array of **[Button](https://github.com/vivocha/bot-sdk#button)** objects  | the buttons to display in the template element.                                            |
 
-**Example**: A BotResponse message containing a _generic template_
+**Example 4**: A BotResponse message containing a _generic template_
 
 ```javascript
 {
@@ -400,7 +400,7 @@ which is rendered by the Vivocha interaction app like in the following screensho
 | :-----------------------------------------------------------------------------------------------: |
 |                  **A BotResponse message containing only one generic template**                   |
 
-**Example 4**: A BotResponse message containing a **carousel of generic templates**
+**Example 5**: A BotResponse message containing a **carousel of generic templates**
 
 ```javascript
 {
@@ -416,7 +416,28 @@ which is rendered by the Vivocha interaction app like in the following screensho
                     {
                         "title": "Meow!",
                         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Adult_Scottish_Fold.jpg/1920px-Adult_Scottish_Fold.jpg",
-                        "subtitle": "We have the right cat for everyone.",
+                        "subtitle": "Scottish fold",
+                        "default_action": {
+                            "type": "web_url",
+                            "url": "https://en.wikipedia.org/wiki/Cat"
+                        },
+                        "buttons": [
+                            {
+                                "type": "web_url",
+                                "url": "https://en.wikipedia.org/wiki/Cat",
+                                "title": "View Website"
+                            },
+                            {
+                                "type": "postback",
+                                "title": "OK",
+                                "payload": "ok abcd 123"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Meow!",
+                        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Tajeschidolls_Beren_of_LoveLorien_Ragdoll_Seal_Mink_Lynx_Bicolor.jpg/1024px-Tajeschidolls_Beren_of_LoveLorien_Ragdoll_Seal_Mink_Lynx_Bicolor.jpg",
+                        "subtitle": "Ragdoll",
                         "default_action": {
                             "type": "web_url",
                             "url": "https://en.wikipedia.org/wiki/Cat"
@@ -449,7 +470,7 @@ Which is shown in the Vivocha web interaction app as in the following screenshot
 | :--------------------------------------------------------------------------------------------------------: |
 |                    **A BotResponse message containing a carousel of generic templates**                    |
 
-**Example 5**: A BotResponse message containing a **list template**
+**Example 6**: A BotResponse message containing a **list template**
 
 ```javascript
 {
@@ -508,7 +529,7 @@ Which is rendered by the Vivocha interaction app like in the following screensho
 | :--------------------------------------------------------------------------------------------: |
 |                      **A BotResponse message containing a list template**                      |
 
-**Example 6**: A BotResponse message containing a **list template with links (buttons)**
+**Example 7**: A BotResponse message containing a **list template with links (buttons)**
 
 ```javascript
 {
