@@ -59,6 +59,7 @@ or
 - [Running BotManagers and BotFilters as AWS Lambdas](https://github.com/vivocha/bot-sdk#running-botmanagers-and-botfilters-as-aws-lambdas)
   - [Prerequisites](https://github.com/vivocha/bot-sdk#prerequisites)
   - [Writing a BotManager or a BotFilter as a Lambda Function](https://github.com/vivocha/bot-sdk#writing-a-botmanager-or-a-botfilter-as-a-lambda-function)
+- [Asynchronous Bot Responses](https://github.com/vivocha/bot-sdk#asynchronous-bot-responses)
 - [Running Tests](https://github.com/vivocha/bot-sdk#running-tests)
 
 ---
@@ -152,7 +153,7 @@ A BotRequest is a JSON with the following properties (in **bold** the required p
 | `data`        | (optional) object                                                                               | an object containing data to send to the Bot. Its properties must be of basic type. E.g., `{"firstname":"Antonio", "lastname": "Smith", "code": 12345}`                                                                                   |
 | `context`     | (optional) object                                                                               | Opaque, Bot specific context data                                                                                                                                                                                                         |
 | `tempContext` | (optional) object                                                                               | Temporary context, useful to store volatile data; i.e., in bot filters chains.                                                                                                                                                            |
-| `environment` | (optional) object                                                                               | Vivocha specific environment data sent by the platform. Currently, the `environment` object can have the following (optional) properties: `host`, `acct`, `hmac`, `campaignId`, `channelId`, `entrypointId`, `engagementId`, `contactId`. |
+| `environment` | (optional) object                                                                               | Vivocha specific environment data sent by the platform. Currently, the `environment` object can have the following (optional) properties: `host`, `acct`, `hmac`, `campaignId`, `channelId`, `entrypointId`, `engagementId`, `contactId`, `token`. |
 | `settings`    | (optional) **[BotSettings](https://github.com/vivocha/bot-sdk#botsettings)** object (see below) | Bot platform settings.                                                                                                                                                                                                                    |
 
 #### [BotMessage](#botmessage)
@@ -1311,6 +1312,51 @@ Likewise, if you have deployed as Lambda a **BotManager** the complete endpoint 
 Done.
 
 ---
+
+## [Asynchronous Bot Responses](#asynchronous-bot-responses)
+
+Generally, the Vivocha - Bots communication model is synchronous (request / response): Vivocha sends an HTTP request to a Bot(Manager, Agent) and it expects to receive a response for a standard HTTP timeout amount of time.
+
+However, in some cases involving time-consuming long responses from a bot, a BotResponse could be sent back when available, following an asynchronous model.
+This mode works as follows:
+
+1. At first (and **only the first time**), start message (`event === "start"` in the BotRequest), Vivocha sends in the `environment` BotRequest property also a `token`; Bot implementations, whishing to use this feature, MUST save the token.
+
+Thus, an example of BotRequest `environment` for a start message could be:
+
+```json
+"environment": {
+    "campaignId": "5bc...",
+    "channelId": "web",
+    "entrypointId": "1234",
+    "engagementId": "5678",
+    "contactId": "20166...ba",
+    "host": "f11.vivocha.com",
+    "acct": "acmecorp",
+    "hmac": "bf51...b71",
+    "token": "abcd.123.4567..."
+}
+```
+
+2. At any time, when the bot implementation needs to send a BotResponse to Vivocha (then to the user), it must call the following API endpoint:
+
+```
+POST https://<HOST>/a/<ACCOUNT_ID>/api/v2/contacts/<CONTACT_ID>/bot-response
+```
+with HTTP **headers** containing the authentication as:
+
+```
+Authorization: Bearer <TOKEN>
+```
+
+Where:
+
+- `HOST` is the `environment.host` property
+- `ACCOUNT_ID` is the `environment.acct` property
+- `CONTACT_ID` is the `environment.contactId` property
+- `TOKEN` is the `environment.token` property
+
+The **body** of the API call must contain a standard BotResponse JSON.
 
 ---
 
