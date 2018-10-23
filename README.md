@@ -704,14 +704,6 @@ It is related to the request in the BotRequest sample above in this document.
   "data": {
     "name": "Antonio Watson"
   },
-  "settings": {
-    "engine": {
-      "type": "WitAi",
-      "settings": {
-        "token": "abcd-123"
-      }
-    }
-  },
   "context": {
     "contexts": [
       "recontact_by_email_or_phone"
@@ -771,14 +763,6 @@ Another BotResponse example, including three **quick replies**:
     ],
     "data": {
       "name": "Alice"
-    },
-    "settings": {
-        "engine": {
-            "type": "custom",
-            "settings": {
-                "token": "super-secret-123-token"
-            }
-        }
     }
 }
 ```
@@ -832,14 +816,6 @@ A BotResponse including a **List Template**:
     ],
     "data": {
       "name": "Alice"
-    },
-    "settings": {
-        "engine": {
-            "type": "custom",
-            "settings": {
-                "token": "super-secret-123-token"
-            }
-        }
     }
 }
 ```
