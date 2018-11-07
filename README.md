@@ -896,7 +896,7 @@ After launching a BotFilter service, the detailed info, and a Swagger based API 
 
 ## [Supported Bot and NLP Platforms](#supported-bot-and-nlp-platforms)
 
-Next sections briefly provide some guidelines to integrate Bots built with the three supported platforms and using the default drivers / settings.
+Next sections briefly provide some guidelines to integrate bots built by the three supported platforms **and using the Vivocha native built-in drivers / settings**.
 
 **N.B.: Vivocha can be integrated with any Bot Platform**, if you're using a platform different than the supported you need to write a driver and a BotManager to use BotRequest / BotResponse messages and communicate with the particular, chosen, Bot Platform.
 
