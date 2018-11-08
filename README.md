@@ -15,7 +15,7 @@ To start with the Bot SDK it is recommended to:
 
 or
 
-- download the latest release from [here (current is v2.7.5)](https://github.com/vivocha/bot-sdk/releases)
+- download the latest release from [here (current is v2.7.6)](https://github.com/vivocha/bot-sdk/releases)
 
 ---
 

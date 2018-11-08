@@ -2,6 +2,7 @@ import { API, Resource, Operation, Swagger } from 'arrest';
 import { BotAgent, BotRequest, BotResponse } from '@vivocha/public-entities';
 import { getVvcEnvironment } from './util';
 import { EnvironmentInfo } from '@vivocha/public-entities/dist/bot';
+import { throws } from 'assert';
 
 class BotAgentResource extends Resource {
   constructor() {
@@ -17,19 +18,22 @@ class SendMessage extends Operation {
   constructor(resource: BotAgentResource, path, method) {
     super(resource, path, method, 'message.send');
     this.setInfo({
-      "parameters": [
+      parameters: [
         {
-          "in": "body",
-          "schema": { "$ref": "schemas/bot_request" }
+          in: 'body',
+          name: 'body',
+          description: 'the BotRequest body',
+          schema: { $ref: 'schemas/bot_request' }
         }
       ],
-      "responses": {
-        "200": {
-          "schema": {
-            "$ref": "schemas/bot_response"
+      responses: {
+        '200': {
+          description: 'Sending a message to bot was successful, a BotResponse is returned',
+          schema: {
+            $ref: 'schemas/bot_response'
           }
         },
-        "default": { "$ref": "#/responses/defaultError" }
+        default: { $ref: '#/responses/defaultError' }
       }
     } as any);
   }
@@ -40,8 +44,8 @@ class SendMessage extends Operation {
     const headers = req.headers;
     if (headers) {
       const headersEnvironment: EnvironmentInfo = getVvcEnvironment(headers);
-      if (Object.keys(headersEnvironment).length){
-        vivochaEnvironment = {...vivochaEnvironment, ...headersEnvironment};
+      if (Object.keys(headersEnvironment).length) {
+        vivochaEnvironment = { ...vivochaEnvironment, ...headersEnvironment };
       }
     }
     msg['environment'] = vivochaEnvironment;
@@ -69,10 +73,16 @@ export class BotAgentManager extends API {
       },
       paths: {}
     });
-    delete this.parameters;
+    if (this.parameters) {
+      this.parameters = {
+        id: this.parameters.id
+      };
+    }
+    /*
     if (this.responses) {
       delete this.responses.notFound;
     }
+    */
     if (this.definitions) {
       delete this.definitions.metadata;
       delete this.definitions.objectId;

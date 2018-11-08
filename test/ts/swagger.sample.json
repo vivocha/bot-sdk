@@ -1,0 +1,48 @@
+{
+  "swagger": "2.0",
+  "info": { "version": "2.0.0", "title": "BotAgentManager API" },
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "definitions": {
+    "errorResponse": {
+      "type": "object",
+      "properties": { "error": { "type": "integer", "minimum": 100 }, "message": { "type": "string" }, "info": { "type": "string" } },
+      "required": ["error", "message"]
+    }
+  },
+  "parameters": { "id": { "description": "Unique identifier of the resource", "name": "id", "in": "path", "type": "string", "required": true } },
+  "responses": {
+    "defaultError": { "description": "Default/generic error response", "schema": { "$ref": "#/definitions/errorResponse" } },
+    "notFound": { "description": "The requested/specified resource was not found", "schema": { "$ref": "#/definitions/errorResponse" } }
+  },
+  "tags": [{ "name": "Schema", "description": "JSON-Schema definitions used by this API", "x-name-plural": "Schemas" }, { "name": "Bot" }],
+  "paths": {
+    "/schemas/{id}": {
+      "get": {
+        "summary": "Retrieve a Schema by id",
+        "operationId": "Schema.read",
+        "parameters": [{ "$ref": "#/parameters/id" }],
+        "responses": {
+          "200": { "description": "The requested Schema", "schema": { "$ref": "http://json-schema.org/draft-04/schema#" } },
+          "404": { "$ref": "#/responses/notFound" },
+          "default": { "$ref": "#/responses/defaultError" }
+        },
+        "tags": ["Schema"]
+      }
+    },
+    "/bot/message": {
+      "post": {
+        "operationId": "Bot.message.send",
+        "tags": ["Bot"],
+        "responses": {
+          "200": { "description": "Sending a message to bot was successful, a BotResponse is returned", "schema": { "$ref": "schemas/bot_response" } },
+          "default": { "$ref": "#/responses/defaultError" }
+        },
+        "parameters": [{ "in": "body", "name": "body", "description": "the BotRequest body", "schema": { "$ref": "schemas/bot_request" } }]
+      }
+    }
+  },
+  "host": "def81b1c.ngrok.io",
+  "basePath": "/"
+}
