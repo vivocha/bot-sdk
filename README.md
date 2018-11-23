@@ -15,7 +15,7 @@ To start with the Bot SDK it is recommended to:
 
 or
 
-- download the latest release from [here (current is v2.7.6)](https://github.com/vivocha/bot-sdk/releases)
+- download the latest release from [here](https://github.com/vivocha/bot-sdk/releases)
 
 ---
 
@@ -28,6 +28,9 @@ or
 - [BotAgent](https://github.com/vivocha/bot-sdk#botagent)
   - [BotRequest](https://github.com/vivocha/bot-sdk#botrequest)
     - [BotMessage](https://github.com/vivocha/bot-sdk#botmessage)
+      - [Text Message](https://github.com/vivocha/bot-sdk#text-message)
+      - [Postback Message](https://github.com/vivocha/bot-sdk#postback-message)
+      - [Attachment Message](https://github.com/vivocha/bot-sdk#attachment-message)
     - [BotSettings](https://github.com/vivocha/bot-sdk#botsettings)
     - [BotEngineSettings](https://github.com/vivocha/bot-sdk#botenginesettings)
     - [MessageQuickReply](https://github.com/vivocha/bot-sdk#messagequickreply)
@@ -46,6 +49,9 @@ or
   - [BotManager Web API](https://github.com/vivocha/bot-sdk#botmanager-web-api)
 - [Bot Filters](https://github.com/vivocha/bot-sdk#bot-filters)
   - [BotFilter Web API](https://github.com/vivocha/bot-sdk#botfilter-web-api)
+- [About Vivocha Bots and Transfers to Human Agents](https://github.com/vivocha/bot-sdk#about-vivocha-bots-and-transfers-to-human-agents)
+- [Sending Attachments](https://github.com/vivocha/bot-sdk#sending-attachments)
+- [Asynchronous Bot Responses](https://github.com/vivocha/bot-sdk#asynchronous-bot-responses)
 - [Supported Bot and NLP Platforms](https://github.com/vivocha/bot-sdk#supported-bot-and-nlp-platforms)
   - [Dialogflow: integration guidelines](https://github.com/vivocha/bot-sdk#dialogflow-integration-guidelines)
     - [Vivocha Rich Messages and Dialogflow](https://github.com/vivocha/bot-sdk#vivocha-rich-messages-and-dialogflow)
@@ -55,11 +61,10 @@ or
     - [Watson Assistant Hints and Tips](https://github.com/vivocha/bot-sdk#watson-assistant-hints-and-tips)
   - [Wit.ai, writing chat bots](https://github.com/vivocha/bot-sdk#witai-writing-chat-bots)
     - [Wit.ai with Vivocha Hint and Tips](https://github.com/vivocha/bot-sdk#witai-with-vivocha-hint-and-tips)
-- [About Vivocha Bots and Transfers to Human Agents](https://github.com/vivocha/bot-sdk#about-vivocha-bots-and-transfers-to-human-agents)
+  - [Microsoft Bots](https://github.com/vivocha/bot-sdk#microsoft-bots)
 - [Running BotManagers and BotFilters as AWS Lambdas](https://github.com/vivocha/bot-sdk#running-botmanagers-and-botfilters-as-aws-lambdas)
   - [Prerequisites](https://github.com/vivocha/bot-sdk#prerequisites)
   - [Writing a BotManager or a BotFilter as a Lambda Function](https://github.com/vivocha/bot-sdk#writing-a-botmanager-or-a-botfilter-as-a-lambda-function)
-- [Asynchronous Bot Responses](https://github.com/vivocha/bot-sdk#asynchronous-bot-responses)
 - [Running Tests](https://github.com/vivocha/bot-sdk#running-tests)
 
 ---
@@ -159,22 +164,57 @@ A BotRequest is a JSON with the following properties (in **bold** the required p
 #### [BotMessage](#botmessage)
 
 Some contents and definitions of the Vivocha Bot Messages are inspired by the [Facebook Messenger](https://developers.facebook.com/docs/messenger-platform/reference/) messages specification, but adapted and extended as needed by the Vivocha Platform.
-Currently, messages' `quick_replies` and `template` properties are supported in BotResponses.
+Currently, messages' `quick_replies` and `template` properties are supported **ONLY** in BotResponses.
 
-**Notes**: Generally speaking, while messages containing _quick replies_ or _templates_ have no particular constraints about the number of elements (and buttons, etc...), please take into consideration that Facebook Messenger have some contraints about them, e.g., in the number of quick replies or buttons per message; therefore, if you're supporting chats also through the Facebook Messenger channel, then you need to be compliant to its specification (more details about Messenger messages constraints can be found [here](https://developers.facebook.com/docs/messenger-platform/reference/)).
+**Notes**: Generally speaking, while messages containing _quick replies_ or _templates_ have no particular constraints about the number of elements (and buttons, etc...), please take into consideration that Facebook Messenger have some contraints about them, i.e., in the number of quick replies or buttons per message; therefore, if you're supporting chats also through the Facebook Messenger channel, then you need to be compliant to its specification (more details about Messenger messages constraints can be found [here](https://developers.facebook.com/docs/messenger-platform/reference/)).
 Anyway, in case of an exceeding number of elements, the Vivocha platform will trim them before sending to Messenger clients.
 
-A BotMessage has the following properties:
+A BotMessage can be of three different types: **Text Message**, **Postback Message**, **Attachment Message**.
+
+##### [Text Message](#text-message)
+
+A Text BotMessage can be used by a bot to send from simple, text-based messages to more complex messages containing quick replies and templates.
+
+A Text Message has the following properties (required are in **bold**):
 
 | PROPERTY                    | VALUE                                                                                                                                                                | DESCRIPTION                                                                                                                                                                 |
 | --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **`code`**                  | string, value is always `message`                                                                                                                                    | Vivocha code type for Bot messages.                                                                                                                                         |
-| **`type`**                  | string: `text` or `postback`                                                                                                                                         | Vivocha Bot message type.                                                                                                                                                   |
+| **`type`**                  | string, value is `text`                                                                                                                                         | Vivocha Bot message type.                                                                                                                                                   |
 | **`body`**                  | string                                                                                                                                                               | the message text body.                                                                                                                                                      |
 | `payload`                   | (optional) string                                                                                                                                                    | a custom payload, usually used to send back the payload of a quick reply or of a postback button in a BotRequest, after the user clicks / taps the corresponding UI button. |
 | `quick_replies_orientation` | (optional) string: `vertical` or `horizontal`                                                                                                                        | in case of a message with `quick_replies` it indicates the quick replies buttons group orientation to show in the client; default is `horizontal`.                          |
-| `quick_replies`             | (optional) only in case of `type` === `text` messages, an array of **[MessageQuickReply](https://github.com/vivocha/bot-sdk#messagequickreply)** objects (see below) | an array of quick replies                                                                                                                                                   |
-| `template`                  | (optional) only in case of `type` === `text` messages, a **[MessageTemplate](https://github.com/vivocha/bot-sdk#messagetemplate)** object (see below)                | a generic template object.                                                                                                                                                  |
+| `quick_replies`             | (optional) an array of **[MessageQuickReply](https://github.com/vivocha/bot-sdk#messagequickreply)** objects (see below) | an array of quick replies                                                                                                                                                   |
+| `template`                  | (optional) a **[MessageTemplate](https://github.com/vivocha/bot-sdk#messagetemplate)** object                | a template object.                                                                                                                                                  |
+---
+
+##### [Postback Message](#postback-message)
+
+A Postback Message can be sent to a bot to convey a simple text content and, optionally, a custom payload.
+Its properties are (required are in **bold**):
+
+| PROPERTY                    | VALUE                                                                                                                                                                | DESCRIPTION                                                                                                                                                                 |
+| --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`code`**                  | string, value is always `message`                                                                                                                                    | Vivocha code type for Bot messages.                                                                                                                                         |
+| **`type`**                  | string, set to `postback`                                                                                                                                         | Vivocha Bot message type.                                                                                                                                                   |
+| **`body`**                  | string                                                                                                                                                               | the message text body.                                                                                                                                                      |
+| `payload`                   | (optional) string                                                                                                                                                    | a custom payload, usually used to send back the payload of a postback button of a template. |
+---
+
+##### [Attachment Message](#attachment-message)
+
+A message containing an attachment that can be sent/received to/from a bot to send files. See **[Sending Attachments](https://github.com/vivocha/bot-sdk#sending-attachments)** section in this document for more details about sending attachments to/from a bot.
+
+Its properties are (required are in **bold**):
+
+| PROPERTY                    | VALUE                                                                                                                                                                | DESCRIPTION                                                                                                                                                                 |
+| --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`code`**                  | string, value is always `message`                                                                                                                                    | Vivocha code type for Bot messages.                                                                                                                                         |
+| **`type`**                  | string, value is `attachment`                                                                                                                                         | Vivocha Bot message type.                                                                                                                                                   |
+| **`url`**                  | string   | the URL from which download the attachment                                                                                                                                                      |
+| **`meta`**                   | an object of a **[Attachment Metadata](https://github.com/vivocha/bot-sdk#attachment-metadata)** type |  this object contains some metadata about the attachment being sent. |
+
+---
 
 #### [BotSettings](#botsettings)
 
@@ -186,12 +226,17 @@ Bot platform settings object. Along with the `engine` property (see the table be
 
 #### [BotEngineSettings](#botenginesettings)
 
+Its properties are (required are in **bold**):
+
+
 | PROPERTY   | VALUE             | DESCRIPTION                                                                                                                                                                                                                                                                                                                                                                                  |
 | ---------- | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **`type`** | string            | Unique bot engine identifier, i.e., the platform name, like: `Watson`, `Dialogflow`, `WitAi`, ...                                                                                                                                                                                                                                                                                            |
 | `settings` | (optional) object | Specific settings to send to the BOT/NLP platform. E.g. for Watson Assistant (formerly Conversation) is an object like `{"workspaceId": "<id>" "username": "<usrname>", "password": "<passwd>"}`; for a Dialogflow bot is something like: `{"token": "<token>", "startEvent": "MyCustomStartEvent"}`, and so on... You need to refer to the documentation of the specific Bot Platform used. |
 
 #### [MessageQuickReply](#messagequickreply)
+
+Its properties are (required are in **bold**):
 
 | PROPERTY           | VALUE                           | DESCRIPTION                                                   |
 | ------------------ | ------------------------------- | ------------------------------------------------------------- |
@@ -333,6 +378,8 @@ Which is rendered by the Vivocha interaction app like in the following screensho
 ---
 
 #### [MessageTemplate](#messagetemplate)
+
+Properties are (required are in **bold**):
 
 | PROPERTY   | VALUE                                                                                                                                     | DESCRIPTION                                                                                                |
 | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
@@ -599,6 +646,9 @@ Which is rendered by the Vivocha interaction app like in the following screensho
 
 #### [DefaultAction](#defaultaction)
 
+Properties are (required are in **bold**):
+
+
 | PROPERTY   | VALUE                                    | DESCRIPTION                                           |
 | ---------- | ---------------------------------------- | ----------------------------------------------------- |
 | **`type`** | string, admitted value is only `web_url` | default action type, it always refers to a web URL    |
@@ -612,6 +662,8 @@ A Button object can be one of the following types: **[PostbackButton](https://gi
 
 A postback button is used to send back to the bot a response made of a title and a payload.
 
+Properties are (required are in **bold**):
+
 | PROPERTY      | VALUE                            | DESCRIPTION                                                     |
 | ------------- | -------------------------------- | --------------------------------------------------------------- |
 | **`type`**    | string, always set to `postback` | the postback button type                                        |
@@ -621,6 +673,8 @@ A postback button is used to send back to the bot a response made of a title and
 #### [WebURLButton](#weburlbutton)
 
 A WebURL button is used to open a web page at the specified URL.
+
+Properties are (required are in **bold**):
 
 | PROPERTY    | VALUE                           | DESCRIPTION                                            |
 | ----------- | ------------------------------- | ------------------------------------------------------ |
@@ -632,6 +686,8 @@ A WebURL button is used to open a web page at the specified URL.
 
 This button allows to fire a custom event in the website page where the Vivocha interaction app / chat is running.
 In order to work, a _contact-custom-event_ must be configured in the particular Vivocha Campaign.
+
+Properties are (required are in **bold**):
 
 | PROPERTY    | VALUE                                                                 | DESCRIPTION                |
 | ----------- | --------------------------------------------------------------------- | -------------------------- |
@@ -668,6 +724,25 @@ Example of a request sent to provide the name in a conversation with a Wit.ai ba
     }
 }
 ```
+
+---
+
+#### [Attachment Metadata](#attachment-metadata)
+
+Attachment metadata object.
+
+Properties are (required are in **bold**):
+
+| PROPERTY   | VALUE             | DESCRIPTION |
+| ---------- | ----------------- | ----------- |
+| **`mimetype`** | string           | MIME Type of the attachment|
+| `originalUrl` | (optional) string | the original URL of the attachment. It could be different than the attachment `url` property value in case the attachment is being served by a CDN or remote storage|
+| `originalUrlHash` | (optional) string | a hash related to the attachment, it will be automatically "calculated" by Vivocha platform |
+| `originalId` | (optional) string | unique Id, automatically assigned by when uploaded using the `BotAgentManager.uploadAttachment() method`|
+| `originalName` | (optional) string | the original file name of the attachment |
+| `desc` | (optional) string | brief description of the attachment |
+| `size` | (optional) number | attachment size, as in normal HTTP Content-Length header |
+| `ref` | (optional) string | A reference ID to correlate the attachment sending. It can be used by the client to avoid showing in the chat widget the attachment message twice. |
 
 ---
 
@@ -892,6 +967,188 @@ After launching a BotFilter service, the detailed info, and a Swagger based API 
 
 `http(s)://<Your-BotFilter-Host>:<port>/swagger.json`
 
+---
+
+## [About Vivocha Bots and Transfers to Human Agents](#about-vivocha-bots-and-transfers-to-human-agents)
+
+In the Vivocha model, a Bot is just like a "normal" agent, able to handle contacts, chat with users and also able to transfer a particular current contact to another agent (a human agent or, maybe, to another Bot). Configuring a Bot to fire a transfer to other agents in Vivocha is a quite straightforward process.
+
+1. using the Vivocha console, configure the bot to manage transfers. A transfer can be of two types: _transfer to tag_ and _transfer to agent_. The former will fire a transfer to other agents having a specified tag where the latter only to a specific agent by (nick)name. Therefore, creating a transfer rule involves specifying a _data key_ (a property name) to be found in a `BotResponse` and its corresponding _value_ to check, plus the agents tag or nick name to transfer to. For example, the next picture shows a _transfer to tag_ Bot configuration which will be fired anytime the BotResponse `data` object contains a sub-property named `transferToAgent` set to `sales` in order to transfer the contact to an agent tagged with `sales`.
+
+| ![A contact transfer configuration example](https://cdn.rawgit.com/vivocha/bot-sdk/e0746125/docs/transfer.png) |
+| :-----------------: |
+| **FIGURE 4 - Vivocha Bots can transfer contacts to other agents (human agents or, why not?, to another Bot) when necessary. This picture shows a transfer to tag Bot configuration fired anytime the `BotResponse` `data` object contains a sub-property named `transferToAgent` set to `sales`, in order to transfer the contact to another agent tagged with `sales`** |
+
+2. when a transfer is required, the particular Bot implementation must return a BotResponse with: the `event` property set to `end` AND the `data` property containing the configured transfer sub-property (as `transferToAgent` in the previous example) set to the specified value. The following JSON snippet shows a BotResponse for the transfer configuration described in step 1)
+
+```javascript
+{
+  "event": "end",
+  "messages": [ {
+    "code": "message",
+    "type": "text",
+    "body": "OK I'm transferring you to a sales agent. Bye! 😊"
+  } ],
+  "settings": {
+    "engine": {
+        "type": "custom",
+        "settings": {...}
+     }
+  },
+  "data": {
+    "firstname": "Daenerys",
+    "lastname": "Targaryen",
+    ...
+    "transferToAgent": "sales"
+  }
+}
+```
+
+**NOTES**:
+
+- if your bot is built through the **IBM Watson Assistant** platform, and you're using the built-in Vivocha Watson integration, then set the transfer property directly as a context variable in the dialog node which ends the conversation and a transfer is required;
+
+- if the bot is developed through the **Dialogflow platform**, and your're using the built-in Vivocha Dialogflow integration, then set the transfer property in the `parameters` property of a returned context (i.e., using a Firebase Cloud Functions-based fulfillment);
+
+- if the bot is written using **Wit.ai** and the module provided by this SDK, just return the transfer property in the BotResponse `data` field (see `examples/dummy-bot(.ts | .js)` code for the `transfer` case).
+
+---
+
+## [Sending Attachments](#sending-attachments)
+
+When a bot based on the Vivocha Bot SDK needs to send an attachment to a chat user, there are two available options depending on the will to save the attachment in the Vivocha Secure Storage before sending it to the final user or not.
+
+### Sending Attachments using the Vivocha Secure Storage
+
+This case is a two step process.
+To upload the attachment a `token` is needed. At first (and **only the first time**), start message (`event === "start"` in the BotRequest), Vivocha sends in the `environment` BotRequest property also this authentication `token`; Bot implementations, whishing to use this feature, MUST save the token, i.e, adding it to `context` property in the resulting `BotResponse`, for latter use.
+
+1. **upload the attachment to the Vivocha Secure Storage**: the `BotAgentmanager` class provides the `uploadAttachment()` static method in order to save the attachment in the Vivocha Secure Storage. Its signature is as follows:
+
+```javascript
+static async uploadAttachment(attachmentStream: Stream, attachmentMeta: AttachmentMeta, environment: EnvironmentInfo): Promise<Attachment>
+```
+
+where:
+
+- `attachmentStream` is a Node.js `Stream` from which read the attachment bytes. The Stream can be created from a file or from a remote URL, see `examples/dummy-bot.ts (.js)` to see these two cases;
+
+- `attachmentMeta` is an object of type [Attachment Metadata](https://github.com/vivocha/bot-sdk#attachment-metadata). In this case it is enough to specify only the `mimetype` and `desc` properties, for example: `{ mimetype: 'image/jpeg', desc: 'Our 500 car in red color' }`;
+
+- `environment`, the `environment` object property sent by Vivocha to the bot in each BotRequest that MUST include also the `token` property. At first (and **only the first time**), start message (`event === "start"` in the BotRequest), Vivocha sends in the `environment` BotRequest property also a `token`; Bot implementations, whishing to use this feature, MUST save this token and, in order to properly call this method, include it in the Botrequest `environment` property. Then, an example of correct `environment` param to call this method is something like:
+
+```json
+"environment": {
+    "campaignId": "5bc...",
+    "channelId": "web",
+    "entrypointId": "1234",
+    "engagementId": "5678",
+    "contactId": "20166...ba",
+    "host": "f11.vivocha.com",
+    "acct": "acmecorp",
+    "hmac": "bf51...b71",
+    "token": "abcd.123.4567..."
+}
+```
+
+The method will return a Promise containing an `Attachment` object.
+The `Attachment` object has the following properties:
+
+| PROPERTY                    | VALUE            | DESCRIPTION   |
+| --------------------------- | -----------------| ----------------------------------- |
+| **`url`**                  | string   | the URL from which download the attachment from the Vivocha Secure Storage   |
+| **`meta`**                 | an object of a **[Attachment Metadata](https://github.com/vivocha/bot-sdk#attachment-metadata)** type |  this object contains metadata about the uploaded attachment. |
+
+---
+
+**N.B.** Uploading an attachment to Vivocha Secure Storage doesn't automatically send an Attachment Message to the user, then, step 2 below is needed:
+
+2. **prepare and send a Vivocha Attachment Message**: using the `Attachment` object resulting from the `BotAgentmanager.uploadAttachment()` method invocation, compose and send an `Attachment Message` filling the required `url` and `meta` properties with the values of the corresponding properties in the `Attachment` object obtained from step 1.
+
+### Sending Attachments directly, not using the Vivocha Secure Storage
+
+When uploading the attachment to Vivocha Secure Storage is not required and it's ok to send it through its public URL, then just send an **[Attachment Message](https://github.com/vivocha/bot-sdk#attachment-message)** using the original info about the attachment to send.
+
+**Example 8: an Attachment Message (not being uploaded to Vivocha Secure Storage)**:
+
+```json
+    ...
+    "messages": [{
+                    "code": "message",
+                    "type": "attachment",
+                    "url": "https://media.giphy.com/media/l1KsqYM8Zt3yG3tVS/giphy.gif",
+                    "meta": {
+                        "originalUrl": "",
+                        "originalName": "Scream.gif",
+                        "mimetype: 'image/gif"
+                    }
+              }];
+    ...
+```
+
+---
+
+## [Asynchronous Bot Responses](#asynchronous-bot-responses)
+
+Generally, the Vivocha - Bots communication model is synchronous (request-response): Vivocha sends an HTTP request to a Bot(Manager, Agent) and it expects to receive a response within a standard HTTP timeout amount of time.
+
+However, in some cases involving time-consuming long responses from a bot, it is needed to send back a BotResponse when available, following an asynchronous model.
+This mode works as follows:
+
+1. At first (and **only the first time**), start message (`event === "start"` in the BotRequest), Vivocha sends in the `environment` BotRequest property also a `token`; Bot implementations, whishing to use this feature, MUST save the token, i.e, adding it to `context` property in the resulting `BotResponse`.
+
+Thus, an example of BotRequest `environment` for a start message could be:
+
+```json
+"environment": {
+    "campaignId": "5bc...",
+    "channelId": "web",
+    "entrypointId": "1234",
+    "engagementId": "5678",
+    "contactId": "20166...ba",
+    "host": "f11.vivocha.com",
+    "acct": "acmecorp",
+    "hmac": "bf51...b71",
+    "token": "abcd.123.4567..."
+}
+```
+
+2. At any time, when the bot implementation needs to send a BotResponse to Vivocha (then to the user), there are two options:
+
+    **2.1. Invoke the `BotAgentManager.sendAsyncMessage()` static method. The method has the following signature**:
+
+    ```javascript
+    static async sendAsyncMessage(response: BotResponse, environment: EnvironmentInfo): Promise<http.FullResponse>
+    ```
+
+    where:
+
+    - `response` is a complete [BotResponse](https://github.com/vivocha/bot-sdk#botresponse)
+    - `environment` is an environment object as above and **MUST include the `token` property**.
+
+
+    **2.2. Directly call the following Vivocha API endpoint**:
+
+    ```text
+    POST https://<HOST>/a/<ACCOUNT_ID>/api/v2/contacts/<CONTACT_ID>/bot-response
+    ```
+
+    with HTTP **headers** containing the authentication as:
+
+    ```text
+    Authorization: Bearer <TOKEN>
+    ```
+
+    Where:
+
+    - `HOST` is the `environment.host` property
+    - `ACCOUNT_ID` is the `environment.acct` property
+    - `CONTACT_ID` is the `environment.contactId` property
+    - `TOKEN` is the `environment.token` property
+
+    The **body** of the API call must contain a standard BotResponse JSON.
+
+---
 ---
 
 ## [Supported Bot and NLP Platforms](#supported-bot-and-nlp-platforms)
@@ -1139,49 +1396,475 @@ More details can be found in the dedicated `examples/sample-wit.ts(.js)` sample 
 
 ---
 
-## [About Vivocha Bots and Transfers to Human Agents](#about-vivocha-bots-and-transfers-to-human-agents)
+### [Microsoft Bots](#microsoft-bots)
 
-In the Vivocha model, a Bot is just like a "normal" agent, able to handle contacts, chat with users and also able to transfer a particular current contact to another agent (a human agent or, maybe, to another Bot). Configuring a Bot to fire a transfer to other agents in Vivocha is a quite straightforward process.
+Vivocha provides built-in native support also for bots implemented using the Microsoft Bot platform and deployed on Azure.
 
-1. using the Vivocha console, configure the bot to manage transfers. A transfer can be of two types: _transfer to tag_ and _transfer to agent_. The former will fire a transfer to other agents having a specified tag where the latter only to a specific agent by (nick)name. Therefore, creating a transfer rule involves specifying a _data key_ (a property name) to be found in a `BotResponse` and its corresponding _value_ to check, plus the agents tag or nick name to transfer to. For example, the next picture shows a _transfer to tag_ Bot configuration which will be fired anytime the BotResponse `data` object contains a sub-property named `transferToAgent` set to `sales` in order to transfer the contact to an agent tagged with `sales`.
+In particular, the communication is based on the Microsoft Direct Line API 3.0 Channel.
 
-|                                                                                                                              ![A contact transfer configuration example](https://cdn.rawgit.com/vivocha/bot-sdk/e0746125/docs/transfer.png)                                                                                                                              |
-| :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-| **FIGURE 4 - Vivocha Bots can transfer contacts to other agents (human agents or, why not?, to another Bot) when necessary. This picture shows a transfer to tag Bot configuration fired anytime the `BotResponse` `data` object contains a sub-property named `transferToAgent` set to `sales`, in order to transfer the contact to another agent tagged with `sales`** |
+---
 
-2. when a transfer is required, the particular Bot implementation must return a BotResponse with: the `event` property set to `end` AND the `data` property containing the configured transfer sub-property (as `transferToAgent` in the previous example) set to the specified value. The following JSON snippet shows a BotResponse for the transfer configuration described in step 1)
+#### Prerequisites
+
+- **Direct Line 3.0 Channel MUST be enabled** for the specific bot on Azure Bot Service.
+
+#### Configuration
+
+1. In the Microsoft Azure Bot Platform, for tha target bot configure a **Direct Line 3.0 Channel**; specifying a *Site* name, thus two *secret keys* are generated and proposed
+2. In Vivocha Campaign Builder > Library, create a BotAgent, with the following settings:
+
+Settings:
+
+| PROPERTY      | DESCRIPTION / VALUE  |
+| --------------| -------------------------------------------------------------------------------------------------------------------|
+| **Engine**    | Select **Microsoft** |
+| **Direct Line Site Id**     | Site Id / name as set for Direct Line Channel in Microsoft Azure service |
+| **Secret key**    |  One of the two Secret Keys generated by the Direct Line Channel configuration in Microsoft Azure service|
+| **Start message**    | the message to send to the Bot as start message. **N.B.**: the Bot must be properly written / trained to understand it and, usually, to reply with a welcome message                                                                                                |
+| **Auto convert messages**    | if **checked (default)** the native driver will convert the incoming MS Bot Messages to Vivocha Messages, if supported. If **not checked**, no conversion is attempted. For detailed info see **Supported Microsoft Bot Messages** section below in this chapter|
+| **Transfer Key** | (Optional) the property key to expect in BotResponses `data` property to request a transfer to another agent. If not set, default is `transferToAgent` and it must be properly used in the Bot configuration in the Vivocha Agent Console. See **Transfer to Another Agent** section below in this chapter       |
+| **Transfer value** | (Optional) the value of the configured **Transfer Key** property to expect in BotResponses `data` property to request a transfer to another agent. If not set, default is `AGENT` and it must be used in the Bot configuration in Agent Console. See the **Transfer to Another Agent** section below in this document |
+
+---
+
+#### Messages
+
+Sending messages from a MS Bot to Vivocha can be achieved in three ways:
+
+1. sending simple text messages from the Microsoft Bot;
+2. sending more complex messages through the `attachments` property in MS Bot messages;
+3. sending messages already expressed in the Vivocha Bot Message format, set directly inside the `channelData` property of the Microsoft Bot messages.
+
+**Example: sending Vivocha Messages from the Bot using the `channelData` property in Microsoft Bot messages**:
 
 ```javascript
+let msg = {};
+msg.text = 'Test custom channelData';
+msg.channelData = {
+                "messages": [ {
+      "code": "message",
+      "type": "text",
+      "body": "Just an example of generic template",
+      "template": {
+        "type": "generic",
+        "elements": [
+          {
+            "title": "Meow!",
+            "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Tajeschidolls_Beren_of_LoveLorien_Ragdoll_Seal_Mink_Lynx_Bicolor.jpg/1024px-Tajeschidolls_Beren_of_LoveLorien_Ragdoll_Seal_Mink_Lynx_Bicolor.jpg",
+            "subtitle": "We have the right cat for everyone.",
+            "default_action": {
+              "type": "web_url",
+              "url": "https://en.wikipedia.org/wiki/Cat"
+            },
+            "buttons": [
+              {
+                "type": "web_url",
+                "url": "https://en.wikipedia.org/wiki/Cat",
+                "title": "View Website"
+              },
+              {
+                "type": "postback",
+                "title": "OK",
+                "payload": "OK"
+              }
+            ]
+          },
+          {
+            "title": "Meow!",
+            "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Adult_Scottish_Fold.jpg/1920px-Adult_Scottish_Fold.jpg",
+            "subtitle": "We have the right cat for everyone.",
+            "default_action": {
+              "type": "web_url",
+              "url": "https://en.wikipedia.org/wiki/Cat"
+            },
+            "buttons": [
+              {
+                "type": "web_url",
+                "url": "https://en.wikipedia.org/wiki/Cat",
+                "title": "View Website"
+              },
+              {
+                "type": "postback",
+                "title": "OK",
+                "payload": "OK"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+};
+session.send(msg);
+```
+
+---
+
+**Example: sending Vivocha Messages from the MS Bot using the `channelData` property in Microsoft Bot messages, also sending an end of conversation**:
+
+```javascript
+var cmsg = {};
+cmsg.type = 'endOfConversation';
+cmsg.text = 'Test custom channelData';
+cmsg.channelData = {
+      "messages": [ {
+      "code": "message",
+      "type": "text",
+      "body": "Just an example of generic template VVC2",
+      "template": {
+        "type": "generic",
+        "elements": [
+          {
+            "title": "Meow!",
+            "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Tajeschidolls_Beren_of_LoveLorien_Ragdoll_Seal_Mink_Lynx_Bicolor.jpg/1024px-Tajeschidolls_Beren_of_LoveLorien_Ragdoll_Seal_Mink_Lynx_Bicolor.jpg",
+            "subtitle": "We have the right cat for everyone.",
+            "default_action": {
+              "type": "web_url",
+              "url": "https://en.wikipedia.org/wiki/Cat"
+            },
+            "buttons": [
+              {
+                "type": "web_url",
+                "url": "https://en.wikipedia.org/wiki/Cat",
+                "title": "View Website"
+              },
+              {
+                "type": "postback",
+                "title": "OK",
+                "payload": "OK"
+              }
+            ]
+          },
+          {
+            "title": "Meow!",
+            "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Adult_Scottish_Fold.jpg/1920px-Adult_Scottish_Fold.jpg",
+            "subtitle": "We have the right cat for everyone.",
+            "default_action": {
+              "type": "web_url",
+              "url": "https://en.wikipedia.org/wiki/Cat"
+            },
+            "buttons": [
+              {
+                "type": "web_url",
+                "url": "https://en.wikipedia.org/wiki/Cat",
+                "title": "View Website"
+              },
+              {
+                "type": "postback",
+                "title": "OK",
+                "payload": "OK"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+};
+session.endConversation(cmsg);
+```
+
+---
+
+#### Supported Microsoft Bot Messages
+
+If `autoConvertMessages` property is checked in settings, the Vivocha Bot Driver will attempt to convert the messages coming from the bot and expressed in Microsoft Messages format to the Vivocha Bot messages specific format, if supported.
+Then, the driver will act as follows:
+
+##### Case 1: Messages Auto-convert is ON (checked)
+
+The following table lists auto convert support current status of MS Bot messages:
+
+| Microsoft Message Type           | Automatic Conversion                           | Converted to VVC Message          |
+| ------------------ | ------------------------------- | -------------------------------------------------------------  |
+| Adaptive Card      | No                              | -                                                              |
+| **Animation Card** | Yes                             | Generic Template                                               |
+| **Hero Card**      | Yes                              | Generic Template                                               |
+| **Thumbnail Card** | Yes                             | Generic Template                                               |
+| Receipt Card       | No                              | -                                                              |
+| **Signin Card**    | Yes                             | Generic Template                                               |
+| Video Card         | No                              | -                                                              |
+| **Message with Actions**         | Yes                   | Message with Quick Replies                                     |
+| **Message with Carousels**         | Yes                   | Message with multimple templates                             |
+
+If the Bot sends an attachment with an unsupported Microsoft Message Type, then it is converted to a special Vivocha template element, which `type` is `ms_raw` and has the following properties:
+
+```JSON
 {
-  "event": "end",
-  "messages": [ {
-    "code": "message",
-    "type": "text",
-    "body": "OK I'm transferring you to a sales agent. Bye! 😊"
-  } ],
-  "settings": {
-    "engine": {
-        "type": "custom",
-        "settings": {...}
-     }
-  },
-  "data": {
-    "firstname": "Daenerys",
-    "lastname": "Targaryen",
-    ...
-    "transferToAgent": "sales"
-  }
+  "title": "Unsupported Microsoft Bot message type, you need to write a custom renderer. See the element property in raw JSON.",
+  "type": "ms_raw",
+  "element": < ORIGINAL RAW body of the Microsoft Bot Message Attachment >
 }
 ```
 
-**NOTES**:
+In this way, the Vivocha interaction app can be customized to parse and render the specific `ms_raw` template element.
 
-- if your bot is built through the **IBM Watson Assistant** platform, and you're using the built-in Vivocha Watson integration, then set the transfer property directly as a context variable in the dialog node which ends the conversation and a transfer is required;
+**Example: A full Vivocha Message resulting from converting an unsupported Microsoft Bot message attachment along with a supported one**
 
-- if the bot is developed through the **Dialogflow platform**, and your're using the built-in Vivocha Dialogflow integration, then set the transfer property in the `parameters` property of a returned context (i.e., using a Firebase Cloud Functions-based fulfillment);
+```json
+{
+  "messages": [
+    {
+      "code": "message",
+      "type": "text",
+      "template": {
+        "type": "generic",
+        "elements": [
+          {
+            "title": "Unsupported Microsoft Bot message type, you need to write a custom renderer. See the element property in raw JSON.",
+            "type": "ms_raw",
+            "element": {
+              "contentType": "application/vnd.microsoft.card.video",
+              "content": {
+                "title": "Video",
+                "subtitle": "No way.",
+                "text": "not supported video card",
+                "media": [{ "url": "https://media.giphy.com/media/eTdN7L04C6puE/giphy.gif" }],
+                "buttons": [{ "type": "openUrl", "title": "Search GIFs", "value": "http://giphy.com" }],
+                "shareable": false,
+                "autoloop": false,
+                "autostart": false
+              }
+            }
+          },
+          {
+            "title": "Mia... rhjlkmyu",
+            "subtitle": "glitch. Just new modern cat GIFs",
+            "image_url": "https://media.giphy.com/media/ktvFa67wmjDEI/giphy.gif",
+            "buttons": [{ "type": "web_url", "title": "Search GIFs", "url": "http://giphy.com" }]
+          }
+        ]
+      }
+    }
+  ],
+  "event": "continue",
+  "data": {},
+  "context": { "conversationId": "JOrLGNyvift87iQ1opfAJo" },
+  "raw": {
+    "activities": [
+      {
+        "type": "message",
+        "id": "JOrLGNyvift87iQ1opfAJo|0000005",
+        "timestamp": "2018-11-09T17:16:48.9957975Z",
+        "localTimestamp": "2018-11-09T17:16:48.872+00:00",
+        "channelId": "directline",
+        "from": { "id": "vvc-echo-bot", "name": "vvc-echo-bot" },
+        "conversation": { "id": "JOrLGNyvift87iQ1opfAJo" },
+        "inputHint": "acceptingInput",
+        "attachments": [
+          {
+            "contentType": "application/vnd.microsoft.card.video",
+            "content": {
+              "title": "Video",
+              "subtitle": "No way.",
+              "text": "not supported video card",
+              "media": [{ "url": "https://media.giphy.com/media/eTdN7L04C6puE/giphy.gif" }],
+              "buttons": [{ "type": "openUrl", "title": "Search GIFs", "value": "http://giphy.com" }],
+              "shareable": false,
+              "autoloop": false,
+              "autostart": false
+            }
+          },
+          {
+            "contentType": "application/vnd.microsoft.card.animation",
+            "content": {
+              "title": "Mia... rhjlkmyu",
+              "subtitle": "glitch.",
+              "text": "Just new modern cat GIFs",
+              "media": [{ "url": "https://media.giphy.com/media/ktvFa67wmjDEI/giphy.gif" }],
+              "buttons": [{ "type": "openUrl", "title": "Search GIFs", "value": "http://giphy.com" }],
+              "shareable": false,
+              "autoloop": false,
+              "autostart": false
+            }
+          }
+        ],
+        "replyToId": "JOrLGNyvift87iQ1opfAJo|0000004"
+      }
+    ],
+    "conversationId": "JOrLGNyvift87iQ1opfAJo"
+  }
+}
 
-- if the bot is written using **Wit.ai** and the module provided by this SDK, just return the transfer property in the BotResponse `data` field (see `examples/dummy-bot(.ts | .js)` code for the `transfer` case).
+```
 
+##### Case 2: Message Auto-convert is OFF (unchecked)
+
+When auto-convert messages is switched OFF, the Vivocha driver will not convert any message coming from the bot.
+Instead, it generated a message with a special `ms_raw` template type containing the unparsed, raw, original Microsoft message.
+
+The template format is as follows:
+
+```json
+{
+      "code": "message",
+      "type": "text",
+      "template": {
+        "type": "ms_raw",
+        "elements": [
+          < ORIGINAL RAW JSON Microsoft Bot Message body as object >
+        ]
+      }
+```
+
+Like in the following example:
+
+**Example: a complete Vivocha message containing the special template type when auto-convert of Microsoft messages is OFF**
+
+```json
+{
+  "messages": [
+    {
+      "code": "message",
+      "type": "text",
+      "template": {
+        "type": "ms_raw",
+        "elements": [
+          {
+            "activities": [
+              {
+                "type": "message",
+                "id": "8jiPwElwjZU49w8EMz1Zmb|0000003",
+                "timestamp": "2018-11-09T17:35:46.5847969Z",
+                "localTimestamp": "2018-11-09T17:35:46.448+00:00",
+                "channelId": "directline",
+                "from": { "id": "vvc-echo-bot", "name": "vvc-echo-bot" },
+                "conversation": { "id": "8jiPwElwjZU49w8EMz1Zmb" },
+                "inputHint": "acceptingInput",
+                "attachments": [
+                  {
+                    "contentType": "application/vnd.microsoft.card.hero",
+                    "content": {
+                      "title": "Classic White T-Shirt",
+                      "subtitle": "100% Soft and Luxurious Cotton",
+                      "text": "Price is $25and carried in sizes (S, M, L, and XL)",
+                      "images": [{ "url": "https://upload.wikimedia.org/wikipedia/commons/9/9a/Wikipedia-T-shirt.jpg" }],
+                      "buttons": [{ "type": "imBack", "title": "Buy", "value": "Buy THIS" }]
+                    }
+                  }
+                ],
+                "replyToId": "8jiPwElwjZU49w8EMz1Zmb|0000002"
+              }
+            ],
+            "conversationId": "8jiPwElwjZU49w8EMz1Zmb"
+          }
+        ]
+      }
+    }
+  ],
+  "event": "continue",
+  "data": {},
+  "context": { "conversationId": "8jiPwElwjZU49w8EMz1Zmb" },
+  "raw": {
+    "activities": [
+      {
+        "type": "message",
+        "id": "8jiPwElwjZU49w8EMz1Zmb|0000003",
+        "timestamp": "2018-11-09T17:35:46.5847969Z",
+        "localTimestamp": "2018-11-09T17:35:46.448+00:00",
+        "channelId": "directline",
+        "from": { "id": "vvc-echo-bot", "name": "vvc-echo-bot" },
+        "conversation": { "id": "8jiPwElwjZU49w8EMz1Zmb" },
+        "inputHint": "acceptingInput",
+        "attachments": [
+          {
+            "contentType": "application/vnd.microsoft.card.hero",
+            "content": {
+              "title": "Classic White T-Shirt",
+              "subtitle": "100% Soft and Luxurious Cotton",
+              "text": "Price is $25 and carried in sizes (S, M, L, and XL)",
+              "images": [{ "url": "https://upload.wikimedia.org/wikipedia/commons/9/9a/Wikipedia-T-shirt.jpg" }],
+              "buttons": [{ "type": "imBack", "title": "Buy", "value": "Buy THIS" }]
+            }
+          }
+        ],
+        "replyToId": "8jiPwElwjZU49w8EMz1Zmb|0000002"
+      }
+    ],
+    "conversationId": "8jiPwElwjZU49w8EMz1Zmb"
+  }
+}
+
+```
+
+---
+
+#### Data Collection in MS Bots
+
+Data is collected by the Vivocha driver **only, and only if**:
+
+- the Microsoft Bot Message has the `entities` property set (an array)
+- the Microsoft Bot Message has the `channelData.data` property set (an object)
+
+**Example of sending a Microsoft Bot message with `channelData` set**
+
+```javascript
+// inside the MS bot implementation code
+var sdmsg = {};
+sdmsg.text = 'A message custom data in channelData property, see JSON';
+sdmsg.channelData = {
+  "data":{
+    "firstname": "Iggy",
+    "lastname": "Pop",
+    "nickname": "Iguana"
+  }
+};
+session.send(sdmsg);
+```
+
+**Example of sending a Microsoft Bot message with `Entities`**
+
+```javascript
+// inside the MS bot implementation code
+let dmsg = new builder.Message(session);
+dmsg.text('A message with entities');
+dmsg.addEntity({color: 'RED', car: '500'});
+session.send(dmsg);
+```
+
+---
+
+#### End of conversation messages and Vivocha `end event`
+
+To end a conversation (thus, generating a `"event": "end"` in the resulting Vivocha BotResponse), the bot must return an `activity` with `activity.type` property set to `endOfConversation` in the Microsoft Bot message to be sent.
+
+---
+
+#### Transfer to other Agents
+
+To request a transfer to another agent, the Microsoft Bot should return a text message with:
+
+- `channelData.data` property containing a sub property as in:
+
+```json
+{
+  ...
+  <settings.transferKey>: <settings.transferValue>
+}
+```
+
+OR
+
+- a message with an `entity` set to a JSON like:
+
+```json
+{<settings.transferKey>: <settings.transferValue>}
+```
+
+where:
+
+- `settings.transferKey` is the related property key configured for the particular bot
+- `settings.transferValue` is the related property value configured for the particular bot
+
+**example:**
+
+```text
+{"tranferToAgent": "human"}
+```
+
+**NB**: whether an `endOfConversation` message is sent by the bot or not, when the configured `settings.transferKey` is found to be equal to the configured `settings.transferValue`, then in the resulting Vivocha BotResponse the `event` property **is always set** to `end`.
+
+---
 ---
 
 ## [Running BotManagers and BotFilters as AWS Lambdas](#running-botmanagers-and-botfilters-as-aws-lambdas)
@@ -1286,52 +1969,6 @@ Likewise, if you have deployed as Lambda a **BotManager** the complete endpoint 
 Done.
 
 ---
-
-## [Asynchronous Bot Responses](#asynchronous-bot-responses)
-
-Generally, the Vivocha - Bots communication model is synchronous (request / response): Vivocha sends an HTTP request to a Bot(Manager, Agent) and it expects to receive a response for a standard HTTP timeout amount of time.
-
-However, in some cases involving time-consuming long responses from a bot, a BotResponse could be sent back when available, following an asynchronous model.
-This mode works as follows:
-
-1. At first (and **only the first time**), start message (`event === "start"` in the BotRequest), Vivocha sends in the `environment` BotRequest property also a `token`; Bot implementations, whishing to use this feature, MUST save the token.
-
-Thus, an example of BotRequest `environment` for a start message could be:
-
-```json
-"environment": {
-    "campaignId": "5bc...",
-    "channelId": "web",
-    "entrypointId": "1234",
-    "engagementId": "5678",
-    "contactId": "20166...ba",
-    "host": "f11.vivocha.com",
-    "acct": "acmecorp",
-    "hmac": "bf51...b71",
-    "token": "abcd.123.4567..."
-}
-```
-
-2. At any time, when the bot implementation needs to send a BotResponse to Vivocha (then to the user), it must call the following API endpoint:
-
-```
-POST https://<HOST>/a/<ACCOUNT_ID>/api/v2/contacts/<CONTACT_ID>/bot-response
-```
-with HTTP **headers** containing the authentication as:
-
-```
-Authorization: Bearer <TOKEN>
-```
-
-Where:
-
-- `HOST` is the `environment.host` property
-- `ACCOUNT_ID` is the `environment.acct` property
-- `CONTACT_ID` is the `environment.contactId` property
-- `TOKEN` is the `environment.token` property
-
-The **body** of the API call must contain a standard BotResponse JSON.
-
 ---
 
 ## [Running Tests](#running-tests)
@@ -1343,8 +1980,25 @@ Then, in your Wit.ai console:
 1. create a new app by **importing** the `/test/data/witai-test-app.zip` file, name it as you prefer;
 2. in app _settings_ section, generate a _Client Access Token_, copy it;
 
-Finally, run all tests with:
+Then, in the Bot SDK project:
+
+3. create a `.env` file in the root directory
+4. in the `.env` file add the following line:
+
+```text
+WIT_TOKEN=<YOUR_CLIENT_ACCESS_TOKEN> 
+```
+
+Save it.
+
+5. run the tests with the command:
 
 ```sh
-WIT_TOKEN=<YOUR_CLIENT_ACCESS_TOKEN> npm run test
+npm run test
+```
+
+OR (with coverage)
+
+```sh
+npm run cover
 ```

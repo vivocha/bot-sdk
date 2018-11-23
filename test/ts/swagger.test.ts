@@ -3,7 +3,6 @@ import * as chaiAsPromised from 'chai-as-promised';
 import { BotAgentManager } from '../../dist/agent';
 import { BotRequest, BotResponse } from '@vivocha/public-entities/dist/bot';
 import { dummyBot } from './dummy-bot';
-import * as SwaggerParser from 'swagger-parser';
 import * as http from 'request-promise-native';
 
 chai.should();
@@ -36,9 +35,6 @@ describe('Testing BotManager API SWAGGER ', function() {
       swagger.parameters.should.have.property('id');
       swagger.responses.should.have.property('notFound');
       swagger.paths['/bot/message'].post.parameters[0].should.have.property('name');
-    });
-    it.skip('Returned Swagger should be valid', async function() {
-      return SwaggerParser.validate(`http://localhost:${port}/swagger.json`).should.be.eventually.fulfilled;
     });
     after('shutdown bot manager', function() {
       server.close();

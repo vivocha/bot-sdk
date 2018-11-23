@@ -11,3 +11,8 @@ typings
 dist
 test/ts/*.js
 test-results
+uploads
+
+# Env variables file
+.env
+

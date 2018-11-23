@@ -1,32 +1,33 @@
-import * as chai from "chai";
-import { BotAgentManager, BotRequest, BotResponse } from "../../dist";
-import * as http from "request-promise-native";
-import { DataCollectorTestWitBot } from "./witai-nointents-bot";
-import { DataCollectorTestWitBot as OkBot } from "./bot";
+import * as chai from 'chai';
+import { BotAgentManager, BotRequest, BotResponse } from '../../dist';
+import * as http from 'request-promise-native';
+import { DataCollectorTestWitBot } from './witai-nointents-bot';
+import { DataCollectorTestWitBot as OkBot } from './bot';
+require('dotenv').config();
 
 chai.should();
 
-const engineType = "WitAi";
+const engineType = 'WitAi';
 
 const getTextMessage = function(body: string, payload?: string): any {
   let msg = {
-    code: "message",
-    type: "text",
+    code: 'message',
+    type: 'text',
     body
   };
   if (payload) {
-    msg["payload"] = payload;
+    msg['payload'] = payload;
   }
   return msg;
 };
 const getHTTPOptions = function getOptions(body) {
   return {
-    method: "POST",
-    uri: "http://localhost:8080/bot/message",
+    method: 'POST',
+    uri: 'http://localhost:8080/bot/message',
     body: body,
     headers: {
-      "x-vvc-host": "localhost:8080",
-      "x-vvc-acct": "vvc_test1"
+      'x-vvc-host': 'localhost:8080',
+      'x-vvc-acct': 'vvc_test1'
     },
     json: true,
     simple: false,
@@ -35,10 +36,10 @@ const getHTTPOptions = function getOptions(body) {
 };
 
 //root describe
-describe("Testing Wit.ai based bot for a simple data collection ", function() {
+describe('Testing Wit.ai based bot for a simple data collection ', function() {
   let env = process.env;
 
-  describe("Starting a bot that has NOT CONFIGURED Intents", function() {
+  describe('Starting a bot that has NOT CONFIGURED Intents', function() {
     const getSettings = function(): any {
       return {
         engine: {
@@ -51,7 +52,7 @@ describe("Testing Wit.ai based bot for a simple data collection ", function() {
     };
     const manager = new BotAgentManager();
     let server;
-    before("starting bot manager", async function() {
+    before('starting bot manager', async function() {
       manager.registerAgent(
         engineType,
         async (req: BotRequest): Promise<BotResponse> => {
@@ -64,10 +65,10 @@ describe("Testing Wit.ai based bot for a simple data collection ", function() {
       server = await manager.listen(port);
       return;
     });
-    it("should raise an error", async function() {
+    it('should raise an error', async function() {
       const request1: BotRequest = {
-        language: "en",
-        event: "start",
+        language: 'en',
+        event: 'start',
         settings: getSettings()
       };
       //console.dir(request1, { colors: true, depth: 20 });
@@ -76,11 +77,11 @@ describe("Testing Wit.ai based bot for a simple data collection ", function() {
       return;
     });
 
-    after("shutdown bot manager", function() {
+    after('shutdown bot manager', function() {
       server.close();
     });
   });
-  describe("Starting a correctly configured bot", function() {
+  describe('Starting a correctly configured bot', function() {
     const getSettings = function(): any {
       return {
         engine: {
@@ -93,7 +94,7 @@ describe("Testing Wit.ai based bot for a simple data collection ", function() {
     };
     const manager = new BotAgentManager();
     let server;
-    before("starting bot manager", async function() {
+    before('starting bot manager', async function() {
       manager.registerAgent(
         engineType,
         async (req: BotRequest): Promise<BotResponse> => {
@@ -106,10 +107,10 @@ describe("Testing Wit.ai based bot for a simple data collection ", function() {
       server = await manager.listen(port);
       return;
     });
-    it("for a missing request message, it should raise an error", async function() {
+    it('for a missing request message, it should raise an error', async function() {
       const request1: BotRequest = {
-        language: "en",
-        event: "continue",
+        language: 'en',
+        event: 'continue',
         settings: getSettings()
       };
       //console.dir(request1, { colors: true, depth: 20 });
@@ -117,17 +118,17 @@ describe("Testing Wit.ai based bot for a simple data collection ", function() {
       result1.statusCode.should.equal(500);
       return;
     });
-    it("for a message classified with unknown intent, contexts ok, it should use the inContext() function and return the entered text ", async function() {
+    it('for a message classified with unknown intent, contexts ok, it should use the inContext() function and return the entered text ', async function() {
       const request1: BotRequest = {
-        language: "en",
-        event: "continue",
+        language: 'en',
+        event: 'continue',
         message: {
-          code: "message",
-          type: "text",
-          body: "unknown is a state of mind"
+          code: 'message',
+          type: 'text',
+          body: 'unknown is a state of mind'
         } as any,
         context: {
-          contexts: ["ask_for_name"]
+          contexts: ['ask_for_name']
         },
         settings: getSettings()
       };
@@ -136,7 +137,7 @@ describe("Testing Wit.ai based bot for a simple data collection ", function() {
       result1.statusCode.should.equal(200);
       return;
     });
-    after("shutdown bot manager", function() {
+    after('shutdown bot manager', function() {
       server.close();
     });
   });

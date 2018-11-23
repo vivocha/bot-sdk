@@ -2,8 +2,12 @@ import { BotRequestFilter, BotResponseFilter, BotRequest, BotResponse, Environme
 import { API, Resource, Operation, Swagger } from 'arrest';
 import { getVvcEnvironment } from './util';
 
-const defaultRequestFilter: BotRequestFilter = async (): Promise<BotRequest> => { throw API.newError(400, 'request filtering not supported') };
-const defaultResponseFilter: BotResponseFilter = async (): Promise<BotResponse> => { throw API.newError(400, 'response filtering not supported') };
+const defaultRequestFilter: BotRequestFilter = async (): Promise<BotRequest> => {
+  throw API.newError(400, 'request filtering not supported');
+};
+const defaultResponseFilter: BotResponseFilter = async (): Promise<BotResponse> => {
+  throw API.newError(400, 'response filtering not supported');
+};
 
 class BotFilterResource extends Resource {
   constructor(reqFilter: BotRequestFilter, resFilter: BotResponseFilter) {
@@ -20,19 +24,19 @@ class FilterRequest extends Operation {
   constructor(resource: BotFilterResource, protected filter: BotRequestFilter = defaultRequestFilter) {
     super(resource, '/request', 'post', 'request');
     this.setInfo({
-      "parameters": [
+      parameters: [
         {
-          "in": "body",
-          "schema": { "$ref": "schemas/bot_request" }
+          in: 'body',
+          schema: { $ref: 'schemas/bot_request' }
         }
       ],
-      "responses": {
-        "200": {
-          "schema": {
-            "$ref": "schemas/bot_request"
+      responses: {
+        '200': {
+          schema: {
+            $ref: 'schemas/bot_request'
           }
         },
-        "default": { "$ref": "#/responses/defaultError" }
+        default: { $ref: '#/responses/defaultError' }
       }
     } as any);
   }
@@ -43,8 +47,8 @@ class FilterRequest extends Operation {
     const headers = req.headers;
     if (headers) {
       const headersEnvironment: EnvironmentInfo = getVvcEnvironment(headers);
-      if (Object.keys(headersEnvironment).length){
-        vivochaEnvironment = {...vivochaEnvironment, ...headersEnvironment};
+      if (Object.keys(headersEnvironment).length) {
+        vivochaEnvironment = { ...vivochaEnvironment, ...headersEnvironment };
       }
     }
     msg['environment'] = vivochaEnvironment;
@@ -56,19 +60,19 @@ class FilterResponse extends Operation {
   constructor(resource: BotFilterResource, protected filter: BotResponseFilter = defaultResponseFilter) {
     super(resource, '/response', 'post', 'response');
     this.setInfo({
-      "parameters": [
+      parameters: [
         {
-          "in": "body",
-          "schema": { "$ref": "schemas/bot_response" }
+          in: 'body',
+          schema: { $ref: 'schemas/bot_response' }
         }
       ],
-      "responses": {
-        "200": {
-          "schema": {
-            "$ref": "schemas/bot_response"
+      responses: {
+        '200': {
+          schema: {
+            $ref: 'schemas/bot_response'
           }
         },
-        "default": { "$ref": "#/responses/defaultError" }
+        default: { $ref: '#/responses/defaultError' }
       }
     } as any);
   }
@@ -79,8 +83,8 @@ class FilterResponse extends Operation {
     const headers = req.headers;
     if (headers) {
       const headersEnvironment: EnvironmentInfo = getVvcEnvironment(headers);
-      if (Object.keys(headersEnvironment).length){
-        vivochaEnvironment = {...vivochaEnvironment, ...headersEnvironment};
+      if (Object.keys(headersEnvironment).length) {
+        vivochaEnvironment = { ...vivochaEnvironment, ...headersEnvironment };
       }
     }
     msg['environment'] = vivochaEnvironment;
@@ -98,10 +102,16 @@ export class BotFilter extends API {
       },
       paths: {}
     });
-    delete this.parameters;
+    if (this.parameters) {
+      this.parameters = {
+        id: this.parameters.id
+      };
+    }
+    /*
     if (this.responses) {
       delete this.responses.notFound;
     }
+    */
     if (this.definitions) {
       delete this.definitions.metadata;
       delete this.definitions.objectId;
@@ -111,6 +121,8 @@ export class BotFilter extends API {
     this.registerSchema('bot_response', require('@vivocha/public-entities/schemas/bot_response.json') as Swagger.Schema);
     this.registerSchema('text_message', require('@vivocha/public-entities/schemas/text_message.json') as Swagger.Schema);
     this.registerSchema('postback_message', require('@vivocha/public-entities/schemas/postback_message.json') as Swagger.Schema);
+    this.registerSchema('attachment_message', require('@vivocha/public-entities/schemas/attachment_message.json') as Swagger.Schema);
+    this.registerSchema('attachment_metadata', require('@vivocha/public-entities/schemas/attachment_metadata.json') as Swagger.Schema);
     this.addResource(new BotFilterResource(reqFilter, resFilter));
   }
 }

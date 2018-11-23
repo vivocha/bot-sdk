@@ -1,8 +1,10 @@
 import { API, Resource, Operation, Swagger } from 'arrest';
-import { BotAgent, BotRequest, BotResponse } from '@vivocha/public-entities';
-import { getVvcEnvironment } from './util';
+import * as http from 'request-promise-native';
+import { Attachment, AttachmentMeta } from '@vivocha/public-entities';
 import { EnvironmentInfo } from '@vivocha/public-entities/dist/bot';
-import { throws } from 'assert';
+import { BotAgent, BotRequest, BotResponse } from '@vivocha/public-entities/dist/bot';
+import { getVvcEnvironment } from './util';
+import { Stream } from 'stream';
 
 class BotAgentResource extends Resource {
   constructor() {
@@ -93,6 +95,8 @@ export class BotAgentManager extends API {
     this.registerSchema('bot_response', require('@vivocha/public-entities/schemas/bot_response.json') as Swagger.Schema);
     this.registerSchema('text_message', require('@vivocha/public-entities/schemas/text_message.json') as Swagger.Schema);
     this.registerSchema('postback_message', require('@vivocha/public-entities/schemas/postback_message.json') as Swagger.Schema);
+    this.registerSchema('attachment_message', require('@vivocha/public-entities/schemas/attachment_message.json') as Swagger.Schema);
+    this.registerSchema('attachment_metadata', require('@vivocha/public-entities/schemas/attachment_metadata.json') as Swagger.Schema);
     this.addResource(new BotAgentResource());
   }
   get agents(): BotAgentRegistry {
@@ -102,5 +106,58 @@ export class BotAgentManager extends API {
   registerAgent(type: string, agent: BotAgent): this {
     this.agents[type] = agent;
     return this;
+  }
+
+  static async sendAsyncMessage(response: BotResponse, environment: EnvironmentInfo): Promise<http.FullResponse> {
+    if (!environment.token || !environment.host || !environment.acct || !environment.contactId) {
+      throw new Error('Missing property in environment parameter, please include all of: token, host, acct and contactId');
+    } else {
+      const url = `https://${environment.host}/a/${environment.acct}/api/v2/contacts/${environment.contactId}/bot-response`;
+      const httpOptions = {
+        method: 'POST',
+        uri: url,
+        body: response,
+        headers: {
+          authorization: `Bearer ${environment.token}`
+        },
+        json: true,
+        resolveWithFullResponse: true,
+        simple: true,
+        time: true
+      };
+      return http(httpOptions);
+    }
+  }
+
+  static async uploadAttachment(attachmentStream: Stream, attachmentMeta: AttachmentMeta, environment: EnvironmentInfo): Promise<Attachment> {
+    if (!environment.token || !environment.host || !environment.acct || !environment.contactId) {
+      throw new Error('Missing property in environment parameter, please include all of: token, host, acct and contactId');
+    } else {
+      let url = `https://${environment.host}/a/${environment.acct}/api/v2/contacts/${environment.contactId}/bot-attach`;
+      const qs = {};
+      if (attachmentMeta.ref) {
+        qs['ref'] = attachmentMeta.ref;
+      }
+      if (attachmentMeta.desc) {
+        qs['desc'] = attachmentMeta.desc;
+      }
+      const httpOptions = {
+        method: 'POST',
+        uri: url,
+        qs,
+        formData: {
+          file: attachmentStream
+        },
+        headers: {
+          authorization: `Bearer ${environment.token}`,
+          'content-type': 'multipart/form-data'
+        },
+        resolveWithFullResponse: true,
+        simple: true,
+        time: true
+      };
+      const response = await http(httpOptions);
+      return JSON.parse(response.body);
+    }
   }
 }
