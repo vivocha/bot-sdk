@@ -4,7 +4,7 @@ _JavaScript / TypeScript SDK to create Bot Agents and Filters for the [Vivocha](
 
 ---
 
-This SDK allows to write Vivocha Bot Agents integrating existing bots, built and trained using your preferred bot / NLP platform. E.g., Dialogflow, IBM Watson Assistant (formerly Conversation), Wit.ai, etc...
+This SDK allows to write Vivocha Bot Agents integrating existing bots, built and trained using your preferred bot / NLP platform. E.g., Dialogflow, IBM Watson Assistant (formerly Conversation), Wit.ai, Microsoft Bot framework, etc...
 By creating a BotManager it is possible to register multi-platform bot implementations and let Vivocha communicate with them through a well-defined and uniform message-based API.
 
 ---
@@ -71,10 +71,10 @@ or
 
 ## [Overview](#overview)
 
-The Vivocha platform provides out-of-the-box support for chat bots built using [IBM Watson Assistant (formerly Conversation)](https://www.ibm.com/watson/services/conversation) and [Dialogflow](https://dialogflow.com/) platforms. This means that it is possible to integrate these particular bot implementations with Vivocha simply using the Vivocha configuration app and specificing few settings, like authentication tokens, and following some, very simple, mandatory guidelines when building the bot, at design time.
-The first sections of this documentation focus on building custom Bot Agents using the Bot SDK, which allows to integrate them with the Vivocha system with ease and also provides a library to write bots using the [Wit.ai](https://wit.ai) NLP platform.
+The Vivocha platform provides out-of-the-box native support for chat bots built using [IBM Watson Assistant (formerly Conversation)](https://www.ibm.com/watson/services/conversation), [Dialogflow](https://dialogflow.com/) and [Microsoft Bot Framework](https://dev.botframework.com) platforms. This means that it is possible to integrate these particular bot implementations with Vivocha simply using the Vivocha configuration app and specificing few settings, like authentication tokens, and following some, very simple, mandatory guidelines when building the bot, at design time.
+The first sections of this documentation focus on building custom Bot Agents using the Bot SDK, which allows to integrate them with the Vivocha system with ease and also provides a library to quickly write bots using the [Wit.ai](https://wit.ai) NLP platform.
 
-The last sections of this guide are dedicated to the integration guidelines for chatbots built with the three supported platforms: IBM Watson Assistant (formerly Conversation), Dialogflow and Wit.ai and about how to transfer contacts from a bot to another agent.
+The last sections of this guide are dedicated to the integration guidelines for chatbots built with the four supported platforms: IBM Watson Assistant (formerly Conversation), Dialogflow, Microsoft Bot Framework and Wit.ai and about how to transfer contacts from a bot to another agent.
 
 The following picture shows an high-level overview of the Vivocha Bot SDK and its software components.
 
@@ -214,7 +214,7 @@ Its properties are (required are in **bold**):
 | **`code`**                  | string, value is always `message`                                                                                                                                    | Vivocha code type for Bot messages.                                                                                                                                         |
 | **`type`**                  | string, value is `attachment`                                                                                                                                         | Vivocha Bot message type.                                                                                                                                                   |
 | **`url`**                  | string   | the URL from which download the attachment                                                                                                                                                      |
-| **`meta`**                   | an object of a **[Attachment Metadata](https://github.com/vivocha/bot-sdk#attachment-metadata)** type |  this object contains some metadata about the attachment being sent. |
+| **`meta`**                   | an object of **[Attachment Metadata](https://github.com/vivocha/bot-sdk#attachment-metadata)** type |  this object contains some metadata about the attachment being sent. |
 
 ---
 
@@ -740,11 +740,11 @@ Properties are (required are in **bold**):
 | **`mimetype`** | string           | MIME Type of the attachment|
 | `originalUrl` | (optional) string | the original URL of the attachment. It could be different than the attachment `url` property value in case the attachment is being served by a CDN or remote storage|
 | `originalUrlHash` | (optional) string | a hash related to the attachment, it will be automatically "calculated" by Vivocha platform |
-| `originalId` | (optional) string | unique Id, automatically assigned by when uploaded using the `BotAgentManager.uploadAttachment() method`|
+| `originalId` | (optional) string | unique Id, automatically assigned by Vivocha when uploaded using the `BotAgentManager.uploadAttachment() method`|
 | `originalName` | (optional) string | the original file name of the attachment |
 | `desc` | (optional) string | brief description of the attachment |
 | `size` | (optional) number | attachment size, as in normal HTTP Content-Length header |
-| `ref` | (optional) string | A reference ID to correlate the attachment sending. It can be used by the client to avoid showing in the chat widget the attachment message twice. |
+| `ref` | (optional) string | A reference ID to correlate the attachment message. It can be used by the client to avoid showing the attachment message twice in the user chat widget. |
 
 ---
 
@@ -1010,20 +1010,22 @@ In the Vivocha model, a Bot is just like a "normal" agent, able to handle contac
 
 - if your bot is built through the **IBM Watson Assistant** platform, and you're using the built-in Vivocha Watson integration, then set the transfer property directly as a context variable in the dialog node which ends the conversation and a transfer is required;
 
-- if the bot is developed through the **Dialogflow platform**, and your're using the built-in Vivocha Dialogflow integration, then set the transfer property in the `parameters` property of a returned context (i.e., using a Firebase Cloud Functions-based fulfillment);
+- if the bot is developed through the **Dialogflow platform**, and you're using the built-in Vivocha Dialogflow integration, then set the transfer property in the `parameters` property of a returned context (i.e., using a Firebase Cloud Functions-based fulfillment);
 
 - if the bot is written using **Wit.ai** and the module provided by this SDK, just return the transfer property in the BotResponse `data` field (see `examples/dummy-bot(.ts | .js)` code for the `transfer` case).
+
+- if the bot is written using the **Microsoft Bot Frameworok** and you're using the built-in Vivocha driver, then see the dedicated **Transfer to other agents** chapter in the [Microsoft Bots](https://github.com/vivocha/bot-sdk#microsoft-bots) section of this document.
 
 ---
 
 ## [Sending Attachments](#sending-attachments)
 
-When a bot based on the Vivocha Bot SDK needs to send an attachment to a chat user, there are two available options depending on the will to save the attachment in the Vivocha Secure Storage before sending it to the final user or not.
+When a bot based on the Vivocha Bot SDK needs to send an attachment to a chat user, there are two available options, depending on the will to save the attachment in the Vivocha Secure Storage before sending it to the final user or not.
 
 ### Sending Attachments using the Vivocha Secure Storage
 
 This case is a two step process.
-To upload the attachment a `token` is needed. At first (and **only the first time**), start message (`event === "start"` in the BotRequest), Vivocha sends in the `environment` BotRequest property also this authentication `token`; Bot implementations, whishing to use this feature, MUST save the token, i.e, adding it to `context` property in the resulting `BotResponse`, for latter use.
+To upload the attachment a `token` is needed. At first (and **only the first time**), start message (`event === "start"` in the BotRequest), Vivocha sends in the `environment` BotRequest property also an authentication `token`; Bot implementations, whishing to use this feature, MUST save the token, i.e, adding it to `context` property in the resulting `BotResponse`, for later use.
 
 1. **upload the attachment to the Vivocha Secure Storage**: the `BotAgentmanager` class provides the `uploadAttachment()` static method in order to save the attachment in the Vivocha Secure Storage. Its signature is as follows:
 
@@ -1033,11 +1035,11 @@ static async uploadAttachment(attachmentStream: Stream, attachmentMeta: Attachme
 
 where:
 
-- `attachmentStream` is a Node.js `Stream` from which read the attachment bytes. The Stream can be created from a file or from a remote URL, see `examples/dummy-bot.ts (.js)` to see these two cases;
+- `attachmentStream` is a Node.js `Stream` from which read the attachment bytes. The Stream can be created from a file or from a remote URL, see `examples/dummy-bot.ts (.js)` for the code about these two cases;
 
 - `attachmentMeta` is an object of type [Attachment Metadata](https://github.com/vivocha/bot-sdk#attachment-metadata). In this case it is enough to specify only the `mimetype` and `desc` properties, for example: `{ mimetype: 'image/jpeg', desc: 'Our 500 car in red color' }`;
 
-- `environment`, the `environment` object property sent by Vivocha to the bot in each BotRequest that MUST include also the `token` property. At first (and **only the first time**), start message (`event === "start"` in the BotRequest), Vivocha sends in the `environment` BotRequest property also a `token`; Bot implementations, whishing to use this feature, MUST save this token and, in order to properly call this method, include it in the Botrequest `environment` property. Then, an example of correct `environment` param to call this method is something like:
+- `environment`, the `environment` object property sent by Vivocha to the bot in each BotRequest that **MUST also include the `token` property**. At first (and **only the first time**), start message (`event === "start"` in the BotRequest), Vivocha sends in the `environment` BotRequest property also a `token`; Bot implementations, whishing to use this feature, MUST save this token and, in order to properly call this method, include it in the BotRequest `environment` property. Then, an example of correct `environment` param to call this method is something like:
 
 ```json
 "environment": {
@@ -1054,22 +1056,22 @@ where:
 ```
 
 The method will return a Promise containing an `Attachment` object.
-The `Attachment` object has the following properties:
+The Vivocha `Attachment` object has the following properties:
 
 | PROPERTY                    | VALUE            | DESCRIPTION   |
 | --------------------------- | -----------------| ----------------------------------- |
 | **`url`**                  | string   | the URL from which download the attachment from the Vivocha Secure Storage   |
-| **`meta`**                 | an object of a **[Attachment Metadata](https://github.com/vivocha/bot-sdk#attachment-metadata)** type |  this object contains metadata about the uploaded attachment. |
+| **`meta`**                 | an object of **[Attachment Metadata](https://github.com/vivocha/bot-sdk#attachment-metadata)** type |  this object contains metadata about the uploaded attachment. |
 
 ---
 
-**N.B.** Uploading an attachment to Vivocha Secure Storage doesn't automatically send an Attachment Message to the user, then, step 2 below is needed:
+**N.B.** Uploading an attachment to Vivocha Secure Storage doesn't automatically result in sending an Attachment Message to the user. Thus, the step 2 below is needed:
 
-2. **prepare and send a Vivocha Attachment Message**: using the `Attachment` object resulting from the `BotAgentmanager.uploadAttachment()` method invocation, compose and send an `Attachment Message` filling the required `url` and `meta` properties with the values of the corresponding properties in the `Attachment` object obtained from step 1.
+2. **prepare and send a Vivocha Attachment Message**: using the `Attachment` object resulting from the `BotAgentmanager.uploadAttachment()` method invocation, compose and send an [Attachment Message](https://github.com/vivocha/bot-sdk#attachment-message) filling the required `url` and `meta` properties with the values of the corresponding properties in the `Attachment` object obtained from step 1.
 
 ### Sending Attachments directly, not using the Vivocha Secure Storage
 
-When uploading the attachment to Vivocha Secure Storage is not required and it's ok to send it through its public URL, then just send an **[Attachment Message](https://github.com/vivocha/bot-sdk#attachment-message)** using the original info about the attachment to send.
+When uploading the attachment to Vivocha Secure Storage is not required and it's ok to send it through its public URL, then just send an **[Attachment Message](https://github.com/vivocha/bot-sdk#attachment-message)** using the original attachment info to send.
 
 **Example 8: an Attachment Message (not being uploaded to Vivocha Secure Storage)**:
 
@@ -1117,7 +1119,9 @@ Thus, an example of BotRequest `environment` for a start message could be:
 
 2. At any time, when the bot implementation needs to send a BotResponse to Vivocha (then to the user), there are two options:
 
-    **2.1. Invoke the `BotAgentManager.sendAsyncMessage()` static method. The method has the following signature**:
+    **2.1. Invoke the `BotAgentManager.sendAsyncMessage()` static method.
+
+    The method has the following signature**:
 
     ```javascript
     static async sendAsyncMessage(response: BotResponse, environment: EnvironmentInfo): Promise<http.FullResponse>
@@ -1127,6 +1131,8 @@ Thus, an example of BotRequest `environment` for a start message could be:
 
     - `response` is a complete [BotResponse](https://github.com/vivocha/bot-sdk#botresponse)
     - `environment` is an environment object as above and **MUST include the `token` property**.
+
+    And it returns a Promise with a `http.FullResponse` object containing the call result.
 
 
     **2.2. Directly call the following Vivocha API endpoint**:
@@ -1148,7 +1154,7 @@ Thus, an example of BotRequest `environment` for a start message could be:
     - `CONTACT_ID` is the `environment.contactId` property
     - `TOKEN` is the `environment.token` property
 
-    The **body** of the API call must contain a standard BotResponse JSON.
+    The **body** of the API call must contain a standard [BotResponse](https://github.com/vivocha/bot-sdk#botresponse).
 
 ---
 ---
@@ -1400,19 +1406,17 @@ More details can be found in the dedicated `examples/sample-wit.ts(.js)` sample 
 
 ### [Microsoft Bots](#microsoft-bots)
 
-Vivocha provides built-in native support also for bots implemented using the Microsoft Bot platform and deployed on Azure.
+Vivocha provides built-in native support also for bots implemented using the [Microsoft Bot Framework](https://dev.botframework.com) platform and deployed on Azure.
 
 In particular, the communication is based on the Microsoft Direct Line API 3.0 Channel.
 
----
-
 #### Prerequisites
 
-- **Direct Line 3.0 Channel MUST be enabled** for the specific bot on Azure Bot Service.
+- **[Direct Line 3.0 Channel](https://docs.microsoft.com/en-us/azure/bot-service/bot-service-channel-connect-directline) MUST be enabled** for the specific bot on Azure Bot Service.
 
 #### Configuration
 
-1. In the Microsoft Azure Bot Platform, for tha target bot configure a **Direct Line 3.0 Channel**; specifying a *Site* name, thus two *secret keys* are generated and proposed
+1. In the Microsoft Azure Bot Platform, for the target bot configure a **Direct Line 3.0 Channel**; specifying a *Site* name, thus two *secret keys* are generated and proposed
 2. In Vivocha Campaign Builder > Library, create a BotAgent, with the following settings:
 
 Settings:
@@ -1591,7 +1595,7 @@ The following table lists auto convert support current status of MS Bot messages
 
 If the Bot sends an attachment with an unsupported Microsoft Message Type, then it is converted to a special Vivocha template element, which `type` is `ms_raw` and has the following properties:
 
-```JSON
+```text
 {
   "title": "Unsupported Microsoft Bot message type, you need to write a custom renderer. See the element property in raw JSON.",
   "type": "ms_raw",
@@ -1697,7 +1701,7 @@ Instead, it generated a message with a special `ms_raw` template type containing
 
 The template format is as follows:
 
-```json
+```text
 {
       "code": "message",
       "type": "text",
@@ -1791,12 +1795,22 @@ Like in the following example:
 
 ---
 
-#### Data Collection in MS Bots
+#### Data Collection with Microsoft Bots
 
 Data is collected by the Vivocha driver **only, and only if**:
 
 - the Microsoft Bot Message has the `entities` property set (an array)
 - the Microsoft Bot Message has the `channelData.data` property set (an object)
+
+**Example of sending a Microsoft Bot message with `Entities`**
+
+```javascript
+// inside the MS bot implementation code
+let dmsg = new builder.Message(session);
+dmsg.text('A message with entities');
+dmsg.addEntity({color: 'RED', car: '500'});
+session.send(dmsg);
+```
 
 **Example of sending a Microsoft Bot message with `channelData` set**
 
@@ -1814,16 +1828,6 @@ sdmsg.channelData = {
 session.send(sdmsg);
 ```
 
-**Example of sending a Microsoft Bot message with `Entities`**
-
-```javascript
-// inside the MS bot implementation code
-let dmsg = new builder.Message(session);
-dmsg.text('A message with entities');
-dmsg.addEntity({color: 'RED', car: '500'});
-session.send(dmsg);
-```
-
 ---
 
 #### End of conversation messages and Vivocha `end event`
@@ -1838,7 +1842,7 @@ To request a transfer to another agent, the Microsoft Bot should return a text m
 
 - `channelData.data` property containing a sub property as in:
 
-```json
+```text
 {
   ...
   <settings.transferKey>: <settings.transferValue>
@@ -1849,7 +1853,7 @@ OR
 
 - a message with an `entity` set to a JSON like:
 
-```json
+```text
 {<settings.transferKey>: <settings.transferValue>}
 ```
 
