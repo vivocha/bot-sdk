@@ -15,7 +15,7 @@ To start with the Bot SDK it is recommended to:
 
 or
 
-- download the latest release from [here](https://github.com/vivocha/bot-sdk/releases)
+- download the latest stable release from [here](https://github.com/vivocha/bot-sdk/releases)
 
 ---
 
@@ -89,10 +89,12 @@ The `examples` folder contains some samples of Bot Managers, a Wit.ai Bot implem
 See:
 
 - `sample`: dead simple bot Agent and Manager plus a Bot Filter, read and use the `examples/http-requests/sample.http` file to learn more and to run them;
-- `dummy-bot`: a simple bot (Agent and Manager) able to understand some simple "commands" to return several types of messages, including quick replies and templates. Read and use the `examples/http-requests/dummy-bot.http` file to learn more and to run and interact with them.
+- `dummy-bot`: a simple bot (Agent and Manager) able to understand some simple "commands" to return several types of messages, including quick replies and templates. You can run it and connect to Vivocha or read and use the `examples/http-requests/dummy-bot.http` file to learn more and to run and interact with them.
 - `sample-wit`: a simple bot using the Wit.ai platform.
 
-**TIP:** For a quick start learning about the format of requests, responses and messages body, including quick replies and templates, just read the [Dummy Bot](https://github.com/vivocha/bot-sdk/blob/master/examples/dummy-bot.ts) code.
+**TIP:** For a quick start learning about the format of requests, responses and messages body, including quick replies and templates, see the [Dummy Bot](https://github.com/vivocha/bot-sdk/blob/master/examples/dummy-bot.ts) code.
+
+**IMPORTANT**: To learn how to connect a bot to the Vivocha Platform, start from the related [Vivocha documentation](https://docs.vivocha.com/docs/vcb-external-services#section-bot-agents).
 
 ---
 

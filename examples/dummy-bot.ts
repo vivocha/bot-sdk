@@ -2,8 +2,6 @@
 // NB: Change the following line to:
 // import { BotAgentManager, BotRequest, BotResponse, TextMessage, AttachmentMessage, Attachment } from "@vivocha/bot-sdk";
 import { BotAgentManager, BotRequest, BotResponse, TextMessage, AttachmentMessage, Attachment } from '../dist/index';
-
-import {} from '@vivocha/public-entities';
 // got is just a simple library to perform http requests (see below in the BotAgent code)
 import * as got from 'got';
 import * as request from 'request';
@@ -28,11 +26,12 @@ const manager = new BotAgentManager();
 // The BotAgent is then registered to the BotManager which will forward all
 // the incoming messages (sent by Vivocha Platform) containing (in this case) an engine type === 'custom' in
 // the settings property.
+// When running and connected to the Vivocha Platform, send to the bot the text "help" or "fullhelp".
 manager.registerAgent(
   'custom',
   async (msg: BotRequest): Promise<BotResponse> => {
-    // console.log('Incoming MSG: %O ', msg);
-
+    console.log('Incoming msg:');
+    console.dir(msg, { colors: true, depth: 20 });
     const response: BotResponse = {
       settings: {
         engine: msg.settings.engine
@@ -52,7 +51,7 @@ manager.registerAgent(
         {
           code: 'message',
           type: 'text',
-          body: 'Hello! I am a DummyBot :) Write help to see what I can do for you.'
+          body: 'Hello! I am a DummyBot from Bot SDK 3.0 :) Send me "help" or "fullhelp" to see what I can do for you.'
         } as TextMessage
       ];
       response.data = {};
@@ -171,7 +170,7 @@ manager.registerAgent(
                   type: 'generic',
                   elements: [
                     {
-                      title: 'You can send me the following messages',
+                      title: 'Here are (some) commands you can send',
                       buttons: [
                         {
                           type: 'postback',
@@ -195,23 +194,88 @@ manager.registerAgent(
                         },
                         {
                           type: 'postback',
-                          title: 'tm-buttons',
-                          payload: 'tm-buttons'
-                        },
-                        {
-                          type: 'postback',
-                          title: 'tm-elements',
-                          payload: 'tm-elements'
+                          title: 'transfer',
+                          payload: 'trasfer'
                         },
                         {
                           type: 'postback',
                           title: 'bye',
                           payload: 'bye'
+                        }
+                      ]
+                    }
+                  ] // end elements
+                }
+              } as any
+            ];
+            response.event = 'continue';
+            break;
+          case 'fullhelp':
+            response.messages = [
+              {
+                code: 'message',
+                type: 'text',
+                body: 'Full list of commands',
+                template: {
+                  type: 'generic',
+                  elements: [
+                    {
+                      title: 'Here is the full list of commands you can send me',
+                      buttons: [
+                        {
+                          type: 'postback',
+                          title: 'quick',
+                          payload: 'quick'
                         },
                         {
                           type: 'postback',
-                          title: 'pagevent',
-                          payload: 'pagevent'
+                          title: 'team',
+                          payload: 'team'
+                        },
+                        {
+                          type: 'postback',
+                          title: 'cat',
+                          payload: 'cat'
+                        },
+                        {
+                          type: 'postback',
+                          title: 'cats',
+                          payload: 'cats'
+                        },
+                        {
+                          type: 'postback',
+                          title: 'code',
+                          payload: 'code'
+                        },
+                        {
+                          type: 'postback',
+                          title: 'async',
+                          payload: 'async'
+                        },
+                        {
+                          type: 'postback',
+                          title: 'attach',
+                          payload: 'attach'
+                        },
+                        {
+                          type: 'postback',
+                          title: 'up-attach-file',
+                          payload: 'up-attach-file'
+                        },
+                        {
+                          type: 'postback',
+                          title: 'up-attach-url',
+                          payload: 'up-attach-url'
+                        },
+                        {
+                          type: 'postback',
+                          title: 'transfer',
+                          payload: 'trasfer'
+                        },
+                        {
+                          type: 'postback',
+                          title: 'bye',
+                          payload: 'bye'
                         }
                       ]
                     }
@@ -611,7 +675,7 @@ manager.registerAgent(
               {
                 code: 'message',
                 type: 'text',
-                body: "OK I'm transferring you to a jolly agent. Bye!"
+                body: "OK I'm transferring you to a 'jolly'-tagged agent. Bye!"
               } as TextMessage
             ];
             response.event = 'end';
@@ -1284,8 +1348,8 @@ manager.registerAgent(
         }
       }
     }
-    // console.log('Sending Response');
-    // console.dir(response, { colors: true, depth: 20 });
+    console.log('Sending Response');
+    console.dir(response, { colors: true, depth: 20 });
     if (!response.context && msg.context) {
       response['context'] = msg.context;
     }
