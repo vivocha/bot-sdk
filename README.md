@@ -1840,14 +1840,6 @@ To request a transfer to another agent, the Microsoft Bot should return a text m
 }
 ```
 
-OR
-
-- a message with an `entity` set to a JSON like:
-
-```text
-{<settings.transferKey>: <settings.transferValue>}
-```
-
 where:
 
 - `settings.transferKey` is the related property key configured for the particular bot
@@ -1859,14 +1851,13 @@ where:
 {"tranferToAgent": "human"}
 ```
 
-**NB**: whether an `endOfConversation` message is sent by the bot or not, when the configured `settings.transferKey` is found to be equal to the configured `settings.transferValue`, then in the resulting Vivocha BotResponse the `event` property **is always set** to `end`.
+**NB**: whether an `endOfConversation` message is sent by the bot or not, when the configured `settings.transferKey` is found to be equal to the configured `settings.transferValue`, then in the resulting Vivocha BotResponse the `event` property **is automatically always set** to `end`.
 
 ---
 
 ### Using the Bot Framework version 3
 
 The following documentation and guidelines apply if you are developing the bot using the **Microsoft Bot Framework v. 3.0**.
-
 
 #### Messages
 
