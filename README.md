@@ -1432,7 +1432,10 @@ Settings:
 | **Transfer value** | (Optional) the value of the configured **Transfer Key** property to expect in BotResponses `data` property to request a transfer to another agent. If not set, default is `AGENT` and it must be used in the Bot configuration in Agent Console. See the **Transfer to Another Agent** section below in this document |
 
 ---
+
 ### Using the Bot Framework version 4
+
+The following documentation and guidelines apply if you are developing the bot using the **Microsoft Bot Framework v. 4.x**.
 
 #### Messages
 
@@ -1862,6 +1865,9 @@ where:
 
 ### Using the Bot Framework version 3
 
+The following documentation and guidelines apply if you are developing the bot using the **Microsoft Bot Framework v. 3.0**.
+
+
 #### Messages
 
 Sending messages from a MS Bot to Vivocha can be achieved in three ways:
@@ -2224,7 +2230,7 @@ Like in the following example:
 
 ---
 
-#### Data Collection with Microsoft Bots
+#### Data Collection with Microsoft Bot Framework 3.0
 
 Data is collected by the Vivocha driver **only, and only if**:
 
