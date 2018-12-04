@@ -2,7 +2,7 @@
 
 _JavaScript / TypeScript SDK to create Bot Agents and Filters for the [Vivocha](https://www.vivocha.com) platform_
 
-| ![Logo](https://raw.githubusercontent.com/vivocha/bot-sdk/master/docs/bot-sdk.svg?sanitize=1) |
+| ![Logo](https://raw.githubusercontent.com/vivocha/bot-sdk/master/docs/bot-sdk.svg?sanitize=true) |
 | :-----------------------------------------------------------------------------------: |
 |                            |
 
