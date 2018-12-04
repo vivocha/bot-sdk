@@ -1073,7 +1073,7 @@ The Vivocha `Attachment` object has the following properties:
 
 **Example 8: Composing an Attachment Message (for an attachment uploaded to Vivocha Secure Storage) in a BotResponse**:
 
-```json
+```javascript
     ...
     const fileURL = 'https://upload.wikimedia.org/wikipedia/commons/c/c9/Moon.jpg';
     const attachMeta = await BotAgentManager.uploadAttachment(request(fileURL) as Stream, { mimetype: 'image/jpg', desc: 'Moon, not the dark side' }, environmentWithToken);
@@ -1104,7 +1104,7 @@ When uploading the attachment to Vivocha Secure Storage is not required and it's
 
 **Example 9: an Attachment Message (not being uploaded to Vivocha Secure Storage) in a BotResponse**:
 
-```json
+```javascript
     ...
     "messages": [{
                     "code": "message",
