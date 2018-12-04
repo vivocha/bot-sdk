@@ -1071,12 +1071,12 @@ The Vivocha `Attachment` object has the following properties:
 
 2. **prepare and send a Vivocha Attachment Message**: using the `Attachment` object resulting from the `BotAgentmanager.uploadAttachment()` method invocation, compose and send an [Attachment Message](https://github.com/vivocha/bot-sdk#attachment-message) filling the required `url` and `meta` properties with the values of the corresponding properties in the `Attachment` object obtained from step 1.
 
-**Example 8: Composing an Attachment Message (for an attachment uploaded to Vivocha Secure Storage) in a BotResponse**:
+**Example 8: Composing an Attachment Message (related to an image uploaded to Vivocha Secure Storage) in a BotResponse**:
 
 ```javascript
     ...
     const fileURL = 'https://upload.wikimedia.org/wikipedia/commons/c/c9/Moon.jpg';
-    const attachMeta = await BotAgentManager.uploadAttachment(request(fileURL) as Stream, { mimetype: 'image/jpg', desc: 'Moon, not the dark side' }, environmentWithToken);
+    const attachMeta = await BotAgentManager.uploadAttachment(request(fileURL) as Stream, { mimetype: 'image/jpeg', desc: 'Moon, not the dark side' }, environmentWithToken);
     const messages = [ {
         code: 'message',
         type: 'attachment',
