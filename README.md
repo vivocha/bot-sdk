@@ -62,6 +62,8 @@ or
   - [Wit.ai, writing chat bots](https://github.com/vivocha/bot-sdk#witai-writing-chat-bots)
     - [Wit.ai with Vivocha Hint and Tips](https://github.com/vivocha/bot-sdk#witai-with-vivocha-hint-and-tips)
   - [Microsoft Bots](https://github.com/vivocha/bot-sdk#microsoft-bots)
+    - [Using the Bot Framework version 4](https://github.com/vivocha/bot-sdk#using-the-bot-framework-version-4)
+    - [Using the Bot Framework version 3](https://github.com/vivocha/bot-sdk#using-the-bot-framework-version-3)
 - [Running BotManagers and BotFilters as AWS Lambdas](https://github.com/vivocha/bot-sdk#running-botmanagers-and-botfilters-as-aws-lambdas)
   - [Prerequisites](https://github.com/vivocha/bot-sdk#prerequisites)
   - [Writing a BotManager or a BotFilter as a Lambda Function](https://github.com/vivocha/bot-sdk#writing-a-botmanager-or-a-botfilter-as-a-lambda-function)
@@ -1433,7 +1435,7 @@ Settings:
 
 ---
 
-### Using the Bot Framework version 4
+### [Using the Bot Framework version 4](#using-the-bot-framework-version-4)
 
 The following documentation and guidelines apply if you are developing the bot using the **Microsoft Bot Framework v. 4.x**.
 
@@ -1855,7 +1857,7 @@ where:
 
 ---
 
-### Using the Bot Framework version 3
+### [Using the Bot Framework version 3](#using-the-bot-framework-version-3)
 
 The following documentation and guidelines apply if you are developing the bot using the **Microsoft Bot Framework v. 3.0**.
 
