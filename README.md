@@ -1071,11 +1071,38 @@ The Vivocha `Attachment` object has the following properties:
 
 2. **prepare and send a Vivocha Attachment Message**: using the `Attachment` object resulting from the `BotAgentmanager.uploadAttachment()` method invocation, compose and send an [Attachment Message](https://github.com/vivocha/bot-sdk#attachment-message) filling the required `url` and `meta` properties with the values of the corresponding properties in the `Attachment` object obtained from step 1.
 
+**Example 8: Composing an Attachment Message (for an attachment uploaded to Vivocha Secure Storage) in a BotResponse**:
+
+```json
+    ...
+    const fileURL = 'https://upload.wikimedia.org/wikipedia/commons/c/c9/Moon.jpg';
+    const attachMeta = await BotAgentManager.uploadAttachment(request(fileURL) as Stream, { mimetype: 'image/jpg', desc: 'Moon, not the dark side' }, environmentWithToken);
+    const messages = [ {
+        code: 'message',
+        type: 'attachment',
+        url: attachMeta.url,
+        meta: attachMeta.meta
+      } as AttachmentMessage
+    ];
+    const response: BotResponse = {
+      messages,
+      event: 'continue',
+      context: {...},
+      ...
+    };
+    
+    // send back the BotResponse
+    ...
+```
+
+In the example above, `request` is the [homonymous Node.js module](https://www.npmjs.com/package/request).
+
+
 ### Sending Attachments directly, not using the Vivocha Secure Storage
 
 When uploading the attachment to Vivocha Secure Storage is not required and it's ok to send it through its public URL, then just send an **[Attachment Message](https://github.com/vivocha/bot-sdk#attachment-message)** using the original attachment info to send.
 
-**Example 8: an Attachment Message (not being uploaded to Vivocha Secure Storage)**:
+**Example 9: an Attachment Message (not being uploaded to Vivocha Secure Storage) in a BotResponse**:
 
 ```json
     ...
