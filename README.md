@@ -2,6 +2,10 @@
 
 _JavaScript / TypeScript SDK to create Bot Agents and Filters for the [Vivocha](https://www.vivocha.com) platform_
 
+| ![Logo](https://raw.githubusercontent.com/vivocha/bot-sdk/master/docs/bot-sdk.svg) |
+| :-----------------------------------------------------------------------------------: |
+|                            |
+
 ---
 
 This SDK allows to write Vivocha Bot Agents integrating existing bots, built and trained using your preferred bot / NLP platform. E.g., Dialogflow, IBM Watson Assistant (formerly Conversation), Wit.ai, Microsoft Bot framework, etc...
