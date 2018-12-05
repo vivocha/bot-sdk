@@ -1024,7 +1024,7 @@ In the Vivocha model, a Bot is just like a "normal" agent, able to handle contac
 
 - if the bot is written using **Wit.ai** and the module provided by this SDK, just return the transfer property in the BotResponse `data` field (see `examples/dummy-bot(.ts | .js)` code for the `transfer` case).
 
-- if the bot is written using the **Microsoft Bot Frameworok** and you're using the built-in Vivocha driver, then see the dedicated **Transfer to other agents** chapter in the [Microsoft Bots](https://github.com/vivocha/bot-sdk#microsoft-bots) section of this document.
+- if the bot is written using the **Microsoft Bot Framework** and you're using the built-in Vivocha driver, then see the dedicated **Transfer to other agents** chapter in the [Microsoft Bots](https://github.com/vivocha/bot-sdk#microsoft-bots) section of this document.
 
 ---
 
