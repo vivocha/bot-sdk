@@ -1159,7 +1159,7 @@ Thus, an example of BotRequest `environment` for a start message could be:
 
 2. At any time, when the bot implementation needs to send a BotResponse to Vivocha (then to the user), there are two options:
 
-    **2.1. Invoke the `BotAgentManager.sendAsyncMessage()` static method.
+    **2.1. Invoke the `BotAgentManager.sendAsyncMessage()` static method**
 
     The method has the following signature**:
 
