@@ -1161,7 +1161,7 @@ Thus, an example of BotRequest `environment` for a start message could be:
 
     **2.1. Invoke the `BotAgentManager.sendAsyncMessage()` static method**
 
-    The method has the following signature**:
+    The method has the following signature:
 
     ```javascript
     static async sendAsyncMessage(response: BotResponse, environment: EnvironmentInfo): Promise<http.FullResponse>
