@@ -95,7 +95,7 @@ The `examples` folder contains some samples of Bot Managers, a Wit.ai Bot implem
 See:
 
 - `sample`: dead simple bot Agent and Manager plus a Bot Filter, read and use the `examples/http-requests/sample.http` file to learn more and to run them;
-- `dummy-bot`: a simple bot (Agent and Manager) able to understand some simple "commands" to return several types of messages, including quick replies and templates. You can run it and connect to Vivocha or read and use the `examples/http-requests/dummy-bot.http` file to learn more and to run and interact with them.
+- `dummy-bot`: a simple bot (Agent and Manager) able to understand some simple "commands" to return several types of messages, including quick replies and templates. You can run it and connect to Vivocha as a *custom* Bot Agent (read more [here](https://docs.vivocha.com/docs/vcb-external-services#section-bot-agents)), then just send to the bot the *fullhelp* text message by chat to discover its capabilities.
 - `sample-wit`: a simple bot using the Wit.ai platform.
 
 **TIP:** For a quick start learning about the format of requests, responses and messages body, including quick replies and templates, see the [Dummy Bot](https://github.com/vivocha/bot-sdk/blob/master/examples/dummy-bot.ts) code.
@@ -113,7 +113,7 @@ A `BotManager` exposes a Web API acting as a gateway to registered `BotAgent`s.
 
 Usually, the steps to use agents and managers are:
 
-1. Write a `BotAgent` for every Bot/NLP platform you need to support, handling / wrapping / transforming messages of type `BotRequest` and `BotResponse`;
+1. Write a `BotAgent` for every Bot/NLP platform you need to support, handling / wrapping / transforming messages of `BotRequest` and `BotResponse` types;
 2. create a `BotAgentManager` instance;
 3. register the `BotAgent`s defined in step 1) to the `BotAgentManager`, through the `registerAgent(key, botAgent)` method, where `key` (string) is the choosen bot engine (e.g, `Dialogflow`, `Watson`, ...) and `agent` is a `BotAgent` instance;
 4. run the `BotAgentManager` service through its `listen()` method, it exposes a Web API;
@@ -125,19 +125,19 @@ Usually, the steps to use agents and managers are:
 
 **TL;DR**
 
-A `BotFilter` is a Web service to filter/manipulate/enrich/transform `BotRequest`s and/or `BotResponse`s.
+A `BotFilter` is a micro (web) service to filter/manipulate/enrich/transform `BotRequest`s and/or `BotResponse`s.
 For example, a `BotFilter` can enrich a request calling an external API to get additional data before sending it to a BotAgent, or it can filter a response coming from a BotAgent to transform data before forwarding it to the user chat.
 
 Basically, to write a filter you have to:
 
-1. Instantiate a `BotFilter` specifying a `BotRequestFilter` or a `BotResponseFilter`. These are the functions containing your logic to manipulate/filter/enrich requests to bots and responses from them. Inside them you can call, for example, external web services, access to DBs, transform data and do whatever you need to do to achieve your application-specific goal. A `BotFilter` can provide a filter only for requests, only for responses or both.
+1. Instantiate a `BotFilter` specifying a `BotRequestFilter` or a `BotResponseFilter`. These are the functions containing your logic to manipulate/filter/enrich requests to bots and responses from them. Inside them you can call, for example, external web services, access to DBs, transform data and do whatever you need to do to achieve your application-specific goal. A `BotFilter` can provide a filter only for requests, only for responses or both;
 2. run the `BotFilter` service through its `listen()` method, it exposes a Web API; the API is fully described by its Swagger specification, available at `http://<BotFilter-Host>:<port>/swagger.json`.
 
 ---
 
 ## [BotAgent](#botagent)
 
-A `BotAgent` represents an abstract Bot implementation and it directly communicates with a particular Bot / NLP platform (like Dialogflow, IBM Watson Assistant, formerly Conversation, and so on...).
+A `BotAgent` represents an abstract Bot implementation and it directly communicates with a particular Bot / NLP platform (like Dialogflow, IBM Watson Assistant, Microsoft Bots, and so on...).
 In the Vivocha model, a Bot is represented by a function with the following signature:
 
 In Typescript:
@@ -195,8 +195,8 @@ A Text Message has the following properties (required are in **bold**):
 | **`type`**                  | string, value is `text`                                                                                                                                         | Vivocha Bot message type.                                                                                                                                                   |
 | **`body`**                  | string                                                                                                                                                               | the message text body.                                                                                                                                                      |
 | `payload`                   | (optional) string                                                                                                                                                    | a custom payload, usually used to send back the payload of a quick reply or of a postback button in a BotRequest, after the user clicks / taps the corresponding UI button. |
-| `quick_replies_orientation` | (optional) string: `vertical` or `horizontal`                                                                                                                        | in case of a message with `quick_replies` it indicates the quick replies buttons group orientation to show in the client; default is `horizontal`.                          |
-| `quick_replies`             | (optional) an array of **[MessageQuickReply](https://github.com/vivocha/bot-sdk#messagequickreply)** objects (see below) | an array of quick replies                                                                                                                                                   |
+| `quick_replies_orientation` | (optional) string: `vertical` or `horizontal`                                                                                                                        | in case of a message with `quick_replies` it indicates the quick replies buttons group orientation to show in the client; default is `horizontal`. Orientation option is supported by the official Vivocha interaction.|
+| `quick_replies`             | (optional) an array of **[MessageQuickReply](https://github.com/vivocha/bot-sdk#messagequickreply)** objects (see below) | an array of quick replies.                                                                                                                                                   |
 | `template`                  | (optional) a **[MessageTemplate](https://github.com/vivocha/bot-sdk#messagetemplate)** object                | a template object.                                                                                                                                                  |
 ---
 
@@ -223,7 +223,7 @@ Its properties are (required are in **bold**):
 | --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **`code`**                  | string, value is always `message`                                                                                                                                    | Vivocha code type for Bot messages.                                                                                                                                         |
 | **`type`**                  | string, value is `attachment`                                                                                                                                         | Vivocha Bot message type.                                                                                                                                                   |
-| **`url`**                  | string   | the URL from which download the attachment                                                                                                                                                      |
+| **`url`**                  | string   | the URL from which download the attachment.                                                                                                                                                      |
 | **`meta`**                   | an object of **[Attachment Metadata](https://github.com/vivocha/bot-sdk#attachment-metadata)** type |  this object contains some metadata about the attachment being sent. |
 
 ---
@@ -243,7 +243,7 @@ Its properties are (required are in **bold**):
 
 | PROPERTY   | VALUE             | DESCRIPTION                                                                                                                                                                                                                                                                                                                                                                                  |
 | ---------- | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`type`** | string            | Unique bot engine identifier, i.e., the platform name, like: `Watson`, `Dialogflow`, `WitAi`, ...                                                                                                                                                                                                                                                                                            |
+| **`type`** | string            | Unique bot engine identifier, i.e., the platform name, like: `Watson`, `Dialogflow`, `WitAi`, `Microsoft`, `custom`, ...                                                                                                                                                                                                                                                                                            |
 | `settings` | (optional) object | Specific settings to send to the BOT/NLP platform. E.g. for Watson Assistant (formerly Conversation) is an object like `{"workspaceId": "<id>" "username": "<usrname>", "password": "<passwd>"}`; for a Dialogflow bot is something like: `{"token": "<token>", "startEvent": "MyCustomStartEvent"}`, and so on... You need to refer to the documentation of the specific Bot Platform used. |
 
 #### [MessageQuickReply](#messagequickreply)
@@ -252,10 +252,10 @@ Its properties are (required are in **bold**):
 
 | PROPERTY           | VALUE                           | DESCRIPTION                                                   |
 | ------------------ | ------------------------------- | ------------------------------------------------------------- |
-| **`content_type`** | string, accepted value: `text`  | Type of the content of the Quick Reply                        |
-| `title`            | (optional) string               | title of the message                                          |
-| `payload`          | (optional) a string or a number | string or number related to the `content-type` property value |
-| `image_url`        | (optional) string               | a URL of an image                                             |
+| **`content_type`** | string, accepted value: `text`  | Type of the content of the quick reply                        |
+| `title`            | (optional) string               | title of the quick reply (usually is the text shown in the quick reply UI button)     |
+| `payload`          | (optional) a string or a number | application specific value, string or number related to the quick reply |
+| `image_url`        | (optional) string               | a URL of an image to be shown in the quick reply UI |
 
 **Example 1**: A BotResponse message containing three simple **quick replies**
 
@@ -396,7 +396,7 @@ Properties are (required are in **bold**):
 | PROPERTY   | VALUE                                                                                                                                     | DESCRIPTION                                                                                                |
 | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
 | **`type`** | string, accepted values are: `generic` or `list`                                                                                          | Template type, currently only `generic` and `list` types are supported                                     |
-| `elements` | (optional) an array of **[generic template Elements](https://github.com/vivocha/bot-sdk#templateelement)**                                | elements defined by **[TemplateElement](https://github.com/vivocha/bot-sdk#templateelement)** object spec. |
+| `elements` | (optional) an array of **[generic template Elements](https://github.com/vivocha/bot-sdk#templateelement)**                                | elements defined by **[TemplateElement](https://github.com/vivocha/bot-sdk#templateelement)** object specification |
 | `buttons`  | (optional) only in case of a template where `type` == `list`, an array of **[Button](https://github.com/vivocha/bot-sdk#button)** objects | the buttons to display in the bottom part of the template.                                                 |
 
 #### [TemplateElement](#templateelement)
@@ -663,8 +663,10 @@ Properties are (required are in **bold**):
 
 | PROPERTY   | VALUE                                    | DESCRIPTION                                           |
 | ---------- | ---------------------------------------- | ----------------------------------------------------- |
-| **`type`** | string, admitted value is only `web_url` | default action type, it always refers to a web URL    |
-| **`url`**  | string                                   | a valid URL to open when executing the default action |
+| **`type`** | string, admitted value is only `web_url` | default action type, it always refers to a web URL |
+| **`url`**  | string                                   | a valid URL to open in the browser when executing the default action |
+
+---
 
 #### [Button](#button)
 
@@ -760,12 +762,13 @@ Properties are (required are in **bold**):
 
 ### [BotResponse](#botresponse)
 
-Responses are sent back by BotAgents, BotManagers and BotFilters to convay a Bot platform reply back to the Vivocha platform.
+Responses are sent back by BotAgents, BotManagers and BotFilters to convey a Bot platform reply back to the Vivocha platform.
+
 A BotResponse is a JSON with the following properties and it is similar to a `BotRequest`, except for some fields (in **bold** the required properties):
 
 | PROPERTY      | VALUE                                                                                                               | DESCRIPTION                                                                                                                                                                                                                                          |
 | ------------- | ------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`event`**   | string: `continue` or `end`                                                                                         | `continue` event is sent back to Vivocha to continue the conversation, in other words it means that the bot is awaiting for the next user message; `end` is sent back with the meaning that Bot finished is task.                                    |
+| **`event`**   | string: `continue` or `end`                                                                                         | `continue` event is sent back to Vivocha to continue the conversation, in other words it means that the bot is awaiting for the next user message; `end` is sent back with the meaning that Bot finished its tasks.                                    |
 | `messages`    | (optional) an array of **[BotMessage](https://github.com/vivocha/bot-sdk#botmessage)** objects (same as BotRequest) | the messages sent back by the BotAgent including quick replies and templates with images, buttons, etc...                                                                                                                                            |
 | `language`    | (optional) string. E.g., `en`, `it`, ...                                                                            | language string code                                                                                                                                                                                                                                 |
 | `data`        | (optional) object                                                                                                   | an object containing data collected or computed by the Bot. Its properties must be of simple type. E.g., `{"firstname":"Antonio", "lastname": "Smith", "code": 12345, "availableAgents": 5}`                                                         |
@@ -914,7 +917,7 @@ A BotResponse including a **List Template**:
 A `BotManager` is a bot registry microservice, which basically provides two main functionalities:
 
 1. it allows to register an undefined number of `BotAgent`s;
-2. it exposes a Web API to send messages and receive responses to/from `BotAgent`s, acting as a gateway using a normalized interface.
+2. it exposes a web API to send messages and receive responses to/from `BotAgent`s, acting as a gateway using a normalized interface.
 
 ### [Registering a Bot Agent](#registering-a-bot-agent)
 
