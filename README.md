@@ -27,8 +27,8 @@ or
 
 - [Overview](https://github.com/vivocha/bot-sdk#overview)
 - [Quick Start, by Example](https://github.com/vivocha/bot-sdk#quick-start-by-example)
-  - [BotAgents and Manager TL;DR](https://github.com/vivocha/bot-sdk#botagents-and-manager-tldr)
-  - [BotFilters TL;DR](https://github.com/vivocha/bot-sdk#botfilters-tldr)
+  - [BotAgents and Manager](https://github.com/vivocha/bot-sdk#botagents-and-manager)
+  - [BotFilters](https://github.com/vivocha/bot-sdk#botfilters)
 - [BotAgent](https://github.com/vivocha/bot-sdk#botagent)
   - [BotRequest](https://github.com/vivocha/bot-sdk#botrequest)
     - [BotMessage](https://github.com/vivocha/bot-sdk#botmessage)
@@ -104,7 +104,9 @@ See:
 
 ---
 
-### [BotAgents and Manager TL;DR](#botagents-and-manager-tldr)
+### [BotAgents and Manager](#botagents-and-manager)
+
+**TL;DR**
 
 A `BotAgent` represents and communicates with a particular Bot implementation platform.
 A `BotManager` exposes a Web API acting as a gateway to registered `BotAgent`s.
@@ -119,7 +121,9 @@ Usually, the steps to use agents and managers are:
 
 ---
 
-### [BotFilters TL;DR](#botfilters-tldr)
+### [BotFilters](#botfilters)
+
+**TL;DR**
 
 A `BotFilter` is a Web service to filter/manipulate/enrich/transform `BotRequest`s and/or `BotResponse`s.
 For example, a `BotFilter` can enrich a request calling an external API to get additional data before sending it to a BotAgent, or it can filter a response coming from a BotAgent to transform data before forwarding it to the user chat.
