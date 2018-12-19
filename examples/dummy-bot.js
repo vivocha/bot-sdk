@@ -1,6 +1,8 @@
 "use strict";
+// This is a complete dummy bot to send and inspect all the supported Vivocha messages types.
+// The bot is quite trivial and doesn't make use of an NLP platform, but it allows to see the Bot SDK in action.
 Object.defineProperty(exports, "__esModule", { value: true });
-// install and use @vivocha/bot-sdk to run this bot!
+// First, install @vivocha/bot-sdk to run this bot!
 // NB: Change the following line to:
 // import { BotAgentManager, BotRequest, BotResponse, TextMessage, AttachmentMessage, Attachment } from "@vivocha/bot-sdk";
 const index_1 = require("../dist/index");
@@ -8,7 +10,7 @@ const index_1 = require("../dist/index");
 const got = require("got");
 const request = require("request");
 const fs = require("fs");
-// A BotManager is a web server which exposes an API to send messages
+// A BotManager is a micro web service which exposes an API to send messages
 // to registered BotAgents, it exposes a Swagger description of the API with related JSON Schemas.
 // A BotManager holds a BotAgents registry.
 const manager = new index_1.BotAgentManager();
@@ -16,27 +18,23 @@ const manager = new index_1.BotAgentManager();
 // a function which takes a BotRequest message in input and returns a Promise,
 // resolved with a BotResponse message.
 // The body of the BotAgent function contains all the code to call the specific
-// Bot implementation APIs (e.g., Watson, Dialogflow, etc...) or to implement a new customized one from scratch.
+// Bot implementation APIs (e.g., Watson, Dialogflow, etc...) or to implement a new custom one from scratch.
 // The following BotAgent is a dummy chat bot implementation just to show
 // how easy is to run a simple Bot using the Vivocha Bot SDK;
 // it receives simple text "commands" sending back to the user several
 // different types of messages, including quick replies and templates with images, URLs, and so on...
-// The BotAgent is then registered to the BotManager which will forward all
+// The BotAgent is then registered in the BotManager which will forward all
 // the incoming messages (sent by Vivocha Platform) containing (in this case) an engine type === 'custom' in
 // the settings property.
-// When running and connected to the Vivocha Platform, send to the bot the text "help" or "fullhelp".
 manager.registerAgent('custom', async (msg) => {
     console.log('Incoming msg:');
     console.dir(msg, { colors: true, depth: 20 });
     const response = {
-        settings: {
-            engine: msg.settings.engine
-        },
         messages: [],
         event: 'continue',
         context: msg.context || {}
     };
-    // handle the start event (e.g., replying with a welcome message and event set to "continue")
+    // handle the start event (e.g., replying with a welcome message and the event property set to "continue")
     if (msg.event === 'start') {
         //console.log("Start event detected");
         if (msg.environment.token) {
@@ -46,14 +44,30 @@ manager.registerAgent('custom', async (msg) => {
             {
                 code: 'message',
                 type: 'text',
-                body: 'Hello! I am a DummyBot from Bot SDK 3.0 :) Send me "help" or "fullhelp" to see what I can do for you.'
+                body: 'Hello! I am a DummyBot from Bot SDK 3.0 😎'
+            },
+            {
+                code: 'message',
+                type: 'text',
+                body: 'To start, choose one of the following options to see what I can do for you ',
+                quick_replies: [
+                    {
+                        title: 'fullhelp',
+                        payload: 'fullhelp',
+                        content_type: 'text'
+                    },
+                    {
+                        title: 'help',
+                        payload: 'help',
+                        content_type: 'text'
+                    }
+                ]
             }
         ];
         response.data = {};
     }
     else {
         if (msg.message.type === 'attachment') {
-            // console.log('ATTACHMENT message received');
             response.messages = [
                 {
                     code: 'message',
@@ -69,7 +83,7 @@ manager.registerAgent('custom', async (msg) => {
             response.data = {};
         }
         else {
-            // This bot understands few sentences ;)
+            // This bot understands few sentences/commands ;)
             switch (msg.message.body.toLowerCase()) {
                 case 'hi':
                     response.messages = [
@@ -268,6 +282,11 @@ manager.registerAgent('custom', async (msg) => {
                                                 type: 'postback',
                                                 title: 'transfer',
                                                 payload: 'trasfer'
+                                            },
+                                            {
+                                                type: 'postback',
+                                                title: 'transfer-with-data',
+                                                payload: 'transfer-with-data'
                                             },
                                             {
                                                 type: 'postback',
@@ -657,6 +676,25 @@ manager.registerAgent('custom', async (msg) => {
                     response.event = 'end';
                     response.data = {
                         transferToAgent: 'jolly'
+                    };
+                    break;
+                // In order to show data to an agent on the Vivocha Agent Desktop, create a data collection with the
+                // following field names (see response.data property below). Then, add it to the configured bot.
+                case 'transfer-with-data':
+                    response.messages = [
+                        {
+                            code: 'message',
+                            type: 'text',
+                            body: "OK I'm transferring you to a 'jolly'-tagged agent with some collected data. Bye Bye!"
+                        }
+                    ];
+                    response.event = 'end';
+                    response.data = {
+                        transferToAgent: 'jolly',
+                        fullName: 'Johnny Dummy Bot',
+                        city: 'Cagliari',
+                        topic: 'Technical',
+                        priority: 5
                     };
                     break;
                 case 'tm-buttons':
@@ -1193,6 +1231,7 @@ manager.registerAgent('custom', async (msg) => {
                     ];
                     response.event = 'continue';
                     break;
+                // async messaging
                 case 'async':
                     const context = msg.context;
                     const environment = Object.assign({ token: context.token }, msg.environment);
@@ -1240,6 +1279,7 @@ manager.registerAgent('custom', async (msg) => {
                     ];
                     response.event = 'continue';
                     break;
+                // Send and attachment directly, without uploading it to Vivocha storage
                 case 'attach':
                     response.messages = [
                         {
@@ -1254,6 +1294,7 @@ manager.registerAgent('custom', async (msg) => {
                         }
                     ];
                     break;
+                // Send a file attachment after uploading it to Vivocha storage
                 case 'up-attach-file':
                     const env = Object.assign({ token: msg.context.token }, msg.environment);
                     console.dir(env, { colors: true, depth: 20 });
@@ -1268,6 +1309,7 @@ manager.registerAgent('custom', async (msg) => {
                         }
                     ];
                     break;
+                // Send an attachment by its URL after uploading it to Vivocha storage
                 case 'up-attach-url':
                     const env2 = Object.assign({ token: msg.context.token }, msg.environment);
                     //console.dir(env2, { colors: true, depth: 20 });
@@ -1287,7 +1329,7 @@ manager.registerAgent('custom', async (msg) => {
                         {
                             code: 'message',
                             type: 'text',
-                            body: "Sorry, I didn't get that! Could you say that again, please?"
+                            body: "Sorry, I didn't get that! Could you say that again, please? TIP: send me the 'fullhelp' text ;)"
                         }
                     ];
             }
@@ -1295,6 +1337,7 @@ manager.registerAgent('custom', async (msg) => {
     }
     console.log('Sending Response');
     console.dir(response, { colors: true, depth: 20 });
+    // manage conversation context
     if (!response.context && msg.context) {
         response['context'] = msg.context;
     }
@@ -1303,7 +1346,7 @@ manager.registerAgent('custom', async (msg) => {
 // Run the BotManager:
 const port = process.env.PORT || 8888;
 manager.listen(port);
-console.log(`Dummy Bot Manager listening at port ${port}`);
+console.log(`---> Dummy Bot Manager listening at port ${port}`);
 // the swagger description will be available at http(s)://<server-address>/swagger.json
 // and schemas at  http(s)://<server-address>/schemas/<schema-name>.
 // E.g., http(s)://<server-address>/schemas/bot_request
