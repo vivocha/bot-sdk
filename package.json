@@ -1,6 +1,6 @@
 {
   "name": "@vivocha/bot-sdk",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "Vivocha BOT SDK: TypeScript / JavaScript SDK to create Vivocha chatbots",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -35,7 +35,6 @@
     "@types/chai": "^4.1.7",
     "@types/chai-as-promised": "7.1.0",
     "@types/chai-spies": "1.0.0",
-    "@types/debug": "0.0.31",
     "@types/dotenv": "^6.1.0",
     "@types/express": "^4.16.0",
     "@types/lodash": "^4.14.119",
@@ -70,6 +69,7 @@
   },
   "dependencies": {
     "@vivocha/public-entities": "^6.5.3",
+    "@types/debug": "0.0.30",
     "arrest": "^7.5.0",
     "lodash": "^4.17.11",
     "node-wit": "^5.0.0",
