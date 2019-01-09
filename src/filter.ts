@@ -98,7 +98,7 @@ export class BotFilter extends API {
       swagger: '2.0',
       info: {
         title: 'BotFilter API',
-        version: '2.0.0'
+        version: '3.1.0'
       },
       paths: {}
     });

@@ -1,6 +1,7 @@
 import { API, Resource, Operation, Swagger } from 'arrest';
 import * as http from 'request-promise-native';
-import { Attachment, AttachmentMeta } from '@vivocha/public-entities';
+import * as uuid from 'uuid/v1';
+import { Attachment, AttachmentMeta, AttachmentMessage } from '@vivocha/public-entities';
 import { EnvironmentInfo } from '@vivocha/public-entities/dist/bot';
 import { BotAgent, BotRequest, BotResponse } from '@vivocha/public-entities/dist/bot';
 import { getVvcEnvironment } from './util';
@@ -53,7 +54,7 @@ class SendMessage extends Operation {
     msg['environment'] = vivochaEnvironment;
     const agent = (this.api as BotAgentManager).agents[msg.settings.engine.type];
     if (agent) {
-      agent(msg).then(response => res.json(response), err => next(API.newError(500, 'platform error', err.message, err)));
+      agent(msg).then(response => res.json(BotAgentManager.normalizeResponse(response)), err => next(API.newError(500, 'platform error', err.message, err)));
     } else {
       API.fireError(400, 'unsupported bot type');
     }
@@ -66,7 +67,7 @@ export interface BotAgentRegistry {
 }
 
 export class BotAgentManager extends API {
-  constructor(version: string = '2.0.0', title: string = 'BotAgentManager API') {
+  constructor(version: string = '3.1.0', title: string = 'BotAgentManager API') {
     super({
       swagger: '2.0',
       info: {
@@ -116,7 +117,7 @@ export class BotAgentManager extends API {
       const httpOptions = {
         method: 'POST',
         uri: url,
-        body: response,
+        body: BotAgentManager.normalizeResponse(response),
         headers: {
           authorization: `Bearer ${environment.token}`
         },
@@ -158,6 +159,31 @@ export class BotAgentManager extends API {
       };
       const response = await http(httpOptions);
       return JSON.parse(response.body);
+    }
+  }
+
+  /**
+   * Check if something is missing in a BotResponse and, in case, return the resulting fixed instance
+   * @param response
+   * @returns the fixed BotResponse
+   */
+  static normalizeResponse(response: BotResponse): BotResponse {
+    try {
+      // for an AttachmentMessage check if the metadata ref property is set. If not, set it to an uuid.
+      if (response.messages && response.messages.length) {
+        const correctMessages = response.messages.map(m => {
+          if (m.type === 'attachment') {
+            if (!m.meta.ref) {
+              m.meta['ref'] = uuid();
+            }
+          }
+          return m;
+        });
+        response.messages = correctMessages;
+      }
+    } catch (error) {
+    } finally {
+      return response;
     }
   }
 }
