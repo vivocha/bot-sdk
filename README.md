@@ -758,7 +758,7 @@ Properties are (required are in **bold**):
 | `originalName` | (optional) string | the original file name of the attachment |
 | `desc` | (optional) string | brief description of the attachment |
 | `size` | (optional) number | attachment size, as in normal HTTP Content-Length header |
-| `ref` | (optional) string | A reference ID to correlate the attachment message. It can be used by the client to avoid showing the attachment message twice in the user chat widget. |
+| `ref` | (optional) string | A reference ID to correlate the attachment message. It can be used by the client to avoid showing the attachment message twice in the user chat widget. If not set, the Bot SDK will add it set as an uuid |
 
 ---
 
