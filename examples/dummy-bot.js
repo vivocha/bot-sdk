@@ -41,11 +41,7 @@ manager.registerAgent('custom', async (msg) => {
             response.context['token'] = msg.environment.token;
         }
         response.messages = [
-            {
-                code: 'message',
-                type: 'text',
-                body: 'Hello! I am a DummyBot from Bot SDK 3.0 😎'
-            },
+            index_1.BotMessage.createSimpleTextMessage('Hello! I am a DummyBot from Bot SDK 3.2.0 😎'),
             {
                 code: 'message',
                 type: 'text',
@@ -66,70 +62,36 @@ manager.registerAgent('custom', async (msg) => {
         ];
         response.data = {};
     }
+    else if (msg.message.type === 'action') {
+        const actionMessage = msg.message;
+        response.messages = [
+            index_1.BotMessage.createSimpleTextMessage(`You sent an Action Message, \n\naction_code: ${actionMessage.action_code}, args: ${JSON.stringify(actionMessage.args)}`)
+        ];
+        response.data = {};
+    }
     else {
         if (msg.message.type === 'attachment') {
-            response.messages = [
-                {
-                    code: 'message',
-                    type: 'text',
-                    body: 'You sent an ATTACHMENT'
-                },
-                {
-                    code: 'message',
-                    type: 'text',
-                    body: JSON.stringify(msg.message)
-                }
-            ];
+            response.messages = [index_1.BotMessage.createSimpleTextMessage('You sent an ATTACHMENT'), index_1.BotMessage.createSimpleTextMessage(JSON.stringify(msg.message))];
             response.data = {};
         }
         else {
             // This bot understands few sentences/commands ;)
             switch (msg.message.body.toLowerCase()) {
                 case 'hi':
-                    response.messages = [
-                        {
-                            code: 'message',
-                            type: 'text',
-                            body: 'Hello again!'
-                        }
-                    ];
+                    response.messages = [index_1.BotMessage.createSimpleTextMessage('Hello, again!')];
                     break;
                 case 'hello':
-                    response.messages = [
-                        {
-                            code: 'message',
-                            type: 'text',
-                            body: 'Hey!'
-                        }
-                    ];
+                    response.messages = [index_1.BotMessage.createSimpleTextMessage('Hey!')];
                     break;
                 case 'ciao':
-                    response.messages = [
-                        {
-                            code: 'message',
-                            type: 'text',
-                            body: 'hello :)'
-                        }
-                    ];
+                    response.messages = [index_1.BotMessage.createSimpleTextMessage('Hello! :)')];
                     break;
                 case 'ok':
                     const replies = ['Good! :)', ':)', 'yup! :D', 'oook!', 'yep!', ';)'];
-                    response.messages = [
-                        {
-                            code: 'message',
-                            type: 'text',
-                            body: replies[Math.floor(Math.random() * replies.length)]
-                        }
-                    ];
+                    response.messages = [index_1.BotMessage.createSimpleTextMessage(replies[Math.floor(Math.random() * replies.length)])];
                     break;
                 case 'bye':
-                    response.messages = [
-                        {
-                            code: 'message',
-                            type: 'text',
-                            body: 'Bye, see you soon!'
-                        }
-                    ];
+                    response.messages = [index_1.BotMessage.createSimpleTextMessage('Bye, see you soon!')];
                     response.event = 'end';
                     break;
                 // just an example to show how to call an external API to compose a response
@@ -277,6 +239,16 @@ manager.registerAgent('custom', async (msg) => {
                                                 type: 'postback',
                                                 title: 'up-attach-url',
                                                 payload: 'up-attach-url'
+                                            },
+                                            {
+                                                type: 'postback',
+                                                title: 'send-action',
+                                                payload: 'send-action'
+                                            },
+                                            {
+                                                type: 'postback',
+                                                title: 'send-is-writing',
+                                                payload: 'send-is-writing'
                                             },
                                             {
                                                 type: 'postback',
@@ -1323,6 +1295,12 @@ manager.registerAgent('custom', async (msg) => {
                             meta: info.meta
                         }
                     ];
+                    break;
+                case 'send-action':
+                    response.messages = [index_1.BotMessage.createActionMessage('Screenshot')];
+                    break;
+                case 'send-is-writing':
+                    response.messages = [index_1.BotMessage.createIsWritingMessage()];
                     break;
                 default:
                     response.messages = [

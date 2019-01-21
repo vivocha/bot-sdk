@@ -4,7 +4,7 @@
 // First, install @vivocha/bot-sdk to run this bot!
 // NB: Change the following line to:
 // import { BotAgentManager, BotRequest, BotResponse, TextMessage, AttachmentMessage, Attachment } from "@vivocha/bot-sdk";
-import { BotAgentManager, BotRequest, BotResponse, TextMessage, AttachmentMessage, Attachment } from '../dist/index';
+import { BotAgentManager, BotRequest, BotResponse, TextMessage, AttachmentMessage, Attachment, BotMessage, ActionMessage } from '../dist/index';
 // got is just a simple library to perform http requests (see below in the BotAgent code)
 import * as got from 'got';
 import * as request from 'request';
@@ -48,11 +48,7 @@ manager.registerAgent(
         response.context['token'] = (msg.environment as any).token;
       }
       response.messages = [
-        {
-          code: 'message',
-          type: 'text',
-          body: 'Hello! I am a DummyBot from Bot SDK 3.0 😎'
-        } as TextMessage,
+        BotMessage.createSimpleTextMessage('Hello! I am a DummyBot from Bot SDK 3.2.0 😎'),
         {
           code: 'message',
           type: 'text',
@@ -72,69 +68,36 @@ manager.registerAgent(
         } as TextMessage
       ];
       response.data = {};
+    } else if ((msg.message as any).type === 'action') {
+      const actionMessage: ActionMessage = msg.message as ActionMessage;
+      response.messages = [
+        BotMessage.createSimpleTextMessage(
+          `You sent an Action Message, \n\naction_code: ${actionMessage.action_code}, args: ${JSON.stringify(actionMessage.args)}`
+        )
+      ];
+      response.data = {};
     } else {
       if ((msg.message as any).type === 'attachment') {
-        response.messages = [
-          {
-            code: 'message',
-            type: 'text',
-            body: 'You sent an ATTACHMENT'
-          } as TextMessage,
-          {
-            code: 'message',
-            type: 'text',
-            body: JSON.stringify(msg.message)
-          } as TextMessage
-        ];
+        response.messages = [BotMessage.createSimpleTextMessage('You sent an ATTACHMENT'), BotMessage.createSimpleTextMessage(JSON.stringify(msg.message))];
         response.data = {};
       } else {
         // This bot understands few sentences/commands ;)
         switch ((msg.message as any).body.toLowerCase()) {
           case 'hi':
-            response.messages = [
-              {
-                code: 'message',
-                type: 'text',
-                body: 'Hello again!'
-              } as TextMessage
-            ];
+            response.messages = [BotMessage.createSimpleTextMessage('Hello, again!')];
             break;
           case 'hello':
-            response.messages = [
-              {
-                code: 'message',
-                type: 'text',
-                body: 'Hey!'
-              } as TextMessage
-            ];
+            response.messages = [BotMessage.createSimpleTextMessage('Hey!')];
             break;
           case 'ciao':
-            response.messages = [
-              {
-                code: 'message',
-                type: 'text',
-                body: 'hello :)'
-              } as TextMessage
-            ];
+            response.messages = [BotMessage.createSimpleTextMessage('Hello! :)')];
             break;
           case 'ok':
             const replies = ['Good! :)', ':)', 'yup! :D', 'oook!', 'yep!', ';)'];
-            response.messages = [
-              {
-                code: 'message',
-                type: 'text',
-                body: replies[Math.floor(Math.random() * replies.length)]
-              } as TextMessage
-            ];
+            response.messages = [BotMessage.createSimpleTextMessage(replies[Math.floor(Math.random() * replies.length)])];
             break;
           case 'bye':
-            response.messages = [
-              {
-                code: 'message',
-                type: 'text',
-                body: 'Bye, see you soon!'
-              } as TextMessage
-            ];
+            response.messages = [BotMessage.createSimpleTextMessage('Bye, see you soon!')];
             response.event = 'end';
             break;
           // just an example to show how to call an external API to compose a response
@@ -282,6 +245,16 @@ manager.registerAgent(
                           type: 'postback',
                           title: 'up-attach-url',
                           payload: 'up-attach-url'
+                        },
+                        {
+                          type: 'postback',
+                          title: 'send-action',
+                          payload: 'send-action'
+                        },
+                        {
+                          type: 'postback',
+                          title: 'send-is-writing',
+                          payload: 'send-is-writing'
                         },
                         {
                           type: 'postback',
@@ -1380,6 +1353,12 @@ manager.registerAgent(
                 meta: info.meta
               } as AttachmentMessage
             ];
+            break;
+          case 'send-action':
+            response.messages = [BotMessage.createActionMessage('Screenshot')];
+            break;
+          case 'send-is-writing':
+            response.messages = [BotMessage.createIsWritingMessage()];
             break;
           default:
             response.messages = [
