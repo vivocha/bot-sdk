@@ -123,6 +123,8 @@ export class BotFilter extends API {
     this.registerSchema('postback_message', require('@vivocha/public-entities/schemas/postback_message.json') as Swagger.Schema);
     this.registerSchema('attachment_message', require('@vivocha/public-entities/schemas/attachment_message.json') as Swagger.Schema);
     this.registerSchema('attachment_metadata', require('@vivocha/public-entities/schemas/attachment_metadata.json') as Swagger.Schema);
+    this.registerSchema('action_message', require('@vivocha/public-entities/schemas/action_message.json') as Swagger.Schema);
+    this.registerSchema('is_writing_message', require('@vivocha/public-entities/schemas/is_writing_message.json') as Swagger.Schema);
     this.addResource(new BotFilterResource(reqFilter, resFilter));
   }
 }
