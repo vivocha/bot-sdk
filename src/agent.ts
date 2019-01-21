@@ -31,7 +31,7 @@ class SendMessage extends Operation {
       ],
       responses: {
         '200': {
-          description: 'Sending a message to bot was successful, a BotResponse is returned',
+          description: 'Sending a message to a Bot was successful, a BotResponse is returned',
           schema: {
             $ref: 'schemas/bot_response'
           }
@@ -67,7 +67,7 @@ export interface BotAgentRegistry {
 }
 
 export class BotAgentManager extends API {
-  constructor(version: string = '3.1.0', title: string = 'BotAgentManager API') {
+  constructor(version: string = '3.2.0', title: string = 'BotAgentManager API') {
     super({
       swagger: '2.0',
       info: {
