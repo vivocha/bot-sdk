@@ -262,7 +262,7 @@ The Action Message has the following specific properties (required ones are in *
 | **`code`**                  | string, value is always `message`                                                                                                                                    | Vivocha code type for Bot messages                                                                                                                                         |
 | **`type`**                  | string, value is `action`                                                                                                                                         | Specific Vivocha Bot message type                                                                                                                                                  |
 | **`action_code`**                  | string   | the custom action name (e.g, the remote procedure name)                                                                                                                                                     |
-| **`args`**                   | an array of items of any type. Can be an empty array|  the args array eventually contains the arguments required by the `action_code` action, intended as a remote procedure to call. |
+| **`args`**                   | an array of items of any type. Can be an empty array|  the args array eventually contains the arguments required by the specified `action_code` action (intended as a remote procedure to call). |
 
 ---
 
