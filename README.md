@@ -9,7 +9,8 @@ _JavaScript / TypeScript SDK to create Bot Agents and Filters for the [Vivocha](
 ---
 
 The Vivocha Bot SDK allows to write Vivocha Bot Agents integrating existing bots, built and trained using your preferred bot / NLP platform. E.g., Dialogflow, IBM Watson Assistant (formerly Conversation), Wit.ai, Microsoft Bot framework, etc...
-By creating a BotManager it is possible to register multi-platform bot implementations allowing the Vivocha Platform to communicate with them through a well-defined and uniform message-based API using a rich set of multi-media messages.
+
+By creating a BotManager it is possible to register multi-platform bot implementations allowing the Vivocha Platform to communicate with them through a well-defined and uniform message-based API, providing a rich set of multi-media chat messages.
 
 ---
 
