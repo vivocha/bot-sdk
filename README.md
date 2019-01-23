@@ -8,8 +8,8 @@ _JavaScript / TypeScript SDK to create Bot Agents and Filters for the [Vivocha](
 
 ---
 
-This SDK allows to write Vivocha Bot Agents integrating existing bots, built and trained using your preferred bot / NLP platform. E.g., Dialogflow, IBM Watson Assistant (formerly Conversation), Wit.ai, Microsoft Bot framework, etc...
-By creating a BotManager it is possible to register multi-platform bot implementations and let Vivocha communicate with them through a well-defined and uniform message-based API.
+The Vivocha Bot SDK allows to write Vivocha Bot Agents integrating existing bots, built and trained using your preferred bot / NLP platform. E.g., Dialogflow, IBM Watson Assistant (formerly Conversation), Wit.ai, Microsoft Bot framework, etc...
+By creating a BotManager it is possible to register multi-platform bot implementations allowing the Vivocha Platform to communicate with them through a well-defined and uniform message-based API using a rich set of multi-media messages.
 
 ---
 
@@ -181,7 +181,7 @@ A BotRequest is a JSON with the following properties (in **bold** the required p
 #### [BotMessage](#botmessage)
 
 Some contents and definitions of the Vivocha Bot Messages are inspired by the [Facebook Messenger](https://developers.facebook.com/docs/messenger-platform/reference/) messages specification, but adapted and extended as needed by the Vivocha Platform.
-Currently, messages' `quick_replies` and `template` properties are supported **ONLY** in BotResponses. Also messages of **Is Writing** type are supported only in BotResponses.
+Currently, messages' `quick_replies` and `template` properties are supported **ONLY** in BotResponses. Also messages of type **IsWriting** are supported only in BotResponses.
 
 **Notes**: Generally speaking, while messages containing _quick replies_ or _templates_ have no particular constraints about the number of elements (and buttons, etc...), please take into consideration that Facebook Messenger have some contraints about them, i.e., in the number of quick replies or buttons per message; therefore, if you're supporting chats also through the Facebook Messenger channel, then you need to be compliant to its specification (more details about Messenger messages constraints can be found [here](https://developers.facebook.com/docs/messenger-platform/reference/)).
 Anyway, in case of an exceeding number of elements, the Vivocha platform will trim them before sending to Messenger clients.
