@@ -105,7 +105,7 @@ See:
 
 **TIP:** For a quick start learning about the format of requests, responses and messages body, including quick replies and templates, see the [Dummy Bot](https://github.com/vivocha/bot-sdk/blob/master/examples/dummy-bot.ts) code.
 
-**IMPORTANT**: To learn how to connect a bot to the Vivocha Platform, start from the related [Vivocha documentation](https://docs.vivocha.com/docs/vcb-external-services#section-bot-agents).
+**IMPORTANT**: To learn how to connect a bot to the Vivocha Platform, start from the related [Vivocha Documentation](https://docs.vivocha.com/docs/vcb-external-services#section-bot-agents).
 
 ---
 
@@ -186,7 +186,7 @@ Currently, messages' `quick_replies` and `template` properties are supported **O
 **Notes**: Generally speaking, while messages containing _quick replies_ or _templates_ have no particular constraints about the number of elements (and buttons, etc...), please take into consideration that Facebook Messenger have some contraints about them, i.e., in the number of quick replies or buttons per message; therefore, if you're supporting chats also through the Facebook Messenger channel, then you need to be compliant to its specification (more details about Messenger messages constraints can be found [here](https://developers.facebook.com/docs/messenger-platform/reference/)).
 Anyway, in case of an exceeding number of elements, the Vivocha platform will trim them before sending to Messenger clients.
 
-A BotMessage can be of five different types: **Text Message**, **Postback Message**, **Attachment Message**, **Action Message** and **Is Writing Message**.
+A BotMessage can be of five different types: **Text Message**, **Postback Message**, **Attachment Message**, **Action Message** and **IsWriting Message**.
 
 ##### [Text Message](#text-message)
 
