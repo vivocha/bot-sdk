@@ -18,7 +18,7 @@ export class BotMessage {
       } as TextMessage;
     }
   }
-  public static createTextMessageWithQuickReplies(body: string, quickReplies: QuickReply[]) {
+  public static createTextMessageWithQuickReplies(body: string, quickReplies: QuickReply[]): TextMessage {
     const txtMsg = BotMessage.createSimpleTextMessage(body);
     txtMsg.quick_replies = BotMessage.createQuickReplies(quickReplies);
     return txtMsg;

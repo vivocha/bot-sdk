@@ -33,23 +33,26 @@ or
   - [BotFilters](https://github.com/vivocha/bot-sdk#botfilters)
 - [BotAgent](https://github.com/vivocha/bot-sdk#botagent)
   - [BotRequest](https://github.com/vivocha/bot-sdk#botrequest)
-    - [BotMessage](https://github.com/vivocha/bot-sdk#botmessage)
-      - [Text Message](https://github.com/vivocha/bot-sdk#text-message)
-      - [Postback Message](https://github.com/vivocha/bot-sdk#postback-message)
-      - [Attachment Message](https://github.com/vivocha/bot-sdk#attachment-message)
     - [BotSettings](https://github.com/vivocha/bot-sdk#botsettings)
     - [BotEngineSettings](https://github.com/vivocha/bot-sdk#botenginesettings)
-    - [MessageQuickReply](https://github.com/vivocha/bot-sdk#messagequickreply)
-    - [MessageTemplate](https://github.com/vivocha/bot-sdk#messagetemplate)
-    - [TemplateElement](https://github.com/vivocha/bot-sdk#templateelement)
-    - [DefaultAction](https://github.com/vivocha/bot-sdk#defaultaction)
-    - [Button](https://github.com/vivocha/bot-sdk#button)
-    - [PostbackButton](https://github.com/vivocha/bot-sdk#postbackbutton)
-    - [WebURLButton](https://github.com/vivocha/bot-sdk#weburlbutton)
-    - [CustomEventButton](https://github.com/vivocha/bot-sdk#customeventbutton)
     - [BotRequest Example](https://github.com/vivocha/bot-sdk#botrequest-example)
   - [BotResponse](https://github.com/vivocha/bot-sdk#botresponse)
     - [BotResponse Examples](https://github.com/vivocha/bot-sdk#botresponse-examples)
+  - [BotMessage](https://github.com/vivocha/bot-sdk#botmessage)
+    - [Text Message](https://github.com/vivocha/bot-sdk#text-message)
+    - [Postback Message](https://github.com/vivocha/bot-sdk#postback-message)
+    - [Attachment Message](https://github.com/vivocha/bot-sdk#attachment-message)
+    - [Action Message](https://github.com/vivocha/bot-sdk#action-message)
+    - [IsWriting Message](https://github.com/vivocha/bot-sdk#iswriting-message)
+  - [MessageQuickReply](https://github.com/vivocha/bot-sdk#messagequickreply)
+  - [MessageTemplate](https://github.com/vivocha/bot-sdk#messagetemplate)
+  - [TemplateElement](https://github.com/vivocha/bot-sdk#templateelement)
+  - [DefaultAction](https://github.com/vivocha/bot-sdk#defaultaction)
+  - [Button](https://github.com/vivocha/bot-sdk#button)
+  - [PostbackButton](https://github.com/vivocha/bot-sdk#postbackbutton)
+  - [WebURLButton](https://github.com/vivocha/bot-sdk#weburlbutton)
+  - [CustomEventButton](https://github.com/vivocha/bot-sdk#customeventbutton)
+- [Bot Messages Utilities](https://github.com/vivocha/bot-sdk#bot-messages-utilities)
 - [BotManager](https://github.com/vivocha/bot-sdk#botmanager)
   - [Registering a Bot Agent](https://github.com/vivocha/bot-sdk#registering-a-bot-agent)
   - [BotManager Web API](https://github.com/vivocha/bot-sdk#botmanager-web-api)
@@ -178,12 +181,12 @@ A BotRequest is a JSON with the following properties (in **bold** the required p
 #### [BotMessage](#botmessage)
 
 Some contents and definitions of the Vivocha Bot Messages are inspired by the [Facebook Messenger](https://developers.facebook.com/docs/messenger-platform/reference/) messages specification, but adapted and extended as needed by the Vivocha Platform.
-Currently, messages' `quick_replies` and `template` properties are supported **ONLY** in BotResponses.
+Currently, messages' `quick_replies` and `template` properties are supported **ONLY** in BotResponses. Also messages of **Is Writing** type are supported only in BotResponses.
 
 **Notes**: Generally speaking, while messages containing _quick replies_ or _templates_ have no particular constraints about the number of elements (and buttons, etc...), please take into consideration that Facebook Messenger have some contraints about them, i.e., in the number of quick replies or buttons per message; therefore, if you're supporting chats also through the Facebook Messenger channel, then you need to be compliant to its specification (more details about Messenger messages constraints can be found [here](https://developers.facebook.com/docs/messenger-platform/reference/)).
 Anyway, in case of an exceeding number of elements, the Vivocha platform will trim them before sending to Messenger clients.
 
-A BotMessage can be of three different types: **Text Message**, **Postback Message**, **Attachment Message**.
+A BotMessage can be of five different types: **Text Message**, **Postback Message**, **Attachment Message**, **Action Message** and **Is Writing Message**.
 
 ##### [Text Message](#text-message)
 
@@ -230,6 +233,53 @@ Its properties are (required are in **bold**):
 
 ---
 
+##### [Attachment Metadata](#attachment-metadata)
+
+Attachment metadata object.
+
+Properties are (required are in **bold**):
+
+| PROPERTY   | VALUE             | DESCRIPTION |
+| ---------- | ----------------- | ----------- |
+| **`mimetype`** | string           | MIME Type of the attachment|
+| `originalUrl` | (optional) string | the original URL of the attachment. It could be different than the attachment `url` property value in case the attachment is being served by a CDN or remote storage|
+| `originalUrlHash` | (optional) string | a hash related to the attachment, it will be automatically "calculated" by Vivocha platform |
+| `originalId` | (optional) string | unique Id, automatically assigned by Vivocha when uploaded using the `BotAgentManager.uploadAttachment() method`|
+| `originalName` | (optional) string | the original file name of the attachment |
+| `desc` | (optional) string | brief description of the attachment |
+| `size` | (optional) number | attachment size, as in normal HTTP Content-Length header |
+| `ref` | (optional) string | A reference ID to correlate the attachment message. It can be used by the client to avoid showing the attachment message twice in the user chat widget. If not set, the Bot SDK will add it, generating an UUID as value |
+---
+
+##### [Action Message](#action-message)
+
+An Action Message contains a custom action name with optional parameters that can be sent to a client (i.e. the Vivocha Interaction App or a mobile app) to mimic a Remote Procedure Call (RPC).
+
+The Action Message specific properties are the following (required are in **bold**):
+
+| PROPERTY                    | VALUE                                                                                                                                                                | DESCRIPTION                                                                                                                                                                 |
+| --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`code`**                  | string, value is always `message`                                                                                                                                    | Vivocha code type for Bot messages                                                                                                                                         |
+| **`type`**                  | string, value is `action`                                                                                                                                         | Specific Vivocha Bot message type                                                                                                                                                  |
+| **`action_code`**                  | string   | the custom action name (e.g, the remote procedure name)                                                                                                                                                     |
+| **`args`**                   | an array of items of any type. Can be an empty array|  the args array eventually contains the arguments required by the `action_code` action, intended as a remote procedure to call. |
+
+---
+
+##### [IsWriting Message](#iswriting-message)
+
+An IsWriting Message can be sent by a Bot in a BotResponse to tell/show in the user's chat that the bot is writing/preparing a message.
+
+The IsWriting Message specific properties are the following (required are in **bold**):
+
+| PROPERTY                    | VALUE                                                                                                                                                                | DESCRIPTION                                                                                                                                                                 |
+| --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`code`**                  | string, value is always `message`                                                                                                                                    | Vivocha code type for Bot messages                                                                                                                                         |
+| **`type`**                  | string, value is `iswriting`                                                                                                                                         | Specific Vivocha Bot message type                                                                                                                                                  |
+
+---
+---
+
 #### [BotSettings](#botsettings)
 
 Bot platform settings object. Along with the `engine` property (see the table below), it is possible to set an arbitrarily number of properties. In case, it is responsability of the specific Bot implementation / platform to handle them.
@@ -237,6 +287,7 @@ Bot platform settings object. Along with the `engine` property (see the table be
 | PROPERTY | VALUE                                                                                                       | DESCRIPTION                         |
 | -------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------- |
 | `engine` | (optional) **[BotEngineSettings](https://github.com/vivocha/bot-sdk#botenginesettings)** object (see below) | Specific Bot/NLP Platform settings. |
+---
 
 #### [BotEngineSettings](#botenginesettings)
 
@@ -247,6 +298,7 @@ Its properties are (required are in **bold**):
 | ---------- | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **`type`** | string            | Unique bot engine identifier, i.e., the platform name, like: `Watson`, `Dialogflow`, `WitAi`, `Microsoft`, `custom`, ...                                                                                                                                                                                                                                                                                            |
 | `settings` | (optional) object | Specific settings to send to the BOT/NLP platform. E.g. for Watson Assistant (formerly Conversation) is an object like `{"workspaceId": "<id>" "username": "<usrname>", "password": "<passwd>"}`; for a Dialogflow bot is something like: `{"token": "<token>", "startEvent": "MyCustomStartEvent"}`, and so on... You need to refer to the documentation of the specific Bot Platform used. |
+---
 
 #### [MessageQuickReply](#messagequickreply)
 
@@ -258,6 +310,7 @@ Its properties are (required are in **bold**):
 | **`title`**            | string               | title of the quick reply (usually is the text shown in the quick reply UI button)     |
 | `payload`          | (optional) a string or a number | application specific value, string or number related to the quick reply |
 | `image_url`        | (optional) string               | a URL of an image to be shown in the quick reply UI |
+---
 
 **Example 1**: A BotResponse message containing three simple **quick replies**
 
@@ -400,6 +453,7 @@ Properties are (required are in **bold**):
 | **`type`** | string, accepted values are: `generic` or `list`                                                                                          | Template type, currently only `generic` and `list` types are supported                                     |
 | `elements` | (optional) an array of **[generic template Elements](https://github.com/vivocha/bot-sdk#templateelement)**                                | elements defined by **[TemplateElement](https://github.com/vivocha/bot-sdk#templateelement)** object specification |
 | `buttons`  | (optional) only in case of a template where `type` == `list`, an array of **[Button](https://github.com/vivocha/bot-sdk#button)** objects | the buttons to display in the bottom part of the template.                                                 |
+---
 
 #### [TemplateElement](#templateelement)
 
@@ -412,6 +466,7 @@ In a Template Element only the property `title` is mandatory, but at least one o
 | `image_url`      | (optional) string                                                                       | a valid URL for an image to display in the template                                        |
 | `default_action` | (optional) **[DefaultAction](https://github.com/vivocha/bot-sdk#defaultaction)** object | an object representing the default action to execute when the template is clicked / tapped |
 | `buttons`        | (optional) an array of **[Button](https://github.com/vivocha/bot-sdk#button)** objects  | the buttons to display in the template element.                                            |
+---
 
 **Example 4**: A BotResponse message containing a _generic template_
 
@@ -685,6 +740,7 @@ Properties are (required are in **bold**):
 | **`type`**    | string, always set to `postback` | the postback button type                                        |
 | **`title`**   | string                           | the button text to display and to send back in the message body |
 | **`payload`** | string                           | a custom payload to send back to the bot                        |
+---
 
 #### [WebURLButton](#weburlbutton)
 
@@ -697,6 +753,7 @@ Properties are (required are in **bold**):
 | **`type`**  | string, always set to `web_url` | the WebURL button type                                 |
 | **`title`** | string                          | the button text to display                             |
 | **`url`**   | string                          | the URL of the page to open when the button is pressed |
+---
 
 #### [CustomEventButton](#customeventbutton)
 
@@ -743,25 +800,6 @@ Example of a request sent to provide the name in a conversation with a Wit.ai ba
 
 ---
 
-#### [Attachment Metadata](#attachment-metadata)
-
-Attachment metadata object.
-
-Properties are (required are in **bold**):
-
-| PROPERTY   | VALUE             | DESCRIPTION |
-| ---------- | ----------------- | ----------- |
-| **`mimetype`** | string           | MIME Type of the attachment|
-| `originalUrl` | (optional) string | the original URL of the attachment. It could be different than the attachment `url` property value in case the attachment is being served by a CDN or remote storage|
-| `originalUrlHash` | (optional) string | a hash related to the attachment, it will be automatically "calculated" by Vivocha platform |
-| `originalId` | (optional) string | unique Id, automatically assigned by Vivocha when uploaded using the `BotAgentManager.uploadAttachment() method`|
-| `originalName` | (optional) string | the original file name of the attachment |
-| `desc` | (optional) string | brief description of the attachment |
-| `size` | (optional) number | attachment size, as in normal HTTP Content-Length header |
-| `ref` | (optional) string | A reference ID to correlate the attachment message. It can be used by the client to avoid showing the attachment message twice in the user chat widget. If not set, the Bot SDK will add it, generating an UUID as value |
-
----
-
 ### [BotResponse](#botresponse)
 
 Responses are sent back by BotAgents, BotManagers and BotFilters to convey a Bot platform reply back to the Vivocha platform.
@@ -777,6 +815,7 @@ A BotResponse is a JSON with the following properties and it is similar to a `Bo
 | `context`     | (optional) object                                                                                                   | Opaque, Bot specific context data. The Vivocha platform will send it immutated to the Bot in the next iteration.                                                                                                                                     |
 | `tempContext` | (optional) object                                                                                                   | Temporary context, useful to store volatile data, i.e., in bot filters chains.                                                                                                                                                                       |
 | `raw`         | (optional) object                                                                                                   | raw, platform specific, unparsed bot response. The bot can fill it with arbitrary data or with the original response from a specific bot platform, for example. The `raw` property it will never be forwarded to the client (i.e., the Vivocha interaction app) but it can be used, for example, by response bot filters chains.                                                                                                                                                                                                  |
+---
 
 #### BotResponse Examples
 
@@ -912,6 +951,54 @@ A BotResponse including a **List Template**:
 }
 ```
 
+---
+
+## [Bot Messages Utilities](#bot-messages-utilities)
+
+The Bot SDK provides an utility class exposing some static methods to make easier to "compose" some of the most frequently used Vivocha bot messages.
+
+The utility class to import is `BotMessage`, and it exposes the following (static) methods:
+
+```javascript
+BotMessage.createSimpleTextMessage(body: string): TextMessage
+```
+
+Creates and returns a TextMessage, given a string to use as the body of the message.
+
+---
+
+```javascript
+BotMessage.createTextMessageWithQuickReplies(body: string, quickReplies: QuickReply[]): TextMessage
+```
+
+Creates and returns a TextMessage with the `quick_replies` property set, given a string to use as the body of the message and an array of quick replies definitions.
+
+---
+
+```javascript
+BotMessage.createQuickReplies(quickReplies: QuickReply[]): MessageQuickReply[]
+```
+
+Creates and returns an array of correctly set quick replies, given an array of simplified quick replies definitions.
+Useful to create and set the `quick_replies` property of a TextMessage.
+
+---
+
+```javascript
+BotMessage.createActionMessage(actionCode: string, args: any[] = []): ActionMessage
+```
+
+Creates and returns an Action Message given its `action_code` and (optionally) its `args`.
+
+---
+
+```javascript
+BotMessage.createIsWritingMessage(): IsWritingMessage
+```
+
+Creates and returns an IsWriting Message.
+
+---
 ---
 
 ## [BotManager](#botmanager)
@@ -1468,7 +1555,7 @@ Settings:
 | **Engine**    | Select **Microsoft** |
 | **Direct Line Site Id**     | Site Id / name as set for Direct Line Channel in Microsoft Azure service |
 | **Secret key**    |  One of the two Secret Keys generated by the Direct Line Channel configuration in Microsoft Azure service|
-| **Start message**    | the message to send to the Bot as start message. **N.B.**: the Bot must be properly written / trained to understand it and, usually, to reply with a welcome message    |
+| **Start message**    | (Optional) the message to send to the Bot as start message. **N.B.**: the Bot must be properly written / trained to understand it and, usually, to reply with a welcome message. **If not set** (leaved empty), the Vivocha platform will send to the Microsoft Bot instance an Activity of type `conversationUpdate`, thus the bot should properly handle that Activity type to reply with a welcome message to show to the chat user.  |
 | **Auto convert messages**    | if **checked (default)** the native driver will convert the incoming MS Bot Messages to Vivocha Messages, if supported. If **not checked**, no conversion is attempted. For detailed info see **Supported Microsoft Bot Messages** section below in this chapter|
 | **Transfer Key** | (Optional) the property key to expect in BotResponses `data` property to request a transfer to another agent. If not set, default is `transferToAgent` and it must be properly used in the Bot configuration in the Vivocha Agent Console. See **Transfer to Another Agent** section below in this chapter       |
 | **Transfer value** | (Optional) the value of the configured **Transfer Key** property to expect in BotResponses `data` property to request a transfer to another agent. If not set, default is `AGENT` and it must be used in the Bot configuration in Agent Console. See the **Transfer to Another Agent** section below in this document |
