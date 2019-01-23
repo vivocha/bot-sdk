@@ -255,7 +255,7 @@ Properties are (required are in **bold**):
 
 An Action Message contains a custom action name with optional parameters that can be sent to a client (i.e. the Vivocha Interaction App or a mobile app) to mimic a Remote Procedure Call (RPC).
 
-The Action Message specific properties are the following (required are in **bold**):
+The Action Message has the following specific properties (required ones are in **bold**):
 
 | PROPERTY                    | VALUE                                                                                                                                                                | DESCRIPTION                                                                                                                                                                 |
 | --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
