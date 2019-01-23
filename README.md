@@ -255,7 +255,7 @@ Its properties are (required are in **bold**):
 | PROPERTY           | VALUE                           | DESCRIPTION                                                   |
 | ------------------ | ------------------------------- | ------------------------------------------------------------- |
 | **`content_type`** | string, accepted value: `text`  | Type of the content of the quick reply                        |
-| `title`            | (optional) string               | title of the quick reply (usually is the text shown in the quick reply UI button)     |
+| **`title`**            | string               | title of the quick reply (usually is the text shown in the quick reply UI button)     |
 | `payload`          | (optional) a string or a number | application specific value, string or number related to the quick reply |
 | `image_url`        | (optional) string               | a URL of an image to be shown in the quick reply UI |
 

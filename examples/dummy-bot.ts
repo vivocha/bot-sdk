@@ -114,28 +114,20 @@ manager.registerAgent(
             break;
           case 'quick':
             response.messages = [
-              {
-                code: 'message',
-                type: 'text',
-                body: 'Just an example of quick replies... choose a color?',
-                quick_replies: [
-                  {
-                    content_type: 'text',
-                    title: 'Red',
-                    payload: 'red'
-                  },
-                  {
-                    content_type: 'text',
-                    title: 'Blue',
-                    payload: 'blue'
-                  },
-                  {
-                    content_type: 'text',
-                    title: 'White',
-                    payload: 'white'
-                  }
-                ]
-              } as any
+              BotMessage.createTextMessageWithQuickReplies('Just an example of quick replies... choose a color?', [
+                {
+                  title: 'Red',
+                  payload: 'red'
+                },
+                {
+                  title: 'Blue',
+                  payload: 'blue'
+                },
+                {
+                  title: 'White',
+                  payload: 'white'
+                }
+              ])
             ];
             response.event = 'continue';
             break;
@@ -306,31 +298,23 @@ manager.registerAgent(
             break;
           case 'team':
             response.messages = [
-              {
-                code: 'message',
-                type: 'text',
-                body: 'Choose a team member',
-                quick_replies: [
-                  {
-                    content_type: 'text',
-                    title: 'Federico',
-                    payload: 'federico',
-                    image_url: 'https://www.vivocha.com/wp-content/uploads/2017/03/team_federico.png'
-                  },
-                  {
-                    content_type: 'text',
-                    title: 'Andrea',
-                    payload: 'andrea',
-                    image_url: 'https://www.vivocha.com/wp-content/uploads/2017/03/team_andrea.png'
-                  },
-                  {
-                    content_type: 'text',
-                    title: 'Antonio',
-                    payload: 'antonio',
-                    image_url: 'https://www.vivocha.com/wp-content/uploads/2017/05/team-antonio.png'
-                  }
-                ]
-              } as any
+              BotMessage.createTextMessageWithQuickReplies('Choose a team member', [
+                {
+                  title: 'Federico',
+                  payload: 'federico',
+                  image_url: 'https://www.vivocha.com/wp-content/uploads/2017/03/team_federico.png'
+                },
+                {
+                  title: 'Andrea',
+                  payload: 'andrea',
+                  image_url: 'https://www.vivocha.com/wp-content/uploads/2017/03/team_andrea.png'
+                },
+                {
+                  title: 'Antonio',
+                  payload: 'antonio',
+                  image_url: 'https://www.vivocha.com/wp-content/uploads/2017/05/team-antonio.png'
+                }
+              ])
             ];
             response.event = 'continue';
             break;
