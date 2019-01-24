@@ -1281,7 +1281,7 @@ manager.registerAgent('custom', async (msg) => {
                     ];
                     break;
                 case 'send-action':
-                    response.messages = [index_1.BotMessage.createActionMessage('Screenshot')];
+                    response.messages = [index_1.BotMessage.createActionMessage('mySuperAction', [{ a: 'param1', b: 'param2' }])];
                     break;
                 case 'send-is-writing':
                     response.messages = [index_1.BotMessage.createIsWritingMessage()];

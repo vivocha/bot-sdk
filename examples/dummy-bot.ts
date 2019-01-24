@@ -1339,7 +1339,7 @@ manager.registerAgent(
             ];
             break;
           case 'send-action':
-            response.messages = [BotMessage.createActionMessage('Screenshot')];
+            response.messages = [BotMessage.createActionMessage('mySuperAction', [{ a: 'param1', b: 'param2' }])];
             break;
           case 'send-is-writing':
             response.messages = [BotMessage.createIsWritingMessage()];
