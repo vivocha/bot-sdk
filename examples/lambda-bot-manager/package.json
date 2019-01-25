@@ -1,7 +1,7 @@
 {
   "name": "lambda-bot-manager",
-  "version": "2.5.0",
-  "description": "VVC 6 dummy factotum chatbot",
+  "version": "3.2.0",
+  "description": "Example of a Vivocha Bot Manager deployed as AWS Lambda",
   "main": "dist/index.js",
   "scripts": {
     "clean": "[ ! -d ./dist ] || rm -rf dist/*",
@@ -21,7 +21,7 @@
     ".npmrc"
   ],
   "dependencies": {
-    "@vivocha/bot-sdk": "^2.6.0",
-    "got": "^8.3.1"
+    "@vivocha/bot-sdk": "^3.1.0",
+    "got": "^9.6.0"
   }
 }
