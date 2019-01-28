@@ -270,7 +270,7 @@ The Action Message has the following specific properties (required ones are in *
 
 ##### [IsWriting Message](#iswriting-message)
 
-An IsWriting Message can be sent by a Bot in a BotResponse to tell/show in the user's chat that the bot is writing/preparing a message.
+An IsWriting Message can be sent by a Bot in a BotResponse to tell/show in the user's chat that the bot is writing/preparing a response.
 
 The IsWriting Message specific properties are the following (required are in **bold**):
 
