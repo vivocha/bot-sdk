@@ -11,7 +11,6 @@
     "build": "tsc",
     "build:examples": "(cd examples/lambda-bot-manager && npm i && npm run build) && (cd examples/lambda-bot-filter && npm i && npm run build)",
     "build:all": "npm run clean && npm run build && tsc -p test && npm run build:examples",
-    "precommit": "npm run build && npm run cover && npm run check-coverage",
     "commit": "git-cz",
     "check-coverage": "./node_modules/.bin/nyc check-coverage --statements 90 --branches 60 --functions 80 --lines 90",
     "report-coverage": "cat ./coverage/lcov.info | coveralls",
@@ -78,5 +77,10 @@
     "request-promise-native": "^1.0.5",
     "serverless-http": "^1.9.0",
     "uuid": "^3.3.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run build && npm run cover && npm run check-coverage"
+    }
   }
 }
