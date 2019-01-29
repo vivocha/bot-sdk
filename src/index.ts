@@ -13,6 +13,8 @@ export {
   AttachmentMessage,
   Attachment,
   AttachmentMeta,
+  ActionMessage,
+  IsWritingMessage,
   BotDataCollection,
   DialogDataCollection,
   BooleanField,
@@ -24,6 +26,7 @@ export {
 } from '@vivocha/public-entities';
 export * from './agent';
 export * from './filter';
+export * from './message';
 export * from './witai';
 export * from './lambda';
 import * as serverless from 'serverless-http';

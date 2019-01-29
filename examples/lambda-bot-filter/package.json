@@ -1,7 +1,7 @@
 {
   "name": "lambda-bot-filter",
-  "version": "2.5.0",
-  "description": "VVC 6 dummy factotum chatbot",
+  "version": "3.2.0",
+  "description": "Example of a Vivocha Bot Filter deployed as AWS Lambda",
   "main": "dist/index.js",
   "scripts": {
     "clean": "[ ! -d ./dist ] || rm -rf dist/*",
@@ -21,6 +21,6 @@
     ".npmrc"
   ],
   "dependencies": {
-    "@vivocha/bot-sdk": "^2.6.0"
+    "@vivocha/bot-sdk": "^3.1.1"
   }
 }

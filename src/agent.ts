@@ -31,7 +31,7 @@ class SendMessage extends Operation {
       ],
       responses: {
         '200': {
-          description: 'Sending a message to bot was successful, a BotResponse is returned',
+          description: 'Sending a message to a Bot was successful, a BotResponse is returned',
           schema: {
             $ref: 'schemas/bot_response'
           }
@@ -67,7 +67,7 @@ export interface BotAgentRegistry {
 }
 
 export class BotAgentManager extends API {
-  constructor(version: string = '3.1.0', title: string = 'BotAgentManager API') {
+  constructor(version: string = '3.2.0', title: string = 'Vivocha BotAgentManager API') {
     super({
       swagger: '2.0',
       info: {
@@ -98,6 +98,8 @@ export class BotAgentManager extends API {
     this.registerSchema('postback_message', require('@vivocha/public-entities/schemas/postback_message.json') as Swagger.Schema);
     this.registerSchema('attachment_message', require('@vivocha/public-entities/schemas/attachment_message.json') as Swagger.Schema);
     this.registerSchema('attachment_metadata', require('@vivocha/public-entities/schemas/attachment_metadata.json') as Swagger.Schema);
+    this.registerSchema('action_message', require('@vivocha/public-entities/schemas/action_message.json') as Swagger.Schema);
+    this.registerSchema('is_writing_message', require('@vivocha/public-entities/schemas/is_writing_message.json') as Swagger.Schema);
     this.addResource(new BotAgentResource());
   }
   get agents(): BotAgentRegistry {

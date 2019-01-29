@@ -226,3 +226,76 @@ Content-Type: application/json
     }
   }
 }
+
+###
+// Send a request for an action message
+POST http://localhost:8888/bot/message
+Content-Type: application/json
+
+{
+  "language":"en",
+  "event": "continue",
+  "message": {
+      "code": "message",
+      "type": "text",
+      "body": "send-action"
+  },
+  "settings": {
+    "engine": {
+      "type": "custom",
+      "settings": {
+          "myToken": "super_secret_token",
+          "anotherSetting": "123"
+      }
+    }
+  }
+}
+
+###
+// Send an Action Message
+POST http://localhost:8888/bot/message
+Content-Type: application/json
+
+{
+  "language":"en",
+  "event": "continue",
+  "message": {
+      "code": "message",
+      "type": "action",
+      "action_code": "vvc-custom-action",
+      "args":["a string", 123, {"a": 7, "b": 10, "z": "Antonio"}]
+  },
+  "settings": {
+    "engine": {
+      "type": "custom",
+      "settings": {
+          "myToken": "super_secret_token",
+          "anotherSetting": "123"
+      }
+    }
+  }
+}
+
+###
+// Send a request for an isWriting message
+POST http://localhost:8888/bot/message
+Content-Type: application/json
+
+{
+  "language":"en",
+  "event": "continue",
+  "message": {
+      "code": "message",
+      "type": "text",
+      "body": "send-is-writing"
+  },
+  "settings": {
+    "engine": {
+      "type": "custom",
+      "settings": {
+          "myToken": "super_secret_token",
+          "anotherSetting": "123"
+      }
+    }
+  }
+}

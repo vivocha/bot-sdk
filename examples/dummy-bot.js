@@ -41,11 +41,7 @@ manager.registerAgent('custom', async (msg) => {
             response.context['token'] = msg.environment.token;
         }
         response.messages = [
-            {
-                code: 'message',
-                type: 'text',
-                body: 'Hello! I am a DummyBot from Bot SDK 3.0 😎'
-            },
+            index_1.BotMessage.createSimpleTextMessage('Hello! I am a DummyBot from Bot SDK 3.2.0 😎'),
             {
                 code: 'message',
                 type: 'text',
@@ -66,70 +62,36 @@ manager.registerAgent('custom', async (msg) => {
         ];
         response.data = {};
     }
+    else if (msg.message.type === 'action') {
+        const actionMessage = msg.message;
+        response.messages = [
+            index_1.BotMessage.createSimpleTextMessage(`You sent an Action Message, \n\naction_code: ${actionMessage.action_code}, args: ${JSON.stringify(actionMessage.args)}`)
+        ];
+        response.data = {};
+    }
     else {
         if (msg.message.type === 'attachment') {
-            response.messages = [
-                {
-                    code: 'message',
-                    type: 'text',
-                    body: 'You sent an ATTACHMENT'
-                },
-                {
-                    code: 'message',
-                    type: 'text',
-                    body: JSON.stringify(msg.message)
-                }
-            ];
+            response.messages = [index_1.BotMessage.createSimpleTextMessage('You sent an ATTACHMENT'), index_1.BotMessage.createSimpleTextMessage(JSON.stringify(msg.message))];
             response.data = {};
         }
         else {
             // This bot understands few sentences/commands ;)
             switch (msg.message.body.toLowerCase()) {
                 case 'hi':
-                    response.messages = [
-                        {
-                            code: 'message',
-                            type: 'text',
-                            body: 'Hello again!'
-                        }
-                    ];
+                    response.messages = [index_1.BotMessage.createSimpleTextMessage('Hello, again!')];
                     break;
                 case 'hello':
-                    response.messages = [
-                        {
-                            code: 'message',
-                            type: 'text',
-                            body: 'Hey!'
-                        }
-                    ];
+                    response.messages = [index_1.BotMessage.createSimpleTextMessage('Hey!')];
                     break;
                 case 'ciao':
-                    response.messages = [
-                        {
-                            code: 'message',
-                            type: 'text',
-                            body: 'hello :)'
-                        }
-                    ];
+                    response.messages = [index_1.BotMessage.createSimpleTextMessage('Hello! :)')];
                     break;
                 case 'ok':
                     const replies = ['Good! :)', ':)', 'yup! :D', 'oook!', 'yep!', ';)'];
-                    response.messages = [
-                        {
-                            code: 'message',
-                            type: 'text',
-                            body: replies[Math.floor(Math.random() * replies.length)]
-                        }
-                    ];
+                    response.messages = [index_1.BotMessage.createSimpleTextMessage(replies[Math.floor(Math.random() * replies.length)])];
                     break;
                 case 'bye':
-                    response.messages = [
-                        {
-                            code: 'message',
-                            type: 'text',
-                            body: 'Bye, see you soon!'
-                        }
-                    ];
+                    response.messages = [index_1.BotMessage.createSimpleTextMessage('Bye, see you soon!')];
                     response.event = 'end';
                     break;
                 // just an example to show how to call an external API to compose a response
@@ -146,28 +108,20 @@ manager.registerAgent('custom', async (msg) => {
                     break;
                 case 'quick':
                     response.messages = [
-                        {
-                            code: 'message',
-                            type: 'text',
-                            body: 'Just an example of quick replies... choose a color?',
-                            quick_replies: [
-                                {
-                                    content_type: 'text',
-                                    title: 'Red',
-                                    payload: 'red'
-                                },
-                                {
-                                    content_type: 'text',
-                                    title: 'Blue',
-                                    payload: 'blue'
-                                },
-                                {
-                                    content_type: 'text',
-                                    title: 'White',
-                                    payload: 'white'
-                                }
-                            ]
-                        }
+                        index_1.BotMessage.createTextMessageWithQuickReplies('Just an example of quick replies... choose a color?', [
+                            {
+                                title: 'Red',
+                                payload: 'red'
+                            },
+                            {
+                                title: 'Blue',
+                                payload: 'blue'
+                            },
+                            {
+                                title: 'White',
+                                payload: 'white'
+                            }
+                        ])
                     ];
                     response.event = 'continue';
                     break;
@@ -280,6 +234,16 @@ manager.registerAgent('custom', async (msg) => {
                                             },
                                             {
                                                 type: 'postback',
+                                                title: 'send-action',
+                                                payload: 'send-action'
+                                            },
+                                            {
+                                                type: 'postback',
+                                                title: 'send-is-writing',
+                                                payload: 'send-is-writing'
+                                            },
+                                            {
+                                                type: 'postback',
                                                 title: 'transfer',
                                                 payload: 'trasfer'
                                             },
@@ -328,31 +292,23 @@ manager.registerAgent('custom', async (msg) => {
                     break;
                 case 'team':
                     response.messages = [
-                        {
-                            code: 'message',
-                            type: 'text',
-                            body: 'Choose a team member',
-                            quick_replies: [
-                                {
-                                    content_type: 'text',
-                                    title: 'Federico',
-                                    payload: 'federico',
-                                    image_url: 'https://www.vivocha.com/wp-content/uploads/2017/03/team_federico.png'
-                                },
-                                {
-                                    content_type: 'text',
-                                    title: 'Andrea',
-                                    payload: 'andrea',
-                                    image_url: 'https://www.vivocha.com/wp-content/uploads/2017/03/team_andrea.png'
-                                },
-                                {
-                                    content_type: 'text',
-                                    title: 'Antonio',
-                                    payload: 'antonio',
-                                    image_url: 'https://www.vivocha.com/wp-content/uploads/2017/05/team-antonio.png'
-                                }
-                            ]
-                        }
+                        index_1.BotMessage.createTextMessageWithQuickReplies('Choose a team member', [
+                            {
+                                title: 'Federico',
+                                payload: 'federico',
+                                image_url: 'https://www.vivocha.com/wp-content/uploads/2017/03/team_federico.png'
+                            },
+                            {
+                                title: 'Andrea',
+                                payload: 'andrea',
+                                image_url: 'https://www.vivocha.com/wp-content/uploads/2017/03/team_andrea.png'
+                            },
+                            {
+                                title: 'Antonio',
+                                payload: 'antonio',
+                                image_url: 'https://www.vivocha.com/wp-content/uploads/2017/05/team-antonio.png'
+                            }
+                        ])
                     ];
                     response.event = 'continue';
                     break;
@@ -1323,6 +1279,12 @@ manager.registerAgent('custom', async (msg) => {
                             meta: info.meta
                         }
                     ];
+                    break;
+                case 'send-action':
+                    response.messages = [index_1.BotMessage.createActionMessage('mySuperAction', [{ a: 'param1', b: 'param2' }])];
+                    break;
+                case 'send-is-writing':
+                    response.messages = [index_1.BotMessage.createIsWritingMessage()];
                     break;
                 default:
                     response.messages = [
