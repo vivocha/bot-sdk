@@ -1,6 +1,6 @@
 {
   "name": "@vivocha/bot-sdk",
-  "version": "3.2.0",
+  "version": "0.0.0-semantically-released",
   "description": "Vivocha BOT SDK: TypeScript / JavaScript SDK to create/integrate Vivocha chatbots",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -18,7 +18,7 @@
     "test": "find ./test/ts -type f -name '*.js' -delete && npm run build && tsc -p test && mocha --exit --no-timeouts --recursive --reporter mochawesome --reporter-options reportDir=test-results test/**/*.test.js",
     "test:debug": "npm run build && tsc -p test && mocha --inspect-brk --recursive test/**/*.test.js",
     "cover": "./node_modules/.bin/nyc --reporter=lcov --reporter=text npm t",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "semantic-release": "semantic-release"
   },
   "repository": {
     "type": "git",
@@ -59,12 +59,12 @@
     "pem-promise": "^1.0.0",
     "request": "^2.88.0",
     "rimraf": "^2.6.3",
-    "semantic-release": "^15.13.1",
+    "semantic-release": "^15.13.3",
     "typescript": "^3.2.4"
   },
   "config": {
     "commitizen": {
-      "path": "node_modules/cz-conventional-changelog"
+      "path": "./node_modules/cz-conventional-changelog"
     }
   },
   "dependencies": {
@@ -80,6 +80,7 @@
   },
   "husky": {
     "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
       "pre-commit": "npm run build && npm run cover && npm run check-coverage"
     }
   }

@@ -1,6 +1,8 @@
-sudo: false
-dist: trusty,
+dist: trusty
 language: node_js
+node_js:
+  - 'lts/*'
+  - '8'
 cache:
   directories:
     - node_modules
@@ -9,14 +11,13 @@ branches:
     - master
 notifications:
   email: false
-node_js:
-  - '8'
+
 before_install:
-  
+
 before_script:
   - npm prune
 script:
-  - npm run build
+  - npm run build:all
   - npm run cover
   - npm run check-coverage
 after_success:
