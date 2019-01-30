@@ -39,7 +39,7 @@ describe('Vivocha sending Async Responses tests', function() {
     process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
     let server;
     before('starting test HTTP server', async function() {
-      server = await startHTTPServer();
+      server = await startHTTPServer(8443);
       return;
     });
     it('sending an async response with CORRECT environment param should return a 200 OK response', async function() {
@@ -55,7 +55,7 @@ describe('Vivocha sending Async Responses tests', function() {
         ]
       };
       const env = {
-        host: 'localhost',
+        host: 'localhost:8443',
         acct: 'vvc_test',
         contactId: 'abc-123456',
         token: 'abc.123.xyzz'

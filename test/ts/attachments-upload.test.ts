@@ -42,12 +42,12 @@ describe('Vivocha Attachment file upload tests', function() {
     process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
     let server;
     before('starting test HTTP server', async function() {
-      server = await startHTTPServer();
+      server = await startHTTPServer(8443);
       return;
     });
     it('calling upload should call and upload the file', async function() {
       const env = {
-        host: 'localhost',
+        host: 'localhost:8443',
         acct: 'vvc_test',
         contactId: 'abc-123456',
         token: 'abc.123.xyzz'
@@ -91,13 +91,13 @@ describe('Vivocha Attachment file upload tests', function() {
     process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
     let server;
     before('starting test HTTP server', async function() {
-      server = await startHTTPServer();
+      server = await startHTTPServer(8443);
       return;
     });
 
     it('calling upload should call and upload the stream by URL', async function() {
       const env = {
-        host: 'localhost',
+        host: 'localhost:8443',
         acct: 'vvc_test',
         contactId: 'abc-123456',
         token: 'abc.123.xyzz'
