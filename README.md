@@ -4,7 +4,7 @@ _JavaScript / TypeScript SDK to create Bot Agents and Filters for the [Vivocha](
 
 | ![Logo](https://raw.githubusercontent.com/vivocha/bot-sdk/master/docs/bot-sdk.svg?sanitize=true) |
 | :-----------------------------------------------------------------------------------: |
-| ![npm](https://img.shields.io/npm/v/@vivocha/bot-sdk.svg?style=flat)  [![Build Status](https://travis-ci.org/vivocha/bot-sdk.svg?branch=master)](https://travis-ci.org/vivocha/bot-sdk) |
+| [![NPM version](https://img.shields.io/npm/v/@vivocha/bot-sdk.svg?style=flat)](https://www.npmjs.com/package/@vivocha/bot-sdk)  [![Build Status](https://travis-ci.org/vivocha/bot-sdk.svg?branch=master)](https://travis-ci.org/vivocha/bot-sdk) |
 
 
 ---
