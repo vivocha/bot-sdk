@@ -1,7 +1,7 @@
 dist: trusty
 language: node_js
 node_js:
-  - 'lts/*'
+  - lts/*
   - '8'
 cache:
   directories:
@@ -11,9 +11,8 @@ branches:
     - master
 notifications:
   email: false
-
 before_install:
-
+  - openssl aes-256-cbc -K $encrypted_7cc14e94d780_key -iv $encrypted_7cc14e94d780_iv -in .env.enc -out .env -d
 before_script:
   - npm prune
 script:
@@ -22,4 +21,4 @@ script:
   - npm run check-coverage
 after_success:
   - npm run report-coverage
-  - npm run semantic-release
+  - npm run semantic-release-dry

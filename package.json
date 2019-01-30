@@ -18,7 +18,8 @@
     "test": "find ./test/ts -type f -name '*.js' -delete && npm run build && tsc -p test && mocha --exit --no-timeouts --recursive --reporter mochawesome --reporter-options reportDir=test-results test/**/*.test.js",
     "test:debug": "npm run build && tsc -p test && mocha --inspect-brk --recursive test/**/*.test.js",
     "cover": "./node_modules/.bin/nyc --reporter=lcov --reporter=text npm t",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "semantic-release-dry": "semantic-release --dry-run"
   },
   "repository": {
     "type": "git",
