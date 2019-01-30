@@ -98,7 +98,7 @@ export class BotFilter extends API {
       swagger: '2.0',
       info: {
         title: 'Vivocha BotFilter API',
-        version: '3.2.0'
+        version: '3.3.0'
       },
       paths: {}
     });

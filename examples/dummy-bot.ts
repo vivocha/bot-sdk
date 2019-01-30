@@ -48,7 +48,7 @@ manager.registerAgent(
         response.context['token'] = (msg.environment as any).token;
       }
       response.messages = [
-        BotMessage.createSimpleTextMessage('Hello! I am a DummyBot from Bot SDK 3.2.0 😎'),
+        BotMessage.createSimpleTextMessage('Hello! I am a DummyBot from Bot SDK 3.3.0 😎'),
         {
           code: 'message',
           type: 'text',
@@ -193,76 +193,20 @@ manager.registerAgent(
                     {
                       title: 'Here is the full list of commands you can send me',
                       buttons: [
-                        {
-                          type: 'postback',
-                          title: 'quick',
-                          payload: 'quick'
-                        },
-                        {
-                          type: 'postback',
-                          title: 'team',
-                          payload: 'team'
-                        },
-                        {
-                          type: 'postback',
-                          title: 'cat',
-                          payload: 'cat'
-                        },
-                        {
-                          type: 'postback',
-                          title: 'cats',
-                          payload: 'cats'
-                        },
-                        {
-                          type: 'postback',
-                          title: 'code',
-                          payload: 'code'
-                        },
-                        {
-                          type: 'postback',
-                          title: 'async',
-                          payload: 'async'
-                        },
-                        {
-                          type: 'postback',
-                          title: 'attach',
-                          payload: 'attach'
-                        },
-                        {
-                          type: 'postback',
-                          title: 'up-attach-file',
-                          payload: 'up-attach-file'
-                        },
-                        {
-                          type: 'postback',
-                          title: 'up-attach-url',
-                          payload: 'up-attach-url'
-                        },
-                        {
-                          type: 'postback',
-                          title: 'send-action',
-                          payload: 'send-action'
-                        },
-                        {
-                          type: 'postback',
-                          title: 'send-is-writing',
-                          payload: 'send-is-writing'
-                        },
-                        {
-                          type: 'postback',
-                          title: 'transfer',
-                          payload: 'trasfer'
-                        },
-                        {
-                          type: 'postback',
-                          title: 'transfer-with-data',
-                          payload: 'transfer-with-data'
-                        },
-                        {
-                          type: 'postback',
-                          title: 'bye',
-                          payload: 'bye'
-                        }
+                        BotMessage.createPostbackButton('quick', 'quick'),
+                        BotMessage.createPostbackButton('team', 'team'),
+                        BotMessage.createPostbackButton('cat', 'cat'),
+                        BotMessage.createPostbackButton('cats', 'cats'),
+                        BotMessage.createPostbackButton('code', 'code'),
+                        BotMessage.createPostbackButton('async', 'async'),
+                        BotMessage.createPostbackButton('attach', 'attach'),
+                        BotMessage.createPostbackButton('up-attach-file', 'up-attach-file'),
+                        BotMessage.createPostbackButton('up-attach-url', 'up-attach-url'),
+                        BotMessage.createPostbackButton('send-action', 'send-action'),
+                        BotMessage.createPostbackButton('send-is-writing', 'send-is-writing'),
+                        BotMessage.createPostbackButton('transfer', 'transfer'),
+                        BotMessage.createPostbackButton('transfer-with-data', 'transfer-with-data'),
+                        BotMessage.createPostbackButton('bye', 'bye')
                       ]
                     }
                   ] // end elements

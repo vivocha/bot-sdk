@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import { BotAgentManager, BotFilter, BotRequest, BotResponse, TextMessage } from '../../dist/index';
+import { BotAgentManager, BotRequest, BotResponse, TextMessage, BotMessage } from '../../dist/index';
 import * as request from 'request';
 
 // got is just a simple library to perform http requests (see below in the BotAgent code)
@@ -92,13 +92,7 @@ dummyBot.registerAgent(
             ];
             break;
           case 'ciao':
-            response.messages = [
-              {
-                code: 'message',
-                type: 'text',
-                body: 'hello :)'
-              } as TextMessage
-            ];
+            response.messages = [BotMessage.createSimpleTextMessage('hello :)')];
             break;
           case 'ok':
             const replies = ['Good! :)', ':)', 'yup! :D', 'oook!', 'yep!', ';)'];
@@ -156,6 +150,25 @@ dummyBot.registerAgent(
                   }
                 ]
               } as any
+            ];
+            response.event = 'continue';
+            break;
+          case 'quick2':
+            response.messages = [
+              BotMessage.createTextMessageWithQuickReplies('Just an example of quick replies... choose a color?', [
+                {
+                  title: 'Red',
+                  payload: 'red'
+                },
+                {
+                  title: 'Blue',
+                  payload: 'blue'
+                },
+                {
+                  title: 'White',
+                  payload: 'white'
+                }
+              ])
             ];
             response.event = 'continue';
             break;
@@ -305,6 +318,36 @@ dummyBot.registerAgent(
                           title: 'OK',
                           payload: 'abcd 123'
                         }
+                      ]
+                    }
+                  ] // end elements
+                }
+              } as any
+            ];
+            response.event = 'continue';
+            break;
+          case 'cat2':
+            response.messages = [
+              {
+                code: 'message',
+                type: 'text',
+                template: {
+                  type: 'generic',
+                  elements: [
+                    {
+                      title: 'Meow2!',
+                      image_url:
+                        'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Tajeschidolls_Beren_of_LoveLorien_Ragdoll_Seal_Mink_Lynx_Bicolor.jpg/1024px-Tajeschidolls_Beren_of_LoveLorien_Ragdoll_Seal_Mink_Lynx_Bicolor.jpg',
+                      subtitle: 'We have the right cat for everyone.',
+
+                      default_action: {
+                        type: 'web_url',
+                        url: 'https://en.wikipedia.org/wiki/Cat'
+                      },
+
+                      buttons: [
+                        BotMessage.createWebUrlButton('View Website', 'https://en.wikipedia.org/wiki/Cat'),
+                        BotMessage.createPostbackButton('OK', 'abcd 123')
                       ]
                     }
                   ] // end elements

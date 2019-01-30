@@ -229,14 +229,10 @@ describe('Testing BotMessage creation factory', function() {
         BotMessage.createQuickReplies(undefined);
       }.should.throw(Error, /quickReplies param must be valid/));
     });
-    describe('Calling createIsWritingMessage', function() {
-      it('it should return a correct TextMessage', function() {
-        const msg = BotMessage.createIsWritingMessage();
-        msg.should.deep.equal({
-          code: 'message',
-          type: 'iswriting'
-        });
-      });
+    it('for a quick reply definition without a title, it should throw an error', function() {
+      (function() {
+        BotMessage.createQuickReplies([{ title: undefined, payload: 'not ok' }]);
+      }.should.throw(Error, /a quick reply must have at least a title/));
     });
   });
   describe('Calling createIsWritingMessage', function() {
@@ -246,6 +242,56 @@ describe('Testing BotMessage creation factory', function() {
         code: 'message',
         type: 'iswriting'
       });
+    });
+  });
+  describe('Calling createWebUrlButton()', function() {
+    it('with title and url should return a valid Web URL Button', function() {
+      const btn = BotMessage.createWebUrlButton('Go to Wikipedia', 'https://wikipedia.org');
+      btn.should.deep.equal({
+        type: 'web_url',
+        title: 'Go to Wikipedia',
+        url: 'https://wikipedia.org'
+      });
+    });
+    it('with missing params, it should throw an error', function() {
+      (function() {
+        BotMessage.createWebUrlButton(undefined, undefined);
+      }.should.throw(Error, /In a WebURLButton, title and url are required/));
+    });
+    it('with missing url param, it should throw an error', function() {
+      (function() {
+        BotMessage.createWebUrlButton('a button', undefined);
+      }.should.throw(Error, /In a WebURLButton, title and url are required/));
+    });
+    it('with missing title param, it should throw an error', function() {
+      (function() {
+        BotMessage.createWebUrlButton(undefined, 'http://wikipedia.org');
+      }.should.throw(Error, /In a WebURLButton, title and url are required/));
+    });
+  });
+  describe('Calling createPostbackButton()', function() {
+    it('with title and payload should return a valid Postback Button', function() {
+      const btn = BotMessage.createPostbackButton('Buy', 'Buy #123');
+      btn.should.deep.equal({
+        type: 'postback',
+        title: 'Buy',
+        payload: 'Buy #123'
+      });
+    });
+    it('with missing params, it should throw an error', function() {
+      (function() {
+        BotMessage.createPostbackButton(undefined, undefined);
+      }.should.throw(Error, /In a PostbackButton, title and payload are required/));
+    });
+    it('with missing payload param, it should throw an error', function() {
+      (function() {
+        BotMessage.createPostbackButton('a button', undefined);
+      }.should.throw(Error, /In a PostbackButton, title and payload are required/));
+    });
+    it('with missing title param, it should throw an error', function() {
+      (function() {
+        BotMessage.createPostbackButton(undefined, 'Buy #123');
+      }.should.throw(Error, /In a PostbackButton, title and payload are required/));
     });
   });
 });

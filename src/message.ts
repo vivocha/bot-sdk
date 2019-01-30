@@ -5,7 +5,23 @@ export interface QuickReply {
   payload?: string | number;
   image_url?: string;
 }
+export interface WebUrlButton {
+  type: 'web_url';
+  title: string;
+  url: string;
+}
+export interface PostbackButton {
+  type: 'postback';
+  title: string;
+  payload: string;
+}
 
+/**
+ * Utility class exposing static methods to compose common used Vivocha Bot Messages.
+ *
+ * @export
+ * @class BotMessage
+ */
 export class BotMessage {
   public static createSimpleTextMessage(body: string): TextMessage {
     if (!body) {
@@ -60,6 +76,28 @@ export class BotMessage {
           return quickReply;
         }
       });
+    }
+  }
+  public static createWebUrlButton(title: string, url: string): WebUrlButton {
+    if (!title || !url) {
+      throw new Error('In a WebURLButton, title and url are required');
+    } else {
+      return {
+        type: 'web_url',
+        title,
+        url
+      };
+    }
+  }
+  public static createPostbackButton(title: string, payload: string): PostbackButton {
+    if (!title || !payload) {
+      throw new Error('In a PostbackButton, title and payload are required');
+    } else {
+      return {
+        type: 'postback',
+        title,
+        payload
+      };
     }
   }
 }
