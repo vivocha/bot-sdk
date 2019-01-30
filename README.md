@@ -52,9 +52,9 @@ or
   - [TemplateElement](https://github.com/vivocha/bot-sdk#templateelement)
   - [DefaultAction](https://github.com/vivocha/bot-sdk#defaultaction)
   - [Button](https://github.com/vivocha/bot-sdk#button)
-  - [PostbackButton](https://github.com/vivocha/bot-sdk#postbackbutton)
-  - [WebURLButton](https://github.com/vivocha/bot-sdk#weburlbutton)
-  - [CustomEventButton](https://github.com/vivocha/bot-sdk#customeventbutton)
+    - [PostbackButton](https://github.com/vivocha/bot-sdk#postbackbutton)
+    - [WebURLButton](https://github.com/vivocha/bot-sdk#weburlbutton)
+    - [CustomEventButton](https://github.com/vivocha/bot-sdk#customeventbutton)
 - [Bot Messages Utilities](https://github.com/vivocha/bot-sdk#bot-messages-utilities)
 - [BotManager](https://github.com/vivocha/bot-sdk#botmanager)
   - [Registering a Bot Agent](https://github.com/vivocha/bot-sdk#registering-a-bot-agent)
@@ -732,7 +732,7 @@ Properties are (required are in **bold**):
 
 A Button object can be one of the following types: **[PostbackButton](https://github.com/vivocha/bot-sdk#postbackbutton)**, **[WebURLButton](https://github.com/vivocha/bot-sdk#weburlbutton)** or a **[CustomEventButton](https://github.com/vivocha/bot-sdk#customeventbutton)**
 
-#### [PostbackButton](#postbackbutton)
+##### [PostbackButton](#postbackbutton)
 
 A postback button is used to send back to the bot a response made of a title and a payload.
 
@@ -745,7 +745,7 @@ Properties are (required are in **bold**):
 | **`payload`** | string                           | a custom payload to send back to the bot                        |
 ---
 
-#### [WebURLButton](#weburlbutton)
+##### [WebURLButton](#weburlbutton)
 
 A WebURL button is used to open a web page at the specified URL.
 
@@ -758,7 +758,7 @@ Properties are (required are in **bold**):
 | **`url`**   | string                          | the URL of the page to open when the button is pressed |
 ---
 
-#### [CustomEventButton](#customeventbutton)
+##### [CustomEventButton](#customeventbutton)
 
 This button allows to fire a custom event in the website page where the Vivocha interaction app / chat is running.
 In order to work, a _contact-custom-event_ must be configured in the particular Vivocha Campaign.
@@ -958,9 +958,9 @@ A BotResponse including a **List Template**:
 
 ## [Bot Messages Utilities](#bot-messages-utilities)
 
-The Bot SDK provides an utility class, exposing some static methods, to make easier to "compose" some of the most frequently used Vivocha bot messages.
+The Bot SDK provides a `BotMessage` utility class to make easier "composing" some of the most frequently used Vivocha bot messages and messages elements.
 
-The utility class to import is `BotMessage`, and it exposes the following (static) methods:
+The `BotMessage` class exposes the following (static) methods:
 
 ```javascript
 BotMessage.createSimpleTextMessage(body: string): TextMessage
@@ -1000,6 +1000,22 @@ BotMessage.createIsWritingMessage(): IsWritingMessage
 ```
 
 Creates and returns an IsWriting Message.
+
+---
+
+```javascript
+BotMessage.createWebUrlButton(title: string, url: string): WebUrlButton
+```
+
+Creates and returns a WebURLButton.
+
+---
+
+```javascript
+createPostbackButton(title: string, payload: string): PostbackButton
+```
+
+Creates and returns a PostbackButton.
 
 ---
 ---
