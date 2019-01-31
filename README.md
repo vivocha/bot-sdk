@@ -4,7 +4,7 @@ _JavaScript / TypeScript SDK to create Bot Agents and Filters for the [Vivocha](
 
 | ![Logo](https://raw.githubusercontent.com/vivocha/bot-sdk/master/docs/bot-sdk.svg?sanitize=true) |
 | :-----------------------------------------------------------------------------------: |
-| [![NPM version](https://img.shields.io/npm/v/@vivocha/bot-sdk.svg?style=flat)](https://www.npmjs.com/package/@vivocha/bot-sdk)  [![Build Status](https://travis-ci.org/vivocha/bot-sdk.svg?branch=master)](https://travis-ci.org/vivocha/bot-sdk) |
+| [![NPM version](https://img.shields.io/npm/v/@vivocha/bot-sdk.svg?style=flat)](https://www.npmjs.com/package/@vivocha/bot-sdk)  [![Build Status](https://travis-ci.org/vivocha/bot-sdk.svg?branch=master)](https://travis-ci.org/vivocha/bot-sdk)  [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)|
 
 
 ---
@@ -966,24 +966,24 @@ The `BotMessage` class exposes the following (static) methods:
 BotMessage.createSimpleTextMessage(body: string): TextMessage
 ```
 
-Creates and returns a TextMessage, given a string to use as the body of the message.
+Creates and returns a [Text Message](https://github.com/vivocha/bot-sdk#text-message), given a string to use as the body of the message.
 
 ---
 
 ```javascript
-BotMessage.createTextMessageWithQuickReplies(body: string, quickReplies: QuickReply[]): TextMessage
+BotMessage.createTextMessageWithQuickReplies(body: string, quickReplies: QuickReply[] | string[]): TextMessage
 ```
 
-Creates and returns a TextMessage with the `quick_replies` property set, given a string to use as the body of the message and an array of quick replies definitions.
+Creates and returns a [Text Message](https://github.com/vivocha/bot-sdk#text-message) with the `quick_replies` property set, given a string to use as the body of the message and an array of quick replies title strings or complete definition objects.
 
 ---
 
 ```javascript
-BotMessage.createQuickReplies(quickReplies: QuickReply[]): MessageQuickReply[]
+BotMessage.createQuickReplies(quickReplies: QuickReply[] | string[]): MessageQuickReply[]
 ```
 
-Creates and returns an array of correctly set quick replies, given an array of simplified quick replies definitions.
-Useful to create and set the `quick_replies` property of a TextMessage.
+Creates and returns an array of correctly set [MessageQuickReply](https://github.com/vivocha/bot-sdk#messagequickreply), given an array of simplified quick replies definitions, or an array of strings to be used both as title and payload of a quick reply.
+This methos is useful to create and set the `quick_replies` property of a TextMessage.
 
 ---
 
@@ -991,7 +991,7 @@ Useful to create and set the `quick_replies` property of a TextMessage.
 BotMessage.createActionMessage(actionCode: string, args: any[] = []): ActionMessage
 ```
 
-Creates and returns an Action Message given its `action_code` and (optionally) its `args`.
+Creates and returns an [Action Message](https://github.com/vivocha/bot-sdk#action-message) given its `action_code` and (optionally) its `args`.
 
 ---
 
@@ -999,7 +999,7 @@ Creates and returns an Action Message given its `action_code` and (optionally) i
 BotMessage.createIsWritingMessage(): IsWritingMessage
 ```
 
-Creates and returns an IsWriting Message.
+Creates and returns an [IsWriting Message](https://github.com/vivocha/bot-sdk#iswriting-message).
 
 ---
 
@@ -1007,15 +1007,23 @@ Creates and returns an IsWriting Message.
 BotMessage.createWebUrlButton(title: string, url: string): WebUrlButton
 ```
 
-Creates and returns a WebURLButton.
+Creates and returns a [WebURLButton](https://github.com/vivocha/bot-sdk#weburlbutton).
 
 ---
 
 ```javascript
-createPostbackButton(title: string, payload: string): PostbackButton
+BotMessage.createPostbackButton(title: string, payload: string): PostbackButton
 ```
 
-Creates and returns a PostbackButton.
+Creates and returns a [PostbackButton](https://github.com/vivocha/bot-sdk#postbackbutton).
+
+---
+
+```javascript
+BotMessage.createDefaultAction(url: string): DefaultAction
+```
+
+Creates and returns a [DefaultAction](https://github.com/vivocha/bot-sdk#defaultaction) object to be set in a Generic Template element.
 
 ---
 ---
@@ -2553,14 +2561,14 @@ Done.
 
 ## [Running Tests](#running-tests)
 
-In order to run the tests you need a [Wit.ai](https://wit.ai) account.
+In order to locally run the tests you need a [Wit.ai](https://wit.ai) account.
 
 Then, in your Wit.ai console:
 
 1. create a new app by **importing** the `/test/data/witai-test-app.zip` file, name it as you prefer;
 2. in app _settings_ section, generate a _Client Access Token_, copy it;
 
-Then, in the Bot SDK project:
+Then, in your copy of the Bot SDK project:
 
 3. create a `.env` file in the root directory
 4. in the `.env` file add the following line:

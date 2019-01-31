@@ -74,6 +74,64 @@ describe('Testing BotMessage creation factory', function() {
       }.should.throw(Error, /quickReplies param must be valid/));
     });
   });
+  describe('Calling createTextMessageWithQuickReplies() with quick replies expressed as an array of strings', function() {
+    it('with a body string and a good array of quick replies strings, it should return a correct TextMessage', function() {
+      const msg = BotMessage.createTextMessageWithQuickReplies('Choose a color', ['red', 'blue', 'WHITE', '10']);
+      msg.should.deep.equal({
+        code: 'message',
+        type: 'text',
+        body: 'Choose a color',
+        quick_replies: [
+          {
+            content_type: 'text',
+            title: 'red',
+            payload: 'red'
+          },
+          {
+            content_type: 'text',
+            title: 'blue',
+            payload: 'blue'
+          },
+          {
+            content_type: 'text',
+            title: 'WHITE',
+            payload: 'WHITE'
+          },
+          {
+            content_type: 'text',
+            title: '10',
+            payload: '10'
+          }
+        ]
+      });
+    });
+    it('with a body string and an ampty array of quick replies def, it should return a message with quick_replies as an empty array', function() {
+      const msg = BotMessage.createTextMessageWithQuickReplies('Choose a color', []);
+      msg.should.deep.equal({
+        code: 'message',
+        type: 'text',
+        body: 'Choose a color',
+        quick_replies: []
+      });
+    });
+    it('with an undefined body param, it should throw an error', function() {
+      (function() {
+        BotMessage.createTextMessageWithQuickReplies(undefined, [
+          {
+            title: 'red'
+          },
+          {
+            title: 'blue'
+          }
+        ]);
+      }.should.throw(Error, /body string is required for a TextMessage/));
+    });
+    it('with an good body param and an undefined array of quick replies def, it should throw an error', function() {
+      (function() {
+        BotMessage.createTextMessageWithQuickReplies('Choose a color', undefined);
+      }.should.throw(Error, /quickReplies param must be valid/));
+    });
+  });
   describe('Calling createActionMessage()', function() {
     it('with a string and no args, it should return a correct ActionMessage', function() {
       const msg = BotMessage.createActionMessage('myAction');
