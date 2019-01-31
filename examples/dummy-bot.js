@@ -42,23 +42,7 @@ manager.registerAgent('custom', async (msg) => {
         }
         response.messages = [
             index_1.BotMessage.createSimpleTextMessage('Hello! I am a DummyBot from Bot SDK 3.3.0 😎'),
-            {
-                code: 'message',
-                type: 'text',
-                body: 'To start, choose one of the following options to see what I can do for you ',
-                quick_replies: [
-                    {
-                        title: 'fullhelp',
-                        payload: 'fullhelp',
-                        content_type: 'text'
-                    },
-                    {
-                        title: 'help',
-                        payload: 'help',
-                        content_type: 'text'
-                    }
-                ]
-            }
+            index_1.BotMessage.createTextMessageWithQuickReplies('To start, choose one of the following options to see what I can do for you', ['fullhelp', 'help'])
         ];
         response.data = {};
     }

@@ -224,6 +224,39 @@ describe('Testing a generic Bot Agent (Dummy Bot) ', function() {
       ]);
       return;
     });
+    it('sending quick3, it should reply with three quick_replies', async function() {
+      const request1: BotRequest = {
+        language: 'en',
+        event: 'continue',
+        settings: getSettings(),
+        message: getTextMessage('quick3')
+      };
+      //console.dir(request1, { colors: true, depth: 20 });
+      const result1 = await http(getHTTPOptions(request1));
+      //console.dir(result1, { colors: true, depth: 20 });
+      result1.event.should.equal('continue');
+      result1.messages.should.have.lengthOf(1);
+      result1.messages[0].body.should.contain('Just an example of quick replies... choose a color?');
+      result1.messages[0].quick_replies.should.have.lengthOf(3);
+      result1.messages[0].quick_replies.should.deep.equal([
+        {
+          content_type: 'text',
+          title: 'red',
+          payload: 'red'
+        },
+        {
+          content_type: 'text',
+          title: 'blue',
+          payload: 'blue'
+        },
+        {
+          content_type: 'text',
+          title: 'white',
+          payload: 'white'
+        }
+      ]);
+      return;
+    });
     it('sending cat, it should reply with a template', async function() {
       const request1: BotRequest = {
         language: 'en',
@@ -268,6 +301,10 @@ describe('Testing a generic Bot Agent (Dummy Bot) ', function() {
       template.elements[0].should.have.property('image_url');
       template.elements[0].should.have.property('subtitle');
       template.elements[0].should.have.property('default_action');
+      template.elements[0].default_action.should.deep.equal({
+        type: 'web_url',
+        url: 'https://en.wikipedia.org/wiki/Cat'
+      });
       template.elements[0].should.have.property('buttons');
       const buttons = template.elements[0].buttons;
       buttons[0].should.deep.equal({

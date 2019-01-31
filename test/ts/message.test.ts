@@ -99,7 +99,7 @@ describe('Testing BotMessage creation factory', function() {
       }.should.throw(Error, /action_code string is required for an ActionMessage/));
     });
   });
-  describe('Calling createQuickReplies()', function() {
+  describe('Calling createQuickReplies() from an array of QuickReply definitions', function() {
     it('with an array of two good text-based quick replies and no payload, should return a correct quick reply message array with titles and payloads from titles', function() {
       const msg = BotMessage.createQuickReplies([
         {
@@ -235,6 +235,52 @@ describe('Testing BotMessage creation factory', function() {
       }.should.throw(Error, /a quick reply must have at least a title/));
     });
   });
+  describe('Calling createQuickReplies() from an array of strings', function() {
+    it('with an array of two good text-based quick replies should return a correct quick reply message array with titles and payloads from titles', function() {
+      const msg = BotMessage.createQuickReplies(['red', 'blue']);
+      msg.should.deep.equal([
+        {
+          content_type: 'text',
+          title: 'red',
+          payload: 'red'
+        },
+        {
+          content_type: 'text',
+          title: 'blue',
+          payload: 'blue'
+        }
+      ]);
+    });
+    it('with an array of three good text-based quick replies should return a correct quick reply message array with titles and payloads', function() {
+      const msg = BotMessage.createQuickReplies(['red', 'blue', 'white']);
+      msg.should.deep.equal([
+        {
+          content_type: 'text',
+          title: 'red',
+          payload: 'red'
+        },
+        {
+          content_type: 'text',
+          title: 'blue',
+          payload: 'blue'
+        },
+        {
+          content_type: 'text',
+          title: 'white',
+          payload: 'white'
+        }
+      ]);
+    });
+    it('with an empty array, it should return an empty array', function() {
+      const msg = BotMessage.createQuickReplies([]);
+      msg.should.have.lengthOf(0);
+    });
+    it('with an undefined param, it should throw an error', function() {
+      (function() {
+        BotMessage.createQuickReplies(undefined);
+      }.should.throw(Error, /quickReplies param must be valid/));
+    });
+  });
   describe('Calling createIsWritingMessage', function() {
     it('it should return a correct TextMessage', function() {
       const msg = BotMessage.createIsWritingMessage();
@@ -292,6 +338,20 @@ describe('Testing BotMessage creation factory', function() {
       (function() {
         BotMessage.createPostbackButton(undefined, 'Buy #123');
       }.should.throw(Error, /In a PostbackButton, title and payload are required/));
+    });
+  });
+  describe('Calling createDefaultAction()', function() {
+    it('with valid url should return a DefaultAction', function() {
+      const btn = BotMessage.createDefaultAction('https://www.vivocha.com');
+      btn.should.deep.equal({
+        type: 'web_url',
+        url: 'https://www.vivocha.com'
+      });
+    });
+    it('with missing params, it should throw an error', function() {
+      (function() {
+        BotMessage.createDefaultAction(undefined);
+      }.should.throw(Error, /In a DefaultAction url is required/));
     });
   });
 });

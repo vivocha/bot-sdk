@@ -172,6 +172,10 @@ dummyBot.registerAgent(
             ];
             response.event = 'continue';
             break;
+          case 'quick3':
+            response.messages = [BotMessage.createTextMessageWithQuickReplies('Just an example of quick replies... choose a color?', ['red', 'blue', 'white'])];
+            response.event = 'continue';
+            break;
           case 'help':
             response.messages = [
               {
@@ -340,10 +344,7 @@ dummyBot.registerAgent(
                         'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Tajeschidolls_Beren_of_LoveLorien_Ragdoll_Seal_Mink_Lynx_Bicolor.jpg/1024px-Tajeschidolls_Beren_of_LoveLorien_Ragdoll_Seal_Mink_Lynx_Bicolor.jpg',
                       subtitle: 'We have the right cat for everyone.',
 
-                      default_action: {
-                        type: 'web_url',
-                        url: 'https://en.wikipedia.org/wiki/Cat'
-                      },
+                      default_action: BotMessage.createDefaultAction('https://en.wikipedia.org/wiki/Cat'),
 
                       buttons: [
                         BotMessage.createWebUrlButton('View Website', 'https://en.wikipedia.org/wiki/Cat'),

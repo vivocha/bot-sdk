@@ -15,6 +15,10 @@ export interface PostbackButton {
   title: string;
   payload: string;
 }
+export interface DefaultAction {
+  type: 'web_url';
+  url: string;
+}
 
 /**
  * Utility class exposing static methods to compose common used Vivocha Bot Messages.
@@ -34,7 +38,7 @@ export class BotMessage {
       } as TextMessage;
     }
   }
-  public static createTextMessageWithQuickReplies(body: string, quickReplies: QuickReply[]): TextMessage {
+  public static createTextMessageWithQuickReplies(body: string, quickReplies: QuickReply[] | string[]): TextMessage {
     const txtMsg = BotMessage.createSimpleTextMessage(body);
     txtMsg.quick_replies = BotMessage.createQuickReplies(quickReplies);
     return txtMsg;
@@ -57,23 +61,32 @@ export class BotMessage {
       } as ActionMessage;
     }
   }
-  public static createQuickReplies(quickReplies: QuickReply[]): MessageQuickReply[] {
+  public static createQuickReplies(quickReplies: QuickReply[] | string[]): MessageQuickReply[] {
     if (!quickReplies) {
       throw new Error('quickReplies param must be valid');
     } else {
-      return quickReplies.map(qr => {
-        if (!qr.title) {
-          throw new Error('a quick reply must have at least a title');
-        } else {
+      return (quickReplies as any[]).map(qr => {
+        if (typeof qr === 'string') {
           const quickReply: MessageQuickReply = {
             content_type: 'text',
-            title: qr.title,
-            payload: qr.payload || qr.title
+            title: qr,
+            payload: qr
           };
-          if (qr.image_url) {
-            quickReply.image_url = qr.image_url;
-          }
           return quickReply;
+        } else {
+          if (!qr.title) {
+            throw new Error('a quick reply must have at least a title');
+          } else {
+            const quickReply: MessageQuickReply = {
+              content_type: 'text',
+              title: qr.title,
+              payload: qr.payload || qr.title
+            };
+            if (qr.image_url) {
+              quickReply.image_url = qr.image_url;
+            }
+            return quickReply;
+          }
         }
       });
     }
@@ -97,6 +110,16 @@ export class BotMessage {
         type: 'postback',
         title,
         payload
+      };
+    }
+  }
+  public static createDefaultAction(url: string): DefaultAction {
+    if (!url) {
+      throw new Error('In a DefaultAction url is required');
+    } else {
+      return {
+        type: 'web_url',
+        url
       };
     }
   }

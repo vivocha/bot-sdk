@@ -49,23 +49,7 @@ manager.registerAgent(
       }
       response.messages = [
         BotMessage.createSimpleTextMessage('Hello! I am a DummyBot from Bot SDK 3.3.0 😎'),
-        {
-          code: 'message',
-          type: 'text',
-          body: 'To start, choose one of the following options to see what I can do for you ',
-          quick_replies: [
-            {
-              title: 'fullhelp',
-              payload: 'fullhelp',
-              content_type: 'text'
-            },
-            {
-              title: 'help',
-              payload: 'help',
-              content_type: 'text'
-            }
-          ]
-        } as TextMessage
+        BotMessage.createTextMessageWithQuickReplies('To start, choose one of the following options to see what I can do for you', ['fullhelp', 'help'])
       ];
       response.data = {};
     } else if ((msg.message as any).type === 'action') {
