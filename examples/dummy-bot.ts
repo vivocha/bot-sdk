@@ -182,6 +182,7 @@ manager.registerAgent(
                         BotMessage.createPostbackButton('cat', 'cat'),
                         BotMessage.createPostbackButton('cats', 'cats'),
                         BotMessage.createPostbackButton('code', 'code'),
+                        BotMessage.createPostbackButton('pagevent', 'pagevent'),
                         BotMessage.createPostbackButton('async', 'async'),
                         BotMessage.createPostbackButton('attach', 'attach'),
                         BotMessage.createPostbackButton('up-attach-file', 'up-attach-file'),
@@ -213,8 +214,12 @@ manager.registerAgent(
                       buttons: [
                         {
                           type: 'page_event',
-                          url: 'https://en.wikipedia.org/wiki/Cat',
-                          title: 'View Website'
+                          reason: 'test',
+                          params: {
+                            a: 10,
+                            b: 'ok'
+                          },
+                          title: 'Fire a custom event'
                         }
                       ]
                     }

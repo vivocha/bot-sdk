@@ -767,8 +767,39 @@ Properties are (required are in **bold**):
 
 | PROPERTY    | VALUE                                                                 | DESCRIPTION                |
 | ----------- | --------------------------------------------------------------------- | -------------------------- |
-| **`type`**  | string, a custom type string **excluding** `web_url` and `page_event` | the custom type            |
+| **`type`**  | string, a custom type string **other than** `web_url` and `postback`   | the custom type            |
 | **`title`** | string                                                                | the button text to display |
+| `<custom_properties...>` | any type | additional data to set in the custom event `context.data` property |
+
+**Example**: A BotResponse message containing a **CustomEventButton** with arbitrary custom properties
+
+```javascript
+{
+    code: 'message',
+    type: 'text',
+    body: 'Just an event',
+    template: {
+      type: 'generic',
+      elements: [
+        {
+          title: 'You can fire the following page events',
+          buttons: [
+            {
+              type: 'page_event',
+              reason: 'test',
+              params: {
+                a: 10,
+                b: 'ok'
+              },
+              title: 'Fire a custom event'
+            }
+          ]
+        }
+      ]
+    }
+}
+
+```
 
 ---
 
