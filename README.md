@@ -1355,6 +1355,9 @@ Next sections briefly provide some guidelines to integrate bots built by the thr
 ### [Dialogflow: integration guidelines](#dialogflow-integration-guidelines)
 
 [Dialogflow Bot Platform](https://dialogflow.com) allows the creation of conversation flows using its nice Intents feature.
+
+At the moment, the current version of the Vivocha built-in driver for Dialogflow supports **API V1 only**. Thus, be sure to select *API V1* when configuring your agent in the Dialogflow Console.
+
 Feel free to build your conversation flow as you prefer, related to the specific Bot application domain, BUT, in order to properly work with Vivocha taking advantage of the out-of-the-box support it provides, it is mandatory to follow some guidelines:
 
 1. Must exists in Dialogflow an intent configured to be triggered by a start event. The start event name configured in a Dialogflow intent must exactly match the start event configured in Vivocha; Default is: `start`.
