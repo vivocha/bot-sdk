@@ -2526,7 +2526,7 @@ module.exports.handler = serverless(toLambda(manager));
 
 where, in this case, `manager` is your `BotManager` instance.
 
-3. In the project root directory, create a `serverless.yaml` file (or copy one those contained in the examples directory, mentioned before in this document). This file should have a configuration like the following (related to a BotFilter):
+3. In the project root directory, create a `serverless.yaml` file (or copy one of those contained in the `examples directory`, as mentioned before in this document). This file should have a configuration like the following (related to a BotFilter):
 
 ```yaml
 # serverless.yml
@@ -2540,6 +2540,9 @@ provider:
   stage: dev
   # AWS region, change it as needed
   region: us-west-2
+  # Endpoint type, default is EDGE. Uncomment next line to deploy to closed gov clouds
+  #endpointType: REGIONAL
+  timeout: 30
 functions:
   # name of your Lambda function
   lambda-bot-filter:

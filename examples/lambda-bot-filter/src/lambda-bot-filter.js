@@ -1,12 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-// install and use @vivocha/bot-sdk to run this bot!
-const bot_sdk_1 = require("@vivocha/bot-sdk");
+// install and import @vivocha/bot-sdk to run this bot filter!
+// replace next line with:
+// import { BotFilter, BotRequest, toLambda, serverless } from '@vivocha/bot-sdk';
+const index_1 = require("../../../dist/index");
 // A really simple BotFilter implementation
-// which augments the BotRequest in input with a number of availableAgents 
+// which augments the BotRequest in input with a number of availableAgents
 // and sets if user is premium
 // (like in the domain of customer support services)
-const filter = new bot_sdk_1.BotFilter(async (msg) => {
+const filter = new index_1.BotFilter(async (msg) => {
     msg.data = msg.data || {};
     // maybe calling an API...
     msg.data.availableAgents = 5;
@@ -14,4 +16,4 @@ const filter = new bot_sdk_1.BotFilter(async (msg) => {
     msg.data.isPremiumUser = true;
     return msg;
 }, undefined);
-module.exports.handler = bot_sdk_1.serverless(bot_sdk_1.toLambda(filter));
+module.exports.handler = index_1.serverless(index_1.toLambda(filter));
