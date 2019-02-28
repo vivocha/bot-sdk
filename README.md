@@ -1,6 +1,6 @@
 # Vivocha Bot SDK
 
-_JavaScript / TypeScript SDK to create Bot Agents and Filters for the [Vivocha](https://www.vivocha.com) platform_
+_JavaScript / TypeScript SDK to create Bot Agents and Filters for the [Vivocha](https://www.vivocha.com) platform_.
 
 | ![Logo](https://raw.githubusercontent.com/vivocha/bot-sdk/master/docs/bot-sdk.svg?sanitize=true) |
 | :-----------------------------------------------------------------------------------: |
@@ -16,7 +16,7 @@ By creating a BotManager it is possible to register multi-platform bot implement
 
 ---
 
-**Node.js v8.x or v10.x is required**.
+**Tested with Node.js version 8.x and version 10.x**.
 
 To start with the Bot SDK it is recommended to:
 
@@ -65,10 +65,15 @@ or
 - [Sending Attachments](https://github.com/vivocha/bot-sdk#sending-attachments)
 - [Asynchronous Bot Responses](https://github.com/vivocha/bot-sdk#asynchronous-bot-responses)
 - [Supported Bot and NLP Platforms](https://github.com/vivocha/bot-sdk#supported-bot-and-nlp-platforms)
-  - [Dialogflow: integration guidelines](https://github.com/vivocha/bot-sdk#dialogflow-integration-guidelines)
-    - [Vivocha Rich Messages and Dialogflow](https://github.com/vivocha/bot-sdk#vivocha-rich-messages-and-dialogflow)
-    - [Dialogflow Hints and Tips](https://github.com/vivocha/bot-sdk#dialogflow-hints-and-tips)
-  - [IBM Watson Assistant: integration guidelines](https://github.com/vivocha/bot-sdk#ibm-watson-assistant-integration-guidelines)
+  - [Dialogflow](https://github.com/vivocha/bot-sdk#dialogflow)
+    - [Dialogflow V2](https://github.com/vivocha/bot-sdk#dialogflow-v2)
+      - [Vivocha Bot Messages and Dialogflow V2](https://github.com/vivocha/bot-sdk#vivocha-bot-messages-and-dialogflow-v2)
+      - [Data collection and Dialogflow System Entities](https://github.com/vivocha/bot-sdk#data-collection-and-dialogflow-system-entities)
+      - [Dialogflow Constraints, Hints and Tips](https://github.com/vivocha/bot-sdk#dialogflow-constraints-hints-and-tips)
+    - [Dialogflow V1](https://github.com/vivocha/bot-sdk#dialogflow-v1)
+      - [Vivocha Rich Messages and Dialogflow](https://github.com/vivocha/bot-sdk#vivocha-rich-messages-and-dialogflow)
+      - [Dialogflow Hints and Tips](https://github.com/vivocha/bot-sdk#dialogflow-hints-and-tips)
+  - [IBM Watson Assistant](https://github.com/vivocha/bot-sdk#ibm-watson-assistant)
     - [Vivocha Rich Messages and Watson Assistant](https://github.com/vivocha/bot-sdk#vivocha-rich-messages-and-watson-assistant)
     - [Watson Assistant Hints and Tips](https://github.com/vivocha/bot-sdk#watson-assistant-hints-and-tips)
   - [Wit.ai, writing chat bots](https://github.com/vivocha/bot-sdk#witai-writing-chat-bots)
@@ -1348,15 +1353,187 @@ Thus, an example of BotRequest `environment` for a start message could be:
 
 ## [Supported Bot and NLP Platforms](#supported-bot-and-nlp-platforms)
 
-Next sections briefly provide some guidelines to integrate bots built by the three supported platforms **and using the Vivocha native built-in drivers / settings**.
+Next sections briefly provide some guidelines to integrate bots built using some supported platforms through **the Vivocha native built-in drivers / settings**.
 
-**N.B.: Vivocha can be integrated with any Bot Platform**, if you're using a platform different than the supported you need to write a driver and a BotManager to use BotRequest / BotResponse messages and communicate with the particular, chosen, Bot Platform.
+**N.B.: Vivocha can be integrated with any Bot platform**, if you're using a platform different than the supported you need to write a driver able to receive / send Vivocha BotRequest / BotResponse messages and communicate with the particular, chosen, Bot Platform. This can be done using this Bot SDK.
 
-### [Dialogflow: integration guidelines](#dialogflow-integration-guidelines)
+### [Dialogflow](#dialogflow)
 
-[Dialogflow Bot Platform](https://dialogflow.com) allows the creation of conversation flows using its nice Intents feature.
+[Dialogflow Bot Platform](https://dialogflow.com) allows the creation of bot agents and conversation flows by its nice web console and related tools.
 
-At the moment, the current version of the Vivocha built-in driver for Dialogflow supports **API V1 only**. Thus, be sure to select *API V1* when configuring your agent in the Dialogflow Console.
+**WARNING: V1 of Dialogflow's API will be deprecated by Google on October 23, 2019.**
+Please migrate your existing bots to API V2, and enable API V2 for all your new Dialogflow bots.
+
+It is **recommended** to create a **Dialogflow V2** Vivocha Bot Agent for all new bots.
+
+#### [Dialogflow V2](#dialogflow-v2)
+
+Currently, **V2 is the default version of Dialogflow's API**, which is enabled by default for all newly created bots. In order to configure a new Dialogflow Bot in the *Vivocha Campaign Builder* you need to generate and download the authentication & authorization credentials from the Google Cloud Platform. Next session describes how to obtain the Google credentials for Dialogflow API V2.
+
+##### [Authentication and Configuration](#authentication-and-configuration)
+
+Dialogflow API V2 abandons using an API token and introduces the [Google Cloud Platform Service Account](https://developers.google.com/identity/protocols/OAuth2ServiceAccount) authentication mechanism.
+
+Briefly, to configure a Dialogflow V2 bot in Vivocha you need to configure the authentication in the Google Cloud Platform and to download the automatically generated JSON file, which contains the required credentials.
+To generate the authentication file, you can follow this [Setting up authentication](https://dialogflow.com/docs/reference/v2-auth-setup) guide, following  steps from 1 to 11.
+
+Summarizing, the required steps are:
+
+1. create / migrate a Dialogflow bot to API V2;
+2. enter in the *Google Cloud Platform*, clicking the *Project Id* name in Dialogflow settings;
+3. Select *IAM and Admin* on the menu and create a new *Service Account*:
+
+    3.1. enter a *name* for the service account;
+
+    3.2. set a *role*: under Dialogflow, select *Dialogflow API Client*;
+
+    3.3. create a key of type *JSON*; file download should start.
+
+At the end of the process you can download a JSON file. Quoting the Google documentation: *you can only download this file once, so make sure to save the file and keep it somewhere safe. If you lose this key or it becomes compromised, you can use the same process to create another.*
+
+Once you've downloaded the JSON file you can upload it in the related Bot Agent configuration page in the *Vivocha Campaign Builder > Library > External Services* section, be sure to select **Dialogflow V2** as Engine.
+
+Also, set a *start event* for the bot, as described in the [Dialogflow Constraints, Hints and Tips](https://github.com/vivocha/bot-sdk#dialogflow-constraints-hints-and-tips) section below.
+
+##### [Vivocha Bot Messages and Dialogflow V2](#vivocha-bot-messages-and-dialogflow-v2)
+
+Thanks to the Vivocha built-in support for Dialogflow V2, it is possible to directly send responses containing Vivocha Bot Messages (bot messages format is described in detail **[in this section](https://github.com/vivocha/bot-sdk#botmessage)**).
+
+To send Vivocha Bot Messages in a response from a Dialogflow _Intent_, just add a response with a _Custom payload_ by its console, and enter a valid JSON for the `messages` property, as required by the [Vivocha BotMessage](https://github.com/vivocha/bot-sdk#botmessage) format.
+
+For example, the following valid snippet is related to a response from Dialogflow with a custom payload for a Vivocha Bot message containing a carousel of two templates:
+
+```javascript
+{
+  "messages": [
+    {
+      "code": "message",
+      "type": "text",
+      "body": "Just an example of generic template",
+      "template": {
+        "type": "generic",
+        "elements": [
+          {
+            "title": "Meow!",
+            "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Tajeschidolls_Beren_of_LoveLorien_Ragdoll_Seal_Mink_Lynx_Bicolor.jpg/1024px-Tajeschidolls_Beren_of_LoveLorien_Ragdoll_Seal_Mink_Lynx_Bicolor.jpg",
+            "subtitle": "We have the right cat for everyone.",
+            "default_action": {
+              "type": "web_url",
+              "url": "https://en.wikipedia.org/wiki/Cat"
+            },
+            "buttons": [
+              {
+                "type": "web_url",
+                "url": "https://en.wikipedia.org/wiki/Cat",
+                "title": "View Website"
+              },
+              {
+                "type": "postback",
+                "title": "OK",
+                "payload": "OK"
+              }
+            ]
+          },
+          {
+            "title": "Meow!",
+            "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Adult_Scottish_Fold.jpg/1920px-Adult_Scottish_Fold.jpg",
+            "subtitle": "We have the right cat for everyone.",
+            "default_action": {
+              "type": "web_url",
+              "url": "https://en.wikipedia.org/wiki/Cat"
+            },
+            "buttons": [
+              {
+                "type": "web_url",
+                "url": "https://en.wikipedia.org/wiki/Cat",
+                "title": "View Website"
+              },
+              {
+                "type": "postback",
+                "title": "OK",
+                "payload": "OK"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+
+While the following is an example of a Dialogflow response with a custom payload containing a Vivocha message with quick replies:
+
+```javascript
+{
+  "messages": [
+    {
+      "code": "message",
+      "type": "text",
+      "body": "Hello from VVC Dialogflow V2, choose an action",
+      "quick_replies": [
+        {
+          "content_type": "text",
+          "title": "help",
+          "payload": "help"
+        },
+        {
+          "content_type": "text",
+          "title": "exit",
+          "payload": "exit"
+        },
+        {
+          "content_type": "text",
+          "title": "info",
+          "payload": "info"
+        }
+      ]
+    }
+  ]
+}
+```
+
+Sending a well-formed message enables the Vivocha interaction apps and widgets to correctly show these rich messages to the customer.
+
+##### [Data collection and Dialogflow System Entities](#data-collection-and-dialogflow-system-entities)
+
+Dialogflow's system entities are pre-built entities to facilitate handling the most popular common concepts and data types when extracting parameters, using slot-filling and handling entities and data, in general.
+
+The Vivocha built-in Dialogflow V2 driver automatically parse all system entities that produce a result as: 
+
+- a **string** (e.g., `@sys.any`, `@sys.date`, `@sys.address`, `@sys.color`, ...)
+- a **number** (e.g., `@sys.number`, `@sys.ordinal`, ...)
+- an **object** having the **amount** property (e.g., `@sys.age`, `@sys.unit-currency`, `@sys.temperature`, `@sys.duration`, ...).
+
+In all the other cases, the resulting *object* produced by Dialogflow for the particular system entity will be stringified, and the Vivocha `BotResponse.data` property will contain it unchanged and "raw".
+Read more about [Dialogflow System Entities](https://cloud.google.com/dialogflow-enterprise/docs/reference/system-entities) [here](https://cloud.google.com/dialogflow-enterprise/docs/reference/system-entities).
+
+##### [Dialogflow Constraints, Hints and Tips](#dialogflow-constraints-hints-and-tips)
+
+In order to seamlessly integrate a bot agent built with Dialogflow V2 with the Vivocha platform using the built-in driver, some contraints must be followed when creating the bot in the Dialogflow platform:
+
+1. the bot MUST HAVE an intent triggerable by a **event** to start the conversation. Vivocha will trigger it as the very first step to wake-up the bot. Usually, the bot replies with a welcome message. The name given to such event must be set as the *start event* configuration property in the Vivocha Campaign Builder;
+
+2. when the Dialogflow bot needs to **end the conversation** it must explicitely send an output context EXACTLY named *end*;
+
+3. **only for a start event**, when needed, the Vivocha platform sends data parameters bound to that start event (For example, the data collected by a pre-contact form). Then, the bot can extract required data from it using Dialogflow expressions like `#START.myParameter`. During the conversation, instead, Vivocha always sends data as parameters conveyed by a special context named *VVC_DATA_PAYLOAD_CONTEXT*. To have access to the conveyed data on bot-side, set this context in intents' input contexts, as required by your bot agent. Data can be accessed using expressions like: `#VVC_DATA_PAYLOAD_CONTEXT.myParameter`;
+
+4. when a message sent by Vivocha to the bot contains a *payload* (e.g., as resulting by pressing on a quick reply or on a postback button), data is set as the value of the property named *VVC_MessagePayload* in the parameters of the special context named *VVC_DATA_PAYLOAD_CONTEXT*; Thus, chat message payload can be accessed through the following Dialogflow expression: `#VVC_DATA_PAYLOAD_CONTEXT.VVC_MessagePayload`.
+
+5. be careful using contexts, they are the only powerful and exclusive way to correlate intents and follow-up intents in a conversation to build the entire conversation flow and branches;
+
+6. use slot-filling / parameters to collect data from the user; data will be collected by Dialogflow as parameters and set in the corresponding defined output contexts. Vivocha will automatically collect and set them in the Vivocha `BotResponse.data` property;
+
+7. in order to require a transfer to another agent, in the particular intent the bot must set an output context named *end* and it must be be instructed to set a `transferToAgent` parameter with an arbitrary corresponding string value. Then, that value must be used in the transfer configuration in the Vivocha admin console, as described in the [Transfer to Human Agents section](https://github.com/vivocha/bot-sdk#about-vivocha-bots-and-transfers-to-human-agents).
+
+---
+
+#### [Dialogflow V1](#dialogflow-v1)
+
+**WARNING: V1 of Dialogflow's API will be deprecated by Google on October 23, 2019.**
+Thus, starting from that date Vivocha platform will not support Dialogflow bots which use API V1, anymore. We encourage to migrate as soon as possible existing bots to use API V2 ([read this document about how to migrate](https://dialogflow.com/docs/reference/v1-v2-migration-guide)) to re-configure them in the Vivocha Campaign builder by creating a new *DialogflowV2* Bot. See [Dialogflow V2](https://github.com/vivocha/bot-sdk#dialogflow-v2)) for more info.
+
+**Starting from October 23, 2019 also this section of the documentation will be deprecated**
 
 Feel free to build your conversation flow as you prefer, related to the specific Bot application domain, BUT, in order to properly work with Vivocha taking advantage of the out-of-the-box support it provides, it is mandatory to follow some guidelines:
 
@@ -1368,7 +1545,7 @@ Feel free to build your conversation flow as you prefer, related to the specific
 
 4. When a message request forwarded to the bot contains the `payload` property (like in the case when it is sent as a reaction to a postback button, for example) and it is sent through the default Vivocha drivers, then the message `payload` value will be passed to Dialogflow through the `SESSION_MESSAGE_DATA_PAYLOAD_CONTEXT` context, as the value of a property named `VVC_MessagePayload`. Therefore, it can be retrieved in the Dialogflow bot logic, inside an intent, through the expression: `#SESSION_MESSAGE_DATA_PAYLOAD_CONTEXT.VVC_MessagePayload`.
 
-#### [Vivocha Rich Messages and Dialogflow](#vivocha-rich-messages-and-dialogflow)
+##### [Vivocha Rich Messages and Dialogflow](#vivocha-rich-messages-and-dialogflow)
 
 Thanks to the Vivocha built-in support for Dialogflow, it is possible to send from this bot platform responses containing rich Vivocha-compliant bot messages (bot messages format is described **[in this section](https://github.com/vivocha/bot-sdk#botmessage)**).
 
@@ -1437,7 +1614,7 @@ For example, the following valid snippet is related to a response from Dialogflo
 
 Sending a well-formed message enables the Vivocha interaction apps and widgets to correctly show these rich messages to the customer.
 
-#### [Dialogflow Hints and Tips](#dialogflow-hints-and-tips)
+##### [Dialogflow Hints and Tips](#dialogflow-hints-and-tips)
 
 In the Dialogflow console:
 
