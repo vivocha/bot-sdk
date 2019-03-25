@@ -1763,6 +1763,18 @@ Note that the `unknown` mapping is needed to handle all the cases when Wit.ai is
 
 More details can be found in the dedicated `examples/sample-wit.ts(.js)` sample files.
 
+#### [Wit.ai Bot Configuration](#witai-bot-configuration)
+
+In the *Vivocha Campaign Builder* configure a Bot Agent with *Engine == custom* and set a preferred string for *Engine type*. This string MUST be equal to the key provided to the `BotManager.registerAgent()` method in your bot code (see the `examples/sample-wit.ts(.js)` sample files). Moreover, configure the Bot Agent with the following JSON as settings:
+
+```json
+{
+    "token": "<Wit.ai SERVER ACCESS TOKEN>"
+}
+```
+
+where `<Wit.ai SERVER ACCESS TOKEN>` is the *Server (or Client) Access Token* provided by Wit.ai; it can be found in the *Wit Console > Settings*.
+
 #### [Wit.ai with Vivocha Hint and Tips](#witai-with-vivocha-hint-and-tips)
 
 - use BotRequest/BotResponse `context.contexts` array property to set contexts, in order to drive your bot in taking decisions about which conversation flow branch follow and about what reply to the user. To check contexts, the `WitAiBot`class provides the `inContext()` method. See the example to discover more;
