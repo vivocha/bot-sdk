@@ -77,6 +77,7 @@ or
     - [Vivocha Rich Messages and Watson Assistant](https://github.com/vivocha/bot-sdk#vivocha-rich-messages-and-watson-assistant)
     - [Watson Assistant Hints and Tips](https://github.com/vivocha/bot-sdk#watson-assistant-hints-and-tips)
   - [Wit.ai, writing chat bots](https://github.com/vivocha/bot-sdk#witai-writing-chat-bots)
+    - [Wit.ai Bot Configuration](https://github.com/vivocha/bot-sdk#witai-bot-configuration)
     - [Wit.ai with Vivocha Hint and Tips](https://github.com/vivocha/bot-sdk#witai-with-vivocha-hint-and-tips)
   - [Microsoft Bots](https://github.com/vivocha/bot-sdk#microsoft-bots)
     - [Using the Bot Framework version 4](https://github.com/vivocha/bot-sdk#using-the-bot-framework-version-4)
