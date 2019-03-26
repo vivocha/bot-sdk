@@ -3,7 +3,7 @@ import { BotRequest, BotResponse, BotMessageBody } from './index';
 import { Wit, log, MessageResponse } from 'node-wit';
 import * as _ from 'lodash';
 
-const logger = getLogger('WitAi-Bot');
+const logger = getLogger('vivocha.witai.driver');
 
 /**
  * Type definition for mapping WitAi intents to related intent handlers
@@ -14,6 +14,7 @@ export interface IntentsMap {
 }
 /**
  * Type definition for intent handler functions
+ * @param data - a Wit.ai MessageResponse, the complete response from Wit.ai API.
  */
 export interface IntentHandler {
   (data: any, request: BotRequest): Promise<NextMessage>;
