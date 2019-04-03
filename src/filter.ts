@@ -1,5 +1,6 @@
-import { BotRequestFilter, BotResponseFilter, BotRequest, BotResponse, EnvironmentInfo } from '@vivocha/public-entities/dist/bot';
-import { API, Resource, Operation, Swagger } from 'arrest';
+import { BotRequest, BotRequestFilter, BotResponse, BotResponseFilter, EnvironmentInfo } from '@vivocha/public-entities/dist/bot';
+import { API, Operation, Resource } from 'arrest';
+import { OpenAPIV3 } from 'openapi-police';
 import { getVvcEnvironment } from './util';
 
 const defaultRequestFilter: BotRequestFilter = async (): Promise<BotRequest> => {
@@ -23,22 +24,27 @@ class BotFilterResource extends Resource {
 class FilterRequest extends Operation {
   constructor(resource: BotFilterResource, protected filter: BotRequestFilter = defaultRequestFilter) {
     super(resource, '/request', 'post', 'request');
-    this.setInfo({
-      parameters: [
-        {
-          in: 'body',
-          schema: { $ref: 'schemas/bot_request' }
+  }
+  protected getCustomInfo(): OpenAPIV3.OperationObject {
+    return {
+      requestBody: {
+        content: {
+          "application/json": {
+            schema: { $ref: '#/components/schemas/bot_request' }
+          }
         }
-      ],
+      },
       responses: {
         '200': {
-          schema: {
-            $ref: 'schemas/bot_request'
+          description: 'The request was successfully handled, the filtered BotRequest is returned',
+          content: {
+            "application/json": {
+              schema: { $ref: '#/components/schemas/bot_request' }
+            }
           }
-        },
-        default: { $ref: '#/responses/defaultError' }
+        }
       }
-    } as any);
+    };
   }
 
   handler(req, res, next) {
@@ -59,22 +65,27 @@ class FilterRequest extends Operation {
 class FilterResponse extends Operation {
   constructor(resource: BotFilterResource, protected filter: BotResponseFilter = defaultResponseFilter) {
     super(resource, '/response', 'post', 'response');
-    this.setInfo({
-      parameters: [
-        {
-          in: 'body',
-          schema: { $ref: 'schemas/bot_response' }
+  }
+  protected getCustomInfo(): OpenAPIV3.OperationObject {
+    return {
+      requestBody: {
+        content: {
+          "application/json": {
+            schema: { $ref: '#/components/schemas/bot_response' }
+          }
         }
-      ],
+      },
       responses: {
         '200': {
-          schema: {
-            $ref: 'schemas/bot_response'
+          description: 'The response was successfully handled, the filtered BotResponse is returned',
+          content: {
+            "application/json": {
+              schema: { $ref: '#/components/schemas/bot_response' }
+            }
           }
-        },
-        default: { $ref: '#/responses/defaultError' }
+        }
       }
-    } as any);
+    };
   }
 
   handler(req, res, next) {
@@ -95,36 +106,29 @@ class FilterResponse extends Operation {
 export class BotFilter extends API {
   constructor(reqFilter: BotRequestFilter = defaultRequestFilter, resFilter: BotResponseFilter = defaultResponseFilter) {
     super({
-      swagger: '2.0',
-      info: {
-        title: 'Vivocha BotFilter API',
-        version: '3.3.0'
-      },
-      paths: {}
+      title: 'Vivocha BotFilter API',
+      version: '3.3.0'
     });
-    if (this.parameters) {
-      this.parameters = {
-        id: this.parameters.id
-      };
+    if (this.document.components) {
+      if (this.document.components.parameters) {
+        this.document.components.parameters = {
+          id: this.document.components.parameters.id
+        };
+      }
+      if (this.document.components.schemas) {
+        delete this.document.components.schemas.metadata;
+        delete this.document.components.schemas.objectId;
+      }
     }
-    /*
-    if (this.responses) {
-      delete this.responses.notFound;
-    }
-    */
-    if (this.definitions) {
-      delete this.definitions.metadata;
-      delete this.definitions.objectId;
-    }
-    this.registerSchema('bot_message', require('@vivocha/public-entities/schemas/bot_message.json') as Swagger.Schema);
-    this.registerSchema('bot_request', require('@vivocha/public-entities/schemas/bot_request.json') as Swagger.Schema);
-    this.registerSchema('bot_response', require('@vivocha/public-entities/schemas/bot_response.json') as Swagger.Schema);
-    this.registerSchema('text_message', require('@vivocha/public-entities/schemas/text_message.json') as Swagger.Schema);
-    this.registerSchema('postback_message', require('@vivocha/public-entities/schemas/postback_message.json') as Swagger.Schema);
-    this.registerSchema('attachment_message', require('@vivocha/public-entities/schemas/attachment_message.json') as Swagger.Schema);
-    this.registerSchema('attachment_metadata', require('@vivocha/public-entities/schemas/attachment_metadata.json') as Swagger.Schema);
-    this.registerSchema('action_message', require('@vivocha/public-entities/schemas/action_message.json') as Swagger.Schema);
-    this.registerSchema('is_writing_message', require('@vivocha/public-entities/schemas/is_writing_message.json') as Swagger.Schema);
+    this.registerSchema('common', require('@vivocha/public-entities/schemas/common.json') as OpenAPIV3.SchemaObject);
+    this.registerSchema('bot_message', require('@vivocha/public-entities/schemas/bot_message.json') as OpenAPIV3.SchemaObject);
+    this.registerSchema('bot_request', require('@vivocha/public-entities/schemas/bot_request.json') as OpenAPIV3.SchemaObject);
+    this.registerSchema('bot_response', require('@vivocha/public-entities/schemas/bot_response.json') as OpenAPIV3.SchemaObject);
+    this.registerSchema('text_message', require('@vivocha/public-entities/schemas/text_message.json') as OpenAPIV3.SchemaObject);
+    this.registerSchema('postback_message', require('@vivocha/public-entities/schemas/postback_message.json') as OpenAPIV3.SchemaObject);
+    this.registerSchema('attachment_message', require('@vivocha/public-entities/schemas/attachment_message.json') as OpenAPIV3.SchemaObject);
+    this.registerSchema('action_message', require('@vivocha/public-entities/schemas/action_message.json') as OpenAPIV3.SchemaObject);
+    this.registerSchema('is_writing_message', require('@vivocha/public-entities/schemas/is_writing_message.json') as OpenAPIV3.SchemaObject);
     this.addResource(new BotFilterResource(reqFilter, resFilter));
   }
 }

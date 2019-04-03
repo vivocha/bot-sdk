@@ -1,7 +1,7 @@
-import * as chai from 'chai';
-import { BotAgentManager } from '../../dist/agent';
 import { BotRequest, BotResponse } from '@vivocha/public-entities/dist/bot';
+import * as chai from 'chai';
 import * as http from 'request-promise-native';
+import { BotAgentManager } from '../../dist/agent';
 
 chai.should();
 
@@ -52,6 +52,7 @@ describe('Vivocha BOT AGENT Tests', function () {
         const manager = new BotAgentManager();
         let server;
         before('starting bot manager', async function () {
+            debugger;
             manager.registerAgent(engineType, async (req: BotRequest): Promise<BotResponse> => {
                 const response: BotResponse = {
                     language: 'en',
