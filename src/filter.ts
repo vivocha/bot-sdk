@@ -107,7 +107,7 @@ export class BotFilter extends API {
   constructor(reqFilter: BotRequestFilter = defaultRequestFilter, resFilter: BotResponseFilter = defaultResponseFilter) {
     super({
       title: 'Vivocha BotFilter API',
-      version: '3.3.0'
+      version: '4.0.0'
     });
     if (this.document.components) {
       if (this.document.components.parameters) {

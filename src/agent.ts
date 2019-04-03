@@ -76,7 +76,7 @@ export interface BotAgentRegistry {
 export class BotAgentManager extends API {
   agents: BotAgentRegistry = {};
 
-  constructor(version: string = '3.3.0', title: string = 'Vivocha BotAgentManager API') {
+  constructor(version: string = '4.0.0', title: string = 'Vivocha BotAgentManager API') {
     super({
       title,
       version: version
