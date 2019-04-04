@@ -18,33 +18,104 @@ class BotAgentResource extends Resource {
 }
 
 class SendMessage extends Operation {
-  api: BotAgentManager
+  api: BotAgentManager;
 
   constructor(resource: BotAgentResource, path, method) {
     super(resource, path, method, 'message.send');
   }
   protected getCustomInfo(): OpenAPIV3.OperationObject {
     return {
-      requestBody: {
-        description: 'the BotRequest body',
-        content: {
-          "application/json": {
-            schema: { $ref: '#/components/schemas/bot_request' }
-          }
-        }
+      summary: 'Send a message to a bot',
+      description: 'This endpoint sends a BotRequest to a registered bot, then a BotResponse is expected to be returned in case of success.',
+      externalDocs: {
+        description: 'Find more detailed info in the official Vivocha Bot SDK documentation.',
+        url: 'https://github.com/vivocha/bot-sdk#overview'
       },
-      responses: {
-        '200': {
-          description: 'Sending a message to a Bot was successful, a BotResponse is returned',
-          content: {
-            "application/json": {
-              schema: {
-                $ref: '#/components/schemas/bot_response'
+      requestBody: {
+        description: 'The BotRequest JSON body to send to the bot',
+        content: {
+          'application/json': {
+            schema: { $ref: '#/components/schemas/bot_request' },
+            example: {
+              language: 'en',
+              event: 'continue',
+              message: {
+                code: 'message',
+                type: 'text',
+                body: 'Please, help me'
+              },
+              data: {
+                user: 'Antonio',
+                premium: true
+              },
+              settings: {
+                engine: {
+                  type: 'custom',
+                  settings: {
+                    myToken: 'super_secret_token',
+                    anotherSetting: '123'
+                  }
+                }
               }
             }
           }
         },
-        default: { $ref: '#/components/responses/defaultError' }
+        required: true
+      },
+      responses: {
+        '200': {
+          description: 'If sending a message to a Bot was successful, a BotResponse is returned',
+          content: {
+            'application/json': {
+              schema: {
+                $ref: '#/components/schemas/bot_response'
+              },
+              example: {
+                event: 'continue',
+                messages: [
+                  {
+                    code: 'message',
+                    type: 'text',
+                    body: 'Hello! I am a Vivocha Dummy Bot 😎'
+                  },
+                  {
+                    code: 'message',
+                    type: 'text',
+                    body: 'To start, choose one of the following options to see what I can do for you',
+                    quick_replies: [
+                      {
+                        content_type: 'text',
+                        title: 'info',
+                        payload: 'info'
+                      },
+                      {
+                        content_type: 'text',
+                        title: 'help',
+                        payload: 'help'
+                      }
+                    ]
+                  }
+                ],
+                context: {
+                  botName: 'DummyBot'
+                },
+                data: {}
+              }
+            }
+          }
+        },
+        default: {
+          description: 'An error occurred sending the BotRequest',
+          content: {
+            'application/json': {
+              schema: { $ref: '#/components/responses/defaultError' },
+              example: {
+                error: 400,
+                message: 'unsupported bot type'
+              }
+            }
+          }
+        }
       }
     };
   }
@@ -79,7 +150,13 @@ export class BotAgentManager extends API {
   constructor(version: string = '4.0.0', title: string = 'Vivocha BotAgentManager API') {
     super({
       title,
-      version: version
+      version,
+      description:
+        'The BotAgentManager API allows to send and receive messages to / from registered Bot Agents. The BotAgentManager API is part of the [Vivocha Bot SDK](https://github.com/vivocha/bot-sdk).',
+      contact: {
+        name: 'Vivocha S.p.A.',
+        url: 'https://www.vivocha.com'
+      }
     });
     if (this.document.components) {
       if (this.document.components.parameters) {

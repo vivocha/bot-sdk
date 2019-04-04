@@ -24,7 +24,7 @@ export async function startHTTPServer(port: number = 443): Promise<any> {
   });
   app.post('/a/vvc_test/api/v2/contacts/abc-123456/bot-attach', upload.single('file'), (req, res) => {
     //console.dir(req.query, { colors: true, depth: 20 });
-    res.send({ url: 'https://a.b.c/123456', meta: { mimetype: 'image/jpg' } });
+    res.send({ url: 'https://a.b.c/123456', meta: { mimetype: 'image/jpg', ref: req.query.ref || '' } });
   });
 
   return new Promise((resolve, reject) => {

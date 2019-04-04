@@ -27,19 +27,68 @@ class FilterRequest extends Operation {
   }
   protected getCustomInfo(): OpenAPIV3.OperationObject {
     return {
+      summary: 'Send a BotRequest to a request BotFilter',
+      description: 'This endpoint sends a BotRequest to a request BotFilter, a BotRequest is expected to be returned in case of success.',
+      externalDocs: {
+        description: 'Find more detailed info in the official Vivocha Bot SDK documentation.',
+        url: 'https://github.com/vivocha/bot-sdk#bot-filters'
+      },
       requestBody: {
+        description: 'The BotRequest JSON body to send to the request BotFilter',
         content: {
-          "application/json": {
-            schema: { $ref: '#/components/schemas/bot_request' }
+          'application/json': {
+            schema: { $ref: '#/components/schemas/bot_request' },
+            example: {
+              language: 'en',
+              event: 'continue',
+              message: {
+                code: 'message',
+                type: 'text',
+                body: 'Please, help me'
+              },
+              data: {
+                user: 'Antonio',
+                premium: true
+              },
+              settings: {}
+            }
           }
-        }
+        },
+        required: true
       },
       responses: {
         '200': {
-          description: 'The request was successfully handled, the filtered BotRequest is returned',
+          description: 'The request was successfully handled, the manipulated/filtered BotRequest is returned',
           content: {
-            "application/json": {
-              schema: { $ref: '#/components/schemas/bot_request' }
+            'application/json': {
+              schema: { $ref: '#/components/schemas/bot_request' },
+              example: {
+                language: 'en',
+                event: 'continue',
+                message: {
+                  code: 'message',
+                  type: 'text',
+                  body: 'Please, help me'
+                },
+                data: {
+                  user: 'Antonio',
+                  premium: true,
+                  dataFromFilter: 'yes'
+                },
+                settings: {}
+              }
+            }
+          }
+        },
+        default: {
+          description: 'An error occurred sending the BotRequest to the BotFilter',
+          content: {
+            'application/json': {
+              schema: { $ref: '#/components/responses/defaultError' },
+              example: {
+                error: 400,
+                message: 'request filtering not supported'
+              }
             }
           }
         }
@@ -68,19 +117,68 @@ class FilterResponse extends Operation {
   }
   protected getCustomInfo(): OpenAPIV3.OperationObject {
     return {
+      summary: 'Send a BotResponse to a response BotFilter',
+      description: 'This endpoint sends a BotResponse to a response BotFilter, a BotResponse is expected to be returned in case of success.',
+      externalDocs: {
+        description: 'Find more detailed info in the official Vivocha Bot SDK documentation.',
+        url: 'https://github.com/vivocha/bot-sdk#bot-filters'
+      },
       requestBody: {
+        description: 'The BotResponse JSON body to send to the response BotFilter',
         content: {
-          "application/json": {
-            schema: { $ref: '#/components/schemas/bot_response' }
+          'application/json': {
+            schema: { $ref: '#/components/schemas/bot_response' },
+            example: {
+              event: 'end',
+              messages: [
+                {
+                  code: 'message',
+                  type: 'text',
+                  body: 'Bye, see you soon!'
+                }
+              ],
+              context: {}
+            }
           }
-        }
+        },
+        required: true
       },
       responses: {
         '200': {
-          description: 'The response was successfully handled, the filtered BotResponse is returned',
+          description: 'The response was successfully handled, the manipulated/filtered BotResponse is returned',
           content: {
-            "application/json": {
-              schema: { $ref: '#/components/schemas/bot_response' }
+            'application/json': {
+              schema: { $ref: '#/components/schemas/bot_response' },
+              example: {
+                event: 'end',
+                messages: [
+                  {
+                    code: 'message',
+                    type: 'text',
+                    body: 'Bye, see you soon!'
+                  },
+                  {
+                    code: 'message',
+                    type: 'text',
+                    body: 'An extra BYE added by a response BotFilter ;)'
+                  }
+                ],
+                context: {
+                  checkedByBotFilter: true
+                }
+              }
+            }
+          }
+        },
+        default: {
+          description: 'An error occurred sending the BotResponse to the BotFilter',
+          content: {
+            'application/json': {
+              schema: { $ref: '#/components/responses/defaultError' },
+              example: {
+                error: 400,
+                message: 'response filtering not supported'
+              }
             }
           }
         }
@@ -107,7 +205,13 @@ export class BotFilter extends API {
   constructor(reqFilter: BotRequestFilter = defaultRequestFilter, resFilter: BotResponseFilter = defaultResponseFilter) {
     super({
       title: 'Vivocha BotFilter API',
-      version: '4.0.0'
+      version: '4.0.0',
+      description:
+        'The BotFilter API allows to filter/manipulate BotRequests and/or BotResponses. The BotFilter API is part of the [Vivocha Bot SDK](https://github.com/vivocha/bot-sdk).',
+      contact: {
+        name: 'Vivocha S.p.A.',
+        url: 'https://www.vivocha.com'
+      }
     });
     if (this.document.components) {
       if (this.document.components.parameters) {
