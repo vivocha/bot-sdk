@@ -74,7 +74,7 @@
     "@types/debug": "0.0.30",
     "@types/express": "4.16.1",
     "@vivocha/public-entities": "^7.0.0-next1",
-    "arrest": "^8.0.0-rc1",
+    "arrest": "^8.0.0-rc2",
     "lodash": "4.17.11",
     "node-wit": "5.0.0",
     "request-promise-native": "1.0.7",
