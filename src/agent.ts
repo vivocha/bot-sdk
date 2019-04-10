@@ -21,7 +21,7 @@ class SendMessage extends Operation {
   api: BotAgentManager;
 
   constructor(resource: BotAgentResource, path, method) {
-    super(resource, path, method, 'message.send');
+    super(resource, path, method, 'sendMessage');
   }
   protected getCustomInfo(): OpenAPIV3.OperationObject {
     return {
