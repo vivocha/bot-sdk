@@ -1,5 +1,5 @@
-import { BotRequestFilter, BotResponseFilter, BotRequest, BotResponse, EnvironmentInfo } from '@vivocha/public-entities/dist/bot';
-import { API, Resource, Operation, Swagger } from 'arrest';
+import { BotRequest, BotRequestFilter, BotResponse, BotResponseFilter, EnvironmentInfo } from '@vivocha/public-entities/dist/bot';
+import { API, Operation, Resource, Swagger } from 'arrest';
 import { getVvcEnvironment } from './util';
 
 const defaultRequestFilter: BotRequestFilter = async (): Promise<BotRequest> => {
@@ -92,13 +92,15 @@ class FilterResponse extends Operation {
   }
 }
 
+const sdkVersion = '3.4.0';
+
 export class BotFilter extends API {
   constructor(reqFilter: BotRequestFilter = defaultRequestFilter, resFilter: BotResponseFilter = defaultResponseFilter) {
     super({
       swagger: '2.0',
       info: {
         title: 'Vivocha BotFilter API',
-        version: '3.3.0'
+        version: sdkVersion
       },
       paths: {}
     });

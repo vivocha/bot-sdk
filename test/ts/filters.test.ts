@@ -1,7 +1,7 @@
-import * as chai from 'chai';
-import { BotFilter } from '../../dist/filter';
 import { BotRequest, BotResponse } from '@vivocha/public-entities/dist/bot';
+import * as chai from 'chai';
 import * as http from 'request-promise-native';
+import { BotFilter } from '../../dist/filter';
 
 chai.should();
 
@@ -282,7 +282,7 @@ describe('Vivocha BOT FILTERS Tests', function() {
       result1.statusCode.should.equal(400);
       return;
     });
-    it('sending a request to a response filter should return 400 ', async function() {
+    it('sending a response to a response filter should return 400 ', async function() {
       const request1: BotResponse = {
         language: 'en',
         event: 'continue',

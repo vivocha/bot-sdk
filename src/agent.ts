@@ -1,11 +1,10 @@
-import { API, Resource, Operation, Swagger } from 'arrest';
+import { Attachment, AttachmentMeta } from '@vivocha/public-entities';
+import { BotAgent, BotRequest, BotResponse, EnvironmentInfo } from '@vivocha/public-entities/dist/bot';
+import { API, Operation, Resource, Swagger } from 'arrest';
 import * as http from 'request-promise-native';
-import * as uuid from 'uuid/v1';
-import { Attachment, AttachmentMeta, AttachmentMessage } from '@vivocha/public-entities';
-import { EnvironmentInfo } from '@vivocha/public-entities/dist/bot';
-import { BotAgent, BotRequest, BotResponse } from '@vivocha/public-entities/dist/bot';
-import { getVvcEnvironment } from './util';
 import { Stream } from 'stream';
+import * as uuid from 'uuid/v1';
+import { getVvcEnvironment } from './util';
 
 class BotAgentResource extends Resource {
   constructor() {
@@ -66,8 +65,10 @@ export interface BotAgentRegistry {
   [type: string]: BotAgent;
 }
 
+const sdkVersion = '3.4.0';
+
 export class BotAgentManager extends API {
-  constructor(version: string = '3.3.0', title: string = 'Vivocha BotAgentManager API') {
+  constructor(version: string = sdkVersion, title: string = 'Vivocha BotAgentManager API') {
     super({
       swagger: '2.0',
       info: {
