@@ -4,12 +4,12 @@
 // First, install @vivocha/bot-sdk to run this bot!
 // NB: Change the following line to:
 // import { BotAgentManager, BotRequest, BotResponse, TextMessage, AttachmentMessage, Attachment } from "@vivocha/bot-sdk";
-import { BotAgentManager, BotRequest, BotResponse, TextMessage, AttachmentMessage, Attachment, BotMessage, ActionMessage } from '../dist/index';
+import * as fs from 'fs';
 // got is just a simple library to perform http requests (see below in the BotAgent code)
 import * as got from 'got';
 import * as request from 'request';
-import * as fs from 'fs';
 import { Stream } from 'stream';
+import { ActionMessage, Attachment, AttachmentMessage, BotAgentManager, BotMessage, BotRequest, BotResponse, TextMessage } from '../dist/index';
 
 // A BotManager is a micro web service which exposes an API to send messages
 // to registered BotAgents, it exposes a Swagger description of the API with related JSON Schemas.
@@ -48,7 +48,7 @@ manager.registerAgent(
         response.context['token'] = (msg.environment as any).token;
       }
       response.messages = [
-        BotMessage.createSimpleTextMessage('Hello! I am a DummyBot from Bot SDK 3.3.0 😎'),
+        BotMessage.createSimpleTextMessage('Hello! I am a DummyBot from latest version of the Vivocha Bot SDK 😎'),
         BotMessage.createTextMessageWithQuickReplies('To start, choose one of the following options to see what I can do for you', ['fullhelp', 'help'])
       ];
       response.data = {};
