@@ -71,7 +71,7 @@
   },
   "dependencies": {
     "@types/debug": "0.0.30",
-    "@vivocha/public-entities": "6.6.0",
+    "@vivocha/public-entities": "7.0.6",
     "arrest": "7.5.2",
     "lodash": "^4.17.15",
     "node-wit": "5.0.0",
