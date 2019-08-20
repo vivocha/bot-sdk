@@ -1,12 +1,12 @@
+import { BotResponse } from '@vivocha/public-entities/dist/bot';
 import * as chai from 'chai';
 import * as chaiAsPromised from 'chai-as-promised';
-import { BotAgentManager } from '../../dist/agent';
-import * as request from 'request';
-import { BotResponse } from '@vivocha/public-entities/dist/bot';
-import { startHTTPServer } from './simple-http-server';
-import { TextMessage } from '../../dist';
 import * as fs from 'fs';
+import * as request from 'request';
 import { Stream } from 'stream';
+import { TextMessage } from '../../dist';
+import { BotAgentManager } from '../../dist/agent';
+import { startHTTPServer } from './simple-http-server';
 
 chai.should();
 chai.use(chaiAsPromised);
@@ -58,6 +58,23 @@ describe('Vivocha Attachment file upload tests', function() {
       result.should.have.property('meta');
       return;
     });
+    it('calling upload should call and upload the file, also specifying meta.ref property', async function() {
+      const env = {
+        host: 'localhost:8443',
+        acct: 'vvc_test',
+        contactId: 'abc-123456',
+        token: 'abc.123.xyzz'
+      };
+      const filename = __dirname + '/attachment.jpg';
+      const result = await BotAgentManager.uploadAttachment(
+        fs.createReadStream(filename),
+        { mimetype: 'image/jpg', desc: 'Actarus jpeg image', ref: 'abcd1234' },
+        env
+      );
+      result.should.have.property('url');
+      result.should.have.property('meta');
+      return;
+    });
     it('calling upload with WRONG environment param should be rejected with a custom error', async function() {
       const response: BotResponse = {
         language: 'en',
@@ -104,6 +121,23 @@ describe('Vivocha Attachment file upload tests', function() {
       };
       const fileURL = 'https://upload.wikimedia.org/wikipedia/commons/c/c9/Moon.jpg';
       const result = await BotAgentManager.uploadAttachment(request(fileURL) as Stream, { mimetype: 'image/jpg', desc: 'Moon jpeg image' }, env);
+      result.should.have.property('url');
+      result.should.have.property('meta');
+      return;
+    });
+    it('calling upload should call and upload the stream by URL, also specifying the meta.ref property', async function() {
+      const env = {
+        host: 'localhost:8443',
+        acct: 'vvc_test',
+        contactId: 'abc-123456',
+        token: 'abc.123.xyzz'
+      };
+      const fileURL = 'https://upload.wikimedia.org/wikipedia/commons/c/c9/Moon.jpg';
+      const result = await BotAgentManager.uploadAttachment(
+        request(fileURL) as Stream,
+        { mimetype: 'image/jpg', desc: 'Moon jpeg image', ref: 'abcd1234' },
+        env
+      );
       result.should.have.property('url');
       result.should.have.property('meta');
       return;
