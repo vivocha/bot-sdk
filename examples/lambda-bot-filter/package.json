@@ -1,6 +1,6 @@
 {
   "name": "lambda-bot-filter",
-  "version": "3.3.0",
+  "version": "3.4.0",
   "description": "Example of a Vivocha Bot Filter deployed as AWS Lambda",
   "main": "dist/index.js",
   "scripts": {
@@ -21,6 +21,6 @@
     ".npmrc"
   ],
   "dependencies": {
-    "@vivocha/bot-sdk": "^3.2.0"
+    "@vivocha/bot-sdk": "next"
   }
 }
