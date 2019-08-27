@@ -21,7 +21,7 @@
     ".npmrc"
   ],
   "dependencies": {
-    "@vivocha/bot-sdk": "next",
+    "@vivocha/bot-sdk": "latest",
     "got": "^9.6.0"
   }
 }
