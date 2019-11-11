@@ -33,6 +33,8 @@
   "author": "Vivocha Development Team <dev@vivocha.com> (https://www.vivocha.com)",
   "license": "MIT",
   "devDependencies": {
+    "@commitlint/cli": "^8.2.0",
+    "@commitlint/config-conventional": "^8.2.0",
     "@types/chai": "^4.2.0",
     "@types/chai-as-promised": "7.1.2",
     "@types/chai-spies": "1.0.1",

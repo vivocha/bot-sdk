@@ -70,7 +70,7 @@ or
       - [Vivocha Bot Messages and Dialogflow V2](https://github.com/vivocha/bot-sdk#vivocha-bot-messages-and-dialogflow-v2)
       - [Data collection and Dialogflow System Entities](https://github.com/vivocha/bot-sdk#data-collection-and-dialogflow-system-entities)
       - [Dialogflow Constraints, Hints and Tips](https://github.com/vivocha/bot-sdk#dialogflow-constraints-hints-and-tips)
-  - [IBM Watson Assistant](https://github.com/vivocha/bot-sdk#ibm-watson-assistant)
+  - [IBM Watson Assistant](https://github.com/vivocha/bot-sdk#ibm-watson-assistant-integration-guidelines)
     - [Vivocha Rich Messages and Watson Assistant](https://github.com/vivocha/bot-sdk#vivocha-rich-messages-and-watson-assistant)
     - [Watson Assistant Hints and Tips](https://github.com/vivocha/bot-sdk#watson-assistant-hints-and-tips)
   - [Wit.ai, writing chat bots](https://github.com/vivocha/bot-sdk#witai-writing-chat-bots)
@@ -1528,6 +1528,12 @@ In order to seamlessly integrate a bot agent built with Dialogflow V2 with the V
 ### [IBM Watson Assistant: integration guidelines](#ibm-watson-assistant-integration-guidelines)
 
 [Watson Assistant (formerly Conversation)](https://www.ibm.com/watson/services/conversation) provides a tool to create conversation flows: Dialogs.
+
+**IMPORTANT**: Since the end of October 2019, the Vivocha native driver for Watson Assistant uses a *IAM/apikey-based authentication* and IBM Watson Assistant API v1. IBM deprecated the previous *username/password*-based authentication scheme. In order to properly configure a Watson Assistant Bot in the Vivocha Campaign Builder you will need its `workspaceId`, the `apikey` and the service `URL`, as provided by the IBM Watson Assistant dialogs web console.
+Among them, you can also set a particular API version, which Vivocha will use when calling the IBM Watson Assistant API v1 endpoints.
+If you don't have an `apikey`, remember that your old bots must be migrated as required by IBM, see [this post, for example](https://medium.com/ibm-watson/identity-and-access-management-updates-for-watson-services-12b6344b9cf).
+
+Integration guidelines:
 
 1. Watson Assistant doesn't handle events, only messages, thus you must create an intent trained to understand the word _start_ (simulating an event, in this case).
 
