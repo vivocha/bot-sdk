@@ -1,8 +1,8 @@
 import * as chai from 'chai';
-import { BotAgentManager, BotRequest, BotResponse } from '../../dist';
 import * as http from 'request-promise-native';
-import { DataCollectorTestWitBot } from './witai-nointents-bot';
+import { BotAgentManager, BotRequest, BotResponse, IsWritingMessage } from '../../dist';
 import { DataCollectorTestWitBot as OkBot } from './bot';
+import { DataCollectorTestWitBot } from './witai-nointents-bot';
 require('dotenv').config();
 
 chai.should();
@@ -111,6 +111,21 @@ describe('Testing Wit.ai based bot for a simple data collection ', function() {
       const request1: BotRequest = {
         language: 'en',
         event: 'continue',
+        settings: getSettings()
+      };
+      //console.dir(request1, { colors: true, depth: 20 });
+      const result1 = await http(getHTTPOptions(request1));
+      result1.statusCode.should.equal(500);
+      return;
+    });
+    it('for an unsupported message type, it should raise an error', async function() {
+      const request1: BotRequest = {
+        language: 'en',
+        event: 'continue',
+        message: {
+          code: 'message',
+          type: 'iswriting'
+        } as IsWritingMessage,
         settings: getSettings()
       };
       //console.dir(request1, { colors: true, depth: 20 });

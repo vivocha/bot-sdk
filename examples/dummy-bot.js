@@ -5,11 +5,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // First, install @vivocha/bot-sdk to run this bot!
 // NB: Change the following line to:
 // import { BotAgentManager, BotRequest, BotResponse, TextMessage, AttachmentMessage, Attachment } from "@vivocha/bot-sdk";
-const index_1 = require("../dist/index");
+const fs = require("fs");
 // got is just a simple library to perform http requests (see below in the BotAgent code)
 const got = require("got");
 const request = require("request");
-const fs = require("fs");
+const index_1 = require("../dist/index");
 // A BotManager is a micro web service which exposes an API to send messages
 // to registered BotAgents, it exposes a Swagger description of the API with related JSON Schemas.
 // A BotManager holds a BotAgents registry.
@@ -41,7 +41,7 @@ manager.registerAgent('custom', async (msg) => {
             response.context['token'] = msg.environment.token;
         }
         response.messages = [
-            index_1.BotMessage.createSimpleTextMessage('Hello! I am a DummyBot from Bot SDK 3.3.0 😎'),
+            index_1.BotMessage.createSimpleTextMessage('Hello! I am a DummyBot from latest version of the Vivocha Bot SDK 😎'),
             index_1.BotMessage.createTextMessageWithQuickReplies('To start, choose one of the following options to see what I can do for you', ['fullhelp', 'help'])
         ];
         response.data = {};

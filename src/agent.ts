@@ -133,7 +133,10 @@ class SendMessage extends Operation {
     msg['environment'] = vivochaEnvironment;
     const agent = this.api.agents[msg.settings.engine.type];
     if (agent) {
-      agent(msg).then(response => res.json(BotAgentManager.normalizeResponse(response)), err => next(API.newError(500, 'platform error', err.message, err)));
+      agent(msg).then(
+        response => res.json(BotAgentManager.normalizeResponse(response)),
+        err => next(API.newError(500, 'platform error', err.message, err))
+      );
     } else {
       API.fireError(400, 'unsupported bot type');
     }

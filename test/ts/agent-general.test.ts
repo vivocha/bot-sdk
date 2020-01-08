@@ -1,8 +1,7 @@
 import * as chai from 'chai';
-import { BotAgentManager, BotRequest } from '../../dist';
 import * as http from 'request-promise-native';
+import { BotAgentManager, BotRequest } from '../../dist';
 import { dummyBot } from './dummy-bot';
-import bodyParser = require('body-parser');
 
 chai.should();
 

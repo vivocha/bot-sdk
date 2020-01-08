@@ -1,11 +1,10 @@
+import { Attachment, AttachmentMessage } from '@vivocha/public-entities';
 import * as fs from 'fs';
-import { BotAgentManager, BotRequest, BotResponse, TextMessage, BotMessage } from '../../dist/index';
-import * as request from 'request';
-
 // got is just a simple library to perform http requests (see below in the BotAgent code)
 import * as got from 'got';
-import { AttachmentMessage, Attachment } from '@vivocha/public-entities';
+import * as request from 'request';
 import { Stream } from 'stream';
+import { BotAgentManager, BotMessage, BotRequest, BotResponse, TextMessage } from '../../dist/index';
 
 // A BotManager is a web server which exposes an API to send messages
 // to registered BotAgents, it exposes a Swagger description of the API with related JSON Schemas.
@@ -53,7 +52,7 @@ dummyBot.registerAgent(
           body: 'Hello! I am a DummyBot :) Write help to see what I can do for you.'
         } as TextMessage
       ];
-      response.data = {};
+      response.data = msg.data || {};
     } else {
       if (msg.message.type === 'attachment') {
         // console.log('ATTACHMENT message received');
@@ -1315,6 +1314,17 @@ dummyBot.registerAgent(
               } as AttachmentMessage
             ];
             break;
+          case 'test-chain':
+            response.messages = [
+              {
+                code: 'message',
+                type: 'text',
+                body: 'This is the result of a bot filters chain.'
+              } as TextMessage
+            ];
+            response.data = msg.data || {};
+            response.context = msg.context || {};
+            break;
           default:
             response.messages = [
               {
@@ -1330,6 +1340,9 @@ dummyBot.registerAgent(
     // console.dir(response, { colors: true, depth: 20 });
     if (!response.context && msg.context) {
       response['context'] = msg.context;
+    }
+    if (!response.data && msg.data) {
+      response['data'] = msg.data;
     }
     return response;
   }

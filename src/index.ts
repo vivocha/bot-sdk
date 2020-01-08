@@ -1,33 +1,33 @@
 export {
-  BotAgent,
-  BotRequest,
-  BotResponse,
-  BotRequestFilter,
-  BotResponseFilter,
-  BotMessageBody,
-  TextMessage,
-  TemplateType,
-  GenericTemplateType,
-  ListTemplateType,
-  PostbackMessage,
-  AttachmentMessage,
-  Attachment,
-  AttachmentMeta,
   ActionMessage,
-  IsWritingMessage,
-  BotDataCollection,
-  DialogDataCollection,
+  Attachment,
+  AttachmentMessage,
+  AttachmentMeta,
   BooleanField,
-  RatingField,
+  BotAgent,
+  BotDataCollection,
+  BotMessageBody,
+  BotRequest,
+  BotRequestFilter,
+  BotResponse,
+  BotResponseFilter,
+  DataField,
+  DialogDataCollection,
+  GenericTemplateType,
+  IsWritingMessage,
+  ListTemplateType,
   NumberField,
+  PostbackMessage,
+  RatingField,
   SelectField,
   StringField,
-  DataField
+  TemplateType,
+  TextMessage
 } from '@vivocha/public-entities';
 export * from './agent';
 export * from './filter';
+export * from './lambda';
 export * from './message';
 export * from './witai';
-export * from './lambda';
-import * as serverless from 'serverless-http';
 export { serverless };
+const serverless = require('serverless-http');
