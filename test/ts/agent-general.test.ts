@@ -1,3 +1,4 @@
+import { LocationMessage } from '@vivocha/public-entities';
 import * as chai from 'chai';
 import * as http from 'request-promise-native';
 import { BotAgentManager, BotRequest } from '../../dist';
@@ -31,6 +32,18 @@ const getAttachmentMessage = function(): any {
   };
   return msg;
 };
+const getLocationMessage = function(longitude: number, latitude: number, payload?: string): LocationMessage {
+  let msg = {
+    code: 'message',
+    type: 'location',
+    longitude,
+    latitude
+  };
+  if (payload) {
+    msg['payload'] = payload;
+  }
+  return msg as LocationMessage;
+};
 const getHTTPOptions = function getOptions(body) {
   return {
     method: 'POST',
@@ -47,7 +60,7 @@ const getHTTPOptions = function getOptions(body) {
 //root describe
 describe('Testing a generic Bot Agent (Dummy Bot) ', function() {
   let env = process.env;
-  describe('Sending a correct start message', function() {
+  describe('Sending a start message', function() {
     const getSettings = function(): any {
       return {
         engine: {
@@ -279,7 +292,6 @@ describe('Testing a generic Bot Agent (Dummy Bot) ', function() {
       template.elements[0].should.have.property('buttons');
       return;
     });
-
     it('sending cat2, it should reply with a template', async function() {
       const request1: BotRequest = {
         language: 'en',
@@ -318,7 +330,6 @@ describe('Testing a generic Bot Agent (Dummy Bot) ', function() {
       });
       return;
     });
-
     it('should fail when sending a malformed message', async function() {
       const request1: BotRequest = {
         language: 'en',
@@ -439,6 +450,44 @@ describe('Testing a generic Bot Agent (Dummy Bot) ', function() {
       return;
     });
 
+    after('shutdown bot manager', function() {
+      server.close();
+    });
+  });
+  describe('Sending location messages', function() {
+    const getSettings = function(): any {
+      return {
+        engine: {
+          type: engineType
+        }
+      };
+    };
+    let server;
+    before('starting bot manager', async function() {
+      // Run the BotManager:
+      const port = (process.env.PORT as any) || 8080;
+      server = await dummyBot.listen(port);
+      return;
+    });
+    it('it should reply with a text message with lat & lon', async function() {
+      const request1: BotRequest = {
+        language: 'en',
+        event: 'continue',
+        settings: getSettings(),
+        message: getLocationMessage(39.225915, 9.113315)
+      };
+      console.dir(request1, { colors: true, depth: 20 });
+      const result1 = await http(getHTTPOptions(request1));
+      console.log('Longitude res:');
+      console.dir(result1, { colors: true, depth: 20 });
+      result1.event.should.equal('continue');
+      result1.messages.should.have.lengthOf(1);
+      result1.messages[0].body.should.contain('lon');
+      result1.messages[0].body.should.contain('lat');
+      result1.messages[0].body.should.contain('39.225915');
+      result1.messages[0].body.should.contain('9.113315');
+      return;
+    });
     after('shutdown bot manager', function() {
       server.close();
     });

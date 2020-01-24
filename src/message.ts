@@ -1,4 +1,4 @@
-import { TextMessage, IsWritingMessage, ActionMessage, MessageQuickReply } from '@vivocha/public-entities';
+import { ActionMessage, IsWritingMessage, LocationMessage, MessageQuickReply, TextMessage } from '@vivocha/public-entities';
 
 export interface QuickReply {
   title: string;
@@ -19,7 +19,18 @@ export interface DefaultAction {
   type: 'web_url';
   url: string;
 }
-
+export interface LocationMessageContent {
+  longitude: number;
+  latitude: number;
+  countryCode?: string;
+  countryName?: string;
+  region?: string;
+  city?: string;
+  accuracy?: number;
+  timezone?: string;
+  speed?: number;
+  altitude?: number;
+}
 /**
  * Utility class exposing static methods to compose common used Vivocha Bot Messages.
  *
@@ -115,12 +126,24 @@ export class BotMessage {
   }
   public static createDefaultAction(url: string): DefaultAction {
     if (!url) {
-      throw new Error('In a DefaultAction url is required');
+      throw new Error('In a DefaultAction, url is required');
     } else {
       return {
         type: 'web_url',
         url
       };
+    }
+  }
+  public static createLocationMessage(options: LocationMessageContent): LocationMessage {
+    if (!options.longitude || !options.latitude) {
+      throw new Error('In a LocationMessage, longitude and latitude are required, as numbers');
+    } else {
+      const message: LocationMessage = {
+        code: 'message',
+        type: 'location',
+        ...options
+      } as LocationMessage;
+      return message;
     }
   }
 }

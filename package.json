@@ -1,21 +1,21 @@
 {
   "name": "@vivocha/bot-sdk",
-  "version": "0.0.0-semantically-released",
+  "version": "4.0.0-beta",
   "description": "Vivocha BOT SDK: TypeScript / JavaScript SDK to create/integrate chatbots with Vivocha",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
     "clean": "rimraf dist coverage .nyc_output uploads",
     "clean:all": "npm run clean && rimraf node_modules",
-    "prebuild": "npm i && rimraf dist",
     "build": "tsc",
     "build:examples": "(cd examples/lambda-bot-manager && npm i && npm run build) && (cd examples/lambda-bot-filter && npm i && npm run build) && (tsc -p examples)",
-    "build:all": "npm run build && tsc -p test && npm run build:examples && npm i --package-lock",
+    "build:tests": "tsc -p test",
+    "build:all": "npm i --package-lock && npm run build && npm run build:tests && npm run build:examples",
     "commit": "git-cz",
-    "check-coverage": "./node_modules/.bin/nyc check-coverage --statements 90 --branches 60 --functions 80 --lines 90",
+    "check-coverage": "./node_modules/.bin/nyc check-coverage ",
     "report-coverage": "cat ./coverage/lcov.info | coveralls",
     "watch:test": "npm t -- -w",
-    "test": "find ./test/ts -type f -name '*.js' -delete && npm run build && tsc -p test && mocha --exit --no-timeouts --recursive --reporter mochawesome --reporter-options reportDir=test-results test/**/*.test.js",
+    "test": "find ./test/ts -type f -name '*.js' -delete && npm run build:tests && mocha --exit --no-timeouts --recursive --reporter mochawesome --reporter-options reportDir=test-results test/**/*.test.js",
     "test:debug": "npm run build && tsc -p test && mocha --inspect-brk --recursive test/**/*.test.js",
     "cover": "./node_modules/.bin/nyc --reporter=lcov --reporter=text npm t",
     "semantic-release": "semantic-release",
@@ -33,14 +33,14 @@
   "author": "Vivocha Development Team <dev@vivocha.com> (https://www.vivocha.com)",
   "license": "MIT",
   "devDependencies": {
-    "@commitlint/cli": "^8.3.4",
+    "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
     "@types/chai": "^4.2.7",
     "@types/chai-as-promised": "7.1.2",
     "@types/chai-spies": "1.0.1",
     "@types/lodash": "^4.14.149",
     "@types/mocha": "^5.2.7",
-    "@types/node": "^13.1.4",
+    "@types/node": "^12.12.24",
     "@types/node-wit": "^4.2.2",
     "@types/request": "^2.48.4",
     "@types/request-promise-native": "^1.0.17",
@@ -52,8 +52,8 @@
     "coveralls": "^3.0.9",
     "cz-conventional-changelog": "^3.0.2",
     "dotenv": "^8.2.0",
-    "got": "^10.2.1",
-    "husky": "^4.0.1",
+    "got": "^10.2.2",
+    "husky": "^4.2.1",
     "mocha": "^7.0.0",
     "mochawesome": "^4.1.0",
     "multer": "^1.4.2",
@@ -61,8 +61,8 @@
     "pem-promise": "^1.0.0",
     "request": "^2.88.0",
     "rimraf": "^3.0.0",
-    "semantic-release": "^15.14.0",
-    "typescript": "^3.7.4"
+    "semantic-release": "^16.0.3",
+    "typescript": "^3.7.5"
   },
   "config": {
     "commitizen": {
@@ -70,14 +70,13 @@
     }
   },
   "dependencies": {
-    "@types/debug": "0.0.30",
     "@vivocha/public-entities": "coas",
-    "arrest": "8.1.2",
+    "arrest": "8.1.5",
     "lodash": "^4.17.15",
     "node-wit": "5.0.0",
     "request-promise-native": "1.0.8",
     "serverless-http": "2.3.0",
-    "uuid": "3.3.3"
+    "uuid": "3.4.0"
   },
   "husky": {
     "hooks": {
@@ -86,6 +85,10 @@
     }
   },
   "nyc": {
+    "lines": 90,
+    "statements": 90,
+    "functions": 80,
+    "branches": 60,
     "include": [
       "dist/**/*.js",
       "src/**/*.ts"

@@ -181,6 +181,7 @@ export class BotAgentManager extends API {
     this.registerSchema('attachment_message', require('@vivocha/public-entities/schemas/attachment_message.json') as OpenAPIV3.SchemaObject);
     this.registerSchema('action_message', require('@vivocha/public-entities/schemas/action_message.json') as OpenAPIV3.SchemaObject);
     this.registerSchema('is_writing_message', require('@vivocha/public-entities/schemas/is_writing_message.json') as OpenAPIV3.SchemaObject);
+    this.registerSchema('location_message', require('@vivocha/public-entities/schemas/location_message.json') as OpenAPIV3.SchemaObject);
     this.addResource(new BotAgentResource());
   }
 
@@ -193,7 +194,7 @@ export class BotAgentManager extends API {
     if (!environment.token || !environment.host || !environment.acct || !environment.contactId) {
       throw new Error('Missing property in environment parameter, please include all of: token, host, acct and contactId');
     } else {
-      const url = `https://${environment.host}/a/${environment.acct}/api/v2/contacts/${environment.contactId}/bot-response`;
+      const url = `https://${environment.host}/a/${environment.acct}/api/v3/contacts/${environment.contactId}/bot-response`;
       const httpOptions = {
         method: 'POST',
         uri: url,
@@ -214,7 +215,7 @@ export class BotAgentManager extends API {
     if (!environment.token || !environment.host || !environment.acct || !environment.contactId) {
       throw new Error('Missing property in environment parameter, please include all of: token, host, acct and contactId');
     } else {
-      let url = `https://${environment.host}/a/${environment.acct}/api/v2/contacts/${environment.contactId}/bot-attach`;
+      let url = `https://${environment.host}/a/${environment.acct}/api/v3/contacts/${environment.contactId}/bot-attach`;
       const qs = {};
       if (attachmentMeta.ref) {
         qs['ref'] = attachmentMeta.ref;

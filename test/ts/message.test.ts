@@ -409,7 +409,23 @@ describe('Testing BotMessage creation factory', function() {
     it('with missing params, it should throw an error', function() {
       (function() {
         BotMessage.createDefaultAction(undefined);
-      }.should.throw(Error, /In a DefaultAction url is required/));
+      }.should.throw(Error, /In a DefaultAction, url is required/));
+    });
+  });
+  describe('Calling createLocationMessage()', function() {
+    it('with valid data should return a LocationMessage', function() {
+      const msg = BotMessage.createLocationMessage({ longitude: 39.225915, latitude: 9.113315 });
+      msg.should.deep.equal({
+        code: 'message',
+        type: 'location',
+        longitude: 39.225915,
+        latitude: 9.113315
+      });
+    });
+    it('with missing params, it should throw an error', function() {
+      (function() {
+        BotMessage.createLocationMessage({ city: 'Cagliari' } as any);
+      }.should.throw(Error, /In a LocationMessage, longitude and latitude are required, as numbers/));
     });
   });
 });

@@ -6,7 +6,7 @@
 // import { BotAgentManager, BotRequest, BotResponse, TextMessage, AttachmentMessage, Attachment } from "@vivocha/bot-sdk";
 import * as fs from 'fs';
 // got is just a simple library to perform http requests (see below in the BotAgent code)
-import * as got from 'got';
+import got from 'got';
 import * as request from 'request';
 import { Stream } from 'stream';
 import { ActionMessage, Attachment, AttachmentMessage, BotAgentManager, BotMessage, BotRequest, BotResponse, TextMessage } from '../dist/index';
@@ -86,13 +86,12 @@ manager.registerAgent(
             break;
           // just an example to show how to call an external API to compose a response
           case 'code':
+            const uuidResponse: any = await got('https://httpbin.org/uuid', { responseType: 'json', resolveBodyOnly: true });
             response.messages = [
               {
                 code: 'message',
                 type: 'text',
-                body: `A brand new code generated for you is: ${(await got('https://httpbin.org/uuid', {
-                  json: true
-                })).body.uuid || 0}`
+                body: `A brand new code generated for you is: ${uuidResponse.uuid || 0}`
               } as TextMessage
             ];
             break;

@@ -9,6 +9,9 @@ _JavaScript / TypeScript SDK to create Bot Agents and Filters for the [Vivocha](
 
 ---
 
+**IMPORTANT: this version of the Bot SDK is a developer preview, which introduces some breaking changes. It is intended to be used with the new version of the Vivocha platform, currently under active development. Before using this SDK, please contact dev@vivocha.com.**
+
+
 The Vivocha Bot SDK allows to write Vivocha Bot Agents integrating existing bots, built and trained using your preferred bot / NLP platform. E.g., Dialogflow, IBM Watson Assistant (formerly Conversation), Wit.ai, Microsoft Bot framework, etc...
 Moreover, the SDK enables writing new bots from scratch or integrating virtually any API-based chatbot platform with Vivocha.
 
@@ -16,7 +19,7 @@ By creating a BotManager it is possible to register multi-platform bot implement
 
 ---
 
-**Tested with Node.js version 8.x and version 10.x**.
+**Tested with Node.js version 12.x**.
 
 To start with the Bot SDK it is recommended to:
 
@@ -47,6 +50,7 @@ or
     - [Attachment Message](https://github.com/vivocha/bot-sdk#attachment-message)
     - [Action Message](https://github.com/vivocha/bot-sdk#action-message)
     - [IsWriting Message](https://github.com/vivocha/bot-sdk#iswriting-message)
+    - [Location Message](https://github.com/vivocha/bot-sdk#location-message)
   - [MessageQuickReply](https://github.com/vivocha/bot-sdk#messagequickreply)
   - [MessageTemplate](https://github.com/vivocha/bot-sdk#messagetemplate)
   - [TemplateElement](https://github.com/vivocha/bot-sdk#templateelement)
@@ -128,7 +132,7 @@ Usually, the steps to use agents and managers are:
 2. create a `BotAgentManager` instance;
 3. register the `BotAgent`s defined in step 1) to the `BotAgentManager`, through the `registerAgent(key, botAgent)` method, where `key` (string) is the choosen bot engine (e.g, `DialogflowV2`, `Watson`, etc...) and `agent` is a `BotAgent` instance;
 4. run the `BotAgentManager` service through its `listen()` method, it exposes a Web API;
-5. call the Web API endpoints to send messages to the bot agents in a uniform way. The manager forwards the message to the right registered `BotAgent` thanks to the `engine.type` message property, used as `key` in step 3). The API is fully described by its Swagger specification, available at `http://<BotAgentManager-Host>:<port>/swagger.json`.
+5. call the Web API endpoints to send messages to the bot agents in a uniform way. The manager forwards the message to the right registered `BotAgent` thanks to the `engine.type` message property, used as `key` in step 3). The API is fully described by its OpenAPI 3.0 specification, available at `http://<BotAgentManager-Host>:<port>/openapi.json`.
 
 ---
 
@@ -142,7 +146,7 @@ For example, a `BotFilter` can enrich a request calling an external API to get a
 Basically, to write a filter you have to:
 
 1. Instantiate a `BotFilter` specifying a `BotRequestFilter` or a `BotResponseFilter`. These are the functions containing your logic to manipulate/filter/enrich requests to bots and responses from them. Inside them you can call, for example, external web services, access to DBs, transform data and do whatever you need to do to achieve your application-specific goal. A `BotFilter` can provide a filter only for requests, only for responses or both;
-2. run the `BotFilter` service through its `listen()` method, it exposes a Web API; the API is fully described by its Swagger specification, available at `http://<BotFilter-Host>:<port>/swagger.json`.
+2. run the `BotFilter` service through its `listen()` method, it exposes a Web API; the API is fully described by its OpenAPI specification, available at `http://<BotFilter-Host>:<port>/openapi.json`.
 
 ---
 
@@ -282,6 +286,26 @@ The IsWriting Message specific properties are the following (required are in **b
 | --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **`code`**                  | string, value is always `message`                                                                                                                                    | Vivocha code type for Bot messages                                                                                                                                         |
 | **`type`**                  | string, value is `iswriting`                                                                                                                                         | Specific Vivocha Bot message type                                                                                                                                                  |
+##### [Location Message](#location-message)
+
+An Location Message contains a geo data with optional parameters that can be sent to a client (i.e. the Vivocha Interaction App or a mobile app) or to a Bot.
+
+The Location Message has the following specific properties (required ones are in **bold**):
+
+| PROPERTY                    | VALUE                                                                                                                                                                | DESCRIPTION                                                                                                                                                                 |
+| --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`code`**                  | string, value is always `message`                                                                                                                                    | Vivocha code type for Bot messages                                                                                                                                         |
+| **`type`**                  | string, value is `location`                                                                                                                                         | Specific Vivocha Bot message type                                                                                                                                                  |
+| **`longitude`**                  | number   | longitude value                                                                                                                                                     |
+| **`latitude`**                   |  number |  latitude value  |
+| `countryCode`                   |  (Optional) string |  code of the country |
+| `countryName`                   |  (Optional) string |  name of the country |
+| `region`                   |  (Optional) string |  region name |
+| `city`                   |  (Optional) string |  name of the city |
+| `accuracy`                   |  (Optional) number |  position accuracy |
+| `timezone`                   |  (Optional) string |  timezone code |
+| `speed`                   |  (Optional) number |  speed value |
+| `altitude`                   |  (Optional) number |  altitude in meters |
 
 ---
 ---
@@ -1058,6 +1082,27 @@ BotMessage.createDefaultAction(url: string): DefaultAction
 
 Creates and returns a [DefaultAction](https://github.com/vivocha/bot-sdk#defaultaction) object to be set in a Generic Template element.
 
+```javascript
+BotMessage.createLocationMessage(options: LocationMessageContent): DefaultAction
+```
+
+Creates and returns a [LocationMessage](https://github.com/vivocha/bot-sdk#location-message) given its content as `options`, where `LocationMessageContent` is an object defined as follows:
+
+```javascript
+{
+  longitude: number;
+  latitude: number;
+  countryCode?: string;
+  countryName?: string;
+  region?: string;
+  city?: string;
+  accuracy?: number;
+  timezone?: string;
+  speed?: number;
+  altitude?: number;
+}
+```
+
 ---
 ---
 
@@ -1093,9 +1138,9 @@ The BotManager `listen()` method starts a Web server microservice, exposing the 
 
 **`POST /bot/message`** - Sends a `BotRequest` and replies with a `BotResponse`.
 
-After launching a BotManager service, the detailed info, and a Swagger based API description, are always available at URL:
+After launching a BotManager service, the detailed info, and the OpenAPI 3.0-based API description, are always available at URL:
 
-`http(s)://<Your-BotAgentManager-Host>:<port>/swagger.json`
+`http(s)://<Your-BotAgentManager-Host>:<port>/openapi.json`
 
 ---
 
@@ -1127,9 +1172,9 @@ The BotFilter `listen()` method runs a Web server microservice, exposing the fol
 
 **`POST /filter/response`** - For a **response BotFilter**, it receives a `BotResponse` and returns a `BotResponse`.
 
-After launching a BotFilter service, the detailed info, and a Swagger based API description, are always available at URL:
+After launching a BotFilter service, the detailed info, and the OpenAPI 3.0 description, are always available at URL:
 
-`http(s)://<Your-BotFilter-Host>:<port>/swagger.json`
+`http(s)://<Your-BotFilter-Host>:<port>/openapi.json`
 
 ---
 
@@ -1327,7 +1372,7 @@ Thus, an example of BotRequest `environment` for a start message could be:
     **2.2. Directly call the following Vivocha API endpoint**:
 
     ```text
-    POST https://<HOST>/a/<ACCOUNT_ID>/api/v2/contacts/<CONTACT_ID>/bot-response
+    POST https://<HOST>/a/<ACCOUNT_ID>/api/v3/contacts/<CONTACT_ID>/bot-response
     ```
 
     with HTTP **headers** containing the authentication as:
