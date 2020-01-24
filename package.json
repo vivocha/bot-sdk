@@ -1,6 +1,6 @@
 {
   "name": "@vivocha/bot-sdk",
-  "version": "4.0.0-beta",
+  "version": "4.0.0-beta1",
   "description": "Vivocha BOT SDK: TypeScript / JavaScript SDK to create/integrate chatbots with Vivocha",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
