@@ -39,7 +39,7 @@ export interface LocationMessageContent {
  */
 export class BotMessage {
   public static createSimpleTextMessage(body: string): TextMessage {
-    if (!body) {
+    if (typeof body === 'undefined') {
       throw new Error('body string is required for a TextMessage');
     } else {
       return {
