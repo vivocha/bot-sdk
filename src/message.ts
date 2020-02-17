@@ -1,4 +1,4 @@
-import { TextMessage, IsWritingMessage, ActionMessage, MessageQuickReply } from '@vivocha/public-entities';
+import { ActionMessage, IsWritingMessage, MessageQuickReply, TextMessage } from '@vivocha/public-entities';
 
 export interface QuickReply {
   title: string;
@@ -28,7 +28,7 @@ export interface DefaultAction {
  */
 export class BotMessage {
   public static createSimpleTextMessage(body: string): TextMessage {
-    if (!body) {
+    if (typeof body === 'undefined') {
       throw new Error('body string is required for a TextMessage');
     } else {
       return {
