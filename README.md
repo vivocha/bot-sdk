@@ -462,7 +462,9 @@ Properties are (required are in **bold**):
 
 #### [TemplateElement](#templateelement)
 
-In a Template Element only the property `title` is mandatory, but at least one optional property among the following must be set in addition to it.
+Generally, a Template Element can be an object of any type, **BUT** if you want to use the out-of-the box templates rendering provided by the Vivocha interaction app, or the automatic template conversion implemented for some channels, you need to strictly follow the following specs:
+
+in a Template Element only the property `title` is mandatory, but at least one optional property among the following must be set in addition to it.
 
 | PROPERTY         | VALUE                                                                                   | DESCRIPTION                                                                                |
 | ---------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
@@ -715,6 +717,11 @@ Which is rendered by the Vivocha interaction app like in the following screensho
 | <img src="https://cdn.rawgit.com/vivocha/bot-sdk/79a72947/docs/list-template-btn.png" width=300 /> |
 | :------------------------------------------------------------------------------------------------: |
 |             **A BotResponse message containing a list template with links (buttons)**              |
+
+##### Custom Template Elements
+
+If you provide a custom Template Element, you will need to customize also the end user interaction app, in order to properly show the custom template element as you have designed it.
+An example of a custom Template Element can be found [here](https://github.com/vivocha/bot-sdk#using-the-bot-framework-version-4), where a custom message coming from a Microsoft Bot will be sent to the interaction app unchanged.
 
 ---
 
