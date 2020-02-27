@@ -11,7 +11,6 @@ _JavaScript / TypeScript SDK to create Bot Agents and Filters for the [Vivocha](
 
 **IMPORTANT: this version of the Bot SDK is a developer preview, which introduces some breaking changes. It is intended to be used with the new version of the Vivocha platform, currently under active development. Before using this SDK, please contact dev@vivocha.com.**
 
-
 The Vivocha Bot SDK allows to write Vivocha Bot Agents integrating existing bots, built and trained using your preferred bot / NLP platform. E.g., Dialogflow, IBM Watson Assistant (formerly Conversation), Wit.ai, Microsoft Bot framework, etc...
 Moreover, the SDK enables writing new bots from scratch or integrating virtually any API-based chatbot platform with Vivocha.
 
@@ -286,6 +285,7 @@ The IsWriting Message specific properties are the following (required are in **b
 | --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **`code`**                  | string, value is always `message`                                                                                                                                    | Vivocha code type for Bot messages                                                                                                                                         |
 | **`type`**                  | string, value is `iswriting`                                                                                                                                         | Specific Vivocha Bot message type                                                                                                                                                  |
+
 ##### [Location Message](#location-message)
 
 An Location Message contains a geo data with optional parameters that can be sent to a client (i.e. the Vivocha Interaction App or a mobile app) or to a Bot.
@@ -486,7 +486,9 @@ Properties are (required are in **bold**):
 
 #### [TemplateElement](#templateelement)
 
-In a Template Element only the property `title` is mandatory, but at least one optional property among the following must be set in addition to it.
+Generally, a Template Element can be an object of any type, **BUT** if you want to use the out-of-the box templates rendering provided by the Vivocha interaction app, or the automatic template conversion implemented for some channels, you need to strictly follow the following specs:
+
+in a Template Element only the property `title` is mandatory, but at least one optional property among the following must be set in addition to it.
 
 | PROPERTY         | VALUE                                                                                   | DESCRIPTION                                                                                |
 | ---------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
@@ -739,6 +741,11 @@ Which is rendered by the Vivocha interaction app like in the following screensho
 | <img src="https://cdn.rawgit.com/vivocha/bot-sdk/79a72947/docs/list-template-btn.png" width=300 /> |
 | :------------------------------------------------------------------------------------------------: |
 |             **A BotResponse message containing a list template with links (buttons)**              |
+
+##### Custom Template Elements
+
+If you provide a custom Template Element, you will need to customize also the end user interaction app, in order to properly show the custom template element as you have designed it.
+An example of a custom Template Element can be found [here](https://github.com/vivocha/bot-sdk#using-the-bot-framework-version-4), where a custom message coming from a Microsoft Bot will be sent to the interaction app unchanged.
 
 ---
 
