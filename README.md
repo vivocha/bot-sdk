@@ -347,20 +347,6 @@ The `environment` object has the following properties, ALL OPTIONAL:
 
 GeoIP information about the contact. The GeoIP object has the following (ALL OPTIONAL) properties:
 
-EnvironmentGeoIP {
-  country_code?: string;
-  country_name?: string;
-  latitude?: number;
-  longitude?: number;
-  continent_code?: string;
-  ip?: string;
-  region?: string;
-  city?: string;
-  postal_code?: string;
-  metro_code: string;
-  time_zone: string;
-}
-
 | PROPERTY                    | VALUE    | DESCRIPTION                                                                                                                                                                 |
 | --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |
 | `country_code`                   | (optional) string                               | Country code |
