@@ -476,10 +476,10 @@ describe('Testing a generic Bot Agent (Dummy Bot) ', function() {
         settings: getSettings(),
         message: getLocationMessage(39.225915, 9.113315)
       };
-      console.dir(request1, { colors: true, depth: 20 });
+      //console.dir(request1, { colors: true, depth: 20 });
       const result1 = await http(getHTTPOptions(request1));
-      console.log('Longitude res:');
-      console.dir(result1, { colors: true, depth: 20 });
+      //console.log('Longitude res:');
+      //console.dir(result1, { colors: true, depth: 20 });
       result1.event.should.equal('continue');
       result1.messages.should.have.lengthOf(1);
       result1.messages[0].body.should.contain('lon');

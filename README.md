@@ -184,7 +184,7 @@ A BotRequest is a JSON with the following properties (in **bold** the required p
 | `data`        | (optional) object                                                                               | an object containing data to send to the Bot. Its properties must be of basic type. E.g., `{"firstname":"Antonio", "lastname": "Smith", "code": 12345}`                                                                                   |
 | `context`     | (optional) object                                                                               | Opaque, Bot specific context data                                                                                                                                                                                                         |
 | `tempContext` | (optional) object                                                                               | Temporary context, useful to store volatile data; i.e., in bot filters chains.                                                                                                                                                            |
-| `environment` | (optional) object                                                                               | Vivocha specific environment data, sent by the platform. Currently, the `environment` object COULD have the following (optional) properties: `host`, `acct`, `hmac`, `campaignId`, `channelId`, `entrypointId`, `engagementId`, `contactId`, `token`. For a bot used in data collections of type `Bot`, the `environment` object DOES NOT contain neighter the `contactId` property (because it is a pre-contact task) nor the `token` property. The `token` property is sent by Vivocha only when `event` is `start`, and ONLY and ONLY IF the configured Bot URL is under **HTTPS**.|
+| `environment` | (optional) object, see **[Environment](https://github.com/vivocha/bot-sdk#environment)**        | Vivocha specific environment data, sent by the platform, like: `host`, `acct`, `hmac`, `campaignId`, `channelId`, `entrypointId`, `engagementId`, `contactId`, `tags`, `token`, etc... For a bot used in data collections of type `Bot`, the `environment` object DOES NOT contain neither the `contactId` property (because it is a pre-contact task) nor the `token` property. The `token` property is sent by Vivocha only when `event` is `start`, and ONLY and ONLY IF the configured Bot URL is under **HTTPS**.|
 | `settings`    | (optional) **[BotSettings](https://github.com/vivocha/bot-sdk#botsettings)** object (see below) | Bot platform settings.                                                                                                                                                                                                                    |
 
 #### [BotMessage](#botmessage)
@@ -308,6 +308,73 @@ The Location Message has the following specific properties (required ones are in
 | `altitude`                   |  (Optional) number |  altitude in meters |
 
 ---
+
+##### [Environment](#environment)
+
+Environment property contains Vivocha specific environment data, sent by the platform. See the table below for details about conveyed data.
+
+**NB**:
+
+- for a bot used in data collections of type `Bot`, the `environment` object DOES NOT contain neighter the `contactId` property (because it is a pre-contact task) nor the `token` property.
+- The `token` property is sent by Vivocha only when `event` is `start`, and ONLY and ONLY IF the configured Bot URL is under **HTTPS**.
+
+The `environment` object has the following properties, ALL OPTIONAL:
+
+| PROPERTY                    | VALUE    | DESCRIPTION                                                                                                                                                                 |
+| --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |
+| `host`                   | (optional) string                               | Vivocha server host |
+| `acct` | (optional) string  | Vivocha account Id|
+| `hmac`             | (optional) string | HMAC of the bot message                                                                                                                                                   |
+| `caps`                  | (optional) a **[ChannelCapabilities](https://github.com/vivocha/bot-sdk#channel-capabilities)** object                | Capabilities of the channel through the end user contact has been created |
+| `campaignId`| (optional) string | Id of the Vivocha Campaign from which the contact has been created |
+| `channelId`| (optional) string | Id of the Vivocha Channel from which the contact has been created |
+| `entrypointId`| (optional) string | Id of the Vivocha Campaign's Entrypoint by which the contact has been created |
+| `engagementId`| (optional) string | Id of the Vivocha Engagement by which the contact has been created |
+| `contactId`| (optional) string | Id of the contact |
+| `token`| (optional) string | JWT to authenticate Vivocha API calls. The `token` property is sent by Vivocha only when `event` is `start`, and ONLY and ONLY IF the configured Bot URL is under **HTTPS**. In order to use it, the Bot MUST save it. |
+| `tags`| (optional) an array of strings | Contact tags |
+| `optionalTags`| (optional) an array of strings | Optional contact tags |
+| `userAgent`| (optional) string | User Agent info |
+| `geoIP`| (optional) a **[GeoIP](https://github.com/vivocha/bot-sdk#geoip)** object  | Geo IP information about the contact |
+|`apiVersion`|(optional) string, like `v2`, `v3`, ...| when set it represents the Vivocha API version to call, if needed |
+---
+
+##### [Channel Capabilities](#channel-capabilities)
+
+**TBD**
+
+##### [GeoIP](#geoip)
+
+GeoIP information about the contact. The GeoIP object has the following (ALL OPTIONAL) properties:
+
+EnvironmentGeoIP {
+  country_code?: string;
+  country_name?: string;
+  latitude?: number;
+  longitude?: number;
+  continent_code?: string;
+  ip?: string;
+  region?: string;
+  city?: string;
+  postal_code?: string;
+  metro_code: string;
+  time_zone: string;
+}
+
+| PROPERTY                    | VALUE    | DESCRIPTION                                                                                                                                                                 |
+| --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |
+| `country_code`                   | (optional) string                               | Country code |
+| `country_name` | (optional) string  | Country name|
+| `latitude` | (optional) number  | Latitude|
+| `longitude` | (optional) number  | Longitude|
+| `continent_code` | (optional) string  | Code of the Continent|
+| `ip` | (optional) string  | IP Address|
+| `region` | (optional) string  | Name of the region|
+| `city` | (optional) string  | City name|
+| `postal_code` | (optional) string  | Postal Code for the City|
+| `metro_code` | (optional) string  | Metro Code|
+| `time_zone` | (optional) string  | Contact's timezone|
+
 ---
 
 #### [BotSettings](#botsettings)
