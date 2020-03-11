@@ -4,7 +4,7 @@ import { API, Operation, Resource } from 'arrest';
 import { OpenAPIV3 } from 'openapi-police';
 import * as http from 'request-promise-native';
 import { Stream } from 'stream';
-import * as uuid from 'uuid/v1';
+import { v1 as uuid } from 'uuid';
 import { getVvcEnvironment } from './util';
 
 class BotAgentResource extends Resource {
