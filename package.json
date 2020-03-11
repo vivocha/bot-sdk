@@ -10,7 +10,7 @@
     "build": "tsc",
     "build:examples": "(cd examples/lambda-bot-manager && npm i && npm run build) && (cd examples/lambda-bot-filter && npm i && npm run build) && (tsc -p examples)",
     "build:tests": "tsc -p test",
-    "build:all": "npm i --package-lock && npm run build && npm run build:tests && npm run build:examples",
+    "build:all": "npm i && npm run build && npm run build:tests && npm run build:examples",
     "commit": "git-cz",
     "check-coverage": "./node_modules/.bin/nyc check-coverage ",
     "report-coverage": "cat ./coverage/lcov.info | coveralls",
