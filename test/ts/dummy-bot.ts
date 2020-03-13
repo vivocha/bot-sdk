@@ -52,6 +52,8 @@ dummyBot.registerAgent(
         } as TextMessage
       ];
       response.data = msg.data || {};
+      // return env just to test it
+      response.environment = msg.environment;
     } else {
       if (msg.message.type === 'attachment') {
         // console.log('ATTACHMENT message received');
@@ -1339,8 +1341,12 @@ dummyBot.registerAgent(
             response.messages = [BotMessage.createLocationMessage({ longitude: 39.225915, latitude: 9.113315 })];
             break;
           case 'send-action':
-          case 'send-action':
             response.messages = [BotMessage.createActionMessage('mySuperAction', [{ a: 'param1', b: 'param2' }])];
+            break;
+          case 'environment':
+            const envMsg = BotMessage.createSimpleTextMessage('received env');
+            response.environment = msg.environment;
+            response.messages = [envMsg];
             break;
           default:
             response.messages = [
