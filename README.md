@@ -341,8 +341,42 @@ The `environment` object has the following properties, ALL OPTIONAL:
 
 ##### [Channel Capabilities](#channel-capabilities)
 
-**TBD**
+When set, the environment `caps` property is an object representing the capabilities of the particular communication channel that the final user is using to interact with the bot. Consequently, by reading these channel capabilities, the bot can compose a more adequate response type to send back to the user; for example it can decide to not send a message containing a template if the channel doesn't support it; or it can decide to not send an attachment; or it can decide to send a completly custom template if the channel declares its name in its capabilities.
 
+The Channel Capabilities object can have the following OPTIONAL properties:
+
+| PROPERTY                    | VALUE    | DESCRIPTION                                                                                                                                                                 |
+| --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |
+| `type`                   | (optional) string, possible values are `a`, `b`, `c` or `d`    | Vivocha channel type. Briefly: `a` represents a stateless channel; `b` a stateless channel that has also *start* and *end* steps; `c` a channel that provides also an handshake step, and `d` is a channel that works in P2P mode (i.e, client-to-client) |
+| `inbound` | (optional) boolean  | if `true`, it is an inbound channel |
+| `outbound`| (optional) boolean | if `true`, it is an outbound channel |
+| `media` | (optional) **[Media](https://github.com/vivocha/bot-sdk#media)** object | Specific media capabilities |
+| `transfer`| (optional) boolean | if `true`, it is possible to transfer the contact |
+| `ping`| (optional) boolean | if `true`, the channel can ping |
+| `encryption`| (optional) boolean | if `true`, messages encryption is supported |
+---
+
+##### [Media](#media)
+
+Media object has media specific capabilities represented by property name; for example: `chat`, `voice` or `video`. For chatbots, usually we are interested in the media named `chat`. Then, this section describes the **`media.chat`** property.
+**`media.chat`** can be a boolean (`false` to specify that the channel doesn't support chatting) or an object, which can have the following OPTIONAL properties:
+
+| PROPERTY                    | VALUE    | DESCRIPTION |
+| --------------------------- | ---------------------------------------------------------------------------------------- | ---------|
+| `isWriting`                 | (optional) boolean,  | the bot can to send [IsWriting](https://github.com/vivocha/bot-sdk#iswriting-message) messages in responses |
+| `acks` | (optional) boolean  | it is possible to send ACK messages |
+| `markdown` | (optional) boolean  | It is possible to send markdown formatted text in message bodies |
+| `link` | (optional) boolean  | it is possible to send links in messages |
+| `location` | (optional) boolean  | it is possible to send [Location Messages](https://github.com/vivocha/bot-sdk#location-message) to the channel|
+| `attachment` | (optional) boolean  | it is possible to send [Attachment Messages](https://github.com/vivocha/bot-sdk#attachment-message) |
+| `quickReply` | (optional) boolean  | it is possible to send Text Messages containing [Quick Replies](https://github.com/vivocha/bot-sdk#messagequickreply) |
+| `genericTemplate` | (optional) boolean  | it is possible to send Text Messages containing a [Generic Message Template](https://github.com/vivocha/bot-sdk#messagetemplate) |
+| `listTemplate` | (optional) boolean  | it is possible to send Text Messages containing a [List Template](https://github.com/vivocha/bot-sdk#messagetemplate) |
+| `customTemplateSchemaIds` | (optional) array of strings  | if the channel supports specific custom templates, the array contains their specific (schema) Ids/names. The bot must be able to send templates in messages accordingly |
+
+---
+
+---
 ##### [GeoIP](#geoip)
 
 GeoIP information about the contact. The GeoIP object has the following (ALL OPTIONAL) properties:
