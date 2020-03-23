@@ -1389,13 +1389,11 @@ The Vivocha `Attachment` object has the following properties:
       context: {...},
       ...
     };
-    
     // send back the BotResponse
     ...
 ```
 
 In the example above, `request` is the [homonymous Node.js module](https://www.npmjs.com/package/request).
-
 
 ### Sending Attachments directly, not using the Vivocha Secure Storage
 
@@ -1656,11 +1654,23 @@ In order to seamlessly integrate a bot agent built with Dialogflow V2 with the V
 
 4. when a message sent by Vivocha to the bot contains a *payload* (e.g., as resulting by pressing on a quick reply or on a postback button), data is set as the value of the property named *VVC_MessagePayload* in the parameters of the special context named *VVC_DATA_PAYLOAD_CONTEXT*; Thus, chat message payload can be accessed through the following Dialogflow expression: `#VVC_DATA_PAYLOAD_CONTEXT.VVC_MessagePayload`.
 
-5. be careful using contexts, they are the only powerful and exclusive way to correlate intents and follow-up intents in a conversation to build the entire conversation flow and branches;
+5. **only for a start event**, the **Vivocha environment** data is sent as a parameter bound to the start event. The parameter key is *VVC_ENVIRONMENT*. The following picture shows how to access to the data carried by the *VVC_ENVIRONMENT* object.
 
-6. use slot-filling / parameters to collect data from the user; data will be collected by Dialogflow as parameters and set in the corresponding defined output contexts. Vivocha will automatically collect and set them in the Vivocha `BotResponse.data` property;
+| ![Accessing the Vivocha Environment data from a start message in Dialogflow Bot](https://raw.githubusercontent.com/vivocha/bot-sdk/develop/docs/dialogflow-start-env.png) |
+| :-----------------: |
+| **A way to read the Vivocha Environment data in Dialogflow from a start event message** |
 
-7. in order to require a transfer to another agent, in the particular intent the bot must set an output context named *end* and it must be be instructed to set a `transferToAgent` parameter with an arbitrary corresponding string value. Then, that value must be used in the transfer configuration in the Vivocha admin console, as described in the [Transfer to Human Agents section](https://github.com/vivocha/bot-sdk#about-vivocha-bots-and-transfers-to-human-agents).
+6. during the conversation (any message other than the start event), the **Vivocha environment** data can be accessed by the paramenter bound to the *VVC_DATA_PAYLOAD_CONTEXT* special context, using the expression `#vvc_data_payload_context.VVC_Environment`, as shown in the following picture:
+
+| ![Accessing the Vivocha Environment data from a message in Dialogflow Bot](https://raw.githubusercontent.com/vivocha/bot-sdk/develop/docs/dialogflow-msg-env.png) |
+| :-----------------: |
+| **A way to read the Vivocha Environment data from a message in Dialogflow** |
+
+7. be careful using contexts, they are the only powerful and exclusive way to correlate intents and follow-up intents in a conversation to build the entire conversation flow and branches;
+
+8. use slot-filling / parameters to collect data from the user; data will be collected by Dialogflow as parameters and set in the corresponding defined output contexts. Vivocha will automatically collect and set them in the Vivocha `BotResponse.data` property;
+
+9. in order to require a transfer to another agent, in the particular intent the bot must set an output context named *end* and it must be be instructed to set a `transferToAgent` parameter with an arbitrary corresponding string value. Then, that value must be used in the transfer configuration in the Vivocha admin console, as described in the [Transfer to Human Agents section](https://github.com/vivocha/bot-sdk#about-vivocha-bots-and-transfers-to-human-agents).
 
 ---
 
@@ -1689,6 +1699,12 @@ Integration guidelines:
 3. If you need to perfom data collection tasks, remember that you have to configure the bot _slot-filling_ feature in the dedicated nodes of the Dialog section.
 
 4. When a message sent to the bot contains the `payload` property (like in the case when it is sent as a reaction to a postback button, for example) and it is sent through the default Vivocha drivers, then the message `payload` value will be passed to Watson Assistant as a context parameter named `VVC_MessagePayload`. Therefore, it can be retrieved and used as a variable or slot in the Watson Assistant bot logic.
+
+5. The **Vivocha Environment** data can be read from a message using the `VVC_Environment` context parameter. Thus, for example, it is possible to reference the environment tags data through an expression like: `$VVC_Environment.tags`. The following picture shows a Watson bot dialog node checking for a particular tag in the environment:
+
+| ![Accessing the Vivocha Environment data from a message in a Watson Bot](https://github.com/vivocha/bot-sdk/raw/develop/docs/watson-env.png) |
+| :-----------------: |
+| **An example of reading and using the Vivocha Environment data in a Watson Bot** |
 
 #### [Vivocha Rich Messages and Watson Assistant](#vivocha-rich-messages-and-watson-assistant)
 
@@ -2277,6 +2293,14 @@ where:
 ```
 
 **NB**: whether an `endOfConversation` message is sent by the bot or not, when the configured `settings.transferKey` is found to be equal to the configured `settings.transferValue`, then in the resulting Vivocha BotResponse the `event` property **is automatically always set** to `end`.
+
+#### Accessing the Vivocha Environment Data
+
+In a Microsoft Bot, it is possibile to access the Vivocha Environment data, transported by a Bot Message, accessing the `channelData.VVCEnvironment` property. The following picture shows a code snippet (using the Microsoft Bot framework v. 4) accessing the Vivocha Environment data.
+
+| ![Accessing the Vivocha Environment data from a message in a Microsoft Bot](https://github.com/vivocha/bot-sdk/raw/develop/docs/ms-bot-env.png) |
+| :-----------------: |
+| **An example of reading and using the Vivocha Environment data in a Microsoft Bot** |
 
 ---
 
