@@ -59,6 +59,7 @@
     "multer": "^1.4.2",
     "nyc": "^15.0.0",
     "pem-promise": "^1.0.0",
+    "prettier": "^2.0.2",
     "request": "^2.88.2",
     "semantic-release": "^17.0.4",
     "typescript": "^3.8.3"
