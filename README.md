@@ -6,10 +6,9 @@ _JavaScript / TypeScript SDK to create Bot Agents and Filters for the [Vivocha](
 | :-----------------------------------------------------------------------------------: |
 | [![NPM version](https://img.shields.io/npm/v/@vivocha/bot-sdk.svg?style=flat)](https://www.npmjs.com/package/@vivocha/bot-sdk)  [![Build Status](https://travis-ci.org/vivocha/bot-sdk.svg?branch=master)](https://travis-ci.org/vivocha/bot-sdk)  [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)|
 
-
 ---
 
-**IMPORTANT: this version of the Bot SDK is a developer preview, which introduces some breaking changes. It is intended to be used with the new version of the Vivocha platform, currently under active development. Before using this SDK, please contact dev@vivocha.com.**
+**IMPORTANT: this version of the Bot SDK is a developer preview, which introduces some breaking changes. It is intended to be used with the new version of the Vivocha platform (v. 7), currently under beta version. Before starting using this SDK, please contact dev@vivocha.com.**
 
 The Vivocha Bot SDK allows to write Vivocha Bot Agents integrating existing bots, built and trained using your preferred bot / NLP platform. E.g., Dialogflow, IBM Watson Assistant (formerly Conversation), Wit.ai, Microsoft Bot framework, etc...
 Moreover, the SDK enables writing new bots from scratch or integrating virtually any API-based chatbot platform with Vivocha.
@@ -184,7 +183,7 @@ A BotRequest is a JSON with the following properties (in **bold** the required p
 | `data`        | (optional) object                                                                               | an object containing data to send to the Bot. Its properties must be of basic type. E.g., `{"firstname":"Antonio", "lastname": "Smith", "code": 12345}`                                                                                   |
 | `context`     | (optional) object                                                                               | Opaque, Bot specific context data                                                                                                                                                                                                         |
 | `tempContext` | (optional) object                                                                               | Temporary context, useful to store volatile data; i.e., in bot filters chains.                                                                                                                                                            |
-| `environment` | (optional) object, see **[Environment](https://github.com/vivocha/bot-sdk#environment)**        | Vivocha specific environment data, sent by the platform, like: `host`, `acct`, `hmac`, `campaignId`, `channelId`, `entrypointId`, `engagementId`, `contactId`, `tags`, `token`, etc... For a bot used in data collections of type `Bot`, the `environment` object DOES NOT contain neither the `contactId` property (because it is a pre-contact task) nor the `token` property. The `token` property is sent by Vivocha only when `event` is `start`, and ONLY and ONLY IF the configured Bot URL is under **HTTPS**.|
+| `environment` | (optional) object, see **[Environment](https://github.com/vivocha/bot-sdk#environment)**        | Vivocha specific environment data, sent by the platform, like: `host`, `acct`, `hmac`, `campaignId`, `channelId`, `entrypointId`, `engagementId`, `contactId`, `tags`, `token`, etc... For a bot used in data collections of type `Bot`, the `environment` object DOES NOT contain neither the `contactId` property (because it is a pre-contact task) nor the `token` property. The `token` property is sent by Vivocha in all bot requests but ONLY and ONLY IF the configured Bot URL is under **HTTPS**.|
 | `settings`    | (optional) **[BotSettings](https://github.com/vivocha/bot-sdk#botsettings)** object (see below) | Bot platform settings.                                                                                                                                                                                                                    |
 
 #### [BotMessage](#botmessage)
@@ -239,6 +238,8 @@ Its properties are (required are in **bold**):
 | **`type`**                  | string, value is `attachment`                                                                                                                                         | Vivocha Bot message type.                                                                                                                                                   |
 | **`url`**                  | string   | the URL from which download the attachment.                                                                                                                                                      |
 | **`meta`**                   | an object of **[Attachment Metadata](https://github.com/vivocha/bot-sdk#attachment-metadata)** type |  this object contains some metadata about the attachment being sent. |
+
+When the bot receives an `Attachment` message from Vivocha, it can download it doing a HTTP GET reqiest to the URL specified by the message `url` property.
 
 ---
 
@@ -315,8 +316,8 @@ Environment property contains Vivocha specific environment data, sent by the pla
 
 **NB**:
 
-- for a bot used in data collections of type `Bot`, the `environment` object DOES NOT contain neighter the `contactId` property (because it is a pre-contact task) nor the `token` property.
-- The `token` property is sent by Vivocha only when `event` is `start`, and ONLY and ONLY IF the configured Bot URL is under **HTTPS**.
+- for a bot used in data collections of type `Bot` (dialog-based data collectors), the `environment` object DOES NOT contain neighter the `contactId` property (because it is a pre-contact task) nor the `token` property.
+- The `token` property is sent by Vivocha only ONLY and ONLY IF the configured Bot URL is under **HTTPS**.
 
 The `environment` object has the following properties, ALL OPTIONAL:
 
@@ -331,7 +332,7 @@ The `environment` object has the following properties, ALL OPTIONAL:
 | `entrypointId`| (optional) string | Id of the Vivocha Campaign's Entrypoint by which the contact has been created |
 | `engagementId`| (optional) string | Id of the Vivocha Engagement by which the contact has been created |
 | `contactId`| (optional) string | Id of the contact |
-| `token`| (optional) string | JWT to authenticate Vivocha API calls. The `token` property is sent by Vivocha only when `event` is `start`, and ONLY and ONLY IF the configured Bot URL is under **HTTPS**. In order to use it, the Bot MUST save it. |
+| `token`| (optional) string | JWT required to authenticate Vivocha API calls. The `token` property is sent by Vivocha in bot requests ONLY and ONLY IF the configured Bot URL is under **HTTPS**.  |
 | `tags`| (optional) an array of strings | Contact tags |
 | `optionalTags`| (optional) an array of strings | Optional contact tags |
 | `userAgent`| (optional) string | User Agent info |
@@ -1326,7 +1327,7 @@ When a bot based on the Vivocha Bot SDK needs to send an attachment to a chat us
 ### Sending Attachments using the Vivocha Secure Storage
 
 This case is a two step process.
-To upload the attachment a `token` is needed. At first (and **only the first time**), start message (`event === "start"` in the BotRequest), Vivocha sends in the `environment` BotRequest property also an authentication `token`; Bot implementations, whishing to use this feature, MUST save the token, i.e, adding it to `context` property in the resulting `BotResponse`, for later use.
+In order to upload the attachment, a JWT `token` is needed. Vivocha sends the required `token` as a property of the `environment` BotRequest property, in each bot request.
 
 1. **upload the attachment to the Vivocha Secure Storage**: the `BotAgentmanager` class provides the `uploadAttachment()` static method in order to save the attachment in the Vivocha Secure Storage. Its signature is as follows:
 
@@ -1340,7 +1341,7 @@ where:
 
 - `attachmentMeta` is an object of type [Attachment Metadata](https://github.com/vivocha/bot-sdk#attachment-metadata). In this case it is enough to specify only the `mimetype` and `desc` properties, for example: `{ mimetype: 'image/jpeg', desc: 'Our 500 car in red color' }`;
 
-- `environment`, the `environment` object property sent by Vivocha to the bot in each BotRequest that **MUST also include the `token` property**. At first (and **only the first time**), start message (`event === "start"` in the BotRequest), Vivocha sends in the `environment` BotRequest property also a `token`; Bot implementations, whishing to use this feature, MUST save this token and, in order to properly call this method, include it in the BotRequest `environment` property. Then, an example of correct `environment` param to call this method is something like:
+- `environment`, the `environment` object property sent by Vivocha to the bot in each BotRequest that **MUST also include the `token` property**. Then, an example of a correct `environment` param to call this method is something like:
 
 ```json
 "environment": {
@@ -1356,7 +1357,7 @@ where:
 }
 ```
 
-The method will return a Promise containing an `Attachment` object.
+The method will return a *Promise* containing an `Attachment` object.
 The Vivocha `Attachment` object has the following properties:
 
 | PROPERTY                    | VALUE            | DESCRIPTION   |
@@ -1368,7 +1369,7 @@ The Vivocha `Attachment` object has the following properties:
 
 **N.B.** Uploading an attachment to Vivocha Secure Storage doesn't automatically result in sending an Attachment Message to the user. Thus, the step 2 below is needed:
 
-2. **prepare and send a Vivocha Attachment Message**: using the `Attachment` object resulting from the `BotAgentmanager.uploadAttachment()` method invocation, compose and send an [Attachment Message](https://github.com/vivocha/bot-sdk#attachment-message) filling the required `url` and `meta` properties with the values of the corresponding properties in the `Attachment` object obtained from step 1.
+1. **prepare and send a Vivocha Attachment Message**: using the `Attachment` object resulting from the `BotAgentmanager.uploadAttachment()` method invocation, compose and send an [Attachment Message](https://github.com/vivocha/bot-sdk#attachment-message) filling the required `url` and `meta` properties with the values of the corresponding properties in the `Attachment` object obtained from step 1.
 
 **Example 8: Composing an Attachment Message (related to an image uploaded to Vivocha Secure Storage) in a BotResponse**:
 
@@ -1422,10 +1423,10 @@ When uploading the attachment to Vivocha Secure Storage is not required and it's
 
 Generally, the Vivocha - Bots communication model is synchronous (request-response): Vivocha sends an HTTP request to a Bot(Manager, Agent) and it expects to receive a response within a standard HTTP timeout amount of time.
 
-However, in some cases involving time-consuming long responses from a bot, it is needed to send back a BotResponse when available, following an asynchronous model.
-This mode works as follows:
+However, in some cases involving time-consuming long responses from a bot, it is needed to send back a BotResponse as soon as it is available, following an asynchronous model.
+This model works as follows:
 
-1. At first (and **only the first time**), start message (`event === "start"` in the BotRequest), Vivocha sends in the `environment` BotRequest property also a `token`; Bot implementations, whishing to use this feature, MUST save the token, i.e, adding it to `context` property in the resulting `BotResponse`.
+1. `BotRequest.environment` object always contains a JWT token.
 
 Thus, an example of BotRequest `environment` for a start message could be:
 
@@ -1458,8 +1459,7 @@ Thus, an example of BotRequest `environment` for a start message could be:
     - `response` is a complete [BotResponse](https://github.com/vivocha/bot-sdk#botresponse)
     - `environment` is an environment object as above and **MUST include the `token` property**.
 
-    And it returns a Promise with a `http.FullResponse` object containing the call result.
-
+    And it returns a *Promise* with a `http.FullResponse` object containing the call result.
 
     **2.2. Directly call the following Vivocha API endpoint**:
 
@@ -1467,7 +1467,7 @@ Thus, an example of BotRequest `environment` for a start message could be:
     POST https://<HOST>/a/<ACCOUNT_ID>/api/v3/contacts/<CONTACT_ID>/bot-response
     ```
 
-    with HTTP **headers** containing the authentication as:
+    with HTTP **headers** containing the authorization header as in:
 
     ```text
     Authorization: Bearer <TOKEN>
@@ -1475,10 +1475,10 @@ Thus, an example of BotRequest `environment` for a start message could be:
 
     Where:
 
-    - `HOST` is the `environment.host` property
-    - `ACCOUNT_ID` is the `environment.acct` property
-    - `CONTACT_ID` is the `environment.contactId` property
-    - `TOKEN` is the `environment.token` property
+    - `HOST` is the `BotRequest.environment.host` property
+    - `ACCOUNT_ID` is the `BotRequest.environment.acct` property
+    - `CONTACT_ID` is the `BotRequest.environment.contactId` property
+    - `TOKEN` is the `BotRequest.environment.token` property
 
     The **body** of the API call must contain a standard [BotResponse](https://github.com/vivocha/bot-sdk#botresponse).
 
