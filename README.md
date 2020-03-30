@@ -19,13 +19,9 @@ By creating a BotManager it is possible to register multi-platform bot implement
 
 **Tested with Node.js version 12.x**.
 
-To start with the Bot SDK it is recommended to:
+To start with this version of the Bot SDK, it is recommended to install it from NPM: 
 
-- install it from NPM: `npm i @vivocha/bot-sdk@next`
-
-or
-
-- download the latest stable release from [here](https://github.com/vivocha/bot-sdk/releases)
+`npm i @vivocha/bot-sdk@next`
 
 ---
 
