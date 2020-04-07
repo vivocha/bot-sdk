@@ -27,60 +27,60 @@ To start with this version of the Bot SDK, it is recommended to install it from 
 
 ## Table of Contents
 
-- [Overview](https://github.com/vivocha/bot-sdk#overview)
-- [Quick Start, by Example](https://github.com/vivocha/bot-sdk#quick-start-by-example)
-  - [BotAgents and Manager](https://github.com/vivocha/bot-sdk#botagents-and-manager)
-  - [BotFilters](https://github.com/vivocha/bot-sdk#botfilters)
-- [BotAgent](https://github.com/vivocha/bot-sdk#botagent)
-  - [BotRequest](https://github.com/vivocha/bot-sdk#botrequest)
-    - [BotSettings](https://github.com/vivocha/bot-sdk#botsettings)
-    - [BotEngineSettings](https://github.com/vivocha/bot-sdk#botenginesettings)
-    - [BotRequest Example](https://github.com/vivocha/bot-sdk#botrequest-example)
-  - [BotResponse](https://github.com/vivocha/bot-sdk#botresponse)
-    - [BotResponse Examples](https://github.com/vivocha/bot-sdk#botresponse-examples)
-  - [BotMessage](https://github.com/vivocha/bot-sdk#botmessage)
-    - [Text Message](https://github.com/vivocha/bot-sdk#text-message)
-    - [Postback Message](https://github.com/vivocha/bot-sdk#postback-message)
-    - [Attachment Message](https://github.com/vivocha/bot-sdk#attachment-message)
-    - [Action Message](https://github.com/vivocha/bot-sdk#action-message)
-    - [IsWriting Message](https://github.com/vivocha/bot-sdk#iswriting-message)
-    - [Location Message](https://github.com/vivocha/bot-sdk#location-message)
-  - [MessageQuickReply](https://github.com/vivocha/bot-sdk#messagequickreply)
-  - [MessageTemplate](https://github.com/vivocha/bot-sdk#messagetemplate)
-  - [TemplateElement](https://github.com/vivocha/bot-sdk#templateelement)
-  - [DefaultAction](https://github.com/vivocha/bot-sdk#defaultaction)
-  - [Button](https://github.com/vivocha/bot-sdk#button)
-    - [PostbackButton](https://github.com/vivocha/bot-sdk#postbackbutton)
-    - [WebURLButton](https://github.com/vivocha/bot-sdk#weburlbutton)
-    - [CustomEventButton](https://github.com/vivocha/bot-sdk#customeventbutton)
-- [Bot Messages Utilities](https://github.com/vivocha/bot-sdk#bot-messages-utilities)
-- [BotManager](https://github.com/vivocha/bot-sdk#botmanager)
-  - [Registering a Bot Agent](https://github.com/vivocha/bot-sdk#registering-a-bot-agent)
-  - [BotManager Web API](https://github.com/vivocha/bot-sdk#botmanager-web-api)
-- [Bot Filters](https://github.com/vivocha/bot-sdk#bot-filters)
-  - [BotFilter Web API](https://github.com/vivocha/bot-sdk#botfilter-web-api)
-- [About Vivocha Bots and Transfers to Human Agents](https://github.com/vivocha/bot-sdk#about-vivocha-bots-and-transfers-to-human-agents)
-- [Sending Attachments](https://github.com/vivocha/bot-sdk#sending-attachments)
-- [Asynchronous Bot Responses](https://github.com/vivocha/bot-sdk#asynchronous-bot-responses)
-- [Supported Bot and NLP Platforms](https://github.com/vivocha/bot-sdk#supported-bot-and-nlp-platforms)
-  - [Dialogflow](https://github.com/vivocha/bot-sdk#dialogflow)
-    - [Dialogflow V2](https://github.com/vivocha/bot-sdk#dialogflow-v2)
-      - [Vivocha Bot Messages and Dialogflow V2](https://github.com/vivocha/bot-sdk#vivocha-bot-messages-and-dialogflow-v2)
-      - [Data collection and Dialogflow System Entities](https://github.com/vivocha/bot-sdk#data-collection-and-dialogflow-system-entities)
-      - [Dialogflow Constraints, Hints and Tips](https://github.com/vivocha/bot-sdk#dialogflow-constraints-hints-and-tips)
-  - [IBM Watson Assistant](https://github.com/vivocha/bot-sdk#ibm-watson-assistant-integration-guidelines)
-    - [Vivocha Rich Messages and Watson Assistant](https://github.com/vivocha/bot-sdk#vivocha-rich-messages-and-watson-assistant)
-    - [Watson Assistant Hints and Tips](https://github.com/vivocha/bot-sdk#watson-assistant-hints-and-tips)
-  - [Wit.ai, writing chat bots](https://github.com/vivocha/bot-sdk#witai-writing-chat-bots)
-    - [Wit.ai Bot Configuration](https://github.com/vivocha/bot-sdk#witai-bot-configuration)
-    - [Wit.ai with Vivocha Hint and Tips](https://github.com/vivocha/bot-sdk#witai-with-vivocha-hint-and-tips)
-  - [Microsoft Bots](https://github.com/vivocha/bot-sdk#microsoft-bots)
-    - [Using the Bot Framework version 4](https://github.com/vivocha/bot-sdk#using-the-bot-framework-version-4)
-    - [Using the Bot Framework version 3](https://github.com/vivocha/bot-sdk#using-the-bot-framework-version-3)
-- [Running BotManagers and BotFilters as AWS Lambdas](https://github.com/vivocha/bot-sdk#running-botmanagers-and-botfilters-as-aws-lambdas)
-  - [Prerequisites](https://github.com/vivocha/bot-sdk#prerequisites)
-  - [Writing a BotManager or a BotFilter as a Lambda Function](https://github.com/vivocha/bot-sdk#writing-a-botmanager-or-a-botfilter-as-a-lambda-function)
-- [Running Tests](https://github.com/vivocha/bot-sdk#running-tests)
+- [Overview](https://github.com/vivocha/bot-sdk/tree/develop#overview)
+- [Quick Start, by Example](https://github.com/vivocha/bot-sdk/tree/develop#quick-start-by-example)
+  - [BotAgents and Manager](https://github.com/vivocha/bot-sdk/tree/develop#botagents-and-manager)
+  - [BotFilters](https://github.com/vivocha/bot-sdk/tree/develop#botfilters)
+- [BotAgent](https://github.com/vivocha/bot-sdk/tree/develop#botagent)
+  - [BotRequest](https://github.com/vivocha/bot-sdk/tree/develop#botrequest)
+    - [BotSettings](https://github.com/vivocha/bot-sdk/tree/develop#botsettings)
+    - [BotEngineSettings](https://github.com/vivocha/bot-sdk/tree/develop#botenginesettings)
+    - [BotRequest Example](https://github.com/vivocha/bot-sdk/tree/develop#botrequest-example)
+  - [BotResponse](https://github.com/vivocha/bot-sdk/tree/develop#botresponse)
+    - [BotResponse Examples](https://github.com/vivocha/bot-sdk/tree/develop#botresponse-examples)
+  - [BotMessage](https://github.com/vivocha/bot-sdk/tree/develop#botmessage)
+    - [Text Message](https://github.com/vivocha/bot-sdk/tree/develop#text-message)
+    - [Postback Message](https://github.com/vivocha/bot-sdk/tree/develop#postback-message)
+    - [Attachment Message](https://github.com/vivocha/bot-sdk/tree/develop#attachment-message)
+    - [Action Message](https://github.com/vivocha/bot-sdk/tree/develop#action-message)
+    - [IsWriting Message](https://github.com/vivocha/bot-sdk/tree/develop#iswriting-message)
+    - [Location Message](https://github.com/vivocha/bot-sdk/tree/develop#location-message)
+  - [MessageQuickReply](https://github.com/vivocha/bot-sdk/tree/develop#messagequickreply)
+  - [MessageTemplate](https://github.com/vivocha/bot-sdk/tree/develop#messagetemplate)
+  - [TemplateElement](https://github.com/vivocha/bot-sdk/tree/develop#templateelement)
+  - [DefaultAction](https://github.com/vivocha/bot-sdk/tree/develop#defaultaction)
+  - [Button](https://github.com/vivocha/bot-sdk/tree/develop#button)
+    - [PostbackButton](https://github.com/vivocha/bot-sdk/tree/develop#postbackbutton)
+    - [WebURLButton](https://github.com/vivocha/bot-sdk/tree/develop#weburlbutton)
+    - [CustomEventButton](https://github.com/vivocha/bot-sdk/tree/develop#customeventbutton)
+- [Bot Messages Utilities](https://github.com/vivocha/bot-sdk/tree/develop#bot-messages-utilities)
+- [BotManager](https://github.com/vivocha/bot-sdk/tree/develop#botmanager)
+  - [Registering a Bot Agent](https://github.com/vivocha/bot-sdk/tree/develop#registering-a-bot-agent)
+  - [BotManager Web API](https://github.com/vivocha/bot-sdk/tree/develop#botmanager-web-api)
+- [Bot Filters](https://github.com/vivocha/bot-sdk/tree/develop#bot-filters)
+  - [BotFilter Web API](https://github.com/vivocha/bot-sdk/tree/develop#botfilter-web-api)
+- [About Vivocha Bots and Transfers to Human Agents](https://github.com/vivocha/bot-sdk/tree/develop#about-vivocha-bots-and-transfers-to-human-agents)
+- [Sending Attachments](https://github.com/vivocha/bot-sdk/tree/develop#sending-attachments)
+- [Asynchronous Bot Responses](https://github.com/vivocha/bot-sdk/tree/develop#asynchronous-bot-responses)
+- [Supported Bot and NLP Platforms](https://github.com/vivocha/bot-sdk/tree/develop#supported-bot-and-nlp-platforms)
+  - [Dialogflow](https://github.com/vivocha/bot-sdk/tree/develop#dialogflow)
+    - [Dialogflow V2](https://github.com/vivocha/bot-sdk/tree/develop#dialogflow-v2)
+      - [Vivocha Bot Messages and Dialogflow V2](https://github.com/vivocha/bot-sdk/tree/develop#vivocha-bot-messages-and-dialogflow-v2)
+      - [Data collection and Dialogflow System Entities](https://github.com/vivocha/bot-sdk/tree/develop#data-collection-and-dialogflow-system-entities)
+      - [Dialogflow Constraints, Hints and Tips](https://github.com/vivocha/bot-sdk/tree/develop#dialogflow-constraints-hints-and-tips)
+  - [IBM Watson Assistant](https://github.com/vivocha/bot-sdk/tree/develop#ibm-watson-assistant-integration-guidelines)
+    - [Vivocha Rich Messages and Watson Assistant](https://github.com/vivocha/bot-sdk/tree/develop#vivocha-rich-messages-and-watson-assistant)
+    - [Watson Assistant Hints and Tips](https://github.com/vivocha/bot-sdk/tree/develop#watson-assistant-hints-and-tips)
+  - [Wit.ai, writing chat bots](https://github.com/vivocha/bot-sdk/tree/develop#witai-writing-chat-bots)
+    - [Wit.ai Bot Configuration](https://github.com/vivocha/bot-sdk/tree/develop#witai-bot-configuration)
+    - [Wit.ai with Vivocha Hint and Tips](https://github.com/vivocha/bot-sdk/tree/develop#witai-with-vivocha-hint-and-tips)
+  - [Microsoft Bots](https://github.com/vivocha/bot-sdk/tree/develop#microsoft-bots)
+    - [Using the Bot Framework version 4](https://github.com/vivocha/bot-sdk/tree/develop#using-the-bot-framework-version-4)
+    - [Using the Bot Framework version 3](https://github.com/vivocha/bot-sdk/tree/develop#using-the-bot-framework-version-3)
+- [Running BotManagers and BotFilters as AWS Lambdas](https://github.com/vivocha/bot-sdk/tree/develop#running-botmanagers-and-botfilters-as-aws-lambdas)
+  - [Prerequisites](https://github.com/vivocha/bot-sdk/tree/develop#prerequisites)
+  - [Writing a BotManager or a BotFilter as a Lambda Function](https://github.com/vivocha/bot-sdk/tree/develop#writing-a-botmanager-or-a-botfilter-as-a-lambda-function)
+- [Running Tests](https://github.com/vivocha/bot-sdk/tree/develop#running-tests)
 
 ---
 
@@ -174,13 +174,13 @@ A BotRequest is a JSON with the following properties (in **bold** the required p
 | PROPERTY      | VALUE                                                                                           | DESCRIPTION                                                                                                                                                                                                                               |
 | ------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **`event`**   | string: `start` or `continue` or `end` or a custom string                                       | `start` event is sent to wake-up the Bot; `continue` tells the Bot to continue the conversation; `end` to set the conversation as finished; a custom string can be set for specific custom internal Bot functionalities.                  |
-| `message`     | (optional) object, see **[BotMessage](https://github.com/vivocha/bot-sdk#botmessage)** below    | the message to send to the BotAgent                                                                                                                                                                                                       |
+| `message`     | (optional) object, see **[BotMessage](https://github.com/vivocha/bot-sdk/tree/develop#botmessage)** below    | the message to send to the BotAgent                                                                                                                                                                                                       |
 | `language`    | (optional) string. E.g., `en`, `it`, ...                                                        | language string, mandatory for some Bot platforms.                                                                                                                                                                                        |
 | `data`        | (optional) object                                                                               | an object containing data to send to the Bot. Its properties must be of basic type. E.g., `{"firstname":"Antonio", "lastname": "Smith", "code": 12345}`                                                                                   |
 | `context`     | (optional) object                                                                               | Opaque, Bot specific context data                                                                                                                                                                                                         |
 | `tempContext` | (optional) object                                                                               | Temporary context, useful to store volatile data; i.e., in bot filters chains.                                                                                                                                                            |
-| `environment` | (optional) object, see **[Environment](https://github.com/vivocha/bot-sdk#environment)**        | Vivocha specific environment data, sent by the platform, like: `host`, `acct`, `hmac`, `campaignId`, `channelId`, `entrypointId`, `engagementId`, `contactId`, `tags`, `token`, etc... For a bot used in data collections of type `Bot`, the `environment` object DOES NOT contain neither the `contactId` property (because it is a pre-contact task) nor the `token` property. The `token` property is sent by Vivocha in all bot requests but ONLY and ONLY IF the configured Bot URL is under **HTTPS**.|
-| `settings`    | (optional) **[BotSettings](https://github.com/vivocha/bot-sdk#botsettings)** object (see below) | Bot platform settings.                                                                                                                                                                                                                    |
+| `environment` | (optional) object, see **[Environment](https://github.com/vivocha/bot-sdk/tree/develop#environment)**        | Vivocha specific environment data, sent by the platform, like: `host`, `acct`, `hmac`, `campaignId`, `channelId`, `entrypointId`, `engagementId`, `contactId`, `tags`, `token`, etc... For a bot used in data collections of type `Bot`, the `environment` object DOES NOT contain neither the `contactId` property (because it is a pre-contact task) nor the `token` property. The `token` property is sent by Vivocha in all bot requests but ONLY and ONLY IF the configured Bot URL is under **HTTPS**.|
+| `settings`    | (optional) **[BotSettings](https://github.com/vivocha/bot-sdk/tree/develop#botsettings)** object (see below) | Bot platform settings.                                                                                                                                                                                                                    |
 
 #### [BotMessage](#botmessage)
 
@@ -205,8 +205,8 @@ A Text Message has the following properties (required are in **bold**):
 | **`body`**                  | string                                                                                                                                                               | the message text body.                                                                                                                                                      |
 | `payload`                   | (optional) string                                                                                                                                                    | a custom payload, usually used to send back the payload of a quick reply or of a postback button in a BotRequest, after the user clicks / taps the corresponding UI button. |
 | `quick_replies_orientation` | (optional) string: `vertical` or `horizontal`                                                                                                                        | in case of a message with `quick_replies` it indicates the quick replies buttons group orientation to show in the client; default is `horizontal`. Orientation option is supported by the official Vivocha interaction.|
-| `quick_replies`             | (optional) an array of **[MessageQuickReply](https://github.com/vivocha/bot-sdk#messagequickreply)** objects (see below) | an array of quick replies.                                                                                                                                                   |
-| `template`                  | (optional) a **[MessageTemplate](https://github.com/vivocha/bot-sdk#messagetemplate)** object                | a template object.                                                                                                                                                  |
+| `quick_replies`             | (optional) an array of **[MessageQuickReply](https://github.com/vivocha/bot-sdk/tree/develop#messagequickreply)** objects (see below) | an array of quick replies.                                                                                                                                                   |
+| `template`                  | (optional) a **[MessageTemplate](https://github.com/vivocha/bot-sdk/tree/develop#messagetemplate)** object                | a template object.                                                                                                                                                  |
 ---
 
 ##### [Postback Message](#postback-message)
@@ -224,7 +224,7 @@ Its properties are (required are in **bold**):
 
 ##### [Attachment Message](#attachment-message)
 
-A message containing an attachment that can be sent/received to/from a bot to send files. See **[Sending Attachments](https://github.com/vivocha/bot-sdk#sending-attachments)** section in this document for more details about sending attachments to/from a bot.
+A message containing an attachment that can be sent/received to/from a bot to send files. See **[Sending Attachments](https://github.com/vivocha/bot-sdk/tree/develop#sending-attachments)** section in this document for more details about sending attachments to/from a bot.
 
 Its properties are (required are in **bold**):
 
@@ -233,7 +233,7 @@ Its properties are (required are in **bold**):
 | **`code`**                  | string, value is always `message`                                                                                                                                    | Vivocha code type for Bot messages.                                                                                                                                         |
 | **`type`**                  | string, value is `attachment`                                                                                                                                         | Vivocha Bot message type.                                                                                                                                                   |
 | **`url`**                  | string   | the URL from which download the attachment.                                                                                                                                                      |
-| **`meta`**                   | an object of **[Attachment Metadata](https://github.com/vivocha/bot-sdk#attachment-metadata)** type |  this object contains some metadata about the attachment being sent. |
+| **`meta`**                   | an object of **[Attachment Metadata](https://github.com/vivocha/bot-sdk/tree/develop#attachment-metadata)** type |  this object contains some metadata about the attachment being sent. |
 
 When the bot receives an `Attachment` message from Vivocha, it can download it doing a HTTP GET reqiest to the URL specified by the message `url` property.
 
@@ -322,7 +322,7 @@ The `environment` object has the following properties, ALL OPTIONAL:
 | `host`                   | (optional) string                               | Vivocha server host |
 | `acct` | (optional) string  | Vivocha account Id|
 | `hmac`             | (optional) string | HMAC of the bot message                                                                                                                                                   |
-| `caps`                  | (optional) a **[ChannelCapabilities](https://github.com/vivocha/bot-sdk#channel-capabilities)** object                | Capabilities of the channel through the end user contact has been created |
+| `caps`                  | (optional) a **[ChannelCapabilities](https://github.com/vivocha/bot-sdk/tree/develop#channel-capabilities)** object                | Capabilities of the channel through the end user contact has been created |
 | `campaignId`| (optional) string | Id of the Vivocha Campaign from which the contact has been created |
 | `channelId`| (optional) string | Id of the Vivocha Channel from which the contact has been created |
 | `entrypointId`| (optional) string | Id of the Vivocha Campaign's Entrypoint by which the contact has been created |
@@ -332,7 +332,7 @@ The `environment` object has the following properties, ALL OPTIONAL:
 | `tags`| (optional) an array of strings | Contact tags |
 | `optionalTags`| (optional) an array of strings | Optional contact tags |
 | `userAgent`| (optional) string | User Agent info |
-| `geoIP`| (optional) a **[GeoIP](https://github.com/vivocha/bot-sdk#geoip)** object  | Geo IP information about the contact |
+| `geoIP`| (optional) a **[GeoIP](https://github.com/vivocha/bot-sdk/tree/develop#geoip)** object  | Geo IP information about the contact |
 |`apiVersion`|(optional) string, like `v2`, `v3`, ...| when set it represents the Vivocha API version to call, if needed |
 ---
 
@@ -347,7 +347,7 @@ The Channel Capabilities object can have the following OPTIONAL properties:
 | `type`                   | (optional) string, possible values are `a`, `b`, `c` or `d`    | Vivocha channel type. Briefly: `a` represents a stateless channel; `b` a stateless channel that has also *start* and *end* steps; `c` a channel that provides also an handshake step, and `d` is a channel that works in P2P mode (i.e, client-to-client) |
 | `inbound` | (optional) boolean  | if `true`, it is an inbound channel |
 | `outbound`| (optional) boolean | if `true`, it is an outbound channel |
-| `media` | (optional) **[Media](https://github.com/vivocha/bot-sdk#media)** object | Specific media capabilities |
+| `media` | (optional) **[Media](https://github.com/vivocha/bot-sdk/tree/develop#media)** object | Specific media capabilities |
 | `transfer`| (optional) boolean | if `true`, it is possible to transfer the contact |
 | `ping`| (optional) boolean | if `true`, the channel can ping |
 | `encryption`| (optional) boolean | if `true`, messages encryption is supported |
@@ -360,15 +360,15 @@ Media object has media specific capabilities represented by property name; for e
 
 | PROPERTY                    | VALUE    | DESCRIPTION |
 | --------------------------- | ---------------------------------------------------------------------------------------- | ---------|
-| `isWriting`                 | (optional) boolean,  | the bot can to send [IsWriting](https://github.com/vivocha/bot-sdk#iswriting-message) messages in responses |
+| `isWriting`                 | (optional) boolean,  | the bot can to send [IsWriting](https://github.com/vivocha/bot-sdk/tree/develop#iswriting-message) messages in responses |
 | `acks` | (optional) boolean  | it is possible to send ACK messages |
 | `markdown` | (optional) boolean  | It is possible to send markdown formatted text in message bodies |
 | `link` | (optional) boolean  | it is possible to send links in messages |
-| `location` | (optional) boolean  | it is possible to send [Location Messages](https://github.com/vivocha/bot-sdk#location-message) to the channel|
-| `attachment` | (optional) boolean  | it is possible to send [Attachment Messages](https://github.com/vivocha/bot-sdk#attachment-message) |
-| `quickReply` | (optional) boolean  | it is possible to send Text Messages containing [Quick Replies](https://github.com/vivocha/bot-sdk#messagequickreply) |
-| `genericTemplate` | (optional) boolean  | it is possible to send Text Messages containing a [Generic Message Template](https://github.com/vivocha/bot-sdk#messagetemplate) |
-| `listTemplate` | (optional) boolean  | it is possible to send Text Messages containing a [List Template](https://github.com/vivocha/bot-sdk#messagetemplate) |
+| `location` | (optional) boolean  | it is possible to send [Location Messages](https://github.com/vivocha/bot-sdk/tree/develop#location-message) to the channel|
+| `attachment` | (optional) boolean  | it is possible to send [Attachment Messages](https://github.com/vivocha/bot-sdk/tree/develop#attachment-message) |
+| `quickReply` | (optional) boolean  | it is possible to send Text Messages containing [Quick Replies](https://github.com/vivocha/bot-sdk/tree/develop#messagequickreply) |
+| `genericTemplate` | (optional) boolean  | it is possible to send Text Messages containing a [Generic Message Template](https://github.com/vivocha/bot-sdk/tree/develop#messagetemplate) |
+| `listTemplate` | (optional) boolean  | it is possible to send Text Messages containing a [List Template](https://github.com/vivocha/bot-sdk/tree/develop#messagetemplate) |
 | `customTemplateSchemaIds` | (optional) array of strings  | if the channel supports specific custom templates, the array contains their specific (schema) Ids/names. The bot must be able to send templates in messages accordingly |
 
 ---
@@ -400,7 +400,7 @@ Bot platform settings object. Along with the `engine` property (see the table be
 
 | PROPERTY | VALUE                                                                                                       | DESCRIPTION                         |
 | -------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------- |
-| `engine` | (optional) **[BotEngineSettings](https://github.com/vivocha/bot-sdk#botenginesettings)** object (see below) | Specific Bot/NLP Platform settings. |
+| `engine` | (optional) **[BotEngineSettings](https://github.com/vivocha/bot-sdk/tree/develop#botenginesettings)** object (see below) | Specific Bot/NLP Platform settings. |
 ---
 
 #### [BotEngineSettings](#botenginesettings)
@@ -564,8 +564,8 @@ Properties are (required are in **bold**):
 | PROPERTY   | VALUE                                                                                                                                     | DESCRIPTION                                                                                                |
 | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
 | **`type`** | string, accepted values are: `generic` or `list`                                                                                          | Template type, currently only `generic` and `list` types are supported                                     |
-| `elements` | (optional) an array of **[generic template Elements](https://github.com/vivocha/bot-sdk#templateelement)**                                | elements defined by **[TemplateElement](https://github.com/vivocha/bot-sdk#templateelement)** object specification |
-| `buttons`  | (optional) only in case of a template where `type` == `list`, an array of **[Button](https://github.com/vivocha/bot-sdk#button)** objects | the buttons to display in the bottom part of the template.                                                 |
+| `elements` | (optional) an array of **[generic template Elements](https://github.com/vivocha/bot-sdk/tree/develop#templateelement)**                                | elements defined by **[TemplateElement](https://github.com/vivocha/bot-sdk/tree/develop#templateelement)** object specification |
+| `buttons`  | (optional) only in case of a template where `type` == `list`, an array of **[Button](https://github.com/vivocha/bot-sdk/tree/develop#button)** objects | the buttons to display in the bottom part of the template.                                                 |
 ---
 
 #### [TemplateElement](#templateelement)
@@ -579,8 +579,8 @@ in a Template Element only the property `title` is mandatory, but at least one o
 | **`title`**      | string                                                                                  | the text to display as title in the template rendering                                     |
 | `subtitle`       | (optional) string                                                                       | an optional subtitle to display in the template                                            |
 | `image_url`      | (optional) string                                                                       | a valid URL for an image to display in the template                                        |
-| `default_action` | (optional) **[DefaultAction](https://github.com/vivocha/bot-sdk#defaultaction)** object | an object representing the default action to execute when the template is clicked / tapped |
-| `buttons`        | (optional) an array of **[Button](https://github.com/vivocha/bot-sdk#button)** objects  | the buttons to display in the template element.                                            |
+| `default_action` | (optional) **[DefaultAction](https://github.com/vivocha/bot-sdk/tree/develop#defaultaction)** object | an object representing the default action to execute when the template is clicked / tapped |
+| `buttons`        | (optional) an array of **[Button](https://github.com/vivocha/bot-sdk/tree/develop#button)** objects  | the buttons to display in the template element.                                            |
 ---
 
 **Example 4**: A BotResponse message containing a _generic template_
@@ -829,7 +829,7 @@ Which is rendered by the Vivocha interaction app like in the following screensho
 ##### Custom Template Elements
 
 If you provide a custom Template Element, you will need to customize also the end user interaction app, in order to properly show the custom template element as you have designed it.
-An example of a custom Template Element can be found [here](https://github.com/vivocha/bot-sdk#using-the-bot-framework-version-4), where a custom message coming from a Microsoft Bot will be sent to the interaction app unchanged.
+An example of a custom Template Element can be found [here](https://github.com/vivocha/bot-sdk/tree/develop#using-the-bot-framework-version-4), where a custom message coming from a Microsoft Bot will be sent to the interaction app unchanged.
 
 ---
 
@@ -847,7 +847,7 @@ Properties are (required are in **bold**):
 
 #### [Button](#button)
 
-A Button object can be one of the following types: **[PostbackButton](https://github.com/vivocha/bot-sdk#postbackbutton)**, **[WebURLButton](https://github.com/vivocha/bot-sdk#weburlbutton)** or a **[CustomEventButton](https://github.com/vivocha/bot-sdk#customeventbutton)**
+A Button object can be one of the following types: **[PostbackButton](https://github.com/vivocha/bot-sdk/tree/develop#postbackbutton)**, **[WebURLButton](https://github.com/vivocha/bot-sdk/tree/develop#weburlbutton)** or a **[CustomEventButton](https://github.com/vivocha/bot-sdk/tree/develop#customeventbutton)**
 
 ##### [PostbackButton](#postbackbutton)
 
@@ -960,7 +960,7 @@ A BotResponse is a JSON with the following properties and it is similar to a `Bo
 | PROPERTY      | VALUE                                                                                                               | DESCRIPTION                                                                                                                                                                                                                                          |
 | ------------- | ------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **`event`**   | string: `continue` or `end`                                                                                         | `continue` event is sent back to Vivocha to continue the conversation, in other words it means that the bot is awaiting for the next user message; `end` is sent back with the meaning that Bot finished its tasks.                                    |
-| `messages`    | (optional) an array of **[BotMessage](https://github.com/vivocha/bot-sdk#botmessage)** objects (same as BotRequest) | the messages sent back by the BotAgent including quick replies and templates with images, buttons, etc...                                                                                                                                            |
+| `messages`    | (optional) an array of **[BotMessage](https://github.com/vivocha/bot-sdk/tree/develop#botmessage)** objects (same as BotRequest) | the messages sent back by the BotAgent including quick replies and templates with images, buttons, etc...                                                                                                                                            |
 | `language`    | (optional) string. E.g., `en`, `it`, ...                                                                            | language string code                                                                                                                                                                                                                                 |
 | `data`        | (optional) object                                                                                                   | an object containing data collected or computed by the Bot. Its properties must be of simple type. E.g., `{"firstname":"Antonio", "lastname": "Smith", "code": 12345, "availableAgents": 5}`                                                         |
 | `context`     | (optional) object                                                                                                   | Opaque, Bot specific context data. The Vivocha platform will send it immutated to the Bot in the next iteration.                                                                                                                                     |
@@ -1114,7 +1114,7 @@ The `BotMessage` class exposes the following (static) methods:
 BotMessage.createSimpleTextMessage(body: string): TextMessage
 ```
 
-Creates and returns a [Text Message](https://github.com/vivocha/bot-sdk#text-message), given a string to use as the body of the message.
+Creates and returns a [Text Message](https://github.com/vivocha/bot-sdk/tree/develop#text-message), given a string to use as the body of the message.
 
 ---
 
@@ -1122,7 +1122,7 @@ Creates and returns a [Text Message](https://github.com/vivocha/bot-sdk#text-mes
 BotMessage.createTextMessageWithQuickReplies(body: string, quickReplies: QuickReply[] | string[]): TextMessage
 ```
 
-Creates and returns a [Text Message](https://github.com/vivocha/bot-sdk#text-message) with the `quick_replies` property set, given a string to use as the body of the message and an array of quick replies title strings or complete definition objects.
+Creates and returns a [Text Message](https://github.com/vivocha/bot-sdk/tree/develop#text-message) with the `quick_replies` property set, given a string to use as the body of the message and an array of quick replies title strings or complete definition objects.
 
 ---
 
@@ -1130,7 +1130,7 @@ Creates and returns a [Text Message](https://github.com/vivocha/bot-sdk#text-mes
 BotMessage.createQuickReplies(quickReplies: QuickReply[] | string[]): MessageQuickReply[]
 ```
 
-Creates and returns an array of correctly set [MessageQuickReply](https://github.com/vivocha/bot-sdk#messagequickreply), given an array of simplified quick replies definitions, or an array of strings to be used both as title and payload of a quick reply.
+Creates and returns an array of correctly set [MessageQuickReply](https://github.com/vivocha/bot-sdk/tree/develop#messagequickreply), given an array of simplified quick replies definitions, or an array of strings to be used both as title and payload of a quick reply.
 This methos is useful to create and set the `quick_replies` property of a TextMessage.
 
 ---
@@ -1139,7 +1139,7 @@ This methos is useful to create and set the `quick_replies` property of a TextMe
 BotMessage.createActionMessage(actionCode: string, args: any[] = []): ActionMessage
 ```
 
-Creates and returns an [Action Message](https://github.com/vivocha/bot-sdk#action-message) given its `action_code` and (optionally) its `args`.
+Creates and returns an [Action Message](https://github.com/vivocha/bot-sdk/tree/develop#action-message) given its `action_code` and (optionally) its `args`.
 
 ---
 
@@ -1147,7 +1147,7 @@ Creates and returns an [Action Message](https://github.com/vivocha/bot-sdk#actio
 BotMessage.createIsWritingMessage(): IsWritingMessage
 ```
 
-Creates and returns an [IsWriting Message](https://github.com/vivocha/bot-sdk#iswriting-message).
+Creates and returns an [IsWriting Message](https://github.com/vivocha/bot-sdk/tree/develop#iswriting-message).
 
 ---
 
@@ -1155,7 +1155,7 @@ Creates and returns an [IsWriting Message](https://github.com/vivocha/bot-sdk#is
 BotMessage.createWebUrlButton(title: string, url: string): WebUrlButton
 ```
 
-Creates and returns a [WebURLButton](https://github.com/vivocha/bot-sdk#weburlbutton).
+Creates and returns a [WebURLButton](https://github.com/vivocha/bot-sdk/tree/develop#weburlbutton).
 
 ---
 
@@ -1163,7 +1163,7 @@ Creates and returns a [WebURLButton](https://github.com/vivocha/bot-sdk#weburlbu
 BotMessage.createPostbackButton(title: string, payload: string): PostbackButton
 ```
 
-Creates and returns a [PostbackButton](https://github.com/vivocha/bot-sdk#postbackbutton).
+Creates and returns a [PostbackButton](https://github.com/vivocha/bot-sdk/tree/develop#postbackbutton).
 
 ---
 
@@ -1171,13 +1171,13 @@ Creates and returns a [PostbackButton](https://github.com/vivocha/bot-sdk#postba
 BotMessage.createDefaultAction(url: string): DefaultAction
 ```
 
-Creates and returns a [DefaultAction](https://github.com/vivocha/bot-sdk#defaultaction) object to be set in a Generic Template element.
+Creates and returns a [DefaultAction](https://github.com/vivocha/bot-sdk/tree/develop#defaultaction) object to be set in a Generic Template element.
 
 ```javascript
 BotMessage.createLocationMessage(options: LocationMessageContent): DefaultAction
 ```
 
-Creates and returns a [LocationMessage](https://github.com/vivocha/bot-sdk#location-message) given its content as `options`, where `LocationMessageContent` is an object defined as follows:
+Creates and returns a [LocationMessage](https://github.com/vivocha/bot-sdk/tree/develop#location-message) given its content as `options`, where `LocationMessageContent` is an object defined as follows:
 
 ```javascript
 {
@@ -1207,7 +1207,7 @@ A `BotManager` is a bot registry microservice, which basically provides two main
 ### [Registering a Bot Agent](#registering-a-bot-agent)
 
 In the code contained in the `examples` directory it is possible to read in detail how to create and register Bot Agents.
-Briefly, to register a BotAgent, **[BotManager](https://github.com/vivocha/bot-sdk#botmanager)** provides a `registerAgent()` method:
+Briefly, to register a BotAgent, **[BotManager](https://github.com/vivocha/bot-sdk/tree/develop#botmanager)** provides a `registerAgent()` method:
 
 ```javascript
 const manager = new BotAgentManager();
@@ -1312,7 +1312,7 @@ In the Vivocha model, a Bot is just like a "normal" agent, able to handle contac
 
 - if the bot is written using **Wit.ai** and the module provided by this SDK, just return the transfer property in the BotResponse `data` field (see `examples/dummy-bot(.ts | .js)` code for the `transfer` case).
 
-- if the bot is written using the **Microsoft Bot Framework** and you're using the built-in Vivocha driver, then see the dedicated **Transfer to other agents** chapter in the [Microsoft Bots](https://github.com/vivocha/bot-sdk#microsoft-bots) section of this document.
+- if the bot is written using the **Microsoft Bot Framework** and you're using the built-in Vivocha driver, then see the dedicated **Transfer to other agents** chapter in the [Microsoft Bots](https://github.com/vivocha/bot-sdk/tree/develop#microsoft-bots) section of this document.
 
 ---
 
@@ -1335,7 +1335,7 @@ where:
 
 - `attachmentStream` is a Node.js `Stream` from which read the attachment bytes. The Stream can be created from a file or from a remote URL, see `examples/dummy-bot.ts (.js)` for the code about these two cases;
 
-- `attachmentMeta` is an object of type [Attachment Metadata](https://github.com/vivocha/bot-sdk#attachment-metadata). In this case it is enough to specify only the `mimetype` and `desc` properties, for example: `{ mimetype: 'image/jpeg', desc: 'Our 500 car in red color' }`;
+- `attachmentMeta` is an object of type [Attachment Metadata](https://github.com/vivocha/bot-sdk/tree/develop#attachment-metadata). In this case it is enough to specify only the `mimetype` and `desc` properties, for example: `{ mimetype: 'image/jpeg', desc: 'Our 500 car in red color' }`;
 
 - `environment`, the `environment` object property sent by Vivocha to the bot in each BotRequest that **MUST also include the `token` property**. Then, an example of a correct `environment` param to call this method is something like:
 
@@ -1359,13 +1359,13 @@ The Vivocha `Attachment` object has the following properties:
 | PROPERTY                    | VALUE            | DESCRIPTION   |
 | --------------------------- | -----------------| ----------------------------------- |
 | **`url`**                  | string   | the URL from which download the attachment from the Vivocha Secure Storage   |
-| **`meta`**                 | an object of **[Attachment Metadata](https://github.com/vivocha/bot-sdk#attachment-metadata)** type |  this object contains metadata about the uploaded attachment. |
+| **`meta`**                 | an object of **[Attachment Metadata](https://github.com/vivocha/bot-sdk/tree/develop#attachment-metadata)** type |  this object contains metadata about the uploaded attachment. |
 
 ---
 
 **N.B.** Uploading an attachment to Vivocha Secure Storage doesn't automatically result in sending an Attachment Message to the user. Thus, the step 2 below is needed:
 
-1. **prepare and send a Vivocha Attachment Message**: using the `Attachment` object resulting from the `BotAgentmanager.uploadAttachment()` method invocation, compose and send an [Attachment Message](https://github.com/vivocha/bot-sdk#attachment-message) filling the required `url` and `meta` properties with the values of the corresponding properties in the `Attachment` object obtained from step 1.
+1. **prepare and send a Vivocha Attachment Message**: using the `Attachment` object resulting from the `BotAgentmanager.uploadAttachment()` method invocation, compose and send an [Attachment Message](https://github.com/vivocha/bot-sdk/tree/develop#attachment-message) filling the required `url` and `meta` properties with the values of the corresponding properties in the `Attachment` object obtained from step 1.
 
 **Example 8: Composing an Attachment Message (related to an image uploaded to Vivocha Secure Storage) in a BotResponse**:
 
@@ -1394,7 +1394,7 @@ In the example above, `request` is the [homonymous Node.js module](https://www.n
 
 ### Sending Attachments directly, not using the Vivocha Secure Storage
 
-When uploading the attachment to Vivocha Secure Storage is not required and it's ok to send it through its public URL, then just send an **[Attachment Message](https://github.com/vivocha/bot-sdk#attachment-message)** using the original attachment info to send.
+When uploading the attachment to Vivocha Secure Storage is not required and it's ok to send it through its public URL, then just send an **[Attachment Message](https://github.com/vivocha/bot-sdk/tree/develop#attachment-message)** using the original attachment info to send.
 
 **Example 9: an Attachment Message (not being uploaded to Vivocha Secure Storage) in a BotResponse**:
 
@@ -1452,7 +1452,7 @@ Thus, an example of BotRequest `environment` for a start message could be:
 
     where:
 
-    - `response` is a complete [BotResponse](https://github.com/vivocha/bot-sdk#botresponse)
+    - `response` is a complete [BotResponse](https://github.com/vivocha/bot-sdk/tree/develop#botresponse)
     - `environment` is an environment object as above and **MUST include the `token` property**.
 
     And it returns a *Promise* with a `http.FullResponse` object containing the call result.
@@ -1476,7 +1476,7 @@ Thus, an example of BotRequest `environment` for a start message could be:
     - `CONTACT_ID` is the `BotRequest.environment.contactId` property
     - `TOKEN` is the `BotRequest.environment.token` property
 
-    The **body** of the API call must contain a standard [BotResponse](https://github.com/vivocha/bot-sdk#botresponse).
+    The **body** of the API call must contain a standard [BotResponse](https://github.com/vivocha/bot-sdk/tree/develop#botresponse).
 
 ---
 ---
@@ -1523,13 +1523,13 @@ At the end of the process you can download a JSON file. Quoting the Google docum
 
 Once you've downloaded the JSON file you can upload it in the related Bot Agent configuration page in the *Vivocha Campaign Builder > Library > External Services* section, be sure to select **Dialogflow V2** as Engine.
 
-Also, set a *start event* for the bot, as described in the [Dialogflow Constraints, Hints and Tips](https://github.com/vivocha/bot-sdk#dialogflow-constraints-hints-and-tips) section below.
+Also, set a *start event* for the bot, as described in the [Dialogflow Constraints, Hints and Tips](https://github.com/vivocha/bot-sdk/tree/develop#dialogflow-constraints-hints-and-tips) section below.
 
 ##### [Vivocha Bot Messages and Dialogflow V2](#vivocha-bot-messages-and-dialogflow-v2)
 
-Thanks to the Vivocha built-in support for Dialogflow V2, it is possible to directly send responses containing Vivocha Bot Messages (bot messages format is described in detail **[in this section](https://github.com/vivocha/bot-sdk#botmessage)**).
+Thanks to the Vivocha built-in support for Dialogflow V2, it is possible to directly send responses containing Vivocha Bot Messages (bot messages format is described in detail **[in this section](https://github.com/vivocha/bot-sdk/tree/develop#botmessage)**).
 
-To send Vivocha Bot Messages in a response from a Dialogflow _Intent_, just add a response with a _Custom payload_ by its console, and enter a valid JSON for the `messages` property, as required by the [Vivocha BotMessage](https://github.com/vivocha/bot-sdk#botmessage) format.
+To send Vivocha Bot Messages in a response from a Dialogflow _Intent_, just add a response with a _Custom payload_ by its console, and enter a valid JSON for the `messages` property, as required by the [Vivocha BotMessage](https://github.com/vivocha/bot-sdk/tree/develop#botmessage) format.
 
 For example, the following valid snippet is related to a response from Dialogflow with a custom payload for a Vivocha Bot message containing a carousel of two templates:
 
@@ -1666,7 +1666,7 @@ In order to seamlessly integrate a bot agent built with Dialogflow V2 with the V
 
 8. use slot-filling / parameters to collect data from the user; data will be collected by Dialogflow as parameters and set in the corresponding defined output contexts. Vivocha will automatically collect and set them in the Vivocha `BotResponse.data` property;
 
-9. in order to require a transfer to another agent, in the particular intent the bot must set an output context named *end* and it must be be instructed to set a `transferToAgent` parameter with an arbitrary corresponding string value. Then, that value must be used in the transfer configuration in the Vivocha admin console, as described in the [Transfer to Human Agents section](https://github.com/vivocha/bot-sdk#about-vivocha-bots-and-transfers-to-human-agents).
+9. in order to require a transfer to another agent, in the particular intent the bot must set an output context named *end* and it must be be instructed to set a `transferToAgent` parameter with an arbitrary corresponding string value. Then, that value must be used in the transfer configuration in the Vivocha admin console, as described in the [Transfer to Human Agents section](https://github.com/vivocha/bot-sdk/tree/develop#about-vivocha-bots-and-transfers-to-human-agents).
 
 ---
 
@@ -1704,7 +1704,7 @@ Integration guidelines:
 
 #### [Vivocha Rich Messages and Watson Assistant](#vivocha-rich-messages-and-watson-assistant)
 
-Thanks to the Vivocha built-in support for IBM Watson Assistant, it is possible to send from this bot platform responses containing rich Vivocha-compliant bot messages (bot messages format is described **[in this section](https://github.com/vivocha/bot-sdk#botmessage)**).
+Thanks to the Vivocha built-in support for IBM Watson Assistant, it is possible to send from this bot platform responses containing rich Vivocha-compliant bot messages (bot messages format is described **[in this section](https://github.com/vivocha/bot-sdk/tree/develop#botmessage)**).
 
 To send rich Vivocha messages as responses from the Watson platform, in its workspace console, _Dialog_ tab, select the particular dialog node, and in the _Then respond with_ section, open the embedded _JSON Editor_ and just add a response with a valid JSON object for the `messages` property, just inside the predefined `output` object (as defined by the Watson Assistant responses format).
 
