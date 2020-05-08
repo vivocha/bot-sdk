@@ -19,7 +19,7 @@ By creating a BotManager it is possible to register multi-platform bot implement
 
 **Tested with Node.js version 12.x**.
 
-To start with this version of the Bot SDK, it is recommended to install it from NPM: 
+To start with this version of the Bot SDK, it is recommended to install it from NPM:
 
 `npm i @vivocha/bot-sdk@next`
 
@@ -338,7 +338,7 @@ The `environment` object has the following properties, ALL OPTIONAL:
 
 ##### [Channel Capabilities](#channel-capabilities)
 
-When set, the environment `caps` property is an object representing the capabilities of the particular communication channel that the final user is using to interact with the bot. Consequently, by reading these channel capabilities, the bot can compose a more adequate response type to send back to the user; for example it can decide to not send a message containing a template if the channel doesn't support it; or it can decide to not send an attachment; or it can decide to send a completly custom template if the channel declares its name in its capabilities.
+When set, the environment `caps` property is an object representing the capabilities of the particular communication channel that the final user is using to interact with the bot. Consequently, by reading these channel capabilities, the bot can compose a more adequate response type to send back to the user; for example it can decide to not send a message containing a template if the channel doesn't support it; or, it can decide to not send an attachment; or, it can decide to send a totally custom template, if the channel declares its name in its capabilities.
 
 The Channel Capabilities object can have the following OPTIONAL properties:
 
@@ -355,21 +355,34 @@ The Channel Capabilities object can have the following OPTIONAL properties:
 
 ##### [Media](#media)
 
-Media object has media specific capabilities represented by property name; for example: `chat`, `voice` or `video`. For chatbots, usually we are interested in the media named `chat`. Then, this section describes the **`media.chat`** property.
-**`media.chat`** can be a boolean (`false` to specify that the channel doesn't support chatting) or an object, which can have the following OPTIONAL properties:
+Media object has media specific capabilities represented by property name; for example: `chat`, `voice` or `video`. For chatbots, usually we are interested in the media named `chat`.
+
+Then, this section describes the **`media.chat`** property.
+
+**`media.chat`** can be a boolean (`false` to specify that the channel doesn't support chatting) or an object, which can have the OPTIONAL properties reported in the table below in this section.
+
+In general, when not explicitely documented, a specific capability property (like: `isWriting` or `acks`) can be set to a value taken from a well-defined enumeration of possible values, that are:
+
+- `false`: the capability is not supported. Messages of this specific type CAN NOT be sent or received to/from the external service that the channel represents;
+- `in`: Messages of this specific capability type CAN BE sent *by the channel/external service TO (and only in this direction) the Vivocha Bot*;
+- `out`: Messages of this specific capability type CAN BE sent *by the Vivocha Bot service TO (and only in this direction) the external service* that the channel represents;
+- `both`: a Message related to the capability CAN BE sent in *both the directions* between the Vivocha Bot and the external service that the channel represents (in other words it means "`in` and `out`").
+
+Allowed **`media.chat`** properties are:
 
 | PROPERTY                    | VALUE    | DESCRIPTION |
 | --------------------------- | ---------------------------------------------------------------------------------------- | ---------|
-| `isWriting`                 | (optional) boolean,  | the bot can to send [IsWriting](https://github.com/vivocha/bot-sdk/tree/develop#iswriting-message) messages in responses |
-| `acks` | (optional) boolean  | it is possible to send ACK messages |
-| `markdown` | (optional) boolean  | It is possible to send markdown formatted text in message bodies |
-| `link` | (optional) boolean  | it is possible to send links in messages |
-| `location` | (optional) boolean  | it is possible to send [Location Messages](https://github.com/vivocha/bot-sdk/tree/develop#location-message) to the channel|
-| `attachment` | (optional) boolean  | it is possible to send [Attachment Messages](https://github.com/vivocha/bot-sdk/tree/develop#attachment-message) |
-| `quickReply` | (optional) boolean  | it is possible to send Text Messages containing [Quick Replies](https://github.com/vivocha/bot-sdk/tree/develop#messagequickreply) |
-| `genericTemplate` | (optional) boolean  | it is possible to send Text Messages containing a [Generic Message Template](https://github.com/vivocha/bot-sdk/tree/develop#messagetemplate) |
-| `listTemplate` | (optional) boolean  | it is possible to send Text Messages containing a [List Template](https://github.com/vivocha/bot-sdk/tree/develop#messagetemplate) |
-| `customTemplateSchemaIds` | (optional) array of strings  | if the channel supports specific custom templates, the array contains their specific (schema) Ids/names. The bot must be able to send templates in messages accordingly |
+| `isWriting`                 | (optional) a boolean `false` or a string: `in` or `out` or `both` | capability about [IsWriting](https://github.com/vivocha/bot-sdk/tree/develop#iswriting-message) messages in responses |
+| `acks` | (optional) a boolean `false` or a string: `in` or `out` or `both`  | capability about `ack` messages (delivered messages) |
+| `read` | (optional) a boolean `false` or a string: `in` or `out` or `both`  | capability  about `read` messages (final user or bot have read the message) |
+| `markdown` | (optional) a boolean `false` or a string: `in` or `out` or `both` | capability about sending markdown formatted text in message bodies |
+| `link` | (optional) a boolean `false` or a string: `in` or `out` or `both` | capability about sending links in messages |
+| `location` | (optional) a boolean `false` or a string: `in` or `out` or `both` | capability about sending [Location Messages](https://github.com/vivocha/bot-sdk/tree/develop#location-message)|
+| `attachment` | (optional) a boolean `false` or a string: `in` or `out` or `both` | capability about sending [Attachment Messages](https://github.com/vivocha/bot-sdk/tree/develop#attachment-message) |
+| `quickReply` | ((optional) a boolean `false` or a string: `in` or `out` or `both` | capability about sending Text Messages containing [Quick Replies](https://github.com/vivocha/bot-sdk/tree/develop#messagequickreply) |
+| `genericTemplate` | (optional) a boolean `false` or a string: `in` or `out` or `both` | capability about sending Text Messages containing a standard [Generic Message Template](https://github.com/vivocha/bot-sdk/tree/develop#messagetemplate) |
+| `listTemplate` | (optional) a boolean `false` or a string: `in` or `out` or `both` | capability about sending Text Messages containing a [List Template](https://github.com/vivocha/bot-sdk/tree/develop#messagetemplate) |
+| `customTemplateSchemaIds` | (optional) array of strings  | if the channel supports specific custom templates, the array contains their specific (schema) Ids/names. The bot must be able to send/receive templates in messages accordingly, that it means that a message template (with template `type` set `generic`) can have one template element which property `type` is set to one of the declared specific (schema) Ids|
 
 ---
 

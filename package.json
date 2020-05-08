@@ -1,6 +1,6 @@
 {
   "name": "@vivocha/bot-sdk",
-  "version": "4.0.0-beta5",
+  "version": "4.0.0-beta6",
   "description": "Vivocha Bot SDK: TypeScript / JavaScript SDK to create/integrate chatbots with the Vivocha platform",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -70,7 +70,7 @@
     }
   },
   "dependencies": {
-    "@vivocha/public-entities": "conversation",
+    "@vivocha/public-entities": "iengine",
     "arrest": "8.1.5",
     "lodash": "^4.17.15",
     "node-wit": "5.0.0",
