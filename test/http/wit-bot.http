@@ -12,7 +12,7 @@ Content-Type: application/json
       "engine":{
         "type":"WitAi",
         "settings":{
-          "token":"LKGUIHKS4MSF6A3ZUIBS5KEXE7WX3IY7"
+          "token":"VALID_TOKEN"
         }
       }
     },
@@ -35,7 +35,7 @@ Content-Type: application/json
       "engine":{
         "type":"WitAi",
         "settings":{
-          "token":"LKGUIHKS4MSF6A3ZUIBS5KEXE7WX3IY7"
+          "token":"VALID_TOKEN"
         }
       }
     },
