@@ -1,0 +1,44 @@
+POST http://localhost:8080/bot/message
+Content-Type: application/json
+
+{
+	  "event":"continue",
+    "message":{
+      "code":"message",
+      "type":"text",
+      "body":"Antonio Smith"
+    },
+    "settings":{
+      "engine":{
+        "type":"WitAi",
+        "settings":{
+          "token":"LKGUIHKS4MSF6A3ZUIBS5KEXE7WX3IY7"
+        }
+      }
+    },
+    "data":{},
+    "context":{"contexts":["ask_for_name"]}
+}
+
+###
+POST http://localhost:8080/bot/message
+Content-Type: application/json
+
+{
+	  "event":"continue",
+    "message":{
+      "code":"message",
+      "type":"text",
+      "body":"Technical"
+    },
+    "settings":{
+      "engine":{
+        "type":"WitAi",
+        "settings":{
+          "token":"LKGUIHKS4MSF6A3ZUIBS5KEXE7WX3IY7"
+        }
+      }
+    },
+    "data":{},
+    "context":{"contexts":["ask_for_support_type"]}
+}

@@ -1,7 +1,7 @@
 import { getLogger } from 'debuggo';
-import { BotRequest, BotResponse, BotMessageBody } from './index';
-import { Wit, log, MessageResponse } from 'node-wit';
 import * as _ from 'lodash';
+import { MessageResponse, Wit } from 'node-wit';
+import { BotMessageBody, BotRequest, BotResponse } from './index';
 
 const logger = getLogger('vivocha.witai.driver');
 
@@ -43,7 +43,8 @@ export abstract class WitAiBot {
 
   constructor(private token: string) {
     this.witApp = new Wit({
-      accessToken: token
+      accessToken: token,
+      logger
     });
   }
 
@@ -62,7 +63,7 @@ export abstract class WitAiBot {
       if (request.message.type === 'text' || request.message.type === 'postback') {
         const witResponse = await this.witApp.message(request.message.body, {});
         logger.debug('Wit.ai RESPONSE', JSON.stringify(witResponse));
-        const nextMessage: NextMessage = await this.getNextMessage(this.getFirstIntent(witResponse.entities) || 'unknown', witResponse, request);
+        const nextMessage: NextMessage = await this.getNextMessage(this.getMostConfidentIntent(witResponse) || 'unknown', witResponse, request);
         logger.debug('Message to send:', JSON.stringify(nextMessage));
         const res: BotResponse = {
           event: nextMessage.event,
@@ -92,6 +93,18 @@ export abstract class WitAiBot {
   // utilities methods
   protected getFirstIntent(entities: any[]): string {
     return entities && entities['intent'] && Array.isArray(entities['intent']) && entities['intent'][0].value;
+  }
+  protected getMostConfidentIntent(witResponse: MessageResponse): string | undefined {
+    try {
+      const getMostConfidentIntent = (arr: any[], comparator = (a: any, b: any) => a - b) => arr.reduce((a, b) => (comparator(a, b) >= 0 ? b : a));
+      if (witResponse.intents) {
+        const intent = getMostConfidentIntent(witResponse.intents, (a, b) => b.confidence - a.confidence);
+        return intent.name;
+      }
+    } catch (error) {
+      logger.error('no intents returned by Wit.ai');
+      return undefined;
+    }
   }
   /**
    * Check if all contexts in toCheck are contained in contexts array

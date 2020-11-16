@@ -8,7 +8,7 @@ chai.should();
 
 const engineType = 'WitAi';
 
-const getTextMessage = function(body: string, payload?: string): any {
+const getTextMessage = function (body: string, payload?: string): any {
   let msg = {
     code: 'message',
     type: 'text',
@@ -33,11 +33,11 @@ const getHTTPOptions = function getOptions(body) {
 };
 
 //root describe
-describe('Testing Wit.ai based bot for a simple data collection ', function() {
+describe('Testing Wit.ai based bot for a simple data collection ', function () {
   let env = process.env;
 
-  describe('Sending plain text messages', function() {
-    const getSettings = function(): any {
+  describe('Sending plain text messages', function () {
+    const getSettings = function (): any {
       return {
         engine: {
           type: engineType,
@@ -49,7 +49,7 @@ describe('Testing Wit.ai based bot for a simple data collection ', function() {
     };
     const manager = new BotAgentManager();
     let server;
-    before('starting bot manager', async function() {
+    before('starting bot manager', async function () {
       manager.registerAgent(
         engineType,
         async (req: BotRequest): Promise<BotResponse> => {
@@ -62,15 +62,15 @@ describe('Testing Wit.ai based bot for a simple data collection ', function() {
       server = await manager.listen(port);
       return;
     });
-    it('should perform data collection and then end with data filled', async function() {
+    it('should perform data collection and then end with data filled', async function () {
       const request1: BotRequest = {
         language: 'en',
         event: 'start',
         settings: getSettings()
       };
-      //console.dir(request1, { colors: true, depth: 20 });
+      // console.dir(request1, { colors: true, depth: 20 });
       const result1 = await http(getHTTPOptions(request1));
-      //console.dir(result1, { colors: true, depth: 20 });
+      // console.dir(result1, { colors: true, depth: 20 });
       result1.context.contexts.should.include('ask_for_name');
 
       const request2: BotRequest = {
@@ -81,10 +81,10 @@ describe('Testing Wit.ai based bot for a simple data collection ', function() {
         context: result1.context,
         data: result1.data
       };
-      //console.log('Sending msg2');
-      //console.dir(request2, { colors: true, depth: 20 });
+      // console.log('Sending msg2');
+      // console.dir(request2, { colors: true, depth: 20 });
       const result2 = await http(getHTTPOptions(request2));
-      //console.dir(result2, { colors: true, depth: 20 });
+      // console.dir(result2, { colors: true, depth: 20 });
       result2.context.contexts.should.include('ask_for_address');
       result2.event.should.equal('continue');
       result2.messages[0].body.should.contain('Send me your full address, please');
@@ -124,12 +124,12 @@ describe('Testing Wit.ai based bot for a simple data collection ', function() {
       return;
     });
 
-    after('shutdown bot manager', function() {
+    after('shutdown bot manager', function () {
       server.close();
     });
   });
-  describe('Sending plain text messages and one postback message for support type', function() {
-    const getSettings = function(): any {
+  describe('Sending plain text messages and one postback message for support type', function () {
+    const getSettings = function (): any {
       return {
         engine: {
           type: engineType,
@@ -141,7 +141,7 @@ describe('Testing Wit.ai based bot for a simple data collection ', function() {
     };
     const manager = new BotAgentManager();
     let server;
-    before('starting bot manager', async function() {
+    before('starting bot manager', async function () {
       manager.registerAgent(
         engineType,
         async (req: BotRequest): Promise<BotResponse> => {
@@ -154,7 +154,7 @@ describe('Testing Wit.ai based bot for a simple data collection ', function() {
       server = await manager.listen(port);
       return;
     });
-    it('should perform data collection and then end with data filled', async function() {
+    it('should perform data collection and then end with data filled', async function () {
       const request1: BotRequest = {
         language: 'en',
         event: 'start',
@@ -220,7 +220,7 @@ describe('Testing Wit.ai based bot for a simple data collection ', function() {
       return;
     });
 
-    after('shutdown bot manager', function() {
+    after('shutdown bot manager', function () {
       server.close();
     });
   });
