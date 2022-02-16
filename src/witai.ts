@@ -88,7 +88,7 @@ export abstract class WitAiBot {
    * @param request - BotRequest, the request coming from clients
    * @returns Promise<BotResponse>, containing the message to return in case of a start event
    */
-  protected abstract async getStartMessage(request: BotRequest): Promise<BotResponse>;
+  protected abstract getStartMessage(request: BotRequest): Promise<BotResponse>;
 
   // utilities methods
   protected getFirstIntent(entities: any[]): string {

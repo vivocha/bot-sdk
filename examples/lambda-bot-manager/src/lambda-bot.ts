@@ -1,10 +1,8 @@
 // install and import @vivocha/bot-sdk to run this bot!
 // replace next line with:
 // import { BotFilter, BotRequest, toLambda, serverless } from '@vivocha/bot-sdk';
-import { BotAgentManager, BotRequest, BotResponse, TextMessage, toLambda, serverless } from '../../../dist/index';
-// got is just a simple library to perform http requests (see below in the BotAgent code)
-import * as got from 'got';
-
+import got from 'got';
+import { BotAgentManager, BotRequest, BotResponse, serverless, TextMessage, toLambda } from '../../../dist/index';
 // A BotManager is a web server which exposes an API to send messages
 // to registered BotAgents, it exposes a Swagger description of the API with related JSON Schemas.
 // A BotManager holds a BotAgents registry.
@@ -99,13 +97,12 @@ manager.registerAgent(
           break;
         // just an example to show how to call an external API to compose a response
         case 'code':
+          const uuidResponse: any = await got('https://httpbin.org/uuid', { responseType: 'json', resolveBodyOnly: true });
           response.messages = [
             {
               code: 'message',
               type: 'text',
-              body: `A brand new code generated for you is: ${(await got('https://httpbin.org/uuid', {
-                json: true
-              })).body.uuid || 0}`
+              body: `A brand new code generated for you is: ${uuidResponse.uuid || 0}`
             } as TextMessage
           ];
           break;

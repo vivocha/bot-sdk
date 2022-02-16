@@ -1,10 +1,9 @@
-import { Attachment, AttachmentMessage } from '@vivocha/public-entities';
+import { LocationMessage } from '@vivocha/public-entities';
 import * as fs from 'fs';
-// got is just a simple library to perform http requests (see below in the BotAgent code)
-import * as got from 'got';
+import got from 'got';
 import * as request from 'request';
 import { Stream } from 'stream';
-import { BotAgentManager, BotMessage, BotRequest, BotResponse, TextMessage } from '../../dist/index';
+import { Attachment, AttachmentMessage, BotAgentManager, BotMessage, BotRequest, BotResponse, TextMessage } from '../../dist/index';
 
 // A BotManager is a web server which exposes an API to send messages
 // to registered BotAgents, it exposes a Swagger description of the API with related JSON Schemas.
@@ -53,6 +52,8 @@ dummyBot.registerAgent(
         } as TextMessage
       ];
       response.data = msg.data || {};
+      // return env just to test it
+      response.environment = msg.environment;
     } else {
       if (msg.message.type === 'attachment') {
         // console.log('ATTACHMENT message received');
@@ -66,6 +67,16 @@ dummyBot.registerAgent(
             code: 'message',
             type: 'text',
             body: JSON.stringify(msg.message)
+          } as TextMessage
+        ];
+        response.data = {};
+      } else if (msg.message.type === 'location') {
+        const locMsg = msg.message as LocationMessage;
+        response.messages = [
+          {
+            code: 'message',
+            type: 'text',
+            body: `You sent location message, lon ${locMsg.longitude}, lat ${locMsg.latitude}`
           } as TextMessage
         ];
         response.data = {};
@@ -119,9 +130,7 @@ dummyBot.registerAgent(
               {
                 code: 'message',
                 type: 'text',
-                body: `A brand new code generated for you is: ${(await got('https://httpbin.org/uuid', {
-                  json: true
-                })).body.uuid || 0}`
+                body: `A brand new code generated for you is: ${await got('https://httpbin.org/uuid', { responseType: 'json', resolveBodyOnly: true })['uuid']}`
               } as TextMessage
             ];
             break;
@@ -1324,6 +1333,20 @@ dummyBot.registerAgent(
             ];
             response.data = msg.data || {};
             response.context = msg.context || {};
+            break;
+          case 'send-is-writing':
+            response.messages = [BotMessage.createIsWritingMessage()];
+            break;
+          case 'location':
+            response.messages = [BotMessage.createLocationMessage({ longitude: 39.225915, latitude: 9.113315 })];
+            break;
+          case 'send-action':
+            response.messages = [BotMessage.createActionMessage('mySuperAction', [{ a: 'param1', b: 'param2' }])];
+            break;
+          case 'environment':
+            const envMsg = BotMessage.createSimpleTextMessage('received env');
+            response.environment = msg.environment;
+            response.messages = [envMsg];
             break;
           default:
             response.messages = [

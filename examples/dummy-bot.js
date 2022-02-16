@@ -7,7 +7,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // import { BotAgentManager, BotRequest, BotResponse, TextMessage, AttachmentMessage, Attachment } from "@vivocha/bot-sdk";
 const fs = require("fs");
 // got is just a simple library to perform http requests (see below in the BotAgent code)
-const got = require("got");
+const got_1 = require("got");
 const request = require("request");
 const index_1 = require("../dist/index");
 // A BotManager is a micro web service which exposes an API to send messages
@@ -80,13 +80,12 @@ manager.registerAgent('custom', async (msg) => {
                     break;
                 // just an example to show how to call an external API to compose a response
                 case 'code':
+                    const uuidResponse = await got_1.default('https://httpbin.org/uuid', { responseType: 'json', resolveBodyOnly: true });
                     response.messages = [
                         {
                             code: 'message',
                             type: 'text',
-                            body: `A brand new code generated for you is: ${(await got('https://httpbin.org/uuid', {
-                                json: true
-                            })).body.uuid || 0}`
+                            body: `A brand new code generated for you is: ${uuidResponse.uuid || 0}`
                         }
                     ];
                     break;

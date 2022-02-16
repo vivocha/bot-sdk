@@ -14,28 +14,28 @@ export class DataCollectorTestWitBot extends WitAiBot {
     address: 'Send me your full address, please',
     supportType: 'Please, briefly describe why you need our support',
     endMsg: 'Done. Thank you.',
-    fallbackMsg: 'Just a temporary error. Please, retry later.',
+    fallbackMsg: 'Just a temporary error. Please, retry later.'
   };
 
   protected intents: IntentsMap = {
     provide_name: (data, request) => this.provideFullName(data),
     provide_address: (data, request) => this.provideAddress(data, request),
     provide_support_type: (data, request) => this.provideSupportType(data, request),
-    unknown: (data, request) => this.unknown(data, request),
+    unknown: (data, request) => this.unknown(data, request)
   };
 
   async getStartMessage(request: BotRequest): Promise<BotResponse> {
     const message: TextMessage = {
       code: 'message',
       type: 'text',
-      body: DataCollectorTestWitBot.strings.startMsg,
+      body: DataCollectorTestWitBot.strings.startMsg
     } as any;
     const res: BotResponse = {
       event: 'continue',
       messages: [message],
       data: request.data || {},
       settings: request.settings,
-      context: _.merge(request.context, { contexts: ['ask_for_name'] }),
+      context: _.merge(request.context, { contexts: ['ask_for_name'] })
     };
     return res;
   }
@@ -44,7 +44,7 @@ export class DataCollectorTestWitBot extends WitAiBot {
     let name: string = '';
 
     if (data.entities.contact) {
-      name = data.entities.contact.map((v) => v.value).join(' ');
+      name = data.entities.contact.map(v => v.value).join(' ');
     } else {
       name = data['text'];
     }
@@ -53,13 +53,13 @@ export class DataCollectorTestWitBot extends WitAiBot {
     const txtMessage: TextMessage = {
       code: 'message',
       type: 'text',
-      body: `${pre} ${DataCollectorTestWitBot.strings.address}`,
+      body: `${pre} ${DataCollectorTestWitBot.strings.address}`
     } as any;
     response = {
       messages: [txtMessage],
       data: { name },
       event: 'continue',
-      contexts: ['ask_for_address'],
+      contexts: ['ask_for_address']
     };
     return response;
   }
@@ -69,13 +69,13 @@ export class DataCollectorTestWitBot extends WitAiBot {
     const txtMessage: TextMessage = {
       code: 'message',
       type: 'text',
-      body: DataCollectorTestWitBot.strings.supportType,
+      body: DataCollectorTestWitBot.strings.supportType
     } as any;
     response = {
       messages: [txtMessage],
       data: Object.assign({}, request.data, { address: witData['text'] }),
       event: 'continue',
-      contexts: ['ask_for_support_type'],
+      contexts: ['ask_for_support_type']
     };
     return response;
   }
@@ -84,7 +84,7 @@ export class DataCollectorTestWitBot extends WitAiBot {
     let response = {} as NextMessage;
     const txtMessage: TextMessage = {
       code: 'message',
-      type: 'text',
+      type: 'text'
     } as any;
 
     txtMessage['body'] = DataCollectorTestWitBot.strings.endMsg;
@@ -92,9 +92,9 @@ export class DataCollectorTestWitBot extends WitAiBot {
       messages: [txtMessage],
       contexts: ['end'],
       data: Object.assign({}, request.data, {
-        supportType: data.entities ? data.entities['support_type:support_type'][0].value : data['text'],
+        supportType: data.entities ? data.entities['support_type:support_type'][0].value : data['text']
       }),
-      event: 'end',
+      event: 'end'
     } as NextMessage;
     return response;
   }
@@ -110,13 +110,13 @@ export class DataCollectorTestWitBot extends WitAiBot {
       const txtMessage: TextMessage = {
         code: 'message',
         type: 'text',
-        body: 'Can you reformulate, please?',
+        body: 'Can you reformulate, please?'
       } as any;
       let response: NextMessage = {
         messages: [txtMessage],
         event: 'continue',
         contexts: request.context.contexts,
-        data: request.data || {},
+        data: request.data || {}
       };
       return response;
     }

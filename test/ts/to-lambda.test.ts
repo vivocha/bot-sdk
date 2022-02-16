@@ -1,9 +1,9 @@
 import * as chai from "chai";
-import { toLambda } from "../../dist/lambda";
-import { dummyBot } from "./dummy-bot";
-import { DataCollectorTestWitBot } from "./bot";
-import { BotAgentManager, BotRequest, BotResponse } from "../../dist";
 import * as http from "request-promise-native";
+import { BotAgentManager, BotRequest, BotResponse } from "../../dist";
+import { toLambda } from "../../dist/lambda";
+import { DataCollectorTestWitBot } from "./bot";
+import { dummyBot } from "./dummy-bot";
 
 chai.should();
 
