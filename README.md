@@ -24,7 +24,7 @@ By creating a BotManager it is possible to register multi-platform bot implement
 
 To start with the Bot SDK it is recommended to:
 
-- install it from NPM: `npm i @vivocha/bot-sdk`
+- install it from NPM: `npm i @vivocha/bot-sdk@3.5.0`
 
 or
 
