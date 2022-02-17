@@ -1,6 +1,6 @@
 import { LocationMessage } from '@vivocha/public-entities';
 import * as chai from 'chai';
-import * as http from 'request-promise-native';
+import http from 'request-promise-native';
 import { BotAgentManager, BotRequest } from '../../dist';
 import { dummyBot } from './dummy-bot';
 
@@ -8,7 +8,7 @@ chai.should();
 
 const engineType = 'custom';
 
-const getTextMessage = function(body: string, payload?: string): any {
+const getTextMessage = function (body: string, payload?: string): any {
   let msg = {
     code: 'message',
     type: 'text',
@@ -19,7 +19,7 @@ const getTextMessage = function(body: string, payload?: string): any {
   }
   return msg;
 };
-const getAttachmentMessage = function(): any {
+const getAttachmentMessage = function (): any {
   let msg = {
     code: 'message',
     type: 'attachment',
@@ -32,7 +32,7 @@ const getAttachmentMessage = function(): any {
   };
   return msg;
 };
-const getLocationMessage = function(longitude: number, latitude: number, payload?: string): LocationMessage {
+const getLocationMessage = function (longitude: number, latitude: number, payload?: string): LocationMessage {
   let msg = {
     code: 'message',
     type: 'location',
@@ -58,10 +58,10 @@ const getHTTPOptions = function getOptions(body) {
 };
 
 //root describe
-describe('Testing a generic Bot Agent (Dummy Bot) ', function() {
+describe('Testing a generic Bot Agent (Dummy Bot) ', function () {
   let env = process.env;
-  describe('Sending a start message', function() {
-    const getSettings = function(): any {
+  describe('Sending a start message', function () {
+    const getSettings = function (): any {
       return {
         engine: {
           type: engineType
@@ -70,13 +70,13 @@ describe('Testing a generic Bot Agent (Dummy Bot) ', function() {
     };
     const manager = new BotAgentManager();
     let server;
-    before('starting bot manager', async function() {
+    before('starting bot manager', async function () {
       // Run the BotManager:
       const port = (process.env.PORT as any) || 8080;
       server = await dummyBot.listen(port);
       return;
     });
-    it('should greet with a continue event', async function() {
+    it('should greet with a continue event', async function () {
       const request1: BotRequest = {
         language: 'en',
         event: 'start',
@@ -90,7 +90,7 @@ describe('Testing a generic Bot Agent (Dummy Bot) ', function() {
       result1.messages[0].body.should.contain('Hello!');
       return;
     });
-    it('should be ok for a start with also a message', async function() {
+    it('should be ok for a start with also a message', async function () {
       const request1: BotRequest = {
         language: 'en',
         event: 'start',
@@ -109,7 +109,7 @@ describe('Testing a generic Bot Agent (Dummy Bot) ', function() {
       result1.messages[0].body.should.contain('Hello!');
       return;
     });
-    it('should fail when using a unknown agent type', async function() {
+    it('should fail when using a unknown agent type', async function () {
       const request1: BotRequest = {
         language: 'en',
         event: 'start',
@@ -126,7 +126,7 @@ describe('Testing a generic Bot Agent (Dummy Bot) ', function() {
       result1.statusCode.should.equal(400);
       return;
     });
-    it('should fail when sending a malformed message', async function() {
+    it('should fail when sending a malformed message', async function () {
       const request1: BotRequest = {
         language: 'en',
         event: 'start',
@@ -148,12 +148,12 @@ describe('Testing a generic Bot Agent (Dummy Bot) ', function() {
       result1.statusCode.should.equal(400);
       return;
     });
-    after('shutdown bot manager', function() {
+    after('shutdown bot manager', function () {
       server.close();
     });
   });
-  describe('Sending generic text messages', function() {
-    const getSettings = function(): any {
+  describe('Sending generic text messages', function () {
+    const getSettings = function (): any {
       return {
         engine: {
           type: engineType
@@ -162,13 +162,13 @@ describe('Testing a generic Bot Agent (Dummy Bot) ', function() {
     };
     const manager = new BotAgentManager();
     let server;
-    before('starting bot manager', async function() {
+    before('starting bot manager', async function () {
       // Run the BotManager:
       const port = (process.env.PORT as any) || 8080;
       server = await dummyBot.listen(port);
       return;
     });
-    it('sending quick, it should reply with three quick_replies', async function() {
+    it('sending quick, it should reply with three quick_replies', async function () {
       const request1: BotRequest = {
         language: 'en',
         event: 'continue',
@@ -184,7 +184,7 @@ describe('Testing a generic Bot Agent (Dummy Bot) ', function() {
       result1.messages[0].quick_replies.should.have.lengthOf(3);
       return;
     });
-    it('sending ciao, it should reply with a text message', async function() {
+    it('sending ciao, it should reply with a text message', async function () {
       const request1: BotRequest = {
         language: 'en',
         event: 'continue',
@@ -203,7 +203,7 @@ describe('Testing a generic Bot Agent (Dummy Bot) ', function() {
       });
       return;
     });
-    it('sending quick2, it should reply with three quick_replies', async function() {
+    it('sending quick2, it should reply with three quick_replies', async function () {
       const request1: BotRequest = {
         language: 'en',
         event: 'continue',
@@ -236,7 +236,7 @@ describe('Testing a generic Bot Agent (Dummy Bot) ', function() {
       ]);
       return;
     });
-    it('sending quick3, it should reply with three quick_replies', async function() {
+    it('sending quick3, it should reply with three quick_replies', async function () {
       const request1: BotRequest = {
         language: 'en',
         event: 'continue',
@@ -269,7 +269,7 @@ describe('Testing a generic Bot Agent (Dummy Bot) ', function() {
       ]);
       return;
     });
-    it('sending cat, it should reply with a template', async function() {
+    it('sending cat, it should reply with a template', async function () {
       const request1: BotRequest = {
         language: 'en',
         event: 'continue',
@@ -292,7 +292,7 @@ describe('Testing a generic Bot Agent (Dummy Bot) ', function() {
       template.elements[0].should.have.property('buttons');
       return;
     });
-    it('sending cat2, it should reply with a template', async function() {
+    it('sending cat2, it should reply with a template', async function () {
       const request1: BotRequest = {
         language: 'en',
         event: 'continue',
@@ -330,7 +330,7 @@ describe('Testing a generic Bot Agent (Dummy Bot) ', function() {
       });
       return;
     });
-    it('should fail when sending a malformed message', async function() {
+    it('should fail when sending a malformed message', async function () {
       const request1: BotRequest = {
         language: 'en',
         event: 'continue',
@@ -352,12 +352,12 @@ describe('Testing a generic Bot Agent (Dummy Bot) ', function() {
       result1.statusCode.should.equal(400);
       return;
     });
-    after('shutdown bot manager', function() {
+    after('shutdown bot manager', function () {
       server.close();
     });
   });
-  describe('Sending attachment messages', function() {
-    const getSettings = function(): any {
+  describe('Sending attachment messages', function () {
+    const getSettings = function (): any {
       return {
         engine: {
           type: engineType
@@ -366,13 +366,13 @@ describe('Testing a generic Bot Agent (Dummy Bot) ', function() {
     };
     const manager = new BotAgentManager();
     let server;
-    before('starting bot manager', async function() {
+    before('starting bot manager', async function () {
       // Run the BotManager:
       const port = (process.env.PORT as any) || 8080;
       server = await dummyBot.listen(port);
       return;
     });
-    it('sending an attachment message, it should be received and echoed', async function() {
+    it('sending an attachment message, it should be received and echoed', async function () {
       const request1: BotRequest = {
         language: 'en',
         event: 'continue',
@@ -393,7 +393,7 @@ describe('Testing a generic Bot Agent (Dummy Bot) ', function() {
       meta.meta.mimetype.should.equal('image/gif');
       return;
     });
-    it('asking for an attachment message, it should be correctly sent by the bot', async function() {
+    it('asking for an attachment message, it should be correctly sent by the bot', async function () {
       const request1: BotRequest = {
         language: 'en',
         event: 'continue',
@@ -414,12 +414,12 @@ describe('Testing a generic Bot Agent (Dummy Bot) ', function() {
       return;
     });
 
-    after('shutdown bot manager', function() {
+    after('shutdown bot manager', function () {
       server.close();
     });
   });
-  describe('Sending a request for ending conversation', function() {
-    const getSettings = function(): any {
+  describe('Sending a request for ending conversation', function () {
+    const getSettings = function (): any {
       return {
         engine: {
           type: engineType
@@ -428,13 +428,13 @@ describe('Testing a generic Bot Agent (Dummy Bot) ', function() {
     };
     const manager = new BotAgentManager();
     let server;
-    before('starting bot manager', async function() {
+    before('starting bot manager', async function () {
       // Run the BotManager:
       const port = (process.env.PORT as any) || 8080;
       server = await dummyBot.listen(port);
       return;
     });
-    it('should send an end event', async function() {
+    it('should send an end event', async function () {
       const request1: BotRequest = {
         language: 'en',
         event: 'continue',
@@ -450,12 +450,12 @@ describe('Testing a generic Bot Agent (Dummy Bot) ', function() {
       return;
     });
 
-    after('shutdown bot manager', function() {
+    after('shutdown bot manager', function () {
       server.close();
     });
   });
-  describe('Sending location messages', function() {
-    const getSettings = function(): any {
+  describe('Sending location messages', function () {
+    const getSettings = function (): any {
       return {
         engine: {
           type: engineType
@@ -463,13 +463,13 @@ describe('Testing a generic Bot Agent (Dummy Bot) ', function() {
       };
     };
     let server;
-    before('starting bot manager', async function() {
+    before('starting bot manager', async function () {
       // Run the BotManager:
       const port = (process.env.PORT as any) || 8080;
       server = await dummyBot.listen(port);
       return;
     });
-    it('it should reply with a text message with lat & lon', async function() {
+    it('it should reply with a text message with lat & lon', async function () {
       const request1: BotRequest = {
         language: 'en',
         event: 'continue',
@@ -488,7 +488,7 @@ describe('Testing a generic Bot Agent (Dummy Bot) ', function() {
       result1.messages[0].body.should.contain('9.113315');
       return;
     });
-    after('shutdown bot manager', function() {
+    after('shutdown bot manager', function () {
       server.close();
     });
   });

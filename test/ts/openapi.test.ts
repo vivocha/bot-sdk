@@ -1,13 +1,13 @@
 import * as chai from 'chai';
-import * as chaiAsPromised from 'chai-as-promised';
-import * as http from 'request-promise-native';
+import chaiAsPromised from 'chai-as-promised';
+import http from 'request-promise-native';
 import { BotAgentManager } from '../../dist/agent';
 import { dummyBot } from './dummy-bot';
 
 chai.should();
 chai.use(chaiAsPromised);
 
-describe('Testing BotManager API OpenAPI ', function() {
+describe('Testing BotManager API OpenAPI ', function () {
   let env = process.env;
   const port = (process.env.PORT as any) || 8080;
   const getHTTPOptions = function getOptions() {
@@ -17,15 +17,15 @@ describe('Testing BotManager API OpenAPI ', function() {
       json: true
     };
   };
-  describe('Getting the OpenAPI.json', function() {
+  describe('Getting the OpenAPI.json', function () {
     const manager = new BotAgentManager();
     let server;
-    before('starting bot manager', async function() {
+    before('starting bot manager', async function () {
       //console.log('Starting bot manager at port:', port);
       server = await dummyBot.listen(port);
       return;
     });
-    it('Should return a OpenAPI.json', async function() {
+    it('Should return a OpenAPI.json', async function () {
       const doc = await http(getHTTPOptions());
       //console.dir(swagger, { colors: true, depth: 20 });
       doc.should.be.ok;
@@ -36,7 +36,7 @@ describe('Testing BotManager API OpenAPI ', function() {
       doc.paths['/bot/message'].post.requestBody.content.should.have.property('application/json');
     });
 
-    it('Should contain a valid Attachment Message JSON schema', async function() {
+    it('Should contain a valid Attachment Message JSON schema', async function () {
       const doc = await http(getHTTPOptions());
       doc.should.be.ok;
       const properties = doc.components.schemas.attachment_message.properties;
@@ -48,7 +48,7 @@ describe('Testing BotManager API OpenAPI ', function() {
       properties.should.not.have.property('encrypted');
       properties.meta.should.not.have.property('$ref');
     });
-    it('Should contain a valid  Attachment METADATA JSON schema', async function() {
+    it('Should contain a valid  Attachment METADATA JSON schema', async function () {
       const doc = await http(getHTTPOptions());
       doc.should.be.ok;
       const properties = doc.components.schemas.attachment_message.properties.meta.properties;
@@ -63,8 +63,8 @@ describe('Testing BotManager API OpenAPI ', function() {
       properties.should.have.property('ref');
       properties.should.have.property('size');
     });
-    
-    after('shutdown bot manager', function() {
+
+    after('shutdown bot manager', function () {
       server.close();
     });
   });

@@ -1,13 +1,13 @@
 import { BotRequest, BotResponse } from '@vivocha/public-entities/dist/bot';
 import * as chai from 'chai';
-import * as http from 'request-promise-native';
+import http from 'request-promise-native';
 import { BotFilter } from '../../dist/filter';
 
 chai.should();
 
 const engineType = 'test';
 
-const getTextMessage = function(body?: string, payload?: string): any {
+const getTextMessage = function (body?: string, payload?: string): any {
   let msg = {
     code: 'message',
     type: 'text'
@@ -20,7 +20,7 @@ const getTextMessage = function(body?: string, payload?: string): any {
   }
   return msg;
 };
-const getAttachmentMessage = function(): any {
+const getAttachmentMessage = function (): any {
   let msg = {
     code: 'message',
     type: 'attachment',
@@ -33,7 +33,7 @@ const getAttachmentMessage = function(): any {
   };
   return msg;
 };
-const getSettings = function(): any {
+const getSettings = function (): any {
   return {
     engine: {
       type: engineType,
@@ -68,17 +68,17 @@ const getFilterResponseHTTPOptions = function getOptions(body) {
   };
 };
 
-describe('Vivocha BOT FILTERS Tests', function() {
-  describe('Request/Response Bot Filter defaults test', function() {
+describe('Vivocha BOT FILTERS Tests', function () {
+  describe('Request/Response Bot Filter defaults test', function () {
     const filter = new BotFilter();
     let server;
-    before('starting bot filter', async function() {
+    before('starting bot filter', async function () {
       // Run the BotManager:
       const port = (process.env.PORT as any) || 8080;
       server = await filter.listen(port);
       return;
     });
-    it('sending a request to a request filter should return 400 ', async function() {
+    it('sending a request to a request filter should return 400 ', async function () {
       const request1: BotRequest = {
         language: 'en',
         event: 'continue',
@@ -92,7 +92,7 @@ describe('Vivocha BOT FILTERS Tests', function() {
       result1.statusCode.should.equal(400);
       return;
     });
-    it('sending a request to a response filter should return 400 ', async function() {
+    it('sending a request to a response filter should return 400 ', async function () {
       const request1: BotResponse = {
         language: 'en',
         event: 'continue',
@@ -105,22 +105,22 @@ describe('Vivocha BOT FILTERS Tests', function() {
       result1.statusCode.should.equal(400);
       return;
     });
-    after('shutdown bot manager', function() {
+    after('shutdown bot manager', function () {
       server.close();
     });
   });
-  describe('Request Bot Filter Environment tests', function() {
+  describe('Request Bot Filter Environment tests', function () {
     const filter = new BotFilter(async (req: BotRequest): Promise<BotRequest> => {
       return req;
     }, undefined);
     let server;
-    before('starting bot filter', async function() {
+    before('starting bot filter', async function () {
       // Run the BotManager:
       const port = (process.env.PORT as any) || 8080;
       server = await filter.listen(port);
       return;
     });
-    it('sending an environment it should be correctly parsed and set in the request as response', async function() {
+    it('sending an environment it should be correctly parsed and set in the request as response', async function () {
       const request1: BotRequest = {
         language: 'en',
         event: 'start',
@@ -139,7 +139,7 @@ describe('Vivocha BOT FILTERS Tests', function() {
       result1.environment.should.have.property('acct');
       return;
     });
-    it('sending an empty environment it should be correctly parsed and in the request as response environment should contain the headers', async function() {
+    it('sending an empty environment it should be correctly parsed and in the request as response environment should contain the headers', async function () {
       const request1: BotRequest = {
         language: 'en',
         event: 'start',
@@ -153,7 +153,7 @@ describe('Vivocha BOT FILTERS Tests', function() {
       result1.environment.should.have.property('acct');
       return;
     });
-    it('sending a request without environment the request as response environment should contain the headers', async function() {
+    it('sending a request without environment the request as response environment should contain the headers', async function () {
       const request1: BotRequest = {
         language: 'en',
         event: 'start',
@@ -166,7 +166,7 @@ describe('Vivocha BOT FILTERS Tests', function() {
       result1.environment.should.have.property('acct');
       return;
     });
-    it('sending a request to a response filter should return 400 ', async function() {
+    it('sending a request to a response filter should return 400 ', async function () {
       const request1: BotResponse = {
         language: 'en',
         event: 'continue',
@@ -179,11 +179,11 @@ describe('Vivocha BOT FILTERS Tests', function() {
       result1.statusCode.should.equal(400);
       return;
     });
-    after('shutdown bot manager', function() {
+    after('shutdown bot manager', function () {
       server.close();
     });
   });
-  describe('Response Bot Filter Environment tests', function() {
+  describe('Response Bot Filter Environment tests', function () {
     const filter = new BotFilter(
       undefined,
       async (req: BotResponse): Promise<BotResponse> => {
@@ -191,13 +191,13 @@ describe('Vivocha BOT FILTERS Tests', function() {
       }
     );
     let server;
-    before('starting bot filter', async function() {
+    before('starting bot filter', async function () {
       // Run the BotManager:
       const port = (process.env.PORT as any) || 8080;
       server = await filter.listen(port);
       return;
     });
-    it('sending an environment it should be correctly parsed and set in the request as response', async function() {
+    it('sending an environment it should be correctly parsed and set in the request as response', async function () {
       const request1: BotResponse = {
         language: 'en',
         event: 'continue',
@@ -216,7 +216,7 @@ describe('Vivocha BOT FILTERS Tests', function() {
       result1.environment.should.have.property('acct');
       return;
     });
-    it('sending an empty environment it should be correctly parsed and in the request as response environment should contain the headers', async function() {
+    it('sending an empty environment it should be correctly parsed and in the request as response environment should contain the headers', async function () {
       const request1: BotResponse = {
         language: 'en',
         event: 'continue',
@@ -230,7 +230,7 @@ describe('Vivocha BOT FILTERS Tests', function() {
       result1.environment.should.have.property('acct');
       return;
     });
-    it('sending a request without environment the request as response environment should contain the headers', async function() {
+    it('sending a request without environment the request as response environment should contain the headers', async function () {
       const request1: BotResponse = {
         language: 'en',
         event: 'continue',
@@ -243,7 +243,7 @@ describe('Vivocha BOT FILTERS Tests', function() {
       result1.environment.should.have.property('acct');
       return;
     });
-    it('sending a request to a request filter should return 400 ', async function() {
+    it('sending a request to a request filter should return 400 ', async function () {
       const request1: BotResponse = {
         language: 'en',
         event: 'continue',
@@ -256,20 +256,20 @@ describe('Vivocha BOT FILTERS Tests', function() {
       result1.statusCode.should.equal(400);
       return;
     });
-    after('shutdown bot manager', function() {
+    after('shutdown bot manager', function () {
       server.close();
     });
   });
-  describe('Bot Filter With undefined request/response filters', function() {
+  describe('Bot Filter With undefined request/response filters', function () {
     const filter = new BotFilter(undefined, undefined);
     let server;
-    before('starting bot filter', async function() {
+    before('starting bot filter', async function () {
       // Run the BotManager:
       const port = (process.env.PORT as any) || 8080;
       server = await filter.listen(port);
       return;
     });
-    it('sending a request to a request filter should return 400 ', async function() {
+    it('sending a request to a request filter should return 400 ', async function () {
       const request1: BotRequest = {
         language: 'en',
         event: 'continue',
@@ -282,7 +282,7 @@ describe('Vivocha BOT FILTERS Tests', function() {
       result1.statusCode.should.equal(400);
       return;
     });
-    it('sending a response to a response filter should return 400 ', async function() {
+    it('sending a response to a response filter should return 400 ', async function () {
       const request1: BotResponse = {
         language: 'en',
         event: 'continue',
@@ -295,22 +295,22 @@ describe('Vivocha BOT FILTERS Tests', function() {
       result1.statusCode.should.equal(400);
       return;
     });
-    after('shutdown bot manager', function() {
+    after('shutdown bot manager', function () {
       server.close();
     });
   });
-  describe('Request Bot Filter messaging', function() {
+  describe('Request Bot Filter messaging', function () {
     const filter = new BotFilter(async (req: BotRequest): Promise<BotRequest> => {
       return req;
     }, undefined);
     let server;
-    before('starting bot filter', async function() {
+    before('starting bot filter', async function () {
       // Run the BotManager:
       const port = (process.env.PORT as any) || 8080;
       server = await filter.listen(port);
       return;
     });
-    it('sending a BotRequest with a start should echo the request ', async function() {
+    it('sending a BotRequest with a start should echo the request ', async function () {
       const request1: BotRequest = {
         language: 'en',
         event: 'start',
@@ -326,7 +326,7 @@ describe('Vivocha BOT FILTERS Tests', function() {
       result1.event.should.be.equal('start');
       return;
     });
-    it('sending a BotRequest with a text message should echo the request ', async function() {
+    it('sending a BotRequest with a text message should echo the request ', async function () {
       const request1: BotRequest = {
         language: 'en',
         event: 'continue',
@@ -342,7 +342,7 @@ describe('Vivocha BOT FILTERS Tests', function() {
       result1.event.should.be.equal('continue');
       result1.message.body.should.contain('hello');
     });
-    it('sending a BotRequest with an attachment message, it should be correctly received and echoed', async function() {
+    it('sending a BotRequest with an attachment message, it should be correctly received and echoed', async function () {
       const request1: BotRequest = {
         language: 'en',
         event: 'continue',
@@ -360,11 +360,11 @@ describe('Vivocha BOT FILTERS Tests', function() {
       result1.message.meta.mimetype.should.equal('image/gif');
       return;
     });
-    after('shutdown bot manager', function() {
+    after('shutdown bot manager', function () {
       server.close();
     });
   });
-  describe('Response Bot Filter messaging', function() {
+  describe('Response Bot Filter messaging', function () {
     const filter = new BotFilter(
       undefined,
       async (req: BotResponse): Promise<BotResponse> => {
@@ -372,14 +372,14 @@ describe('Vivocha BOT FILTERS Tests', function() {
       }
     );
     let server;
-    before('starting bot filter', async function() {
+    before('starting bot filter', async function () {
       // Run the BotManager:
       const port = (process.env.PORT as any) || 8080;
       server = await filter.listen(port);
       return;
     });
 
-    it('sending a BotResponse with a text message should echo the request ', async function() {
+    it('sending a BotResponse with a text message should echo the request ', async function () {
       const res: BotResponse = {
         language: 'en',
         event: 'continue',
@@ -394,7 +394,7 @@ describe('Vivocha BOT FILTERS Tests', function() {
       res1.event.should.be.equal('continue');
       res1.messages[0].body.should.contain('hello');
     });
-    it('sending a BotResponse with an attachment message, it should be correctly received and echoed', async function() {
+    it('sending a BotResponse with an attachment message, it should be correctly received and echoed', async function () {
       const res: BotResponse = {
         language: 'en',
         event: 'continue',
@@ -412,7 +412,7 @@ describe('Vivocha BOT FILTERS Tests', function() {
       res1.messages[0].meta.mimetype.should.equal('image/gif');
       return;
     });
-    after('shutdown bot manager', function() {
+    after('shutdown bot manager', function () {
       server.close();
     });
   });

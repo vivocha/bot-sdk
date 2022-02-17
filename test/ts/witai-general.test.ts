@@ -1,5 +1,5 @@
 import * as chai from 'chai';
-import * as http from 'request-promise-native';
+import http from 'request-promise-native';
 import { BotAgentManager, BotRequest, BotResponse, IsWritingMessage } from '../../dist';
 import { DataCollectorTestWitBot as OkBot } from './bot';
 import { DataCollectorTestWitBot } from './witai-nointents-bot';
@@ -9,7 +9,7 @@ chai.should();
 
 const engineType = 'WitAi';
 
-const getTextMessage = function(body: string, payload?: string): any {
+const getTextMessage = function (body: string, payload?: string): any {
   let msg = {
     code: 'message',
     type: 'text',
@@ -36,11 +36,11 @@ const getHTTPOptions = function getOptions(body) {
 };
 
 //root describe
-describe('Testing Wit.ai based bot for a simple data collection ', function() {
+describe('Testing Wit.ai based bot for a simple data collection ', function () {
   let env = process.env;
 
-  describe('Starting a bot that has NOT CONFIGURED Intents', function() {
-    const getSettings = function(): any {
+  describe('Starting a bot that has NOT CONFIGURED Intents', function () {
+    const getSettings = function (): any {
       return {
         engine: {
           type: engineType,
@@ -52,7 +52,7 @@ describe('Testing Wit.ai based bot for a simple data collection ', function() {
     };
     const manager = new BotAgentManager();
     let server;
-    before('starting bot manager', async function() {
+    before('starting bot manager', async function () {
       manager.registerAgent(
         engineType,
         async (req: BotRequest): Promise<BotResponse> => {
@@ -65,7 +65,7 @@ describe('Testing Wit.ai based bot for a simple data collection ', function() {
       server = await manager.listen(port);
       return;
     });
-    it('should raise an error', async function() {
+    it('should raise an error', async function () {
       const request1: BotRequest = {
         language: 'en',
         event: 'start',
@@ -77,12 +77,12 @@ describe('Testing Wit.ai based bot for a simple data collection ', function() {
       return;
     });
 
-    after('shutdown bot manager', function() {
+    after('shutdown bot manager', function () {
       server.close();
     });
   });
-  describe('Starting a correctly configured bot', function() {
-    const getSettings = function(): any {
+  describe('Starting a correctly configured bot', function () {
+    const getSettings = function (): any {
       return {
         engine: {
           type: engineType,
@@ -94,7 +94,7 @@ describe('Testing Wit.ai based bot for a simple data collection ', function() {
     };
     const manager = new BotAgentManager();
     let server;
-    before('starting bot manager', async function() {
+    before('starting bot manager', async function () {
       manager.registerAgent(
         engineType,
         async (req: BotRequest): Promise<BotResponse> => {
@@ -107,7 +107,7 @@ describe('Testing Wit.ai based bot for a simple data collection ', function() {
       server = await manager.listen(port);
       return;
     });
-    it('for a missing request message, it should raise an error', async function() {
+    it('for a missing request message, it should raise an error', async function () {
       const request1: BotRequest = {
         language: 'en',
         event: 'continue',
@@ -118,7 +118,7 @@ describe('Testing Wit.ai based bot for a simple data collection ', function() {
       result1.statusCode.should.equal(500);
       return;
     });
-    it('for an unsupported message type, it should raise an error', async function() {
+    it('for an unsupported message type, it should raise an error', async function () {
       const request1: BotRequest = {
         language: 'en',
         event: 'continue',
@@ -133,7 +133,7 @@ describe('Testing Wit.ai based bot for a simple data collection ', function() {
       result1.statusCode.should.equal(500);
       return;
     });
-    it('for a message classified with unknown intent, contexts ok, it should use the inContext() function and return the entered text ', async function() {
+    it('for a message classified with unknown intent, contexts ok, it should use the inContext() function and return the entered text ', async function () {
       const request1: BotRequest = {
         language: 'en',
         event: 'continue',
@@ -152,7 +152,7 @@ describe('Testing Wit.ai based bot for a simple data collection ', function() {
       result1.statusCode.should.equal(200);
       return;
     });
-    after('shutdown bot manager', function() {
+    after('shutdown bot manager', function () {
       server.close();
     });
   });

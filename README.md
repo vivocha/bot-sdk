@@ -17,7 +17,7 @@ By creating a BotManager it is possible to register multi-platform bot implement
 
 ---
 
-**Tested with Node.js version 12.x**.
+**Tested with Node.js version 16.x**.
 
 To start with this version of the Bot SDK, it is recommended to install it from NPM:
 

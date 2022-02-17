@@ -80,7 +80,7 @@ manager.registerAgent('custom', async (msg) => {
                     break;
                 // just an example to show how to call an external API to compose a response
                 case 'code':
-                    const uuidResponse = await got_1.default('https://httpbin.org/uuid', { responseType: 'json', resolveBodyOnly: true });
+                    const uuidResponse = await (0, got_1.default)('https://httpbin.org/uuid', { responseType: 'json', resolveBodyOnly: true });
                     response.messages = [
                         {
                             code: 'message',

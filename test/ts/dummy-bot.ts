@@ -1,7 +1,7 @@
 import { LocationMessage } from '@vivocha/public-entities';
 import * as fs from 'fs';
 import got from 'got';
-import * as request from 'request';
+import request from 'request';
 import { Stream } from 'stream';
 import { Attachment, AttachmentMessage, BotAgentManager, BotMessage, BotRequest, BotResponse, TextMessage } from '../../dist/index';
 

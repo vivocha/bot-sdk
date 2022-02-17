@@ -1,6 +1,6 @@
 import { EnvironmentInfo } from '@vivocha/public-entities';
 import * as chai from 'chai';
-import * as http from 'request-promise-native';
+import http from 'request-promise-native';
 import { BotRequest } from '../../dist';
 import { dummyBot } from './dummy-bot';
 

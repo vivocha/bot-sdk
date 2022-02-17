@@ -1,5 +1,5 @@
 import * as chai from 'chai';
-import * as http from 'request-promise-native';
+import http from 'request-promise-native';
 import { BotAgentManager, BotRequest, BotResponse, PostbackMessage } from '../../dist';
 import { DataCollectorTestWitBot } from './bot';
 require('dotenv').config();

@@ -1,7 +1,7 @@
 import * as bodyParser from 'body-parser';
-import * as express from 'express';
+import express from 'express';
 import * as https from 'https';
-import * as multer from 'multer';
+import multer from 'multer';
 import * as pem from 'pem-promise';
 
 export async function startHTTPServer(port: number = 443): Promise<any> {

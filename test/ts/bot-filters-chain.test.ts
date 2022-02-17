@@ -1,5 +1,5 @@
 import * as chai from 'chai';
-import * as http from 'request-promise-native';
+import http from 'request-promise-native';
 import { AttachmentMessage, BotFilter, BotRequest, BotResponse, IsWritingMessage, TextMessage } from '../../dist';
 import { dummyBot } from './dummy-bot';
 
@@ -62,7 +62,7 @@ const filterFive: BotFilter = new BotFilter(
   }
 );
 
-const getTextMessage = function(body: string, payload?: string): any {
+const getTextMessage = function (body: string, payload?: string): any {
   let msg = {
     code: 'message',
     type: 'text',
@@ -99,9 +99,9 @@ const getFilterHTTPOpts = function getOptions(port: number, body: any, type: 're
 };
 
 //root describe
-describe('Testing a bot + filters chain', function() {
-  describe('Sending a start message to chain f1 -> f2 -> bot -> f3', function() {
-    const getSettings = function(): any {
+describe('Testing a bot + filters chain', function () {
+  describe('Sending a start message to chain f1 -> f2 -> bot -> f3', function () {
+    const getSettings = function (): any {
       return {
         engine: {
           type: engineType
@@ -111,7 +111,7 @@ describe('Testing a bot + filters chain', function() {
     let bot;
     let f1, f2, f3;
 
-    before('starting bot and filters', async function() {
+    before('starting bot and filters', async function () {
       // Run the BotManager
       const port = (process.env.PORT as any) || 8080;
       bot = await dummyBot.listen(port);
@@ -123,7 +123,7 @@ describe('Testing a bot + filters chain', function() {
       f3 = await filterThree.listen(8083);
       return;
     });
-    it('should return a continue message data and context properly set', async function() {
+    it('should return a continue message data and context properly set', async function () {
       const request: BotRequest = {
         language: 'en',
         event: 'start',
@@ -144,15 +144,15 @@ describe('Testing a bot + filters chain', function() {
       (finalResponse.messages[0] as TextMessage).body.should.include('Edited by f3');
       return;
     });
-    after('shutdown bot and filters', function() {
+    after('shutdown bot and filters', function () {
       bot.close();
       f1.close();
       f2.close();
       f3.close();
     });
   });
-  describe('Sending a continue test-chain message to chain f1 -> f2 -> bot -> f3', function() {
-    const getSettings = function(): any {
+  describe('Sending a continue test-chain message to chain f1 -> f2 -> bot -> f3', function () {
+    const getSettings = function (): any {
       return {
         engine: {
           type: engineType
@@ -162,7 +162,7 @@ describe('Testing a bot + filters chain', function() {
     let bot;
     let f1, f2, f3;
 
-    before('starting bot and filters', async function() {
+    before('starting bot and filters', async function () {
       // Run the BotManager
       const port = (process.env.PORT as any) || 8080;
       bot = await dummyBot.listen(port);
@@ -174,7 +174,7 @@ describe('Testing a bot + filters chain', function() {
       f3 = await filterThree.listen(8083);
       return;
     });
-    it('should return a continue message data and context properly set', async function() {
+    it('should return a continue message data and context properly set', async function () {
       const request: BotRequest = {
         language: 'en',
         event: 'continue',
@@ -196,15 +196,15 @@ describe('Testing a bot + filters chain', function() {
       (finalResponse.messages[0] as TextMessage).body.should.include('Edited by f3');
       return;
     });
-    after('shutdown bot and filters', function() {
+    after('shutdown bot and filters', function () {
       bot.close();
       f1.close();
       f2.close();
       f3.close();
     });
   });
-  describe('Sending a continue test-chain message to chain f1 -> f2 -> bot -> f4', function() {
-    const getSettings = function(): any {
+  describe('Sending a continue test-chain message to chain f1 -> f2 -> bot -> f4', function () {
+    const getSettings = function (): any {
       return {
         engine: {
           type: engineType
@@ -214,7 +214,7 @@ describe('Testing a bot + filters chain', function() {
     let bot;
     let f1, f2, f4;
 
-    before('starting bot and filters', async function() {
+    before('starting bot and filters', async function () {
       // Run the BotManager
       const port = (process.env.PORT as any) || 8080;
       bot = await dummyBot.listen(port);
@@ -226,7 +226,7 @@ describe('Testing a bot + filters chain', function() {
       f4 = await filterFour.listen(8084);
       return;
     });
-    it('should return a continue message data and context properly set', async function() {
+    it('should return a continue message data and context properly set', async function () {
       const request: BotRequest = {
         language: 'en',
         event: 'continue',
@@ -251,15 +251,15 @@ describe('Testing a bot + filters chain', function() {
       (finalResponse.messages[2] as TextMessage).body.should.equal('Done.');
       return;
     });
-    after('shutdown bot and filters', function() {
+    after('shutdown bot and filters', function () {
       bot.close();
       f1.close();
       f2.close();
       f4.close();
     });
   });
-  describe('Sending a continue test-chain message to chain f1 -> f2 -> bot -> f5', function() {
-    const getSettings = function(): any {
+  describe('Sending a continue test-chain message to chain f1 -> f2 -> bot -> f5', function () {
+    const getSettings = function (): any {
       return {
         engine: {
           type: engineType
@@ -269,7 +269,7 @@ describe('Testing a bot + filters chain', function() {
     let bot;
     let f1, f2, f5;
 
-    before('starting bot and filters', async function() {
+    before('starting bot and filters', async function () {
       // Run the BotManager
       const port = (process.env.PORT as any) || 8080;
       bot = await dummyBot.listen(port);
@@ -281,7 +281,7 @@ describe('Testing a bot + filters chain', function() {
       f5 = await filterFive.listen(8085);
       return;
     });
-    it('should return a continue message with an attachment and data and context properly set', async function() {
+    it('should return a continue message with an attachment and data and context properly set', async function () {
       const request: BotRequest = {
         language: 'en',
         event: 'continue',
@@ -305,7 +305,7 @@ describe('Testing a bot + filters chain', function() {
       finalResponse.messages[1].type.should.equal('attachment');
       return;
     });
-    after('shutdown bot and filters', function() {
+    after('shutdown bot and filters', function () {
       bot.close();
       f1.close();
       f2.close();
