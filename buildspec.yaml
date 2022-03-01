@@ -7,7 +7,7 @@ env:
     DOCKER_USER: /CodeBuild/vivocha-monorepo:DOCKER_USER
     DOCKER_PASSWORD: /CodeBuild/vivocha-monorepo:DOCKER_PASSWORD
     COVERALLS_REPO_TOKEN: /CodeBuild/COVERALLS_REPO_TOKEN:COVERALLS_REPO_TOKEN_BOT-SDK
-    WIT_AI: /Codebuild/BOT_SDK:WIT_AI
+    WIT_AI: /CodeBuild/BOT_SDK:WIT_AI
   git-credential-helper: yes
 
 phases:
