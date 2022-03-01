@@ -1,0 +1,36 @@
+version: 0.2
+
+env:
+  secrets-manager:
+    NPM_TOKEN: /CodeBuild/vivocha-monorepo:NPM_TOKEN
+    GH_TOKEN: /CodeBuild/vivocha-monorepo:GH_TOKEN
+    DOCKER_USER: /CodeBuild/vivocha-monorepo:DOCKER_USER
+    DOCKER_PASSWORD: /CodeBuild/vivocha-monorepo:DOCKER_PASSWORD
+    COVERALLS_REPO_TOKEN: /CodeBuild/COVERALLS_REPO_TOKEN:COVERALLS_REPO_TOKEN_BOT-SDK
+    WIT_AI: Codebuild/BOT_SDK:WIT_AI
+  git-credential-helper: yes
+
+phases:
+  install:
+    runtime-versions:
+      docker: 19
+    commands:
+      - echo Logging in to Docker...
+      - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+      - n 12
+      - export PATH=$PATH:./node_modules/.bin
+      - npm config set //registry.npmjs.org/:_authToken=$NPM_TOKEN
+      - npm set unsafe-perm true
+  pre_build:
+    commands:
+      - npm prune
+      - npm i
+  build:
+    commands:
+      - npm run build:all
+      - npm run cover
+      - npm run check-coverage
+  post_build:
+    commands:
+      - npm run report-coverage
+      - npm run semantic-release
