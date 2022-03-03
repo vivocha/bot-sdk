@@ -23,7 +23,7 @@ phases:
       - npm set unsafe-perm true
   pre_build:
     commands:
-      - echo $WIT_AI > .env
+      - echo WIT_TOKEN=$WIT_AI > .env
       - npm prune
       - npm i
   build:
