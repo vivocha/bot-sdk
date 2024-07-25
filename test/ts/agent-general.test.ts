@@ -1,4 +1,4 @@
-import { LocationMessage } from '@vivocha/public-entities';
+import { LocationMessage } from '@vivocha/public-types';
 import * as chai from 'chai';
 import * as http from 'request-promise-native';
 import { BotAgentManager, BotRequest } from '../../dist';

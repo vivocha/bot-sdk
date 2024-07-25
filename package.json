@@ -69,7 +69,7 @@
     }
   },
   "dependencies": {
-    "@vivocha/public-entities": "8.4.7",
+    "@vivocha/public-types": "1.2.1",
     "arrest": "8.1.5",
     "lodash": "^4.17.15",
     "node-wit": "6.0.0",

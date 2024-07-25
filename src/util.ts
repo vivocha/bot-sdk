@@ -1,4 +1,4 @@
-import { EnvironmentInfo } from '@vivocha/public-entities/dist/bot';
+import { EnvironmentInfo } from '@vivocha/public-types/dist/bot';
 
 /**
  * Return a Vivocha environment from the the specific request HTTP headers

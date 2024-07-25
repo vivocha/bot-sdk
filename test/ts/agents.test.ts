@@ -1,4 +1,4 @@
-import { BotRequest, BotResponse } from '@vivocha/public-entities/dist/bot';
+import { BotRequest, BotResponse } from '@vivocha/public-types/dist/bot';
 import * as chai from 'chai';
 import * as http from 'request-promise-native';
 import { BotAgentManager } from '../../dist/agent';

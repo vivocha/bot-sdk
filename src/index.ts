@@ -24,7 +24,7 @@ export {
   StringField,
   TemplateType,
   TextMessage
-} from '@vivocha/public-entities';
+} from '@vivocha/public-types';
 export * from './agent';
 export * from './filter';
 export * from './lambda';

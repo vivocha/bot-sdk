@@ -1,4 +1,4 @@
-import { ActionMessage, IsWritingMessage, LocationMessage, MessageQuickReply, TextMessage } from '@vivocha/public-entities';
+import { ActionMessage, IsWritingMessage, LocationMessage, MessageQuickReply, TextMessage } from '@vivocha/public-types';
 
 export interface QuickReply {
   title: string;

@@ -1,6 +1,6 @@
 import * as chai from 'chai';
 import { getVvcEnvironment } from '../../dist/util';
-import { EnvironmentInfo } from '@vivocha/public-entities/dist/bot';
+import { EnvironmentInfo } from '@vivocha/public-types/dist/bot';
 
 chai.should();
 

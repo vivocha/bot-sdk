@@ -1,4 +1,4 @@
-import { BotResponse } from '@vivocha/public-entities/dist/bot';
+import { BotResponse } from '@vivocha/public-types/dist/bot';
 import * as chai from 'chai';
 import * as chaiAsPromised from 'chai-as-promised';
 import * as fs from 'fs';

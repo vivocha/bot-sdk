@@ -1,5 +1,5 @@
-import { Attachment, AttachmentMeta } from '@vivocha/public-entities';
-import { BotAgent, BotRequest, BotResponse, EnvironmentInfo } from '@vivocha/public-entities/dist/bot';
+import { Attachment, AttachmentMeta } from '@vivocha/public-types';
+import { BotAgent, BotRequest, BotResponse, EnvironmentInfo } from '@vivocha/public-types/dist/bot';
 import { API, Operation, Resource } from 'arrest';
 import { OpenAPIV3 } from 'openapi-police';
 import * as http from 'request-promise-native';
@@ -172,17 +172,17 @@ export class BotAgentManager extends API {
         delete this.document.components.schemas.objectId;
       }
     }
-    this.registerSchema('common', require('@vivocha/public-entities/schemas/common.json') as OpenAPIV3.SchemaObject);
-    this.registerSchema('bot_message', require('@vivocha/public-entities/schemas/bot_message.json') as OpenAPIV3.SchemaObject);
-    this.registerSchema('bot_request', require('@vivocha/public-entities/schemas/bot_request.json') as OpenAPIV3.SchemaObject);
-    this.registerSchema('bot_response', require('@vivocha/public-entities/schemas/bot_response.json') as OpenAPIV3.SchemaObject);
-    this.registerSchema('text_message', require('@vivocha/public-entities/schemas/text_message.json') as OpenAPIV3.SchemaObject);
-    this.registerSchema('postback_message', require('@vivocha/public-entities/schemas/postback_message.json') as OpenAPIV3.SchemaObject);
-    this.registerSchema('attachment_message', require('@vivocha/public-entities/schemas/attachment_message.json') as OpenAPIV3.SchemaObject);
-    this.registerSchema('multi_attachment_message', require('@vivocha/public-entities/schemas/multi_attachment_message.json') as OpenAPIV3.SchemaObject);
-    this.registerSchema('action_message', require('@vivocha/public-entities/schemas/action_message.json') as OpenAPIV3.SchemaObject);
-    this.registerSchema('is_writing_message', require('@vivocha/public-entities/schemas/is_writing_message.json') as OpenAPIV3.SchemaObject);
-    this.registerSchema('location_message', require('@vivocha/public-entities/schemas/location_message.json') as OpenAPIV3.SchemaObject);
+    this.registerSchema('common', require('@vivocha/public-types/schemas/common.json') as OpenAPIV3.SchemaObject);
+    this.registerSchema('bot_message', require('@vivocha/public-types/schemas/bot_message.json') as OpenAPIV3.SchemaObject);
+    this.registerSchema('bot_request', require('@vivocha/public-types/schemas/bot_request.json') as OpenAPIV3.SchemaObject);
+    this.registerSchema('bot_response', require('@vivocha/public-types/schemas/bot_response.json') as OpenAPIV3.SchemaObject);
+    this.registerSchema('text_message', require('@vivocha/public-types/schemas/text_message.json') as OpenAPIV3.SchemaObject);
+    this.registerSchema('postback_message', require('@vivocha/public-types/schemas/postback_message.json') as OpenAPIV3.SchemaObject);
+    this.registerSchema('attachment_message', require('@vivocha/public-types/schemas/attachment_message.json') as OpenAPIV3.SchemaObject);
+    this.registerSchema('multi_attachment_message', require('@vivocha/public-types/schemas/multi_attachment_message.json') as OpenAPIV3.SchemaObject);
+    this.registerSchema('action_message', require('@vivocha/public-types/schemas/action_message.json') as OpenAPIV3.SchemaObject);
+    this.registerSchema('is_writing_message', require('@vivocha/public-types/schemas/is_writing_message.json') as OpenAPIV3.SchemaObject);
+    this.registerSchema('location_message', require('@vivocha/public-types/schemas/location_message.json') as OpenAPIV3.SchemaObject);
     this.addResource(new BotAgentResource());
   }
 

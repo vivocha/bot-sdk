@@ -1,7 +1,7 @@
 import * as chai from 'chai';
 import * as chaiAsPromised from 'chai-as-promised';
 import { BotAgentManager } from '../../dist/agent';
-import { BotResponse } from '@vivocha/public-entities/dist/bot';
+import { BotResponse } from '@vivocha/public-types/dist/bot';
 import { startHTTPServer } from './simple-http-server';
 import { TextMessage } from '../../dist';
 

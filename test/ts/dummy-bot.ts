@@ -1,4 +1,4 @@
-import { LocationMessage } from '@vivocha/public-entities';
+import { LocationMessage } from '@vivocha/public-types';
 import * as fs from 'fs';
 import got from 'got';
 import * as request from 'request';

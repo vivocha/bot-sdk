@@ -1,7 +1,7 @@
 import * as chai from 'chai';
 import * as _ from 'lodash';
 import { getVvcEnvironment } from '../../dist/util';
-import { EnvironmentInfo, BotResponse } from '@vivocha/public-entities/dist/bot';
+import { EnvironmentInfo, BotResponse } from '@vivocha/public-types/dist/bot';
 import { AttachmentMessage, BotAgentManager, TextMessage } from '../../dist';
 
 chai.should();
