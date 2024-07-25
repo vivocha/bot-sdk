@@ -231,6 +231,7 @@ export class BotFilter extends API {
     this.registerSchema('text_message', require('@vivocha/public-entities/schemas/text_message.json') as OpenAPIV3.SchemaObject);
     this.registerSchema('postback_message', require('@vivocha/public-entities/schemas/postback_message.json') as OpenAPIV3.SchemaObject);
     this.registerSchema('attachment_message', require('@vivocha/public-entities/schemas/attachment_message.json') as OpenAPIV3.SchemaObject);
+    this.registerSchema('multi_attachment_message', require('@vivocha/public-entities/schemas/multi_attachment_message.json') as OpenAPIV3.SchemaObject);
     this.registerSchema('action_message', require('@vivocha/public-entities/schemas/action_message.json') as OpenAPIV3.SchemaObject);
     this.registerSchema('is_writing_message', require('@vivocha/public-entities/schemas/is_writing_message.json') as OpenAPIV3.SchemaObject);
     this.registerSchema('location_message', require('@vivocha/public-entities/schemas/location_message.json') as OpenAPIV3.SchemaObject);

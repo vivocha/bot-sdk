@@ -61,8 +61,9 @@ manager.registerAgent(
       ];
       response.data = {};
     } else {
-      if ((msg.message as any).type === 'attachment') {
-        response.messages = [BotMessage.createSimpleTextMessage('You sent an ATTACHMENT'), BotMessage.createSimpleTextMessage(JSON.stringify(msg.message))];
+      let messageType = (msg.message as any).type;
+      if (['attachment', 'multi-attachment'].indexOf(messageType) !== -1) {
+        response.messages = [BotMessage.createSimpleTextMessage(messageType === "attachment" ? 'You sent an ATTACHMENT': 'You sent a MULTI-ATTACHMENT'), BotMessage.createSimpleTextMessage(JSON.stringify(msg.message))];
         response.data = {};
       } else {
         // This bot understands few sentences/commands ;)

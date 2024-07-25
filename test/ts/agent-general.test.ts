@@ -32,6 +32,31 @@ const getAttachmentMessage = function(): any {
   };
   return msg;
 };
+const getMultiAttachmentMessage = function(): any {
+  let msg = {
+    code: 'message',
+    type: 'multi-attachment',
+    attachments: [
+      {
+        url: 'https://media.giphy.com/media/l1KsqYM8Zt3yG3tVS/giphy.gif',
+        meta: {
+          originalUrl: 'https://media.giphy.com/media/l1KsqYM8Zt3yG3tVS/giphy.gif',
+          originalName: 'Scream.gif',
+          mimetype: 'image/gif'
+        }
+      },
+      {
+        url: 'https://media.giphy.com/media/l1KsqYM8Zt3yG3tVS/giphy.gif',
+        meta: {
+          originalUrl: 'https://media.giphy.com/media/l1KsqYM8Zt3yG3tVS/giphy.gif',
+          originalName: 'Scream.gif',
+          mimetype: 'image/gif'
+        }
+      }
+    ]
+  };
+  return msg;
+};
 const getLocationMessage = function(longitude: number, latitude: number, payload?: string): LocationMessage {
   let msg = {
     code: 'message',
@@ -391,6 +416,30 @@ describe('Testing a generic Bot Agent (Dummy Bot) ', function() {
       meta.meta.originalUrl.should.equal('https://media.giphy.com/media/l1KsqYM8Zt3yG3tVS/giphy.gif');
       meta.meta.originalName.should.equal('Scream.gif');
       meta.meta.mimetype.should.equal('image/gif');
+      return;
+    });
+    it('sending a multi attachment message, it should be received and echoed', async function() {
+      const request1: BotRequest = {
+        language: 'en',
+        event: 'continue',
+        settings: getSettings(),
+        message: getMultiAttachmentMessage()
+      };
+      //console.dir(request1, { colors: true, depth: 20 });
+      const result1 = await http(getHTTPOptions(request1));
+      //console.dir(result1, { colors: true, depth: 20 });
+      result1.event.should.equal('continue');
+      result1.messages.should.have.lengthOf(2);
+      result1.messages[0].body.should.contain('You sent a MULTI-ATTACHMENT');
+      const msg = JSON.parse(result1.messages[1].body);
+      msg.type.should.equal('multi-attachment');
+      msg.attachments.forEach(attachment => {
+        let { meta, url } = attachment;
+        url.should.equal('https://media.giphy.com/media/l1KsqYM8Zt3yG3tVS/giphy.gif');
+        meta.originalUrl.should.equal('https://media.giphy.com/media/l1KsqYM8Zt3yG3tVS/giphy.gif');
+        meta.originalName.should.equal('Scream.gif');
+        meta.mimetype.should.equal('image/gif');
+      });
       return;
     });
     it('asking for an attachment message, it should be correctly sent by the bot', async function() {

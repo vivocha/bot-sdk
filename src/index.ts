@@ -3,6 +3,7 @@ export {
   Attachment,
   AttachmentMessage,
   AttachmentMeta,
+  MultiAttachmentMessage,
   BooleanField,
   BotAgent,
   BotDataCollection,

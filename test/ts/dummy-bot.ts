@@ -70,6 +70,21 @@ dummyBot.registerAgent(
           } as TextMessage
         ];
         response.data = {};
+      } else if (msg.message.type === 'multi-attachment') {
+        // console.log('ATTACHMENT message received');
+        response.messages = [
+          {
+            code: 'message',
+            type: 'text',
+            body: 'You sent a MULTI-ATTACHMENT'
+          } as TextMessage,
+          {
+            code: 'message',
+            type: 'text',
+            body: JSON.stringify(msg.message)
+          } as TextMessage
+        ];
+        response.data = {};
       } else if (msg.message.type === 'location') {
         const locMsg = msg.message as LocationMessage;
         response.messages = [

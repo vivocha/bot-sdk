@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.SimpleWitBot = void 0;
 /**
  * This is a sample bot built using Wit.ai NLP.
  * In order to use this bot you need to create and train

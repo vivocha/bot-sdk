@@ -257,6 +257,22 @@ Properties are (required are in **bold**):
 | `ref`             | (optional) string | A reference ID to correlate the attachment message. It can be used by the client to avoid showing the attachment message twice in the user chat widget. If not set, the Bot SDK will add it, generating an UUID as value |
 ---
 
+
+##### [Multi Attachment Message](#multi-attachment-message)
+
+A message containing one or more attachment that can be received from a bot to send files.
+
+Its properties are (required are in **bold**):
+
+| PROPERTY   | VALUE                                                             | DESCRIPTION                                                         |
+| ---------- | ----------------------------------------------------------------- | ------------------------------------------------------------------- |
+| **`code`** | string, value is always `message`                                 | Vivocha code type for Bot messages.                                 |
+| **`type`** | string, value is `multi-attachment`                               | Vivocha Bot message type.                                           |
+| **`attachments`**  | array                                                     | An array of Attachments objects, composed by an **url** which represents the attachment public url and a **meta** object which contains the **[Attachment Metadata](#attachment-metadata)**.
+
+When the bot receives a `Multi Attachment` message from Vivocha, it can download its assets doing a HTTP GET request to the URL specified in each attachment `url` property.
+
+---
 ##### [Action Message](#action-message)
 
 An Action Message contains a custom action name with optional parameters that can be sent to a client (i.e. the Vivocha Interaction App or a mobile app) to mimic a Remote Procedure Call (RPC).

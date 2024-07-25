@@ -179,6 +179,7 @@ export class BotAgentManager extends API {
     this.registerSchema('text_message', require('@vivocha/public-entities/schemas/text_message.json') as OpenAPIV3.SchemaObject);
     this.registerSchema('postback_message', require('@vivocha/public-entities/schemas/postback_message.json') as OpenAPIV3.SchemaObject);
     this.registerSchema('attachment_message', require('@vivocha/public-entities/schemas/attachment_message.json') as OpenAPIV3.SchemaObject);
+    this.registerSchema('multi_attachment_message', require('@vivocha/public-entities/schemas/multi_attachment_message.json') as OpenAPIV3.SchemaObject);
     this.registerSchema('action_message', require('@vivocha/public-entities/schemas/action_message.json') as OpenAPIV3.SchemaObject);
     this.registerSchema('is_writing_message', require('@vivocha/public-entities/schemas/is_writing_message.json') as OpenAPIV3.SchemaObject);
     this.registerSchema('location_message', require('@vivocha/public-entities/schemas/location_message.json') as OpenAPIV3.SchemaObject);
@@ -253,7 +254,7 @@ export class BotAgentManager extends API {
       // for an AttachmentMessage check if the metadata ref property is set. If not, set it to an uuid.
       if (response.messages && response.messages.length) {
         const correctMessages = response.messages.map(m => {
-          if (m.type === 'attachment') {
+          if (m.type === ('attachment' || 'multi-attachment')) {
             if (!m.meta.ref) {
               m.meta['ref'] = uuid();
             }

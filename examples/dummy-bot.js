@@ -54,8 +54,9 @@ manager.registerAgent('custom', async (msg) => {
         response.data = {};
     }
     else {
-        if (msg.message.type === 'attachment') {
-            response.messages = [index_1.BotMessage.createSimpleTextMessage('You sent an ATTACHMENT'), index_1.BotMessage.createSimpleTextMessage(JSON.stringify(msg.message))];
+        let messageType = msg.message.type;
+        if (['attachment', 'multi-attachment'].indexOf(messageType) !== -1) {
+            response.messages = [index_1.BotMessage.createSimpleTextMessage(messageType === "attachment" ? 'You sent an ATTACHMENT' : 'You sent a MULTI-ATTACHMENT'), index_1.BotMessage.createSimpleTextMessage(JSON.stringify(msg.message))];
             response.data = {};
         }
         else {
@@ -80,7 +81,7 @@ manager.registerAgent('custom', async (msg) => {
                     break;
                 // just an example to show how to call an external API to compose a response
                 case 'code':
-                    const uuidResponse = await got_1.default('https://httpbin.org/uuid', { responseType: 'json', resolveBodyOnly: true });
+                    const uuidResponse = await (0, got_1.default)('https://httpbin.org/uuid', { responseType: 'json', resolveBodyOnly: true });
                     response.messages = [
                         {
                             code: 'message',

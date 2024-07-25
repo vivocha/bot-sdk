@@ -16,4 +16,4 @@ const filter = new index_1.BotFilter(async (msg) => {
     msg.data.isPremiumUser = true;
     return msg;
 }, undefined);
-module.exports.handler = index_1.serverless(index_1.toLambda(filter));
+module.exports.handler = (0, index_1.serverless)((0, index_1.toLambda)(filter));
