@@ -42,6 +42,7 @@ To start with this version of the Bot SDK, it is recommended to install it from 
     - [Text Message](#text-message)
     - [Postback Message](#postback-message)
     - [Attachment Message](#attachment-message)
+    - [Multi Attachment Message](#multi-attachment-message)
     - [Action Message](#action-message)
     - [IsWriting Message](#iswriting-message)
     - [Location Message](#location-message)
