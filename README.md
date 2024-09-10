@@ -341,7 +341,8 @@ The `environment` object has the following properties, ALL OPTIONAL:
 | `hmac`               | (optional) string                                                    | HMAC of the bot message                                                                                                                                             |
 | `caps`               | (optional) a **[ChannelCapabilities](#channel-capabilities)** object | Capabilities of the channel through the end user contact has been created                                                                                           |
 | `campaignId`         | (optional) string                                                    | Id of the Vivocha Campaign from which the contact has been created                                                                                                  |
-| `channelId`          | (optional) string                                                    | Id of the Vivocha Channel from which the contact has been created                                                                                                   |
+| `channelId`          | (optional) string                                                    | Id of the Vivocha Channel from which the contact has been created
+| `channelName`        | (optional) string                                                    | Name of the Vivocha Channel from which the contact has been created                                                                                       |
 | `entrypointId`       | (optional) string                                                    | Id of the Vivocha Campaign's Entrypoint by which the contact has been created                                                                                       |
 | `engagementId`       | (optional) string                                                    | Id of the Vivocha Engagement by which the contact has been created                                                                                                  |
 | `contactId`          | (optional) string                                                    | Id of the contact                                                                                                                                                   |
@@ -351,7 +352,9 @@ The `environment` object has the following properties, ALL OPTIONAL:
 | `optionalTags`       | (optional) an array of strings                                       | Optional contact tags                                                                                                                                               |
 | `userAgent`          | (optional) string                                                    | User Agent info                                                                                                                                                     |
 | `geoIP`              | (optional) a **[GeoIP](#geoip)** object                              | Geo IP information about the contact                                                                                                                                |
-| `apiVersion`         | (optional) string, like `v2`, `v3`, ...                              | when set it represents the Vivocha API version to call, if needed                                                                                                   |
+| `apiVersion`         | (optional) string, like `v2`, `v3`, ...                              | when set it represents the Vivocha API version to call, if needed
+|
+| `phoneNumber`        | (optional) string                                                    | Phone number from the contact (ani).                                                                                                     |
 ---
 
 ##### [Channel Capabilities](#channel-capabilities)
