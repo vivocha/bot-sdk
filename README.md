@@ -353,7 +353,6 @@ The `environment` object has the following properties, ALL OPTIONAL:
 | `userAgent`          | (optional) string                                                    | User Agent info                                                                                                                                                     |
 | `geoIP`              | (optional) a **[GeoIP](#geoip)** object                              | Geo IP information about the contact                                                                                                                                |
 | `apiVersion`         | (optional) string, like `v2`, `v3`, ...                              | when set it represents the Vivocha API version to call, if needed
-|
 | `phoneNumber`        | (optional) string                                                    | Phone number from the contact (ani).                                                                                                     |
 ---
 
