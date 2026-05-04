@@ -75,7 +75,7 @@
     "node-wit": "6.0.0",
     "request-promise-native": "1.0.8",
     "serverless-http": "2.3.2",
-    "uuid": "7.0.2"
+    "uuid": "14.0.0"
   },
   "husky": {
     "hooks": {
